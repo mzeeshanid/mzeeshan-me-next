@@ -1,65 +1,96 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { Box, Link, theme } from "@chakra-ui/react";
+import AppFooter from "../src/components/AppFooter";
+import AppHeadingText from "../src/components/AppHeadingText";
+import AppHero from "../src/components/AppHero";
+import AppIconBoxContainer from "../src/components/AppIconBoxContainer";
+import AppNavBar from "../src/components/AppNavBar";
+import myNavItems from "../src/data/myNavItems";
+import myApps from "../src/data/myApps";
+import AppStats from "../src/components/AppStats";
+import myStats from "../src/data/myStats";
+import myTools from "../src/data/myTools";
+import AppContribution from "../src/components/AppContribution";
+import AppMySkills from "../src/components/AppMySkills";
+import appGenericMeta from "../src/data/appGenericMeta";
+import { NextSeo } from "next-seo";
 
 export default function Home() {
+  const meta = appGenericMeta();
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <NextSeo
+        openGraph={{
+          title: meta.title,
+          description: meta.desc,
+          url: "https://www.mzeeshan.me/",
+          type: "profile",
+          profile: {
+            firstName: "Muhammad",
+            lastName: "Zeeshan",
+            username: "mzeeshanid",
+            gender: "male",
+          },
+          images: [
+            {
+              url: meta.image,
+              width: 150.0,
+              height: 150.0,
+              alt: "Profile Photo",
+            },
+          ],
+        }}
+      />
+      <AppNavBar navItems={myNavItems()} />
+      <AppHero />
+      <Box bg="white" p={4} />
+      <AppHeadingText
+        bg="white"
+        headingColor={theme.colors.black}
+        heading="About Me"
+        text="I strive to build immerse apps, having more than 6 years of experience
+          in the field of mobile application development specifically for iOS
+          platform using objective-c and swift programming language with strong
+          understanding of object oriented design, protocol oriented
+          programming, dependency manager, memory management, REST APIs, test
+          driven development (Initial stage), git for source control. Also
+          having strong grip on tools like xcode with deep understanding of
+          debugging and adhoc / appstore distribution of applications."
+      />
+      <Box bg="white" p={4} />
+      <AppHeadingText
+        bg="white"
+        headingColor={theme.colors.black}
+        heading="Master Thesis"
+        text="An ontological approach for generating adaptive content in game based
+          inquiry learning environment."
+      >
+        <Link
+          color="teal"
+          href="http://111.68.99.22:8080/xmlui/handle/123456789/8912"
+          isExternal
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+          More Details
+        </Link>
+      </AppHeadingText>
+      <Box bg="white" p={4} />
+      <Box bg="gray.100" p={4} />
+      <AppMySkills />
+      <Box bg="white" p={4} />
+      <AppIconBoxContainer
+        title="My Apps"
+        info="My personal apps and apps on which I worked on."
+        data={myApps()}
+        bg={"white"}
+      />
+      <AppStats stats={myStats()} />
+      <Box bg="gray.100" p={4} />
+      <AppIconBoxContainer
+        title={"Helper Tools"}
+        data={myTools()}
+        bg="gray.100"
+      />
+      <AppContribution />
+      <AppFooter />
+    </>
+  );
 }
