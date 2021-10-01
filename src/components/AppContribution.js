@@ -14,7 +14,7 @@ import React from "react";
 import myContribution from "../data/myContribution";
 import AppHeadingText from "./AppHeadingText";
 import { MdCheckCircle } from "react-icons/md";
-import GitHubButton from "react-github-btn";
+import GitHubButton from "react-next-github-btn";
 
 function AppContribution() {
   const contributions = myContribution();

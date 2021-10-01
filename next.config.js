@@ -1,2 +1,6 @@
-const withTM = require("next-transpile-modules")(["react-github-btn"]);
-module.exports = withTM();
+// const withTM = require("next-transpile-modules")(["react-github-btn"]);
+// module.exports = withTM();
+
+module.exports = {
+  reactStrictMode: true,
+};

@@ -1,10 +1,12 @@
+import g2dAppIcon from "../../public/assets/g2d_app_icon.png";
+
 function myTools() {
   const tools = [
     {
       title: "G2D",
       detail:
         "It's a helper tool that allows to create a direct link of a file by using share url of google drive.",
-      image: "/assets/g2d_app_icon.png",
+      image: g2dAppIcon,
       alt: "G2D web app icon",
       url: "//www.g2d.dev/",
     },

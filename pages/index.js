@@ -12,7 +12,8 @@ import myTools from "../src/data/myTools";
 import AppContribution from "../src/components/AppContribution";
 import AppMySkills from "../src/components/AppMySkills";
 import appGenericMeta from "../src/data/appGenericMeta";
-import { NextSeo } from "next-seo";
+import { NextSeo, SocialProfileJsonLd } from "next-seo";
+import Head from "next/head";
 
 export default function Home() {
   const meta = appGenericMeta();
@@ -40,6 +41,22 @@ export default function Home() {
           ],
         }}
       />
+      <SocialProfileJsonLd
+        type="Person"
+        name="Muhammad Zeeshan"
+        url="https://www.mzeeshan.me"
+        sameAs={[
+          "https://www.facebook.com/mzeeshanid",
+          "https://www.linkedin.com/in/muhammad-zeeshan-04b8585b/",
+          "https://twitter.com/mzeeshanid",
+        ]}
+      />
+      <Head>
+        <meta
+          name="keywords"
+          content="Senior iOS Developer, Senior iOS Developer Pakistan, Experienced iOS Developer, Swift iOS Developer, SwiftUI iOS Developer, Freelance iOS Developer, Experienced React Native Developer, Experienced cross platform developer, Experienced iOS Native developer, Native iOS Development, Test driven development, Freelancer from Pakistan, Hire freelance native iOS Developer from Pakistan, Hire iOS Developer, Hire experienced iOS Developer"
+        />
+      </Head>
       <AppNavBar navItems={myNavItems()} />
       <AppHero />
       <Box bg="white" p={4} />

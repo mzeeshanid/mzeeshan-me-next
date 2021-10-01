@@ -8,6 +8,8 @@ import {
 import React from "react";
 import Image from "next/image";
 
+import heroImage from "../../public/assets/mzeeshan_me_hero.jpeg";
+
 function AppHero() {
   const headingBPValue = useBreakpointValue({
     base: "2xl",
@@ -27,7 +29,7 @@ function AppHero() {
         layout={"fill"}
         objectFit="cover"
         objectPosition="bottom"
-        src="/assets/mzeeshan_me_hero.jpeg"
+        src={heroImage}
         alt="Hero Image"
         placeholder={"blur"}
       />

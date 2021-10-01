@@ -1,10 +1,12 @@
 import React from "react";
+import xcodeAppIcon from "../../public/assets/xcode_app_icon.png";
+import reactAppIcon from "../../public/assets/react_app_icon.png";
 
 function mySkills() {
   const skills = [
     {
       heading: "Xcode",
-      image: "/assets/xcode_app_icon.png",
+      image: xcodeAppIcon,
       background: "light-2",
       alt: "xcode app icon image",
       data: [
@@ -19,7 +21,7 @@ function mySkills() {
     },
     {
       heading: "React",
-      image: "/assets/react_app_icon.png",
+      image: reactAppIcon,
       alt: "react app icon image",
       data: [
         "React JS & React Native",
