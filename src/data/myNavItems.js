@@ -12,6 +12,18 @@ function myNavItems() {
       title: "Stack",
       path: "//stackoverflow.com/users/1796092/muhammad-zeeshan",
     },
+    {
+      title: "Contact",
+      path: "/contact",
+    },
+    {
+      title: "Terms",
+      path: "/terms",
+    },
+    {
+      title: "Privacy",
+      path: "/privacy",
+    },
   ];
 }
 

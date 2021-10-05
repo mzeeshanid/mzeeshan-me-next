@@ -3,10 +3,9 @@ import {
   Button,
   Center,
   Flex,
-  Grid,
   HStack,
   Spacer,
-  DarkMode,
+  LightMode,
   VStack,
   Heading,
   Text,
@@ -20,6 +19,9 @@ import {
   LinkBox,
   LinkOverlay,
   Circle,
+  theme,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import isExternalLink from "../hooks/isExternalLink";
@@ -28,7 +30,7 @@ import Image from "next/image";
 function AppNavBar({ navItems }) {
   const showMobileMenu = useBreakpointValue({
     base: true,
-    md: navItems.length > 5,
+    md: navItems.length > 6,
   });
 
   const paddingLeftRight = useBreakpointValue({
@@ -44,7 +46,7 @@ function AppNavBar({ navItems }) {
       return (
         <LinkBox key={idx}>
           <LinkOverlay href={item.path} isExternal={isExternal} color="teal">
-            <Button variant="ghost" colorScheme="teal">
+            <Button variant="outline" colorScheme="teal">
               {item.title}
             </Button>
           </LinkOverlay>
@@ -56,14 +58,11 @@ function AppNavBar({ navItems }) {
   const normalMenu = () => {
     return (
       <Center p={4}>
-        <Grid
-          templateColumns={`repeat(${
-            navItems.length > 6 ? 6 : navItems.length
-          }, 1fr)`}
-          gap={4}
-        >
-          {menuItems()}
-        </Grid>
+        <Wrap spacing={4}>
+          {menuItems().map((item, idx) => {
+            return <WrapItem key={idx}>{item}</WrapItem>;
+          })}
+        </Wrap>
       </Center>
     );
   };
@@ -75,7 +74,7 @@ function AppNavBar({ navItems }) {
           <MenuButton
             as={IconButton}
             aria-label="Nav menu"
-            icon={<HamburgerIcon />}
+            icon={<HamburgerIcon color={theme.colors.black} />}
             size="lg"
             variant="outline"
           />
@@ -83,7 +82,7 @@ function AppNavBar({ navItems }) {
             {navItems.map((item, idx) => {
               return (
                 <MenuItem
-                  textColor="white"
+                  textColor={theme.colors.black}
                   key={idx}
                   onClick={() => gotoLink(item.path)}
                 >
@@ -98,8 +97,13 @@ function AppNavBar({ navItems }) {
   };
 
   return (
-    <DarkMode>
-      <Flex w="100%" bg="gray.700" alignItems="center" justifyContent="center">
+    <LightMode>
+      <Flex
+        w="100%"
+        bg={theme.colors.gray[50]}
+        alignItems="center"
+        justifyContent="center"
+      >
         <Flex w="100%" maxW="1400px">
           <Link href="/">
             <HStack pl={paddingLeftRight} pr={paddingLeftRight} pt={4} pb={4}>
@@ -112,10 +116,10 @@ function AppNavBar({ navItems }) {
                 />
               </Circle>
               <VStack alignItems="flex-start" spacing={0}>
-                <Heading size="md" textColor="white">
+                <Heading size="md" textColor={theme.colors.black}>
                   Muhammad Zeeshan
                 </Heading>
-                <Text textColor="white">Yeah! it's me ;)</Text>
+                <Text textColor={theme.colors.black}>Yeah! it's me ;)</Text>
               </VStack>
             </HStack>
           </Link>
@@ -123,7 +127,7 @@ function AppNavBar({ navItems }) {
           {showMobileMenu ? mobileMenu() : normalMenu()}
         </Flex>
       </Flex>
-    </DarkMode>
+    </LightMode>
   );
 }
 
