@@ -1,7 +1,15 @@
 import React from "react";
-import { chakra, Box, Stack, Text, LightMode, theme } from "@chakra-ui/react";
-import MobileStoreButton from "react-mobile-store-button";
+import {
+  chakra,
+  Box,
+  Stack,
+  Text,
+  LightMode,
+  theme,
+  Link,
+} from "@chakra-ui/react";
 import Image from "next/image";
+import AppStoreBadge from "../../../public/assets/appstore_badge.png";
 
 const MyAppHero = ({ heroData }) => {
   return (
@@ -46,11 +54,17 @@ const MyAppHero = ({ heroData }) => {
             spacing={2}
             justifyContent={{ sm: "left", md: "center" }}
           >
-            <MobileStoreButton
-              store="ios"
-              url={heroData.appUrl}
-              linkProps={{ title: "iOS Store Button" }}
-            />
+            <Link href={heroData.appUrl} isExternal={true}>
+              <Box w="150px" h="50px" bg={theme.colors.transparent}>
+                <Image
+                  src={AppStoreBadge}
+                  w="full"
+                  h={"full"}
+                  placeholder={"blur"}
+                  alt={"iOS Store Button"}
+                />
+              </Box>
+            </Link>
           </Stack>
         </Box>
       </Box>
