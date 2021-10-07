@@ -55,7 +55,7 @@ const MyAppHero = ({ heroData }) => {
             justifyContent={{ sm: "left", md: "center" }}
           >
             <Link href={heroData.appUrl} isExternal={true}>
-              <Box w="150px" h="50px" bg={theme.colors.transparent}>
+              <Box w="250px" h="84px" bg={theme.colors.transparent}>
                 <Image
                   src={AppStoreBadge}
                   w="full"
