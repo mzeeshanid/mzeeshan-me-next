@@ -11,7 +11,7 @@ function myApps() {
         "It is the one stop file manager along with powerful download manager, playlist manager and much more!",
       image: mzFileManageAppIcon,
       alt: "MZFileManage app icon",
-      url: "//apps.apple.com/cy/app/mzfilemanager/id1436458918",
+      url: "/mzfilemanage",
     },
     {
       title: "MZPlayerHD",

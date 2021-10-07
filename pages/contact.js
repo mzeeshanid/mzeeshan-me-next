@@ -9,7 +9,7 @@ import appGenericMeta from "../src/data/appGenericMeta";
 import myNavItems from "../src/data/myNavItems";
 import mySocialConnect from "../src/data/mySocialConnect";
 
-export default function contact() {
+export default function Contact() {
   const meta = appGenericMeta();
   return (
     <LightMode>
