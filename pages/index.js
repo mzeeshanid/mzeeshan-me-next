@@ -69,7 +69,7 @@ export default function Home() {
           platform using objective-c and swift programming language with strong
           understanding of object oriented design, protocol oriented
           programming, dependency manager, memory management, REST APIs, test
-          driven development (Initial stage), git for source control. Also
+          driven development, git for source control. Also
           having strong grip on tools like xcode with deep understanding of
           debugging and adhoc / appstore distribution of applications."
       />
