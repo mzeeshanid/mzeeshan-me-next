@@ -1,19 +1,47 @@
 import {
   LightMode,
-  VStack,
   Center,
   Box,
   Wrap,
   WrapItem,
   theme,
+  HStack,
+  VStack,
+  Heading,
+  Text,
+  Link,
 } from "@chakra-ui/react";
 import React from "react";
 import AppHeadingText from "../AppHeadingText";
 import Image from "next/image";
 
-export default function AppScreenShots({ screenshots }) {
+import MZFileManageAppIcon from "../../../public/assets/mzfilemanage_appicon.png";
+
+export default function AppScreenShots({ screenshots, appLink }) {
   return (
     <LightMode>
+      <Link href={appLink} isExternal={true}>
+        <Box p={4} bg={theme.colors.white} />
+        <Center p={4} bg={theme.colors.white}>
+          <HStack>
+            <Image
+              width="100px"
+              height="100px"
+              placeholder={"blur"}
+              src={MZFileManageAppIcon}
+            />
+            <VStack align="flex-start" p={2} spacing={0}>
+              <Heading as="h1" color={theme.colors.black}>
+                MZFileManager
+              </Heading>
+              <Text color={theme.colors.gray[500]}>
+                Fully featured filemanager!
+              </Text>
+              <Text color={theme.colors.teal[700]}> By Muhammad Zeeshan</Text>
+            </VStack>
+          </HStack>
+        </Center>
+      </Link>
       <VStack bg={theme.colors.white}>
         <Box p={4} />
         <AppHeadingText

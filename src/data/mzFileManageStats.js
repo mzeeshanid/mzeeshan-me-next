@@ -4,7 +4,7 @@ export default function mzFileManageStats() {
   return [
     {
       title: "Downloads",
-      detail: "3k+ Years",
+      detail: "3.3k+",
     },
     {
       title: "Active Users",
