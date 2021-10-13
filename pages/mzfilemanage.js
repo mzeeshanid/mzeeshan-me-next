@@ -33,7 +33,7 @@ export default function MZFileManage() {
           content="filemanager iOS, file browser iOS, download manager iOS, playlist manager iOS, downloader app iOS, background video playback, background multimedia playback, filemanager app iOS, file browser app for iOS, Wifi file sharing iOS, offline filemanagement iOS, file editing iOS, import or exports files in iOS, iOS general file operations copy move paste delete, best app for file management, good filemanager app, good downloading app, internet download manager iOS, free download file manager ios, free download file browser, buy source code file manager ios, ios source code for file manager app, purchase file manager ios, buy file explorer ios"
         />
       </Head>
-      <MyApp appData={appData} />;
+      <MyApp appData={appData} />
     </LightMode>
   );
 }
