@@ -4,7 +4,7 @@ import { DarkMode } from "@chakra-ui/color-mode";
 import { Flex, Heading, HStack, Link, Text, VStack } from "@chakra-ui/layout";
 import { useBreakpointValue } from "@chakra-ui/media-query";
 import { Spacer } from "@chakra-ui/layout";
-import { FaLinkedin, FaSkype, FaTwitter } from "react-icons/fa";
+import { FaLinkedin, FaSkype, FaTwitter, FaAt } from "react-icons/fa";
 import Icon from "@chakra-ui/icon";
 import useTextBPValue from "../hooks/useTextBPValue";
 
@@ -40,6 +40,11 @@ function AppFooter() {
       link: "skype:mzeeshanid",
       araiLabel: "Skype Profile",
       icon: FaSkype,
+    },
+    {
+      link: "https://www.sigmatraffic.com?ref=98846",
+      araiLabel: "Sigma Traffic",
+      icon: FaAt,
     },
   ];
 
