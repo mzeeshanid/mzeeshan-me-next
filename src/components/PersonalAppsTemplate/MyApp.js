@@ -23,6 +23,7 @@ export default function MyApp({ appData }) {
       <AppScreenShots
         screenshots={appData.screenshots}
         appLink={appData.hero.appUrl}
+        hero={appData.hero}
       />
       <Box p={8} bg={theme.colors.white} />
       <MyAppFeaturesGrid features={appData.features} />

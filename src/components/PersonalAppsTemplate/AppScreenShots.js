@@ -15,9 +15,7 @@ import React from "react";
 import AppHeadingText from "../AppHeadingText";
 import Image from "next/image";
 
-import MZFileManageAppIcon from "../../../public/assets/mzfilemanage_appicon.png";
-
-export default function AppScreenShots({ screenshots, appLink }) {
+export default function AppScreenShots({ screenshots, appLink, hero }) {
   return (
     <LightMode>
       <Link href={appLink} isExternal={true}>
@@ -28,16 +26,14 @@ export default function AppScreenShots({ screenshots, appLink }) {
               width="100px"
               height="100px"
               placeholder={"blur"}
-              src={MZFileManageAppIcon}
+              src={hero.appIcon}
             />
             <VStack align="flex-start" p={2} spacing={0}>
               <Heading as="h1" color={theme.colors.black}>
-                MZFileManager
+                {hero.appName}
               </Heading>
-              <Text color={theme.colors.gray[500]}>
-                Fully featured filemanager!
-              </Text>
-              <Text color={theme.colors.teal[700]}> By Muhammad Zeeshan</Text>
+              <Text color={theme.colors.gray[500]}>{hero.subTitle}</Text>
+              <Text color={theme.colors.teal[700]}> {hero.author}</Text>
             </VStack>
           </HStack>
         </Center>
@@ -60,7 +56,7 @@ export default function AppScreenShots({ screenshots, appLink }) {
             {screenshots.map((image, idx) => {
               return (
                 <WrapItem key={idx}>
-                  <Box w={"230px"} h={"498px"} shadow="2xl" rounded="lg">
+                  <Box w={"230px"} h={"409px"} shadow="2xl" rounded="lg">
                     <Image
                       src={image}
                       alt={`MZFileManager App Screenshot ${idx}`}

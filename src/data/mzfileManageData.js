@@ -9,11 +9,18 @@ import {
   FaExternalLinkAlt,
 } from "react-icons/fa";
 
-import mzfileManageScreenshot1 from "../../public/assets/mzfilemanage/mzfilemanager_screen_1.png";
-import mzfileManageScreenshot2 from "../../public/assets/mzfilemanage/mzfilemanager_screen_2.png";
-import mzfileManageScreenshot3 from "../../public/assets/mzfilemanage/mzfilemanager_screen_3.png";
-import mzfileManageScreenshot4 from "../../public/assets/mzfilemanage/mzfilemanager_screen_4.png";
-import mzfileManageScreenshot5 from "../../public/assets/mzfilemanage/mzfilemanager_screen_5.png";
+import mzFileManagerAppIcon from "../../public/assets/mzfilemanage_appicon.png";
+
+import mzfileManageScreenshot1 from "../../public/assets/mzfilemanage/mzfilemanager_screen_1.jpg";
+import mzfileManageScreenshot2 from "../../public/assets/mzfilemanage/mzfilemanager_screen_2.jpg";
+import mzfileManageScreenshot3 from "../../public/assets/mzfilemanage/mzfilemanager_screen_3.jpg";
+import mzfileManageScreenshot4 from "../../public/assets/mzfilemanage/mzfilemanager_screen_4.jpg";
+import mzfileManageScreenshot5 from "../../public/assets/mzfilemanage/mzfilemanager_screen_5.jpg";
+import mzfileManageScreenshot6 from "../../public/assets/mzfilemanage/mzfilemanager_screen_6.jpg";
+import mzfileManageScreenshot7 from "../../public/assets/mzfilemanage/mzfilemanager_screen_7.jpg";
+import mzfileManageScreenshot8 from "../../public/assets/mzfilemanage/mzfilemanager_screen_8.jpg";
+import mzfileManageScreenshot9 from "../../public/assets/mzfilemanage/mzfilemanager_screen_9.jpg";
+
 import appGenericFAQs from "./appGenericFAQs";
 import mzfileManageReviews from "./mzfileManageReviews";
 import mzFileManageStats from "./mzFileManageStats";
@@ -27,6 +34,10 @@ export default function MZfileManageData() {
       shortDesc:
         "MZFileManager is the one-stop file manager along with a powerful download manager, playlist manager and much more!",
       appUrl: "//apps.apple.com/us/app/mzfilemanager/id1436458918",
+      appName: "MZFileManager",
+      subTitle: "Fully featured file manager!",
+      author: "By Muhammad Zeeshan",
+      appIcon: mzFileManagerAppIcon,
     },
     features: {
       title: "A better way to manage files",
@@ -137,6 +148,10 @@ export default function MZfileManageData() {
       mzfileManageScreenshot3,
       mzfileManageScreenshot4,
       mzfileManageScreenshot5,
+      mzfileManageScreenshot6,
+      mzfileManageScreenshot7,
+      mzfileManageScreenshot8,
+      mzfileManageScreenshot9,
     ],
     stats: mzFileManageStats(),
     reviews: mzfileManageReviews(),
