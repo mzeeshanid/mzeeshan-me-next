@@ -19,7 +19,7 @@ function myApps() {
         "MZPlayerHD allows background playback of youtube videos. Enjoy your videos with advanced HD video player.",
       image: mzPlayerHDAppIcon,
       alt: "MZPlayerHD app icon",
-      url: "//apps.apple.com/us/app/mzplayerhd/id1436966516",
+      url: "/mzplayerhd",
     },
     {
       title: "MZVisits",
