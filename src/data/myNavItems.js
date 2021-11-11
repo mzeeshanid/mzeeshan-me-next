@@ -1,6 +1,10 @@
 function myNavItems() {
   return [
     {
+      title: "Blog",
+      path: "/blog",
+    },
+    {
       title: "Github",
       path: "//github.com/mzeeshanid",
     },

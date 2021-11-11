@@ -30,7 +30,7 @@ import Image from "next/image";
 function AppNavBar({ navItems }) {
   const showMobileMenu = useBreakpointValue({
     base: true,
-    md: navItems.length > 6,
+    lg: navItems.length > 7,
   });
 
   const paddingLeftRight = useBreakpointValue({

@@ -41,11 +41,11 @@ function AppFooter() {
       araiLabel: "Skype Profile",
       icon: FaSkype,
     },
-    {
-      link: "https://www.sigmatraffic.com?ref=98846",
-      araiLabel: "Sigma Traffic",
-      icon: FaAt,
-    },
+    // {
+    //   link: "https://www.sigmatraffic.com?ref=98846",
+    //   araiLabel: "Sigma Traffic",
+    //   icon: FaAt,
+    // },
   ];
 
   return (
