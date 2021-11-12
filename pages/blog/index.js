@@ -1,4 +1,5 @@
 import { LightMode, Box } from "@chakra-ui/react";
+import { BlogJsonLd, NextSeo } from "next-seo";
 import React from "react";
 import { fetchAPI } from "../../lib/api";
 import AppFooter from "../../src/components/AppFooter";
@@ -10,6 +11,18 @@ import myNavItems from "../../src/data/myNavItems";
 export default function Index({ articles, categories }) {
   return (
     <LightMode>
+      <NextSeo title={"A personal blog for sharing experiences"} />
+      <BlogJsonLd
+        url="https://www.mzeeshan.me/blog"
+        title="A personal blog for sharing experiences"
+        images={[
+          "https://dzm9gzl83npws.cloudfront.net/profile_pic_ca75ff8ec8.jpeg",
+        ]}
+        datePublished="2021-02-05T08:00:00+08:00"
+        dateModified="2021-02-05T09:00:00+08:00"
+        authorName="Muhammad Zeeshan"
+        description="A personal blog where I write about iOS development and my personal apps. Sometime I share my travelling experiences, stories and jokes."
+      />
       <AppNavBar navItems={myNavItems()} />
       <BlogCategories categories={categories} />
       <Articles articles={articles} />
