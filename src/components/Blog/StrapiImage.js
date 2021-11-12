@@ -3,7 +3,7 @@ import Image from "next/dist/client/image";
 
 const StrapiImage = ({ image, ...rest }) => {
   const imageUrl = getStrapiMedia(image);
-  const blurDataURL = getStrapiMedia(image.formats.small);
+  const blurDataURL = getStrapiMedia(image.formats.thumbnail);
   return (
     <Image
       src={imageUrl}
