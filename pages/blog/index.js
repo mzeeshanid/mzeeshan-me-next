@@ -34,7 +34,7 @@ export default function Index({ articles, categories }) {
 export async function getStaticProps() {
   // Run API calls in parallel
   const [articles, categories] = await Promise.all([
-    fetchAPI("/articles"),
+    fetchAPI("/articles?_sort=published_at:DESC"),
     fetchAPI("/categories"),
   ]);
 
