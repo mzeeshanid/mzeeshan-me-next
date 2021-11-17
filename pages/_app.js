@@ -41,7 +41,6 @@ function MyApp({ Component, pageProps }) {
       <ChakraProvider>
         <DefaultSeo
           defaultTitle={meta.title}
-          canonical={"https://www.mzeeshan.me/"}
           openGraph={{
             type: "website",
             locale: "en",
