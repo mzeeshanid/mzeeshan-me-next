@@ -10,7 +10,12 @@ export default function MZFileManage() {
   const appData = MZfileManageData();
   return (
     <LightMode>
-      <NextSeo title={"MZFileManager iOS App by Muhammad Zeeshan"} />
+      <NextSeo
+        title={"iOS App - MZFileManager"}
+        description={
+          "MZFileManager is the one-stop file manager along with a powerful download manager, playlist manager and much more!"
+        }
+      />
       <SoftwareAppJsonLd
         name="MZFileManager"
         price="Free"

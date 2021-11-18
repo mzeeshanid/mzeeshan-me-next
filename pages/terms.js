@@ -24,7 +24,7 @@ export default function Terms() {
   const metaData = appGenericMeta();
   return (
     <LightMode>
-      <NextSeo title={`${metaData.title} | Terms And Conditions`} />
+      <NextSeo title={`Terms - ${metaData.title}`} />
       <AppNavBar navItems={navItems} />
       <Center w="100%" bg={theme.colors.white}>
         <Box p={4} w={"100%"} maxW={"1024px"}>

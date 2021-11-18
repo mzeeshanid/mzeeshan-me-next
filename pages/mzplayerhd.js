@@ -9,7 +9,12 @@ export default function MZPlayerHD() {
   const appData = MZPlayerHDData();
   return (
     <LightMode>
-      <NextSeo title={"MZPlayerHD iOS App by Muhammad Zeeshan"} />
+      <NextSeo
+        title={"iOS App - MZPlayerHD"}
+        description={
+          "MZPlayerHD allows background playback of youtube videos. Enjoy your videos with advanced HD video player."
+        }
+      />
       <SoftwareAppJsonLd
         name="MZPlayerHD"
         price="Free"

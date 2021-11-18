@@ -9,9 +9,34 @@ import BlogCategories from "../../src/components/Blog/BlogCategories";
 import myNavItems from "../../src/data/myNavItems";
 
 export default function Index({ articles, categories }) {
+  const aTitle = "Blog - A personal blog for sharing experiences";
+  const aDesc =
+    "A personal blog where I write about iOS development and my personal apps. Sometime I share my travelling experiences, stories and jokes.";
   return (
     <LightMode>
-      <NextSeo title={"A personal blog for sharing experiences"} />
+      <NextSeo
+        title={aTitle}
+        description={aDesc}
+        openGraph={{
+          url: "https://www.mzeeshan.me/blog",
+          title: aTitle,
+          description: aDesc,
+          images: [
+            {
+              url: "https://dzm9gzl83npws.cloudfront.net/profile_pic_ca75ff8ec8.jpeg",
+              width: 400,
+              height: 400,
+              alt: "Profile picture",
+              type: "image/jpeg",
+            },
+          ],
+        }}
+        twitter={{
+          handle: "@handle",
+          site: "@site",
+          cardType: "summary_large_image",
+        }}
+      />
       <BlogJsonLd
         url="https://www.mzeeshan.me/blog"
         title="A personal blog for sharing experiences"

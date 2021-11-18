@@ -71,7 +71,7 @@ const Article = ({ article, categories }) => {
       <AppNavBar navItems={myNavItems()} />
       <BlogCategories categories={categories} />
       <Center p={4} textColor={theme.colors.black} bg={theme.colors.gray[50]}>
-        <Box maxW="800px">
+        <Box w="full" maxW="800px" overflow="scroll">
           <Heading as="h1" textColor={theme.colors.black}>
             {article.title}
           </Heading>

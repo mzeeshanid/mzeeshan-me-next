@@ -28,7 +28,7 @@ export default function Privacy() {
   const metaData = appGenericMeta();
   return (
     <LightMode>
-      <NextSeo title={`${metaData.title} | Privacy`} />
+      <NextSeo title={`Privacy - ${metaData.title}`} />
       <AppNavBar navItems={navItems} />
       <Center bg={theme.colors.white}>
         <Box maxW={"1024px"} w={"100%"} bg={theme.colors.white} p={4}>

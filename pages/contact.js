@@ -11,13 +11,16 @@ import mySocialConnect from "../src/data/mySocialConnect";
 
 export default function Contact() {
   const meta = appGenericMeta();
+  const desc = "Details for contacting via social networks and other platforms";
   return (
     <LightMode>
       <NextSeo
+        title={`Contact - ${meta.title}`}
+        description={desc}
         openGraph={{
           title: meta.title,
           description: meta.desc,
-          url: "https://www.mzeeshan.me/",
+          url: "https://www.mzeeshan.me/contact",
           type: "profile",
           profile: {
             firstName: "Muhammad",

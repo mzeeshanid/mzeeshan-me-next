@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <GlobalContext.Provider value={global}>
       <ChakraProvider>
-        <DefaultSeo
+        {/* <DefaultSeo
           defaultTitle={meta.title}
           openGraph={{
             type: "website",
@@ -52,7 +52,7 @@ function MyApp({ Component, pageProps }) {
             site: "@site",
             cardType: "summary_large_image",
           }}
-        />
+        /> */}
         <Component {...pageProps} />
       </ChakraProvider>
     </GlobalContext.Provider>

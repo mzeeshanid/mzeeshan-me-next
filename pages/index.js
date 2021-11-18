@@ -20,6 +20,8 @@ export default function Home() {
   return (
     <>
       <NextSeo
+        title={meta.title}
+        description={meta.desc}
         openGraph={{
           title: meta.title,
           description: meta.desc,
