@@ -9,7 +9,7 @@ import AppNavBar from "../../src/components/AppNavBar";
 import AppFooter from "../../src/components/AppFooter";
 import Seo from "../../src/components/Blog/BlogSEO";
 
-const Category = ({ category, categories }) => {
+const Category = ({ category, categories, articles }) => {
   const seo = {
     metaTitle: category.name,
     metaDescription: `All ${category.name} articles`,
@@ -23,7 +23,7 @@ const Category = ({ category, categories }) => {
       <Center p={2} bg={theme.colors.white}>
         <Heading color={theme.colors.black}>{category.name}</Heading>
       </Center>
-      <Articles articles={category.articles} />
+      <Articles articles={articles} />
       <AppFooter />
     </LightMode>
   );
@@ -43,15 +43,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const category = (
-    await fetchAPI(
-      `/categories?slug=${params.slug}&_sort=articles.published_at:DESC`
-    )
-  )[0];
   const categories = await fetchAPI("/categories");
 
+  const category = categories.filter((cat) => {
+    return cat.slug.toLowerCase() === params.slug.toLowerCase();
+  })[0];
+
+  const articles = await fetchAPI(
+    `/articles?_sort=published_at:DESC&_where[category.slug]=${params.slug}`
+  );
+
   return {
-    props: { category, categories },
+    props: { category, categories, articles },
     revalidate: 1,
   };
 }
