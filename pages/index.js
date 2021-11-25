@@ -25,7 +25,7 @@ export default function Home() {
         openGraph={{
           title: meta.title,
           description: meta.desc,
-          url="https://www.mzeeshan.me/",
+          url: "https://www.mzeeshan.me/",
           type: "profile",
           profile: {
             firstName: "Muhammad",

@@ -22,7 +22,7 @@ export default function MZFileManage() {
         openGraph={{
           title: metaTitle,
           description: mestDesc,
-          url="https://www.mzeeshan.me/mzfilemanage",
+          url: "https://www.mzeeshan.me/mzfilemanage",
           images: [
             {
               url: image,
