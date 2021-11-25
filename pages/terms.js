@@ -33,6 +33,7 @@ export default function Terms() {
               heading="Terms and Conditions"
               bg={theme.colors.white}
               headingColor={theme.colors.black}
+              as="h1"
             />
             <Box textAlign="center">
               <Text color={theme.colors.black}>

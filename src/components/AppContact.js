@@ -25,6 +25,7 @@ export default function AppContact() {
         heading={"Want To Connect"}
         headingColor={theme.colors.black}
         bg={theme.colors.white}
+        as={"h1"}
       />
       <Center bg={theme.colors.white}>
         <Wrap justify="center" p={4} spacing={8} maxW={"1024px"}>

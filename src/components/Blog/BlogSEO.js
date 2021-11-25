@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../../../pages/_app.js";
 import { getStrapiMedia } from "../../../lib/media.js";
 
-const Seo = ({ seo }) => {
+const Seo = ({ seo, url }) => {
   const { defaultSeo, siteName } = useContext(GlobalContext);
   const seoWithDefaults = {
     ...defaultSeo,
@@ -42,6 +42,7 @@ const Seo = ({ seo }) => {
       )}
       {fullSeo.article && <meta property="og:type" content="article" />}
       <meta name="twitter:card" content="summary_large_image" />
+      {url && <meta property="og:url" content={url} />}
     </Head>
   );
 };

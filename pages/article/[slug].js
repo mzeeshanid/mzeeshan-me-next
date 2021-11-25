@@ -67,7 +67,7 @@ const Article = ({ article, categories }) => {
 
   return (
     <LightMode>
-      <Seo seo={seo} />
+      <Seo seo={seo} url={`https://www.mzeeshan.me/article/${article.slug}`} />
       <AppNavBar navItems={myNavItems()} />
       <BlogCategories categories={categories} />
       <Center p={4} textColor={theme.colors.black} bg={theme.colors.gray[50]}>

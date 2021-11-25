@@ -36,6 +36,7 @@ export default function Privacy() {
             heading="Privacy Policy"
             headingColor={theme.colors.black}
             bg={theme.colors.white}
+            as="h1"
           />
           <Box p={4} />
           <Text color={theme.colors.black}>

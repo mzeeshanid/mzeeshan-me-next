@@ -9,6 +9,7 @@ function AppHeadingText({
   headingColor,
   children,
   bg = "gray.100",
+  as = "h2",
 }) {
   const headingBPValue = useHeadingBPValue();
 
@@ -18,7 +19,7 @@ function AppHeadingText({
     <VStack pl={8} pr={8} bg={bg}>
       {heading && (
         <Heading
-          as="h1"
+          as={as}
           size={headingBPValue}
           textAlign="center"
           color={headingColor}

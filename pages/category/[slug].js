@@ -17,11 +17,16 @@ const Category = ({ category, categories, articles }) => {
 
   return (
     <LightMode>
-      <Seo seo={seo} />
+      <Seo
+        seo={seo}
+        url={`https://www.mzeeshan.me/category/${category.slug}`}
+      />
       <AppNavBar navItems={myNavItems()} />
       <BlogCategories categories={categories} />
       <Center p={2} bg={theme.colors.white}>
-        <Heading color={theme.colors.black}>{category.name}</Heading>
+        <Heading as={"h1"} color={theme.colors.black}>
+          {category.name}
+        </Heading>
       </Center>
       <Articles articles={articles} />
       <AppFooter />

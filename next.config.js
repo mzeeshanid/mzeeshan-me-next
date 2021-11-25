@@ -6,4 +6,8 @@ module.exports = {
   images: {
     domains: ["dzm9gzl83npws.cloudfront.net", "localhost"],
   },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
 };

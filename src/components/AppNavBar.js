@@ -26,8 +26,11 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import isExternalLink from "../hooks/isExternalLink";
 import Image from "next/image";
+import useGoToLink from "../hooks/useGoToLink";
 
 function AppNavBar({ navItems }) {
+  const gotolink = useGoToLink();
+
   const showMobileMenu = useBreakpointValue({
     base: true,
     lg: navItems.length > 7,
@@ -84,7 +87,7 @@ function AppNavBar({ navItems }) {
                 <MenuItem
                   textColor={theme.colors.black}
                   key={idx}
-                  onClick={() => gotoLink(item.path)}
+                  onClick={() => gotolink(item.path)}
                 >
                   {item.title}
                 </MenuItem>

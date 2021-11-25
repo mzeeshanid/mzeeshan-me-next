@@ -25,7 +25,7 @@ export default function Home() {
         openGraph={{
           title: meta.title,
           description: meta.desc,
-          url: "https://www.mzeeshan.me/",
+          url="https://www.mzeeshan.me/",
           type: "profile",
           profile: {
             firstName: "Muhammad",
@@ -36,9 +36,9 @@ export default function Home() {
           images: [
             {
               url: meta.image,
-              width: 150.0,
-              height: 150.0,
-              alt: "Profile Photo",
+              width: 1008.0,
+              height: 756.0,
+              alt: "Hero Image",
             },
           ],
         }}
@@ -60,7 +60,7 @@ export default function Home() {
         />
       </Head>
       <AppNavBar navItems={myNavItems()} />
-      <AppHero />
+      <AppHero as={"h1"} />
       <Box bg="white" p={4} />
       <AppHeadingText
         bg="white"
