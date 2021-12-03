@@ -4,4 +4,5 @@ export default {
   subcategories: "sample-file-extensions",
   subcategoriesSuggestions: "sample-file-extensions/suggestions",
   updateDownloads: "sample-file-variants/update",
+  fileRequest: "sample-file-requests",
 };

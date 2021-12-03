@@ -21,31 +21,22 @@ import {
 } from "@chakra-ui/table";
 import theme from "@chakra-ui/theme";
 import React from "react";
-import { fetchAPI } from "../../../lib/api";
 import apiClient from "../../apis/client";
 import API from "../../config/API";
 
 export default function SampleFileVariant({ extension }) {
   const updateDownloads = async (id) => {
     apiClient
-      .put(API.updateDownloads + `/${id}`)
-      .then((response) => {
-        // if (response.ok) {
-        //   console.log("response received: ", response);
-        // } else {
-        //   console.log("not ok: ", response);
-        // }
-      })
-      .catch((error) => {
-        // console.log("error received: ", error);
-      });
+      .put(API.updateDownloads + `/${id}`, {})
+      .then((response) => {})
+      .catch((error) => {});
   };
 
   return (
     <LightMode>
       <Center bg={theme.colors.white}>
         <VStack>
-          <VStack p={4} maxW="800px">
+          <VStack p={4} maxW="850px">
             <Heading color={theme.colors.black}>{extension.name}</Heading>
             <Text align="center" color={theme.colors.gray[500]}>
               {extension.details}

@@ -39,10 +39,7 @@ function SampleFilesHero() {
     handleUserQuery(suggestion);
   };
   const handleUserQuery = (query) => {
-    router.push({
-      pathname: "/samplefiles/results/[slug]",
-      query: { slug: query.toLowerCase() },
-    });
+    router.push(`/samplefiles/results/${query.toLowerCase()}`);
   };
 
   return (

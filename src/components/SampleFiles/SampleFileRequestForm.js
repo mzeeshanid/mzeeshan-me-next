@@ -21,16 +21,18 @@ function SampleFileRequestForm() {
 
   const newFileRequest = (name, resetForm) => {
     setLoading(true);
-    fileRequest.addFileRequest({ name: name }).then((res) => {
-      setLoading(false);
-      if (res.ok) {
-        setResult("File request submitted successfully.");
-        resetForm({ values: "" });
-      } else {
-        setResult("Unable to submit file request.");
-      }
-      setShowResult(true);
-    });
+    fileRequest
+      .addFileRequest({ name: name, status: "pending" })
+      .then((res) => {
+        setLoading(false);
+        if (res.ok) {
+          setResult("File request submitted successfully.");
+          resetForm({ values: "" });
+        } else {
+          setResult("Unable to submit file request.");
+        }
+        setShowResult(true);
+      });
   };
 
   useEffect(() => {
