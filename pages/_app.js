@@ -11,6 +11,9 @@ import appGenericMeta from "../src/data/appGenericMeta";
 import { createContext } from "react";
 import { fetchAPI } from "../lib/api";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+
 // Store Strapi Global object in context
 export const GlobalContext = createContext({});
 
@@ -35,6 +38,8 @@ function MyApp({ Component, pageProps }) {
   }, [router.events]);
 
   const meta = appGenericMeta();
+
+  library.add(fas);
 
   return (
     <GlobalContext.Provider value={global}>

@@ -3,13 +3,10 @@ import { Image } from "@chakra-ui/image";
 import { Input } from "@chakra-ui/input";
 import { Box, Heading, Text, VStack } from "@chakra-ui/layout";
 import { useBreakpointValue } from "@chakra-ui/media-query";
-import { MenuList } from "@chakra-ui/menu";
-import { MenuButton } from "@chakra-ui/menu";
-import { MenuItem } from "@chakra-ui/menu";
-import { Menu } from "@chakra-ui/menu";
 import React, { useRef, useState } from "react";
 import useSearchSuggestions from "../../hooks/SampleFiles/useSearchSuggestions";
 import { useRouter } from "next/router";
+import theme from "@chakra-ui/theme";
 
 function SampleFilesHero() {
   const router = useRouter();
@@ -42,7 +39,10 @@ function SampleFilesHero() {
     handleUserQuery(suggestion);
   };
   const handleUserQuery = (query) => {
-    router.push(`/samplefiles/results?extension=${query}`);
+    router.push({
+      pathname: "/samplefiles/results/[slug]",
+      query: { slug: query.toLowerCase() },
+    });
   };
 
   return (
@@ -78,6 +78,7 @@ function SampleFilesHero() {
         </Text>
         <Box maxW="280px" p={2}>
           <Input
+            textColor={theme.colors.black}
             onFocus={() => setFieldFocused(true)}
             onBlur={() => setFieldFocused(false)}
             onChange={onChangeText}
@@ -113,7 +114,9 @@ function SampleFilesHero() {
                         pr={4}
                         onMouseDown={() => onSuggestionSelect(item.name)}
                       >
-                        <Text w="100%">{item.name}</Text>
+                        <Text color={theme.colors.black} w="100%">
+                          {item.name}
+                        </Text>
                       </Box>
                     );
                   })}
@@ -122,25 +125,15 @@ function SampleFilesHero() {
             </Box>
           )}
         </Box>
-        {/* <Menu>
-          <MenuButton
-            onClick={() => {
-              inputField.current.focus();
-            }}
-          >
-            
-          </MenuButton>
-          {results && results.length > 0 && (
-            <MenuList>
-              {results.map((item, idx) => {
-                return <MenuItem key={idx}>{item.name}</MenuItem>;
-              })}
-            </MenuList>
-          )}
-        </Menu> */}
-        <Button colorScheme="teal" size="lg">
+        {/* <Button
+          colorScheme="teal"
+          size="lg"
+          onClick={() => {
+            handleUserQuery(keyword);
+          }}
+        >
           Search
-        </Button>
+        </Button> */}
       </VStack>
     </Box>
   );

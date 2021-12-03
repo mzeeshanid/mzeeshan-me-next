@@ -1,49 +1,50 @@
-import { theme } from "@chakra-ui/react";
+import { fetchAPI } from "../../lib/api";
+import { theme, Box } from "@chakra-ui/react";
 import { LightMode } from "@chakra-ui/color-mode";
 import { VStack } from "@chakra-ui/layout";
 import React from "react";
 import AppFooter from "../../src/components/AppFooter";
-import AppHeadingText from "../../src/components/AppHeadingText";
 import AppNavBar from "../../src/components/AppNavBar";
 import AppStats from "../../src/components/AppStats";
 import SampleFileFeatured from "../../src/components/SampleFiles/SampleFileFeatured";
 import SampleFileRequest from "../../src/components/SampleFiles/SampleFileRequest";
 import SampleFilesHero from "../../src/components/SampleFiles/SampleFilesHero";
-import sampleFilesCategories from "../../src/data/sampleFilesCategories";
 import sampleFileStats from "../../src/data/sampleFileStats";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SampleFileTagline from "../../src/components/SampleFiles/SampleFileTagline";
 
-function index() {
+export default function index({ categories }) {
   const navItems = [
     {
       title: "Home",
-      path: "/samplefiles",
+      path: "samplefiles",
     },
-    ...sampleFilesCategories().map((category) => {
-      return { title: category.name, path: category.path };
+    ...categories.map((category) => {
+      return {
+        title: category.name,
+        path: "samplefiles/category/" + category.slug,
+      };
     }),
   ];
   return (
     <LightMode>
       <AppNavBar navItems={navItems} />
       <SampleFilesHero />
-      <VStack p={4}>
-        <AppHeadingText
-          headingColor={theme.colors.black}
-          heading={"Trusted by developers from all over the world"}
-          text={
-            "Free, safe and easy way to download sample files for testing and other purposes."
-          }
-          bg={"white"}
-        />
-      </VStack>
+      <SampleFileTagline />
       <AppStats stats={sampleFileStats()} />
       <SampleFileFeatured
-        items={sampleFilesCategories().map((item) => {
+        items={categories.map((category) => {
           return {
-            title: item.name,
-            detail: item.detail,
-            icon: item.icon,
-            path: item.path,
+            title: category.name,
+            detail: category.info,
+            icon: (
+              <FontAwesomeIcon
+                size="4x"
+                color={theme.colors.gray[700]}
+                icon={category.icon}
+              />
+            ),
+            path: "samplefiles/category/" + category.slug,
           };
         })}
       />
@@ -54,4 +55,12 @@ function index() {
   );
 }
 
-export default index;
+export async function getStaticProps() {
+  // Run API calls in parallel
+  const categories = await fetchAPI("/sample-file-types");
+
+  return {
+    props: { categories },
+    revalidate: 1,
+  };
+}

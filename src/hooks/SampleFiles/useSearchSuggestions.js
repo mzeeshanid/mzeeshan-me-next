@@ -15,7 +15,7 @@ function useSearchSuggestions(keyword) {
     let cancel;
     subcategories
       .getSubcategoriesSuggestions(
-        { keyword: keyword },
+        { q: keyword },
         { cancelToken: new axios.CancelToken((c) => (cancel = c)) }
       )
       .then((res) => {

@@ -1,8 +1,7 @@
 export default {
-  baseUrl: "https://samplefiles.mzeeshan.me/api/",
-  categories: "categories",
-  addCategory: "categories/add/",
-  subcategories: "subcategories",
-  subcategoriesSuggestions: "subcategories/suggestions",
-  fileRequest: "filerequest",
+  baseUrl: "https://mzeeshan-me-strapi-backend.herokuapp.com/",
+  categories: "sample-file-types",
+  subcategories: "sample-file-extensions",
+  subcategoriesSuggestions: "sample-file-extensions/suggestions",
+  updateDownloads: "sample-file-variants/update",
 };

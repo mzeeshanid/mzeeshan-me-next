@@ -6,11 +6,16 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/layout";
+import theme from "@chakra-ui/theme";
 import React from "react";
 import useHeadingBPValue from "../hooks/useHeadingBPValue";
 import useTextBPValue from "../hooks/useTextBPValue";
 
-function AppIconFeature({ item }) {
+function AppIconFeature({
+  item,
+  headingColor = theme.colors.black,
+  textColor = theme.colors.gray[600],
+}) {
   const headingBPValue = useHeadingBPValue();
   const textBPValue = useTextBPValue();
   return (
@@ -19,8 +24,10 @@ function AppIconFeature({ item }) {
         <Box>
           <VStack p={2} maxW="310px">
             {item.icon}
-            <Heading size={headingBPValue}>{item.name}</Heading>
-            <Text fontSize={textBPValue} textAlign="center">
+            <Heading color={headingColor} size={headingBPValue}>
+              {item.name}
+            </Heading>
+            <Text color={textColor} fontSize={textBPValue} textAlign="center">
               {item.detail}
             </Text>
           </VStack>
