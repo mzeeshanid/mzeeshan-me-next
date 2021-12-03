@@ -1,4 +1,5 @@
 import g2dAppIcon from "../../public/assets/g2d_app_icon.png";
+import fileManageIcon from "../../public/assets/mzfilemanage_appicon.png";
 
 function myTools() {
   const tools = [
@@ -10,14 +11,14 @@ function myTools() {
       alt: "G2D web app icon",
       url: "//www.g2d.dev/",
     },
-    // {
-    //   title: "Sample Files",
-    //   detail:
-    //     "Free download of sample files of different types needed for testing during development.",
-    //   image: "/assets/mzfilemanage_appicon.png",
-    //   alt: "Sample files web app icon",
-    //   url: "samplefiles",
-    // },
+    {
+      title: "Sample Files",
+      detail:
+        "Free download of sample files of different types needed for testing during development.",
+      image: fileManageIcon,
+      alt: "Sample files web app icon",
+      url: "samplefiles",
+    },
   ];
   return tools;
 }
