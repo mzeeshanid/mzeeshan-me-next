@@ -3,6 +3,7 @@ import { Center, VStack } from "@chakra-ui/layout";
 import { Heading } from "@chakra-ui/react";
 import theme from "@chakra-ui/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NextSeo } from "next-seo";
 import { fetchAPI } from "../../../lib/api";
 import AppFooter from "../../../src/components/AppFooter";
 import AppNavBar from "../../../src/components/AppNavBar";
@@ -28,8 +29,34 @@ export default function SampleFileCategory({
     }),
   ];
 
+  const metaTitle = category.name;
+  const metaDesc = `All sample files related to ${category.name}`;
+
   return (
     <LightMode>
+      <NextSeo
+        title={metaTitle + " - Sample Files"}
+        description={metaDesc}
+        openGraph={{
+          title: metaTitle,
+          description: metaDesc,
+          url: `https://www.mzeeshan.me/samplefiles/category/${category.slug}`,
+          images: [
+            {
+              url: "https://www.mzeeshan.me/assets/mzfilemanage_appicon.png",
+              width: 400,
+              height: 400,
+              alt: "Sample Files Web App Icon",
+              type: "image/png",
+            },
+          ],
+        }}
+        twitter={{
+          handle: "@handle",
+          site: "@site",
+          cardType: "summary_large_image",
+        }}
+      />
       <AppNavBar navItems={navItems} />
       <Center bg={theme.colors.white} p={4}>
         <Heading as="h1" color={theme.colors.black}>

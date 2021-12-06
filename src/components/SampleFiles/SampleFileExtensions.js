@@ -32,19 +32,19 @@ export default function SampleFileExtensions({ extensions }) {
                   <Td>{extension.name}</Td>
                   <Td>{extension.info}</Td>
                   <Td>
-                    <Button
-                      bg="teal"
-                      textColor="white"
-                      _hover={{ bg: "teal.500" }}
-                      primary
+                    <Link
+                      href={`/samplefiles/results/${extension.slug.toLowerCase()}`}
+                      _hover={{}}
                     >
-                      <Link
-                        href={`/samplefiles/results/${extension.slug.toLowerCase()}`}
-                        _hover={{}}
+                      <Button
+                        bg="teal"
+                        textColor="white"
+                        _hover={{ bg: "teal.500" }}
+                        primary
                       >
                         Size
-                      </Link>
-                    </Button>
+                      </Button>
+                    </Link>
                   </Td>
                 </Tr>
               );

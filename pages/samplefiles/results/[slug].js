@@ -14,6 +14,7 @@ import sampleFileStats from "../../../src/data/sampleFileStats";
 import SampleFileExtensions from "../../../src/components/SampleFiles/SampleFileExtensions";
 import SampleFileVariant from "../../../src/components/SampleFiles/SampleFileVariant";
 import SampleFileTagline from "../../../src/components/SampleFiles/SampleFileTagline";
+import { NextSeo } from "next-seo";
 
 export default function SampleFilesResultsIndex({ categories, extensions }) {
   const navItems = [
@@ -29,8 +30,35 @@ export default function SampleFilesResultsIndex({ categories, extensions }) {
     }),
   ];
 
+  const metaTitle = extensions[0].slug;
+  const metaDesc = extensions[0].details;
+  const slug = extensions[0].slug;
+
   return (
     <LightMode>
+      <NextSeo
+        title={metaTitle.toUpperCase() + " - Sample File"}
+        description={metaDesc}
+        openGraph={{
+          title: metaTitle,
+          description: metaDesc,
+          url: `https://www.mzeeshan.me/samplefiles/results/${slug}`,
+          images: [
+            {
+              url: "https://www.mzeeshan.me/assets/mzfilemanage_appicon.png",
+              width: 400,
+              height: 400,
+              alt: "Sample Files Web App Icon",
+              type: "image/png",
+            },
+          ],
+        }}
+        twitter={{
+          handle: "@handle",
+          site: "@site",
+          cardType: "summary_large_image",
+        }}
+      />
       <AppNavBar navItems={navItems} />
       {extensions.map((extension, idx) => {
         return <SampleFileVariant key={idx} extension={extension} />;

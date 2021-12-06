@@ -1,4 +1,5 @@
 import { Heading, Text, VStack } from "@chakra-ui/layout";
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import useHeadingBPValue from "../../hooks/useHeadingBPValue";
 import useTextBPValue from "../../hooks/useTextBPValue";
@@ -26,6 +27,7 @@ function SampleFileRequest() {
         })}
       </VStack>
       <SampleFileRequestForm />
+      <Box p={2} />
     </VStack>
   );
 }

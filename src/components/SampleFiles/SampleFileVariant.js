@@ -61,24 +61,23 @@ export default function SampleFileVariant({ extension }) {
                       <Td>{variant.size}</Td>
                       <Td isNumeric>{variant.downloads}</Td>
                       <Td>
-                        <Button
-                          bg="teal"
-                          textColor="white"
-                          _hover={{ bg: "teal.500" }}
-                          primary
-                          onClick={() => {
-                            console.log("on click");
-                            updateDownloads(variant.id);
-                          }}
+                        <Link
+                          href={variant.url}
+                          isExternal={true}
+                          _hover={{ textDecor: "none" }}
                         >
-                          <Link
-                            href={variant.url}
-                            isExternal={true}
-                            _hover={{ textDecor: "none" }}
+                          <Button
+                            bg="teal"
+                            textColor="white"
+                            _hover={{ bg: "teal.500" }}
+                            primary
+                            onClick={() => {
+                              updateDownloads(variant.id);
+                            }}
                           >
                             Download
-                          </Link>
-                        </Button>
+                          </Button>
+                        </Link>
                       </Td>
                     </Tr>
                   );
