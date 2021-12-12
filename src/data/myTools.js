@@ -1,5 +1,6 @@
 import g2dAppIcon from "../../public/assets/g2d_app_icon.png";
 import fileManageIcon from "../../public/assets/mzfilemanage_appicon.png";
+import aspectRatioIcon from "../../public/assets/aspect_ratio_app_icon.png";
 
 function myTools() {
   const tools = [
@@ -18,6 +19,14 @@ function myTools() {
       image: fileManageIcon,
       alt: "Sample files web app icon",
       url: "samplefiles",
+    },
+    {
+      title: "Aspect Ratio",
+      detail:
+        "A tool that allows to calculate aspect ratio by entering original size and desired width or height.",
+      image: aspectRatioIcon,
+      alt: "Aspect ratio calculator app icon",
+      url: "aspectratio",
     },
   ];
   return tools;
