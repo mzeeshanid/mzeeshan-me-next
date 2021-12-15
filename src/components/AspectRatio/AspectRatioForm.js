@@ -24,6 +24,42 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function AspectRatioForm() {
+  const fieldValueChanged = (context, isEditing, name) => {
+    const { values, errors } = context;
+
+    if (
+      !errors.originalWidth &&
+      !errors.originalHeight &&
+      values.originalWidth.length > 0 &&
+      values.originalHeight.length > 0
+    ) {
+      if (
+        (name === "desiredWidth" &&
+          isEditing &&
+          !errors.desiredWidth &&
+          values.desiredWidth.length > 0) ||
+        (name === "originalHeight" && isEditing)
+      ) {
+        const newHeight =
+          (parseFloat(values.originalHeight) /
+            parseFloat(values.originalWidth)) *
+          parseFloat(values.desiredWidth);
+        context.setFieldValue("desiredHeight", `${newHeight}`);
+      } else if (
+        (name === "desiredHeight" &&
+          isEditing &&
+          !errors.desiredHeight &&
+          values.desiredHeight.length > 0) ||
+        (name === "originalWidth" && isEditing)
+      ) {
+        const newWidth =
+          (values.desiredHeight * values.originalWidth) / values.originalHeight;
+        context.setFieldValue("desiredWidth", `${newWidth}`);
+      } else {
+      }
+    }
+  };
+
   return (
     <AppForm
       initialValues={{
@@ -41,6 +77,7 @@ export default function AspectRatioForm() {
         name={"originalWidth"}
         size="md"
         textColor={theme.colors.black}
+        valueChanged={fieldValueChanged}
       />
       <AppFormField
         label="Original Height"
@@ -48,6 +85,23 @@ export default function AspectRatioForm() {
         name={"originalHeight"}
         size="md"
         textColor={theme.colors.black}
+        valueChanged={fieldValueChanged}
+      />
+      <AppFormField
+        label="Desired Width"
+        placeholder="Enter desired width"
+        name={"desiredWidth"}
+        size="md"
+        textColor={theme.colors.black}
+        valueChanged={fieldValueChanged}
+      />
+      <AppFormField
+        label="Desired Height"
+        placeholder="Enter desired height"
+        name={"desiredHeight"}
+        size="md"
+        textColor={theme.colors.black}
+        valueChanged={fieldValueChanged}
       />
     </AppForm>
   );

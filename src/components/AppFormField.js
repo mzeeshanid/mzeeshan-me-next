@@ -4,7 +4,7 @@ import { Text } from "@chakra-ui/layout";
 import { Spacer } from "@chakra-ui/layout";
 import { VStack } from "@chakra-ui/layout";
 import { useFormikContext } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function AppFormField({
   label,
@@ -17,15 +17,18 @@ function AppFormField({
   onClick,
   size = "lg",
   textColor = "black",
+  valueChanged = undefined,
 }) {
-  const {
-    errors,
-    handleChange,
-    setFieldTouched,
-    touched,
-    values,
-  } = useFormikContext();
+  const context = useFormikContext();
+  const { errors, handleChange, setFieldTouched, touched, values } = context;
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    if (valueChanged) {
+      valueChanged(context, isEditing, name);
+    }
+  }, [values[name], errors[name]]);
+
   return (
     <VStack width="100%" align="start">
       {(label || infoLabel) && (
