@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Heading,
   LightMode,
@@ -6,8 +6,12 @@ import {
   Center,
   Text,
   theme,
-  UnorderedList,
-  ListItem,
+  Tab,
+  Tabs,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Box,
 } from "@chakra-ui/react";
 import AppNavBar from "../../src/components/AppNavBar";
 import myNavItems from "../../src/data/myNavItems";
@@ -18,10 +22,28 @@ import aspectRatioAppIcon from "../../public/assets/aspect_ratio_app_icon.png";
 import AspectRatioForm from "../../src/components/AspectRatio/AspectRatioForm";
 
 export default function index() {
+  const [aspectWidth, setAspectWidth] = useState(200.0);
+  const [aspectHeight, setAspectHeight] = useState(112.5);
+
+  // const ratios = reduce(aspectWidth, aspectHeight);
+
+  const onAspectRatioChange = (w, h) => {
+    const width = parseFloat(w);
+    const height = parseFloat(h);
+
+    if (height > width) {
+      setAspectWidth((200.0 * width) / height);
+      setAspectHeight(200.0);
+    } else {
+      setAspectHeight((height / width) * 200.0);
+      setAspectWidth(200.0);
+    }
+  };
+
   return (
     <LightMode>
       <AppNavBar navItems={myNavItems()} />
-      <Center>
+      <Center bg={theme.colors.white}>
         <VStack maxW={"800px"} p={4}>
           <Image
             width={"150px"}
@@ -39,16 +61,77 @@ export default function index() {
           </Text>
         </VStack>
       </Center>
-      <AspectRatioForm />
-      {/* <UnorderedList>
-          <ListItem>
-            Enter the orginal width and height respectively in the fields below.
-          </ListItem>
-          <ListItem>
-            Enter your desired width or height to get the other value.
-          </ListItem>
-        </UnorderedList> */}
-
+      <AspectRatioForm onAspectRatioChange={onAspectRatioChange} />
+      <Center bg={theme.colors.white}>
+        <VStack w="full" maxW={"800px"} p={4}>
+          <Center>
+            <Text color={theme.colors.black}>
+              <Text>Your aspect ratio is </Text>
+              <Text>
+                {/* {`${ratios[0]} : ${ratios[1]}`} */}
+                {/* {Ratio.parse(aspectWidth / aspectHeight)
+                  .simplify()
+                  .toString()} */}
+              </Text>
+            </Text>
+            <VStack>
+              {/* <Heading color={theme.colors.black} align="center">
+                {`${aspectWidth / ratio} : ${aspectHeight / ratio}`}
+              </Heading>
+              <Text align="center" color={theme.colors.black}>
+                Aspect Ratio
+              </Text> */}
+            </VStack>
+          </Center>
+          <Box
+            w={`${aspectWidth}px`}
+            h={`${aspectHeight}px`}
+            bg={theme.colors.gray[100]}
+          />
+          {/* <AspectRatio
+            maxW="800px"
+            ratio={aspectWidth / aspectHeight}
+            bg={theme.colors.gray[300]}
+          >
+            <Center w="500px" h="100px">
+              <Text align="center">Example</Text>
+            </Center>
+          </AspectRatio> */}
+          <Tabs
+            isFitted
+            variant="solid-rounded"
+            colorScheme="teal"
+            outlineColor={theme.colors.gray[300]}
+          >
+            <TabList mb="1em" bg={theme.colors.gray[200]} rounded="full">
+              <Tab>For Width</Tab>
+              <Tab>For Height</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <Text align="center" color={theme.colors.black}>
+                  New Width = (New Height x Original Width) / Original Height
+                </Text>
+              </TabPanel>
+              <TabPanel>
+                <Text align="center" color={theme.colors.black}>
+                  New Height = (Original Height / Original Width) x New Width
+                </Text>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+          <Box>
+            <Heading color={theme.colors.black} align="center">
+              How Does It Works?
+            </Heading>
+            <Text color={theme.colors.black} align="center">
+              Enter the original width and original height in the respective
+              fields. Next enter the value for desired width or desired height,
+              other value will be calculated automatically. Thats it!
+            </Text>
+          </Box>
+        </VStack>
+      </Center>
       <AppFooter />
     </LightMode>
   );

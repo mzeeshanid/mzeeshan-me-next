@@ -3,6 +3,7 @@ import { HStack } from "@chakra-ui/layout";
 import { Text } from "@chakra-ui/layout";
 import { Spacer } from "@chakra-ui/layout";
 import { VStack } from "@chakra-ui/layout";
+import theme from "@chakra-ui/theme";
 import { useFormikContext } from "formik";
 import React, { useEffect, useState } from "react";
 
@@ -47,6 +48,7 @@ function AppFormField({
         </HStack>
       )}
       <Input
+        borderColor={theme.colors.gray[300]}
         color={textColor}
         name={name}
         placeholder={placeholder}

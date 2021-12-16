@@ -7,11 +7,19 @@ function AppFormButton({
   variant = "solid",
   colorScheme = "teal",
   size = "md",
+  formButtonOnClick = undefined,
 }) {
-  const { handleSubmit } = useFormikContext();
+  const context = useFormikContext();
+  const { handleSubmit } = context;
   return (
     <Button
-      onClick={handleSubmit}
+      onClick={
+        formButtonOnClick
+          ? () => {
+              formButtonOnClick(context);
+            }
+          : handleSubmit
+      }
       colorScheme={colorScheme}
       variant={variant}
       size={size}
