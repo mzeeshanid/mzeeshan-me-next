@@ -34,7 +34,7 @@ export default function SampleFileVariant({ extension }) {
 
   return (
     <LightMode>
-      <Center bg={theme.colors.white}>
+      <Center bg={theme.colors.white} overflow={"scroll"}>
         <VStack>
           <VStack p={4} maxW="850px">
             <Heading color={theme.colors.black}>{extension.name}</Heading>
