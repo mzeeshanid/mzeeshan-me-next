@@ -12,6 +12,7 @@ import {
   TabPanel,
   TabPanels,
   Box,
+  chakra,
 } from "@chakra-ui/react";
 import AppNavBar from "../../src/components/AppNavBar";
 import myNavItems from "../../src/data/myNavItems";
@@ -20,12 +21,32 @@ import Image from "next/dist/client/image";
 
 import aspectRatioAppIcon from "../../public/assets/aspect_ratio_app_icon.png";
 import AspectRatioForm from "../../src/components/AspectRatio/AspectRatioForm";
+import { NextSeo } from "next-seo";
 
 export default function index() {
   const [aspectWidth, setAspectWidth] = useState(200.0);
   const [aspectHeight, setAspectHeight] = useState(112.5);
 
-  // const ratios = reduce(aspectWidth, aspectHeight);
+  function gcd(u, v) {
+    if (u === v) return u;
+    if (u === 0) return v;
+    if (v === 0) return u;
+
+    if (~u & 1)
+      if (v & 1) return gcd(u >> 1, v);
+      else return gcd(u >> 1, v >> 1) << 1;
+
+    if (~v & 1) return gcd(u, v >> 1);
+
+    if (u > v) return gcd((u - v) >> 1, v);
+
+    return gcd((v - u) >> 1, u);
+  }
+
+  function ratio(w, h) {
+    var d = gcd(w, h);
+    return [w / d, h / d];
+  }
 
   const onAspectRatioChange = (w, h) => {
     const width = parseFloat(w);
@@ -40,8 +61,37 @@ export default function index() {
     }
   };
 
+  const ratios = ratio(parseInt(aspectWidth), parseInt(aspectHeight));
+
+  const aTitle = "Aspect Ratio Calculator - Muhammad Zeeshan";
+  const aDesc =
+    "A tool that allows to calculate aspect ratio by entering original size and desired width or height.";
+
   return (
     <LightMode>
+      <NextSeo
+        title={aTitle}
+        description={aDesc}
+        openGraph={{
+          title: aTitle,
+          description: aDesc,
+          url: "https://www.mzeeshan.me/aspectratio",
+          images: [
+            {
+              url: "https://mzeeshan.me/assets/aspect_ratio_app_icon.png",
+              width: 400,
+              height: 400,
+              alt: "App Icon",
+              type: "image/png",
+            },
+          ],
+        }}
+        twitter={{
+          handle: "@handle",
+          site: "@site",
+          cardType: "summary_large_image",
+        }}
+      />
       <AppNavBar navItems={myNavItems()} />
       <Center bg={theme.colors.white}>
         <VStack maxW={"800px"} p={4}>
@@ -66,37 +116,31 @@ export default function index() {
         <VStack w="full" maxW={"800px"} p={4}>
           <Center>
             <Text color={theme.colors.black}>
-              <Text>Your aspect ratio is </Text>
-              <Text>
-                {/* {`${ratios[0]} : ${ratios[1]}`} */}
-                {/* {Ratio.parse(aspectWidth / aspectHeight)
-                  .simplify()
-                  .toString()} */}
-              </Text>
+              <chakra.span
+                fontSize={"xl"}
+              >{`Your aspect ratio is `}</chakra.span>
+              <chakra.span
+                fontSize={"xl"}
+                as="b"
+              >{`${ratios[0]} : ${ratios[1]}`}</chakra.span>
             </Text>
-            <VStack>
-              {/* <Heading color={theme.colors.black} align="center">
-                {`${aspectWidth / ratio} : ${aspectHeight / ratio}`}
-              </Heading>
-              <Text align="center" color={theme.colors.black}>
-                Aspect Ratio
-              </Text> */}
-            </VStack>
+            <VStack></VStack>
           </Center>
           <Box
             w={`${aspectWidth}px`}
             h={`${aspectHeight}px`}
             bg={theme.colors.gray[100]}
-          />
-          {/* <AspectRatio
-            maxW="800px"
-            ratio={aspectWidth / aspectHeight}
-            bg={theme.colors.gray[300]}
+            borderWidth={1}
+            borderColor={theme.colors.gray[500]}
+            overflow={"hidden"}
           >
-            <Center w="500px" h="100px">
-              <Text align="center">Example</Text>
+            <Center w="full" h="full">
+              <Text align={"center"} color={theme.colors.black}>
+                Example
+              </Text>
             </Center>
-          </AspectRatio> */}
+          </Box>
+          <Box p={2} />
           <Tabs
             isFitted
             variant="solid-rounded"

@@ -34,7 +34,7 @@ export default function SampleFileVariant({ extension }) {
 
   return (
     <LightMode>
-      <Center bg={theme.colors.white}>
+      <Center bg={theme.colors.white} overflow={"scroll"}>
         <VStack>
           <VStack p={4} maxW="850px">
             <Heading color={theme.colors.black}>{extension.name}</Heading>
@@ -67,7 +67,6 @@ export default function SampleFileVariant({ extension }) {
                           _hover={{ bg: "teal.500" }}
                           primary
                           onClick={() => {
-                            console.log("on click");
                             updateDownloads(variant.id);
                           }}
                         >
