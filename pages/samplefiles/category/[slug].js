@@ -24,13 +24,14 @@ export default function SampleFileCategory({
       title: "Home",
       path: "/samplefiles",
     },
-    ...categories.map((category) => {
+    ...categories.map((item) => {
+      const category = item.attributes;
       return { title: category.name, path: category.slug };
     }),
   ];
 
-  const metaTitle = category.name;
-  const metaDesc = `All sample files related to ${category.name}`;
+  const metaTitle = category.attributes.name;
+  const metaDesc = `All sample files related to ${category.attributes.name}`;
 
   return (
     <LightMode>
@@ -40,7 +41,7 @@ export default function SampleFileCategory({
         openGraph={{
           title: metaTitle,
           description: metaDesc,
-          url: `https://www.mzeeshan.me/samplefiles/category/${category.slug}`,
+          url: `https://www.mzeeshan.me/samplefiles/category/${category.attributes.slug}`,
           images: [
             {
               url: "https://www.mzeeshan.me/assets/mzfilemanage_appicon.png",
@@ -67,7 +68,8 @@ export default function SampleFileCategory({
       <SampleFileTagline />
       <AppStats stats={sampleFileStats()} />
       <SampleFileFeatured
-        items={categories.map((category) => {
+        items={categories.map((itm) => {
+          const category = itm.attributes;
           return {
             title: category.name,
             detail: category.info,
@@ -90,12 +92,14 @@ export default function SampleFileCategory({
 }
 
 export async function getStaticPaths() {
-  const categories = await fetchAPI("/sample-file-types");
+  const { data: categories } = await fetchAPI(
+    "/sample-file-types?pagination[limit]=-1"
+  );
 
   return {
     paths: categories.map((category) => ({
       params: {
-        slug: category.slug,
+        slug: category.attributes.slug,
       },
     })),
     fallback: false,
@@ -104,13 +108,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   // Run API calls in parallel
-  const categories = await fetchAPI("/sample-file-types");
+  const { data: categories } = await fetchAPI(
+    "/sample-file-types?pagination[limit]=-1"
+  );
   const category = categories.filter((cat) => {
-    return cat.slug.toLowerCase() === params.slug.toLowerCase();
+    return cat.attributes.slug.toLowerCase() === params.slug.toLowerCase();
   })[0];
 
-  const extensions = await fetchAPI(
-    `/sample-file-extensions?_where[type.slug]=${category.slug}`
+  const { data: extensions } = await fetchAPI(
+    `/sample-file-extensions?filters[type][slug][$eq]=${category.attributes.slug}&pagination[limit]=-1`
   );
 
   return {

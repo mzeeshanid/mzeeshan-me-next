@@ -37,9 +37,11 @@ export default function SampleFileVariant({ extension }) {
       <Center bg={theme.colors.white} overflow={"scroll"}>
         <VStack>
           <VStack p={4} maxW="850px">
-            <Heading color={theme.colors.black}>{extension.name}</Heading>
+            <Heading color={theme.colors.black}>
+              {extension.attributes.name}
+            </Heading>
             <Text align="center" color={theme.colors.gray[500]}>
-              {extension.details}
+              {extension.attributes.details}
             </Text>
           </VStack>
           <Box maxW="800px" pb={4}>
@@ -54,15 +56,15 @@ export default function SampleFileVariant({ extension }) {
                 </Tr>
               </Thead>
               <Tbody color={theme.colors.gray[800]}>
-                {extension.variants.map((variant, idx) => {
+                {extension.attributes.variants.data.map((variant, idx) => {
                   return (
                     <Tr key={idx}>
-                      <Td>{variant.name}</Td>
-                      <Td>{variant.size}</Td>
-                      <Td isNumeric>{variant.downloads}</Td>
+                      <Td>{variant.attributes.name}</Td>
+                      <Td>{variant.attributes.size}</Td>
+                      <Td isNumeric>{variant.attributes.downloads}</Td>
                       <Td>
                         <Link
-                          href={variant.url}
+                          href={variant.attributes.url}
                           isExternal={true}
                           _hover={{ textDecor: "none" }}
                         >

@@ -72,7 +72,10 @@ MyApp.getInitialProps = async (ctx) => {
   // Calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(ctx);
   // Fetch global site settings from Strapi
-  const global = await fetchAPI("/global");
+  const { data: global } = await fetchAPI(
+    "/global?populate[0]=defaultSeo.shareImage&populate[1]=favicon"
+  );
+
   // Pass the data to our page via props
   return { ...appProps, pageProps: { global } };
 };

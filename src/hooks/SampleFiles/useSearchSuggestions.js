@@ -24,7 +24,8 @@ function useSearchSuggestions(keyword) {
         }
 
         if (res.ok) {
-          setResults(res.data);
+          const { data: suggestions } = res.data;
+          setResults(suggestions);
         } else {
           setError(true);
         }

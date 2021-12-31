@@ -8,7 +8,6 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { BlogJsonLd, NextSeo } from "next-seo";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { fetchAPI } from "../../lib/api";
 import AppFooter from "../../src/components/AppFooter";
@@ -36,8 +35,8 @@ export default function Index({ articles, categories, totalArticles }) {
 
     const start = page * limit;
 
-    const responseArticles = await fetchAPI(
-      `/articles?_sort=published_at:DESC&_limit=${limit}&_start=${start}`
+    const { data: responseArticles } = await fetchAPI(
+      `/articles?sort=publishedAt:desc&pagination[limit]=${limit}&pagination[start]=${start}&populate[0]=image&populate[1]=category&populate[2]=writer.picture`
     );
 
     setPage(page + 1);
@@ -57,7 +56,7 @@ export default function Index({ articles, categories, totalArticles }) {
           url: "https://www.mzeeshan.me/blog",
           images: [
             {
-              url: "https://dzm9gzl83npws.cloudfront.net/profile_pic_ca75ff8ec8.jpeg",
+              url: "https://dzm9gzl83npws.cloudfront.net/avatar_me_239a1f707b.jpeg",
               width: 400,
               height: 400,
               alt: "Profile picture",
@@ -75,7 +74,7 @@ export default function Index({ articles, categories, totalArticles }) {
         url="https://www.mzeeshan.me/blog"
         title="A personal blog for sharing experiences"
         images={[
-          "https://dzm9gzl83npws.cloudfront.net/profile_pic_ca75ff8ec8.jpeg",
+          "https://dzm9gzl83npws.cloudfront.net/avatar_me_239a1f707b.jpeg",
         ]}
         datePublished="2021-02-05T08:00:00+08:00"
         dateModified="2021-02-05T09:00:00+08:00"
@@ -114,12 +113,16 @@ export default function Index({ articles, categories, totalArticles }) {
 
 export async function getStaticProps() {
   // Run API calls in parallel
-  const [articles, categories, totalArticles] = await Promise.all([
-    fetchAPI("/articles?_sort=published_at:DESC&_limit=10"),
+  const [articlesResponse, categoriesResponse] = await Promise.all([
+    fetchAPI(
+      "/articles?sort=publishedAt:desc&pagination[limit]=10&populate[0]=image&populate[1]=category&populate[2]=writer.picture"
+    ),
     fetchAPI("/categories"),
-    fetchAPI("/articles/count"),
   ]);
 
+  const { data: articles, meta } = articlesResponse;
+  const { data: categories } = categoriesResponse;
+  const totalArticles = meta.pagination.total;
   return {
     props: { articles, categories, totalArticles },
     revalidate: 1,

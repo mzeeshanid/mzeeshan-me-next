@@ -24,8 +24,8 @@ const Category = ({ category, categories, articles, totalArticles }) => {
   // );
 
   const seo = {
-    metaTitle: category.name,
-    metaDescription: `All ${category.name} articles`,
+    metaTitle: category.attributes.name,
+    metaDescription: `All ${category.attributes.name} articles`,
   };
 
   const [writings, setWritings] = useState(articles);
@@ -41,8 +41,8 @@ const Category = ({ category, categories, articles, totalArticles }) => {
 
     const start = page * limit;
 
-    const responseArticles = await fetchAPI(
-      `/articles?_sort=published_at:DESC&_limit=${limit}&_start=${start}`
+    const { data: responseArticles } = await fetchAPI(
+      `/articles?pagination[limit]=${limit}&pagination[start]=${start}&sort=publishedAt:desc&filters[category][slug]=${category.attributes.slug}&populate[0]=image&populate[1]=category&populate[2]=writer.picture`
     );
 
     setPage(page + 1);
@@ -55,13 +55,13 @@ const Category = ({ category, categories, articles, totalArticles }) => {
     <LightMode>
       <Seo
         seo={seo}
-        url={`https://www.mzeeshan.me/category/${category.slug}`}
+        url={`https://www.mzeeshan.me/category/${category.attributes.slug}`}
       />
       <AppNavBar navItems={myNavItems()} />
       <BlogCategories categories={categories} />
       <Center p={2} bg={theme.colors.white}>
         <Heading as={"h1"} color={theme.colors.black}>
-          {category.name}
+          {category.attributes.name}
         </Heading>
       </Center>
       <Articles articles={writings} />
@@ -85,12 +85,14 @@ const Category = ({ category, categories, articles, totalArticles }) => {
 };
 
 export async function getStaticPaths() {
-  const categories = await fetchAPI("/categories");
+  const { data: categories } = await fetchAPI(
+    "/categories?pagination[limit]=-1"
+  );
 
   return {
     paths: categories.map((category) => ({
       params: {
-        slug: category.slug,
+        slug: category.attributes.slug,
       },
     })),
     fallback: false,
@@ -98,19 +100,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const categories = await fetchAPI("/categories");
+  const { data: categories } = await fetchAPI(
+    "/categories?pagination[limit]=-1"
+  );
 
   const category = categories.filter((cat) => {
-    return cat.slug.toLowerCase() === params.slug.toLowerCase();
+    return cat.attributes.slug.toLowerCase() === params.slug.toLowerCase();
   })[0];
 
-  const articles = await fetchAPI(
-    `/articles?_sort=published_at:DESC&_where[category.slug]=${params.slug}&_limit=10`
+  const { data: articles, meta } = await fetchAPI(
+    `/articles?pagination[limit]=10&sort=publishedAt:desc&filters[category][slug]=${params.slug}&populate[0]=image&populate[1]=category&populate[2]=writer.picture`
   );
 
-  const totalArticles = await fetchAPI(
-    `/articles/count?_where[category.slug]=${params.slug}`
-  );
+  const totalArticles = meta.pagination.total;
 
   return {
     props: { category, categories, articles, totalArticles },

@@ -22,7 +22,8 @@ export default function index({ categories }) {
       title: "Home",
       path: "samplefiles",
     },
-    ...categories.map((category) => {
+    ...categories.map((item) => {
+      const category = item.attributes;
       return {
         title: category.name,
         path: "samplefiles/category/" + category.slug,
@@ -109,7 +110,8 @@ export default function index({ categories }) {
       <SampleFileTagline />
       <AppStats stats={sampleFileStats()} />
       <SampleFileFeatured
-        items={categories.map((category) => {
+        items={categories.map((item) => {
+          const category = item.attributes;
           return {
             title: category.name,
             detail: category.info,
@@ -134,7 +136,9 @@ export default function index({ categories }) {
 
 export async function getStaticProps() {
   // Run API calls in parallel
-  const categories = await fetchAPI("/sample-file-types");
+  const { data: categories } = await fetchAPI(
+    "/sample-file-types?pagination[limit]=-1"
+  );
 
   return {
     props: { categories },

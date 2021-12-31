@@ -98,7 +98,8 @@ function SampleFilesHero() {
                   overflow="hidden"
                   shadow="md"
                 >
-                  {results.map((item, idx) => {
+                  {results.map((res, idx) => {
+                    const item = res.attributes;
                     return (
                       <Box
                         key={idx}

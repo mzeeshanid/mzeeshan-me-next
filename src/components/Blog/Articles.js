@@ -13,6 +13,13 @@ import StrapiImage from "./StrapiImage";
 
 const Articles = ({ articles }) => {
   return articles.map((article, idx) => {
+    const articleAttributes = article.attributes;
+
+    const authorData = articleAttributes.writer.data;
+    const { data: authorImageData } = authorData.attributes.picture;
+    const imageData = articleAttributes.image.data;
+    const categoryData = articleAttributes.category.data;
+
     return (
       <Flex
         key={idx}
@@ -29,12 +36,12 @@ const Articles = ({ articles }) => {
           bg={useColorModeValue("white", "gray.800")}
           maxW="2xl"
         >
-          {article.image && (
+          {imageData && imageData.attributes && imageData.attributes.formats && (
             <Box w="full" roundedTop="lg" overflow={"hidden"}>
               <StrapiImage
-                image={article.image}
-                width={article.image.width}
-                height={article.image.height}
+                image={imageData.attributes}
+                width={imageData.attributes.width}
+                height={imageData.attributes.height}
               />
             </Box>
           )}
@@ -46,10 +53,10 @@ const Articles = ({ articles }) => {
                 textTransform="uppercase"
                 color={theme.colors.teal[500]}
               >
-                {article.category.name}
+                {categoryData.attributes.name}
               </chakra.span>
               <Link
-                href={`/article/${article.slug}`}
+                href={`/article/${articleAttributes.slug}`}
                 display="block"
                 color={useColorModeValue("gray.800", "white")}
                 fontWeight="bold"
@@ -57,30 +64,30 @@ const Articles = ({ articles }) => {
                 mt={2}
                 _hover={{ color: "gray.600", textDecor: "underline" }}
               >
-                {article.title}
+                {articleAttributes.title}
               </Link>
               <chakra.p
                 mt={2}
                 fontSize="sm"
                 color={useColorModeValue("gray.600", "gray.400")}
               >
-                {article.description}
+                {articleAttributes.description}
               </chakra.p>
             </Box>
             <Box mt={4}>
               <Flex alignItems="center">
                 <Flex alignItems="center">
-                  {article.author.picture && (
+                  {authorImageData && (
                     <Box w={"50px"} h={"50px"} rounded="full" overflow="hidden">
                       <StrapiImage
-                        image={article.author.picture}
+                        image={authorImageData.attributes}
                         width="100%"
                         height="100%"
                       />
                     </Box>
                   )}
                   <Text mx={2} fontWeight="bold" color={theme.colors.black}>
-                    {article.author.name}
+                    {authorData.attributes.name}
                   </Text>
                 </Flex>
                 <chakra.span
@@ -88,7 +95,9 @@ const Articles = ({ articles }) => {
                   fontSize="sm"
                   color={theme.colors.gray[600]}
                 >
-                  <Moment format="Do MMM YYYY">{article.published_at}</Moment>
+                  <Moment format="Do MMM YYYY">
+                    {articleAttributes.publishedAt}
+                  </Moment>
                 </chakra.span>
               </Flex>
             </Box>

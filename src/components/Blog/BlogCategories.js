@@ -11,12 +11,16 @@ import React from "react";
 
 export default function BlogCategories({ categories }) {
   const menuItems = () => {
-    return categories.map((item, idx) => {
+    return categories.map((category, idx) => {
+      const categoryAttributes = category.attributes;
       return (
         <LinkBox key={idx}>
-          <LinkOverlay href={`/category/${item.slug}`} color="teal">
+          <LinkOverlay
+            href={`/category/${categoryAttributes.slug}`}
+            color="teal"
+          >
             <Button variant="outline" colorScheme="teal">
-              {item.name}
+              {categoryAttributes.name}
             </Button>
           </LinkOverlay>
         </LinkBox>

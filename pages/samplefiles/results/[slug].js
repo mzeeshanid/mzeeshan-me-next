@@ -22,7 +22,8 @@ export default function SampleFilesResultsIndex({ categories, extensions }) {
       title: "Home",
       path: "/samplefiles",
     },
-    ...categories.map((category) => {
+    ...categories.map((item) => {
+      const category = item.attributes;
       return {
         title: category.name,
         path: "/samplefiles/category/" + category.slug,
@@ -30,9 +31,9 @@ export default function SampleFilesResultsIndex({ categories, extensions }) {
     }),
   ];
 
-  const metaTitle = extensions[0].slug;
-  const metaDesc = extensions[0].details;
-  const slug = extensions[0].slug;
+  const metaTitle = extensions[0].attributes.slug;
+  const metaDesc = extensions[0].attributes.details;
+  const slug = extensions[0].attributes.slug;
 
   return (
     <LightMode>
@@ -66,7 +67,8 @@ export default function SampleFilesResultsIndex({ categories, extensions }) {
       <SampleFileTagline />
       <AppStats stats={sampleFileStats()} />
       <SampleFileFeatured
-        items={categories.map((category) => {
+        items={categories.map((item) => {
+          const category = item.attributes;
           return {
             title: category.name,
             detail: category.info,
@@ -89,12 +91,14 @@ export default function SampleFilesResultsIndex({ categories, extensions }) {
 }
 
 export async function getStaticPaths() {
-  const extensions = await fetchAPI(`/sample-file-extensions?_limit=-1`);
+  const { data: extensions } = await fetchAPI(
+    `/sample-file-extensions?pagination[limit]=-1`
+  );
 
   return {
     paths: extensions.map((extension) => ({
       params: {
-        slug: extension.slug.toLowerCase(),
+        slug: extension.attributes.slug.toLowerCase(),
       },
     })),
     fallback: false,
@@ -105,11 +109,12 @@ export async function getStaticProps(context) {
   const { params } = context;
   const { slug } = params;
 
-  const [categories, extensions] = await Promise.all([
-    fetchAPI("/sample-file-types"),
-    fetchAPI(`/sample-file-extensions?_where[slug]=${slug.toLowerCase()}`),
+  const [{ data: categories }, { data: extension }] = await Promise.all([
+    fetchAPI("/sample-file-types?pagination[limit]=-1"),
+    fetchAPI(`/sample-file-extensions/${slug.toLowerCase()}`),
   ]);
 
+  const extensions = extension === undefined ? [] : [extension];
   return {
     props: { categories, extensions },
     revalidate: 1,

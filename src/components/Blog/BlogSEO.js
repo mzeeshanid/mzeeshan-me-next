@@ -4,17 +4,26 @@ import { GlobalContext } from "../../../pages/_app.js";
 import { getStrapiMedia } from "../../../lib/media.js";
 
 const Seo = ({ seo, url }) => {
-  const { defaultSeo, siteName } = useContext(GlobalContext);
+  const global = useContext(GlobalContext);
+  const { defaultSeo, siteName } = global.attributes;
+  const shareImageAttributes = defaultSeo.shareImage.data.attributes;
+
+  const defaultSeoAttributes = { ...defaultSeo };
+  defaultSeoAttributes.shareImage = shareImageAttributes;
+
   const seoWithDefaults = {
-    ...defaultSeo,
+    ...defaultSeoAttributes,
     ...seo,
   };
+
   const fullSeo = {
     ...seoWithDefaults,
     // Add title suffix
     metaTitle: `${seoWithDefaults.metaTitle} | ${siteName}`,
     // Get full image URL
-    shareImage: getStrapiMedia(seoWithDefaults.shareImage),
+    shareImage: seoWithDefaults.shareImage
+      ? getStrapiMedia(seoWithDefaults.shareImage)
+      : "",
   };
 
   return (

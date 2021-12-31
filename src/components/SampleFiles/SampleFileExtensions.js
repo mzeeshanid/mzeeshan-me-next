@@ -26,7 +26,8 @@ export default function SampleFileExtensions({ extensions }) {
             </Tr>
           </Thead>
           <Tbody color={theme.colors.gray[800]}>
-            {extensions.map((extension, idx) => {
+            {extensions.map((item, idx) => {
+              const extension = item.attributes;
               return (
                 <Tr key={idx}>
                   <Td>{extension.name}</Td>

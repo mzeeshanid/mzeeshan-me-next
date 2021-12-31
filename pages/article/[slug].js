@@ -4,7 +4,14 @@ import { fetchAPI } from "../../lib/api";
 import { getStrapiMedia } from "../../lib/media";
 import myNavItems from "../../src/data/myNavItems";
 import Seo from "../../src/components/Blog/BlogSEO";
-import { AspectRatio, Box, Center, Heading, Text } from "@chakra-ui/layout";
+import {
+  AspectRatio,
+  Box,
+  Center,
+  Heading,
+  Text,
+  Link,
+} from "@chakra-ui/layout";
 import { LightMode } from "@chakra-ui/color-mode";
 import AppNavBar from "../../src/components/AppNavBar";
 import BlogCategories from "../../src/components/Blog/BlogCategories";
@@ -18,6 +25,7 @@ import rehypeRaw from "rehype-raw";
 
 import Image from "next/image";
 import StrapiImage from "../../src/components/Blog/StrapiImage";
+import isExternalLink from "../../src/hooks/isExternalLink";
 
 const Article = ({ article, categories }) => {
   const components = {
@@ -56,32 +64,49 @@ const Article = ({ article, categories }) => {
       }
       return <p>{paragraph.children}</p>;
     },
+    a: (props) => {
+      const { children, node } = props;
+      const { properties } = node;
+      const { href } = properties;
+
+      return (
+        <Link color={theme.colors.teal[500]} href={href} isExternal={true}>
+          {children}
+        </Link>
+      );
+    },
   };
 
+  const articleAttributes = article.attributes;
+  const imageData = articleAttributes.image.data;
+
   const seo = {
-    metaTitle: article.title,
-    metaDescription: article.description,
-    shareImage: article.image,
+    metaTitle: articleAttributes.title,
+    metaDescription: articleAttributes.description,
+    shareImage: imageData.attributes,
     article: true,
   };
 
   return (
     <LightMode>
-      <Seo seo={seo} url={`https://www.mzeeshan.me/article/${article.slug}`} />
+      <Seo
+        seo={seo}
+        url={`https://www.mzeeshan.me/article/${articleAttributes.slug}`}
+      />
       <AppNavBar navItems={myNavItems()} />
       <BlogCategories categories={categories} />
       <Center p={4} textColor={theme.colors.black} bg={theme.colors.gray[50]}>
         <Box w="full" maxW="800px" overflow="scroll">
           <Heading as="h1" textColor={theme.colors.black}>
-            {article.title}
+            {article.attributes.title}
           </Heading>
           <Box p={4} />
-          {article.image && (
+          {imageData && imageData.attributes && (
             <Box w="full" overflow={"hidden"}>
               <StrapiImage
-                image={article.image}
-                width={article.image.width}
-                height={article.image.height}
+                image={imageData.attributes}
+                width={imageData.attributes.width}
+                height={imageData.attributes.height}
               />
             </Box>
           )}
@@ -89,63 +114,22 @@ const Article = ({ article, categories }) => {
             components={ChakraUIRenderer(components)}
             remarkPlugins={[gfm]}
             rehypePlugins={[rehypeRaw]}
-            children={article.content}
+            children={article.attributes.content}
           />
         </Box>
       </Center>
       <AppFooter />
     </LightMode>
-
-    // <Layout categories={categories}>
-
-    //   <div
-    //     id="banner"
-    //     className="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-padding uk-margin"
-    //     data-src={imageUrl}
-    //     data-srcset={imageUrl}
-    //     data-uk-img
-    //   >
-    //     <h1>{article.title}</h1>
-    //   </div>
-    //   <div className="uk-section">
-    //     <div className="uk-container uk-container-small">
-    //       <ReactMarkdown source={article.content} escapeHtml={false} />
-    //       <hr className="uk-divider-small" />
-    //       <div className="uk-grid-small uk-flex-left" data-uk-grid="true">
-    //         <div>
-    //           {article.author.picture && (
-    //             <Image
-    //               image={article.author.picture}
-    //               style={{
-    //                 position: "static",
-    //                 borderRadius: "50%",
-    //                 height: 30,
-    //               }}
-    //             />
-    //           )}
-    //         </div>
-    //         <div className="uk-width-expand">
-    //           <p className="uk-margin-remove-bottom">
-    //             By {article.author.name}
-    //           </p>
-    //           <p className="uk-text-meta uk-margin-remove-top">
-    //             <Moment format="MMM Do YYYY">{article.published_at}</Moment>
-    //           </p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </Layout>
   );
 };
 
 export async function getStaticPaths() {
-  const articles = await fetchAPI("/articles");
+  const { data: articles } = await fetchAPI("/articles");
 
   return {
     paths: articles.map((article) => ({
       params: {
-        slug: article.slug,
+        slug: article.attributes.slug,
       },
     })),
     fallback: false,
@@ -153,11 +137,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const articles = await fetchAPI(`/articles?slug=${params.slug}`);
-  const categories = await fetchAPI("/categories");
+  const { data: article } = await fetchAPI(`/articles/${params.slug}`);
+  const { data: categories } = await fetchAPI("/categories");
 
   return {
-    props: { article: articles[0], categories },
+    props: { article: article, categories },
     revalidate: 1,
   };
 }
