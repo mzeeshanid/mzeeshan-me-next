@@ -1,17 +1,8 @@
-import Moment from "react-moment";
 import { fetchAPI } from "../../lib/api";
 
-import { getStrapiMedia } from "../../lib/media";
 import myNavItems from "../../src/data/myNavItems";
 import Seo from "../../src/components/Blog/BlogSEO";
-import {
-  AspectRatio,
-  Box,
-  Center,
-  Heading,
-  Text,
-  Link,
-} from "@chakra-ui/layout";
+import { Box, Center, Heading, Link } from "@chakra-ui/layout";
 import { LightMode } from "@chakra-ui/color-mode";
 import AppNavBar from "../../src/components/AppNavBar";
 import BlogCategories from "../../src/components/Blog/BlogCategories";
@@ -25,7 +16,7 @@ import rehypeRaw from "rehype-raw";
 
 import Image from "next/image";
 import StrapiImage from "../../src/components/Blog/StrapiImage";
-import isExternalLink from "../../src/hooks/isExternalLink";
+import Articles from "../../src/components/Blog/Articles";
 
 const Article = ({ article, categories }) => {
   const components = {
@@ -116,6 +107,17 @@ const Article = ({ article, categories }) => {
             rehypePlugins={[rehypeRaw]}
             children={article.attributes.content}
           />
+          {article.attributes.related &&
+            article.attributes.related.data &&
+            article.attributes.related.data.length > 0 && (
+              <>
+                <Box p={2} />
+                <Heading color={theme.colors.black} textAlign={"center"}>
+                  More To Read
+                </Heading>
+                <Articles articles={article.attributes.related.data} />
+              </>
+            )}
         </Box>
       </Center>
       <AppFooter />
@@ -137,8 +139,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { data: article } = await fetchAPI(`/articles/${params.slug}`);
+  // const { data: article } = await fetchAPI(`/articles/${params.slug}`);
+  const { data: articles } = await fetchAPI(
+    `/articles?filters[slug][$eq]=${params.slug}&populate[0]=category&populate[1]=writer&populate[2]=writer.picture&populate[3]=image&populate[4]=related&populate[5]=related.image&populate[6]=related.writer&populate[7]=related.writer.picture&populate[8]=related.category`
+  );
   const { data: categories } = await fetchAPI("/categories");
+
+  const article = articles[0];
 
   return {
     props: { article: article, categories },
