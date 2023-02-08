@@ -10,7 +10,7 @@ function myTools() {
         "It's a helper tool that allows to create a direct link of a file by using share url of google drive.",
       image: g2dAppIcon,
       alt: "G2D web app icon",
-      url: "//www.g2d.dev/",
+      url: "//g2d.vercel.app/",
     },
     {
       title: "Sample Files",
