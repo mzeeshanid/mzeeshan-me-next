@@ -108,7 +108,7 @@ export default function Home() {
         data={myTools()}
         bg="gray.100"
       />
-      <AppContribution />
+      {/* <AppContribution /> */}
       <AppFooter />
     </>
   );
