@@ -5,8 +5,6 @@ import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 
 import * as ga from "../lib/ga";
-import { DefaultSeo } from "next-seo";
-import appGenericMeta from "../src/data/appGenericMeta";
 
 import { createContext } from "react";
 import { fetchAPI } from "../lib/api";
@@ -37,27 +35,11 @@ function MyApp({ Component, pageProps }) {
     };
   }, [router.events]);
 
-  const meta = appGenericMeta();
-
   library.add(fas);
 
   return (
     <GlobalContext.Provider value={global}>
       <ChakraProvider>
-        {/* <DefaultSeo
-          defaultTitle={meta.title}
-          openGraph={{
-            type: "website",
-            locale: "en",
-            url: "https://www.mzeeshan.me/",
-            site_name: meta.title,
-          }}
-          twitter={{
-            handle: "@handle",
-            site: "@site",
-            cardType: "summary_large_image",
-          }}
-        /> */}
         <Component {...pageProps} />
       </ChakraProvider>
     </GlobalContext.Provider>

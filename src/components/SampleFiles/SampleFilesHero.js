@@ -1,4 +1,3 @@
-import { Button } from "@chakra-ui/button";
 import { Image } from "@chakra-ui/image";
 import { Input } from "@chakra-ui/input";
 import { Box, Heading, Text, VStack } from "@chakra-ui/layout";
@@ -51,8 +50,6 @@ function SampleFilesHero() {
         top={0}
         objectFit="cover"
         objectPosition="bottom"
-        w="100%"
-        h="100%"
         src="/assets/mzeeshan_me_hero.jpeg"
         alt="Hero Image"
         placeholder={"blur"}
