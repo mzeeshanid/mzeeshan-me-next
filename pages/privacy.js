@@ -1,26 +1,25 @@
 import React from "react";
-import Head from "next/head";
 
 import {
   Box,
   Center,
   Heading,
+  LightMode,
   Link,
   ListItem,
   Text,
   UnorderedList,
-  LightMode,
   theme,
 } from "@chakra-ui/react";
 
-import myNavItems from "../src/data/myNavItems";
 import AppNavBar from "../src/components/AppNavBar";
+import myNavItems from "../src/data/myNavItems";
 
 import { chakra } from "@chakra-ui/system";
 
-import AppHeadingText from "../src/components/AppHeadingText";
-import AppFooter from "../src/components/AppFooter";
 import { NextSeo } from "next-seo";
+import AppFooter from "../src/components/AppFooter";
+import AppHeadingText from "../src/components/AppHeadingText";
 import appGenericMeta from "../src/data/appGenericMeta";
 
 export default function Privacy() {

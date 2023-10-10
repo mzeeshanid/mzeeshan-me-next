@@ -11,12 +11,12 @@ import AppFooter from "../../src/components/AppFooter";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
-import theme from "@chakra-ui/theme";
 import rehypeRaw from "rehype-raw";
 
 import Image from "next/image";
 import StrapiImage from "../../src/components/Blog/StrapiImage";
 import Articles from "../../src/components/Blog/Articles";
+import { theme } from "@chakra-ui/react";
 
 const Article = ({ article, categories }) => {
   const components = {

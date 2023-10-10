@@ -1,10 +1,8 @@
-import { LightMode } from "@chakra-ui/color-mode";
+import { LightMode } from "@chakra-ui/system";
 import { FAQPageJsonLd, NextSeo, SoftwareAppJsonLd } from "next-seo";
 import React from "react";
 import MyApp from "../src/components/PersonalAppsTemplate/MyApp";
 import MZfileManageData from "../src/data/mzfileManageData";
-
-import Head from "next/head";
 
 export default function MZFileManage() {
   const appData = MZfileManageData();

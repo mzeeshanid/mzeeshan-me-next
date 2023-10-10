@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import subcategories from "../../apis/subcategories";
-import axios from "axios";
 import { CANCEL_ERROR } from "apisauce";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import subcategories from "../../apis/subcategories";
 
 function useSearchSuggestions(keyword) {
   const [loading, setLoading] = useState(true);

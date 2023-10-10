@@ -1,8 +1,8 @@
-import App from "next/app";
-import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
+import App from "next/app";
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
+import "../styles/globals.css";
 
 import * as ga from "../lib/ga";
 

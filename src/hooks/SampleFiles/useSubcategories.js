@@ -1,7 +1,7 @@
+import { CANCEL_ERROR } from "apisauce";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import subcategories from "../../apis/subcategories";
-import axios from "axios";
-import { CANCEL_ERROR } from "apisauce";
 
 function useSubcategories(categoryId, keyword, page) {
   const [loading, setLoading] = useState(true);

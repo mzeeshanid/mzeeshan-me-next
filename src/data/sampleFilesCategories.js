@@ -4,10 +4,10 @@ import { ImStack } from "react-icons/im";
 
 import {
   FiArchive,
-  FiVideo,
-  FiMusic,
   FiFileText,
   FiImage,
+  FiMusic,
+  FiVideo,
 } from "react-icons/fi";
 
 function sampleFilesCategories() {

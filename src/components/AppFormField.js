@@ -1,9 +1,6 @@
 import { Input } from "@chakra-ui/input";
-import { HStack } from "@chakra-ui/layout";
-import { Text } from "@chakra-ui/layout";
-import { Spacer } from "@chakra-ui/layout";
-import { VStack } from "@chakra-ui/layout";
-import theme from "@chakra-ui/theme";
+import { HStack, Spacer, Text, VStack } from "@chakra-ui/layout";
+import { theme } from "@chakra-ui/react";
 import { useFormikContext } from "formik";
 import React, { useEffect, useState } from "react";
 

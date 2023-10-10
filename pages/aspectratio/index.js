@@ -5,7 +5,6 @@ import {
   VStack,
   Center,
   Text,
-  theme,
   Tab,
   Tabs,
   TabList,
@@ -13,15 +12,16 @@ import {
   TabPanels,
   Box,
   chakra,
+  theme,
 } from "@chakra-ui/react";
 import AppNavBar from "../../src/components/AppNavBar";
 import myNavItems from "../../src/data/myNavItems";
 import AppFooter from "../../src/components/AppFooter";
-import Image from "next/dist/client/image";
 
 import aspectRatioAppIcon from "../../public/assets/aspect_ratio_app_icon.png";
 import AspectRatioForm from "../../src/components/AspectRatio/AspectRatioForm";
 import { NextSeo } from "next-seo";
+import Image from "next/image";
 
 export default function index() {
   const [aspectWidth, setAspectWidth] = useState(200.0);
@@ -96,8 +96,8 @@ export default function index() {
       <Center bg={theme.colors.white}>
         <VStack maxW={"800px"} p={4}>
           <Image
-            width={"150px"}
-            height={"150px"}
+            width={150}
+            height={150}
             src={aspectRatioAppIcon}
             placeholder="blur"
             alt="Aspect Ratio Calculator App Icon"

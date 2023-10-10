@@ -1,6 +1,4 @@
-import { HStack, Spacer } from "@chakra-ui/layout";
-import { Text } from "@chakra-ui/layout";
-import { VStack } from "@chakra-ui/layout";
+import { HStack, Spacer, Text, VStack } from "@chakra-ui/layout";
 import { Textarea } from "@chakra-ui/textarea";
 import { useFormikContext } from "formik";
 import React, { useState } from "react";
@@ -16,13 +14,8 @@ function AppFormTextArea({
   resize = "none",
   textAreaHeight,
 }) {
-  const {
-    errors,
-    handleChange,
-    setFieldTouched,
-    touched,
-    values,
-  } = useFormikContext();
+  const { errors, handleChange, setFieldTouched, touched, values } =
+    useFormikContext();
   const [isEditing, setIsEditing] = useState(false);
   return (
     <VStack w="100%" align="start">

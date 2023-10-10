@@ -1,16 +1,16 @@
-import React from "react";
 import {
-  chakra,
   Box,
-  Flex,
-  Link,
-  Text,
-  Stack,
-  SimpleGrid,
-  Icon,
   Button,
+  Flex,
+  Icon,
+  Link,
+  SimpleGrid,
+  Stack,
+  Text,
+  chakra,
   theme,
 } from "@chakra-ui/react";
+import React from "react";
 
 export default function AppClone({ cloneData }) {
   const topBg = theme.colors.gray[100];

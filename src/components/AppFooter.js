@@ -1,11 +1,16 @@
-import React from "react";
-import { IconButton } from "@chakra-ui/button";
-import { DarkMode } from "@chakra-ui/color-mode";
-import { Flex, Heading, HStack, Link, Text, VStack } from "@chakra-ui/layout";
+import {
+  Flex,
+  Heading,
+  HStack,
+  Link,
+  Spacer,
+  Text,
+  VStack,
+} from "@chakra-ui/layout";
 import { useBreakpointValue } from "@chakra-ui/media-query";
-import { Spacer } from "@chakra-ui/layout";
-import { FaLinkedin, FaSkype, FaTwitter, FaAt } from "react-icons/fa";
-import Icon from "@chakra-ui/icon";
+import { DarkMode, Icon, IconButton } from "@chakra-ui/react";
+import React from "react";
+import { FaLinkedin, FaSkype, FaTwitter } from "react-icons/fa";
 import useTextBPValue from "../hooks/useTextBPValue";
 
 function AppFooter() {
@@ -41,11 +46,6 @@ function AppFooter() {
       araiLabel: "Skype Profile",
       icon: FaSkype,
     },
-    // {
-    //   link: "https://www.sigmatraffic.com?ref=98846",
-    //   araiLabel: "Sigma Traffic",
-    //   icon: FaAt,
-    // },
   ];
 
   return (

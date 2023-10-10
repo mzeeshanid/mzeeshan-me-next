@@ -1,31 +1,32 @@
-import React from "react";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Button,
   Center,
+  Circle,
   Flex,
   HStack,
-  Spacer,
-  LightMode,
-  VStack,
   Heading,
-  Text,
-  Link,
   IconButton,
-  useBreakpointValue,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
+  LightMode,
+  Link,
   LinkBox,
   LinkOverlay,
-  Circle,
-  theme,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Spacer,
+  Text,
+  VStack,
   Wrap,
   WrapItem,
+  theme,
+  useBreakpointValue,
 } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import isExternalLink from "../hooks/isExternalLink";
 import Image from "next/image";
+import React from "react";
+import profilePicture from "../../public/assets/profile_pic.jpeg";
+import isExternalLink from "../hooks/isExternalLink";
 import useGoToLink from "../hooks/useGoToLink";
 
 function AppNavBar({ navItems }) {
@@ -112,10 +113,11 @@ function AppNavBar({ navItems }) {
             <HStack pl={paddingLeftRight} pr={paddingLeftRight} pt={4} pb={4}>
               <Circle mx={4} size="60px" overflow="hidden">
                 <Image
-                  src="/assets/profile_pic.jpeg"
+                  src={profilePicture}
                   alt="Profile picture"
-                  width="60px"
-                  height="60px"
+                  width={60}
+                  height={60}
+                  loading="lazy"
                 />
               </Circle>
               <VStack alignItems="flex-start" spacing={0}>

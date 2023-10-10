@@ -1,14 +1,13 @@
-import React from "react";
 import {
-  chakra,
   Box,
-  Flex,
-  useColorModeValue,
-  Icon,
-  Stack,
-  theme,
   Circle,
+  Flex,
+  Stack,
+  chakra,
+  theme,
+  useColorModeValue,
 } from "@chakra-ui/react";
+import React from "react";
 
 export default function MyAppFeaturesGrid({ features }) {
   const Feature = (props) => {

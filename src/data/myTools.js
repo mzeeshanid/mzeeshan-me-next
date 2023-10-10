@@ -1,6 +1,6 @@
+import aspectRatioIcon from "../../public/assets/aspect_ratio_app_icon.png";
 import g2dAppIcon from "../../public/assets/g2d_app_icon.png";
 import fileManageIcon from "../../public/assets/mzfilemanage_appicon.png";
-import aspectRatioIcon from "../../public/assets/aspect_ratio_app_icon.png";
 
 function myTools() {
   const tools = [

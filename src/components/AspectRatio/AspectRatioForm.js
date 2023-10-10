@@ -2,11 +2,11 @@ import React from "react";
 import AppForm from "../AppForm";
 import * as Yup from "yup";
 import AppFormField from "../AppFormField";
-import theme from "@chakra-ui/theme";
 import AppFormButton from "../AppFormButton";
 import { LightMode } from "@chakra-ui/color-mode";
 import { Center, VStack, Box, SimpleGrid, Divider } from "@chakra-ui/layout";
 import { useBreakpointValue } from "@chakra-ui/media-query";
+import { theme } from "@chakra-ui/react";
 
 const validationSchema = Yup.object().shape({
   originalWidth: Yup.number()

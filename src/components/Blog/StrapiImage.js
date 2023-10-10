@@ -1,5 +1,5 @@
+import Image from "next/image";
 import { getStrapiMedia } from "../../../lib/media";
-import Image from "next/dist/client/image";
 
 const StrapiImage = ({ image, ...rest }) => {
   const imageUrl = getStrapiMedia(image);

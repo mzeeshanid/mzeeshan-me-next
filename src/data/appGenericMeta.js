@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function appGenericMeta() {
   const imageUrl = "https://www.mzeeshan.me/assets/mzeeshan_me_hero.jpeg";
   return {

@@ -1,6 +1,5 @@
-import React from "react";
-import xcodeAppIcon from "../../public/assets/xcode_app_icon.png";
 import reactAppIcon from "../../public/assets/react_app_icon.png";
+import xcodeAppIcon from "../../public/assets/xcode_app_icon.png";
 
 function mySkills() {
   const skills = [
@@ -10,7 +9,7 @@ function mySkills() {
       background: "light-2",
       alt: "xcode app icon image",
       data: [
-        "Swift & Objective-C",
+        "SwiftUI, Swift & Objective-C",
         "Object Oriented Programming",
         "Protocol Oriented Programming",
         "UIKit, CoreLocation, CoreData",

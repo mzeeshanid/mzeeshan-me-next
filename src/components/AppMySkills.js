@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   GridItem,
   List,
@@ -7,6 +6,7 @@ import {
   VStack,
   theme,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import React from "react";
 import mySkills from "../data/mySkills";
 import useTextBPValue from "../hooks/useTextBPValue";
@@ -47,11 +47,12 @@ function AppMySkills() {
                 })}
               </List>
               <Image
-                width="150px"
-                height="150px"
+                width={150}
+                height={150}
                 src={skill.image}
                 placeholder={"blur"}
                 alt={skill.alt}
+                loading="lazy"
               />
             </GridItem>
           );

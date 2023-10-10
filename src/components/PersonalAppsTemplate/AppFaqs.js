@@ -7,9 +7,9 @@ import {
 } from "@chakra-ui/accordion";
 import { LightMode } from "@chakra-ui/color-mode";
 import { Box, Center } from "@chakra-ui/layout";
-import theme from "@chakra-ui/theme";
 import React from "react";
 import AppHeadingText from "../AppHeadingText";
+import { theme } from "@chakra-ui/react";
 
 export default function AppFaqs({ faqs }) {
   return (

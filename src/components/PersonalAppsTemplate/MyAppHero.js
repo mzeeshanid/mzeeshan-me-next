@@ -1,14 +1,14 @@
-import React from "react";
 import {
-  chakra,
   Box,
+  LightMode,
+  Link,
   Stack,
   Text,
-  LightMode,
+  chakra,
   theme,
-  Link,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import React from "react";
 import AppStoreBadge from "../../../public/assets/appstore_badge.png";
 
 const MyAppHero = ({ heroData }) => {
@@ -62,6 +62,7 @@ const MyAppHero = ({ heroData }) => {
                   h={"full"}
                   placeholder={"blur"}
                   alt={"iOS Store Button"}
+                  loading="lazy"
                 />
               </Box>
             </Link>

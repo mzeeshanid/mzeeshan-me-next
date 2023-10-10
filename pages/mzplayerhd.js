@@ -1,9 +1,8 @@
-import { LightMode } from "@chakra-ui/react";
+import { LightMode } from "@chakra-ui/system";
 import { FAQPageJsonLd, NextSeo, SoftwareAppJsonLd } from "next-seo";
 import React from "react";
-import Head from "next/head";
-import MZPlayerHDData from "../src/data/mzPlayerHDData";
 import MyApp from "../src/components/PersonalAppsTemplate/MyApp";
+import MZPlayerHDData from "../src/data/mzPlayerHDData";
 
 export default function MZPlayerHD() {
   const appData = MZPlayerHDData();

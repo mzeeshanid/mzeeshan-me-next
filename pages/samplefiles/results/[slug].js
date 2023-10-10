@@ -1,6 +1,5 @@
 import { LightMode } from "@chakra-ui/color-mode";
-import { Center, Text, VStack, Box } from "@chakra-ui/layout";
-import theme from "@chakra-ui/theme";
+import { VStack } from "@chakra-ui/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { fetchAPI } from "../../../lib/api";
@@ -15,6 +14,8 @@ import SampleFileExtensions from "../../../src/components/SampleFiles/SampleFile
 import SampleFileVariant from "../../../src/components/SampleFiles/SampleFileVariant";
 import SampleFileTagline from "../../../src/components/SampleFiles/SampleFileTagline";
 import { NextSeo } from "next-seo";
+import { theme } from "@chakra-ui/react";
+import SampleFilesHero from "../../../src/components/SampleFiles/SampleFilesHero";
 
 export default function SampleFilesResultsIndex({ categories, extensions }) {
   const navItems = [
@@ -61,6 +62,7 @@ export default function SampleFilesResultsIndex({ categories, extensions }) {
         }}
       />
       <AppNavBar navItems={navItems} />
+      <SampleFilesHero />
       {extensions.map((extension, idx) => {
         return <SampleFileVariant key={idx} extension={extension} />;
       })}

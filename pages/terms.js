@@ -6,18 +6,17 @@ import {
   ListItem,
   Text,
   UnorderedList,
+  theme,
 } from "@chakra-ui/react";
 
-import { chakra } from "@chakra-ui/system";
-import { LightMode } from "@chakra-ui/color-mode";
-import theme from "@chakra-ui/theme";
+import { LightMode, chakra } from "@chakra-ui/system";
+import { NextSeo } from "next-seo";
 import React from "react";
 import AppFooter from "../src/components/AppFooter";
 import AppHeadingText from "../src/components/AppHeadingText";
 import AppNavBar from "../src/components/AppNavBar";
-import myNavItems from "../src/data/myNavItems";
 import appGenericMeta from "../src/data/appGenericMeta";
-import { NextSeo } from "next-seo";
+import myNavItems from "../src/data/myNavItems";
 
 export default function Terms() {
   const navItems = [...myNavItems()];

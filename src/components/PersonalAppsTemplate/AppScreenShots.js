@@ -1,19 +1,19 @@
 import {
-  LightMode,
-  Center,
   Box,
+  Center,
+  HStack,
+  Heading,
+  LightMode,
+  Link,
+  Text,
+  VStack,
   Wrap,
   WrapItem,
   theme,
-  HStack,
-  VStack,
-  Heading,
-  Text,
-  Link,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import React from "react";
 import AppHeadingText from "../AppHeadingText";
-import Image from "next/image";
 
 export default function AppScreenShots({ screenshots, appLink, hero }) {
   return (
@@ -23,10 +23,11 @@ export default function AppScreenShots({ screenshots, appLink, hero }) {
         <Center p={4} bg={theme.colors.white}>
           <HStack>
             <Image
-              width="100px"
-              height="100px"
+              width={100}
+              height={100}
               placeholder={"blur"}
               src={hero.appIcon}
+              loading="lazy"
             />
             <VStack align="flex-start" p={2} spacing={0}>
               <Heading as="h1" color={theme.colors.black}>
@@ -61,6 +62,7 @@ export default function AppScreenShots({ screenshots, appLink, hero }) {
                       src={image}
                       alt={`MZFileManager App Screenshot ${idx}`}
                       placeholder={"blur"}
+                      loading="lazy"
                     />
                   </Box>
                 </WrapItem>

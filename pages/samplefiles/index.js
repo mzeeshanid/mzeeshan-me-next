@@ -31,7 +31,7 @@ export default function index({ categories }) {
     }),
   ];
 
-  const metaTitle = "Sample Files";
+  const metaTitle = "Ultimate Resource for Sample Files";
   const metaDesc =
     "A web app, that allow developers and testers to download free sample files, having more than 55 differet types.";
 

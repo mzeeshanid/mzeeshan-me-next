@@ -1,13 +1,13 @@
-import React from "react";
 import {
-  chakra,
   Box,
   Flex,
-  useColorModeValue,
   Link,
-  theme,
   Text,
+  chakra,
+  theme,
+  useColorModeValue,
 } from "@chakra-ui/react";
+import React from "react";
 import Moment from "react-moment";
 import StrapiImage from "./StrapiImage";
 
@@ -36,15 +36,17 @@ const Articles = ({ articles }) => {
           bg={useColorModeValue("white", "gray.800")}
           maxW="2xl"
         >
-          {imageData && imageData.attributes && imageData.attributes.formats && (
-            <Box w="full" roundedTop="lg" overflow={"hidden"}>
-              <StrapiImage
-                image={imageData.attributes}
-                width={imageData.attributes.width}
-                height={imageData.attributes.height}
-              />
-            </Box>
-          )}
+          {imageData &&
+            imageData.attributes &&
+            imageData.attributes.formats && (
+              <Box w="full" roundedTop="lg" overflow={"hidden"}>
+                <StrapiImage
+                  image={imageData.attributes}
+                  width={imageData.attributes.width}
+                  height={imageData.attributes.height}
+                />
+              </Box>
+            )}
 
           <Box p={6}>
             <Box>
@@ -81,8 +83,8 @@ const Articles = ({ articles }) => {
                     <Box w={"50px"} h={"50px"} rounded="full" overflow="hidden">
                       <StrapiImage
                         image={authorImageData.attributes}
-                        width="100%"
-                        height="100%"
+                        width={60}
+                        height={60}
                       />
                     </Box>
                   )}

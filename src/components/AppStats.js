@@ -1,12 +1,6 @@
 import { DarkMode } from "@chakra-ui/color-mode";
 import { Box } from "@chakra-ui/layout";
-import {
-  Stat,
-  StatGroup,
-  StatHelpText,
-  StatLabel,
-  StatNumber,
-} from "@chakra-ui/stat";
+import { Stat, StatGroup, StatLabel, StatNumber } from "@chakra-ui/stat";
 import React from "react";
 
 function AppStats({ stats }) {

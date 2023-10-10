@@ -1,16 +1,20 @@
 import {
   Box,
+  Button,
+  Circle,
   Heading,
+  Link,
+  Stack,
   Text,
+  theme,
   useBreakpointValue,
   VStack,
-  chakra,
-  useColorModeValue,
 } from "@chakra-ui/react";
-import React from "react";
 import Image from "next/image";
+import React from "react";
 
-import heroImage from "../../public/assets/mzeeshan_me_hero.jpeg";
+import { SiFiverr, SiUpwork } from "react-icons/si";
+import profileImage from "../../public/assets/profile_pic.jpeg";
 
 function AppHero({ as = "h2" }) {
   const headingBPValue = useBreakpointValue({
@@ -24,38 +28,94 @@ function AppHero({ as = "h2" }) {
     lg: "2xl",
   });
 
+  const paddingBPValue = useBreakpointValue({
+    base: 5,
+    md: 10,
+    lg: 20,
+  });
+
+  const spacingBPValue = useBreakpointValue({
+    base: 2,
+    md: 4,
+    lg: 6,
+  });
+
+  const profileImageBPValue = useBreakpointValue({
+    base: 140,
+    md: 180,
+    lg: 220,
+  });
+
+  const actionButtonBPValue = useBreakpointValue({
+    base: "sm",
+    md: "md",
+    lg: "lg",
+  });
+
+  const actionButtonSpacingBPValue = useBreakpointValue({
+    base: "2",
+    lg: "4",
+  });
+
+  const actionStackDirectionBPValue = useBreakpointValue({
+    base: "column",
+    lg: "row",
+  });
+
   return (
-    <Box w="100%" h={"calc(100vh - 80px)"} pos="relative">
-      <Image
-        top={0}
-        layout={"fill"}
-        objectFit="cover"
-        objectPosition="bottom"
-        src={heroImage}
-        alt="Hero Image"
-        placeholder={"blur"}
-      />
-      <VStack
-        bg="blackAlpha.700"
-        pos="absolute"
-        w="100%"
-        h="100%"
-        p={4}
-        top={0}
-        spacing={0}
-        justify="center"
-      >
-        <Heading textColor="white" size={headingBPValue} textAlign="center">
-          Muhammad Zeeshan
-        </Heading>
+    <Box py={paddingBPValue} bg={theme.colors.gray[50]}>
+      <VStack spacing={spacingBPValue}>
+        <Circle overflow="hidden">
+          <Image
+            src={profileImage}
+            alt="Profile Image"
+            width={profileImageBPValue}
+            height={profileImageBPValue}
+          />
+        </Circle>
         <Text
-          as={as}
+          color={theme.colors.gray[500]}
+          as={"b"}
           fontSize={textBPValue}
-          textColor="white"
           textAlign="center"
         >
-          Senior iOS Developer, Swift Enthusiast
+          MUHAMMAD ZEESHAN
         </Text>
+        <Heading size={headingBPValue} textAlign="center">
+          Senior iOS Developer
+        </Heading>
+        <Text as={as} fontSize={textBPValue} textAlign="center">
+          Code with Precision, Create with Passion.
+        </Text>
+        <Stack
+          align={"stretch"}
+          spacing={actionButtonSpacingBPValue}
+          direction={actionStackDirectionBPValue}
+        >
+          <Link isExternal href={"https://www.fiverr.com/s/w52zEo"}>
+            <Button
+              width={"100%"}
+              leftIcon={<SiFiverr />}
+              size={actionButtonBPValue}
+              colorScheme={"green"}
+            >
+              <Text>Hire me @ </Text>
+              <Text as="b">Fiverr</Text>
+            </Button>
+          </Link>
+          <Link isExternal href={"https://www.upwork.com/fl/mzeeshanid"}>
+            <Button
+              width={"100%"}
+              leftIcon={<SiUpwork />}
+              size={actionButtonBPValue}
+              colorScheme={"green"}
+              variant={"outline"}
+            >
+              <Text>Hire me @ </Text>
+              <Text as="b">Upwork</Text>
+            </Button>
+          </Link>
+        </Stack>
       </VStack>
     </Box>
   );

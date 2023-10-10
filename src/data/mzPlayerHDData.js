@@ -2,10 +2,10 @@ import { List, ListIcon, ListItem, theme } from "@chakra-ui/react";
 import React from "react";
 import {
   FaCheckCircle,
-  FaSearch,
-  FaHeart,
-  FaFilm,
   FaExternalLinkAlt,
+  FaFilm,
+  FaHeart,
+  FaSearch,
 } from "react-icons/fa";
 import mzPlayerHDAppIcon from "../../public/assets/mzplayer_hd_appicon.png";
 import appGenericFAQs from "./appGenericFAQs";

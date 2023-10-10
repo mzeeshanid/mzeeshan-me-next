@@ -6,7 +6,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/layout";
-import theme from "@chakra-ui/theme";
+import { theme } from "@chakra-ui/react";
 import React from "react";
 import useHeadingBPValue from "../hooks/useHeadingBPValue";
 import useTextBPValue from "../hooks/useTextBPValue";

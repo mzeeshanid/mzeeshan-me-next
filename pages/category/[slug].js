@@ -1,7 +1,6 @@
 import { fetchAPI } from "../../lib/api";
 import BlogCategories from "../../src/components/Blog/BlogCategories";
 import { Center, Heading } from "@chakra-ui/layout";
-import theme from "@chakra-ui/theme";
 import Articles from "../../src/components/Blog/Articles";
 import { LightMode } from "@chakra-ui/color-mode";
 import myNavItems from "../../src/data/myNavItems";
@@ -10,6 +9,7 @@ import AppFooter from "../../src/components/AppFooter";
 import Seo from "../../src/components/Blog/BlogSEO";
 import { useState } from "react";
 import { Button } from "@chakra-ui/button";
+import { theme } from "@chakra-ui/react";
 
 const Category = ({ category, categories, articles, totalArticles }) => {
   // console.log(

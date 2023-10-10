@@ -2,15 +2,15 @@ import {
   Box,
   Center,
   Circle,
+  Heading,
   LightMode,
+  Link,
+  Text,
+  VStack,
   Wrap,
   WrapItem,
-  VStack,
-  Text,
-  Heading,
-  Link,
+  theme,
 } from "@chakra-ui/react";
-import theme from "@chakra-ui/theme";
 import React from "react";
 import mySocialConnect from "../data/mySocialConnect";
 import isExternalLink from "../hooks/isExternalLink";

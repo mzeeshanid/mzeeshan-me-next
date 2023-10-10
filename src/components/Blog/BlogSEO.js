@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useContext } from "react";
-import { GlobalContext } from "../../../pages/_app.js";
 import { getStrapiMedia } from "../../../lib/media.js";
+import { GlobalContext } from "../../../pages/_app.js";
 
 const Seo = ({ seo, url }) => {
   const global = useContext(GlobalContext);

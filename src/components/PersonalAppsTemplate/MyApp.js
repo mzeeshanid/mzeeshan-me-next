@@ -1,5 +1,4 @@
-import { LightMode, Box, theme } from "@chakra-ui/react";
-import { FAQPageJsonLd, NextSeo, SoftwareAppJsonLd } from "next-seo";
+import { Box, LightMode, theme } from "@chakra-ui/react";
 import React from "react";
 import myNavItems from "../../data/myNavItems";
 import AppFooter from "../AppFooter";
@@ -12,7 +11,6 @@ import AppScreenShots from "./AppScreenShots";
 import MyAppFeaturesGrid from "./MyAppFeaturesGrid";
 import MyAppHero from "./MyAppHero";
 import MyAppReviews from "./MyAppReviews";
-import Head from "next/head";
 
 export default function MyApp({ appData }) {
   return (

@@ -1,11 +1,11 @@
 import {
+  Avatar,
   Box,
+  Container,
   Flex,
   Heading,
-  Text,
   Stack,
-  Container,
-  Avatar,
+  Text,
   theme,
 } from "@chakra-ui/react";
 

@@ -1,15 +1,7 @@
 import { Button } from "@chakra-ui/button";
 import { LightMode } from "@chakra-ui/color-mode";
-import {
-  Box,
-  Center,
-  Heading,
-  Link,
-  LinkBox,
-  LinkOverlay,
-  Text,
-} from "@chakra-ui/layout";
-import { VStack } from "@chakra-ui/react";
+import { Box, Center, Heading, Link, Text } from "@chakra-ui/layout";
+import { VStack, theme } from "@chakra-ui/react";
 import {
   Table,
   TableCaption,
@@ -19,7 +11,6 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/table";
-import theme from "@chakra-ui/theme";
 import React from "react";
 import apiClient from "../../apis/client";
 import API from "../../config/API";

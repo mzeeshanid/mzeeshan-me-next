@@ -1,6 +1,6 @@
+import mz100AppIcon from "../../public/assets/mz100_app_icon.png";
 import mzFileManageAppIcon from "../../public/assets/mzfilemanage_appicon.png";
 import mzPlayerHDAppIcon from "../../public/assets/mzplayer_hd_appicon.png";
-import mz100AppIcon from "../../public/assets/mz100_app_icon.png";
 import mzVisitsAppIcon from "../../public/assets/mzvisit_app_icon.png";
 
 function myApps() {

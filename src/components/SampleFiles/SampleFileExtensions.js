@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Center, Link } from "@chakra-ui/layout";
+import { theme } from "@chakra-ui/react";
 import {
   Table,
   TableCaption,
@@ -9,7 +10,6 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/table";
-import theme from "@chakra-ui/theme";
 import React from "react";
 
 export default function SampleFileExtensions({ extensions }) {

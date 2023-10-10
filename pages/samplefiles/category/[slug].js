@@ -1,7 +1,6 @@
 import { LightMode } from "@chakra-ui/color-mode";
 import { Center, VStack } from "@chakra-ui/layout";
-import { Heading } from "@chakra-ui/react";
-import theme from "@chakra-ui/theme";
+import { Heading, theme } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextSeo } from "next-seo";
 import { fetchAPI } from "../../../lib/api";
@@ -13,6 +12,7 @@ import SampleFileFeatured from "../../../src/components/SampleFiles/SampleFileFe
 import SampleFileRequest from "../../../src/components/SampleFiles/SampleFileRequest";
 import SampleFileTagline from "../../../src/components/SampleFiles/SampleFileTagline";
 import sampleFileStats from "../../../src/data/sampleFileStats";
+import SampleFilesHero from "../../../src/components/SampleFiles/SampleFilesHero";
 
 export default function SampleFileCategory({
   categories,
@@ -59,6 +59,7 @@ export default function SampleFileCategory({
         }}
       />
       <AppNavBar navItems={navItems} />
+      <SampleFilesHero />
       <Center bg={theme.colors.white} p={4}>
         <Heading as="h1" color={theme.colors.black}>
           {category.name}

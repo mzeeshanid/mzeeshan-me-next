@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Button } from "@chakra-ui/button";
-import { Box, Flex, HStack, VStack } from "@chakra-ui/layout";
+import { Button, IconButton } from "@chakra-ui/button";
+import { Box, Flex, HStack } from "@chakra-ui/layout";
+import { Spinner } from "@chakra-ui/spinner";
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
+import React, { useEffect, useState } from "react";
 import { GrFormAdd, GrMore, GrTrash, GrUpdate } from "react-icons/gr";
-import { IconButton } from "@chakra-ui/button";
 import useSubcategories from "../../hooks/SampleFiles/useSubcategories";
 import AppEmptyData from "../AppEmptyData";
-import { Spinner } from "@chakra-ui/spinner";
 
 const SampleFileResults = ({ categoryId, extension }) => {
   const [page, setPage] = useState(1);

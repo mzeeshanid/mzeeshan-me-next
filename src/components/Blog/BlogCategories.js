@@ -1,10 +1,10 @@
 import {
+  Button,
   Center,
-  Wrap,
-  WrapItem,
   LinkBox,
   LinkOverlay,
-  Button,
+  Wrap,
+  WrapItem,
   theme,
 } from "@chakra-ui/react";
 import React from "react";

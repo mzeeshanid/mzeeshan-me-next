@@ -1,5 +1,5 @@
 import { VStack } from "@chakra-ui/layout";
-import theme from "@chakra-ui/theme";
+import { theme } from "@chakra-ui/react";
 import React from "react";
 import AppHeadingText from "../AppHeadingText";
 
