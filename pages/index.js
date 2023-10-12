@@ -14,6 +14,7 @@ import myApps from "../src/data/myApps";
 import myNavItems from "../src/data/myNavItems";
 import myStats from "../src/data/myStats";
 import myTools from "../src/data/myTools";
+import AppReviews from "../src/components/AppReviews";
 
 const AppOpenSourceContribution = loadable(() =>
   import("../src/components/AppContribution")
@@ -120,6 +121,8 @@ export default function Home() {
         data={myTools()}
         bg="gray.100"
       />
+      <Box p={4} />
+      <AppReviews />
       <Box>
         <AppOpenSourceContribution />
       </Box>
