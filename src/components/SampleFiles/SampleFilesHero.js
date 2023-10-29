@@ -81,6 +81,7 @@ function SampleFilesHero() {
       <VStack spacing={spacingBPValue}>
         <Image
           src={sampleFilesAppIcon}
+          placeholder={"blur"}
           alt="Sample files app icon image"
           width={appIconImageBPValue}
           height={appIconImageBPValue}

@@ -114,6 +114,7 @@ function AppNavBar({ navItems }) {
               <Circle mx={4} size="60px" overflow="hidden">
                 <Image
                   src={profilePicture}
+                  placeholder={"blur"}
                   alt="Profile picture"
                   width={60}
                   height={60}

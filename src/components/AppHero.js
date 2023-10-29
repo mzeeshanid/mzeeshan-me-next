@@ -68,6 +68,7 @@ function AppHero({ as = "h2" }) {
         <Circle overflow="hidden">
           <Image
             src={profileImage}
+            placeholder={"blur"}
             alt="Profile Image"
             width={profileImageBPValue}
             height={profileImageBPValue}

@@ -65,6 +65,7 @@ function G2DHero() {
           <VStack spacing={spacingBPValue}>
             <Image
               src={g2dAppIcon}
+              placeholder={"blur"}
               alt="Google Drive Direct Link Generator"
               width={appIconImageBPValue}
               height={appIconImageBPValue}
