@@ -11,7 +11,13 @@ import { useState } from "react";
 import { Button } from "@chakra-ui/button";
 import { theme } from "@chakra-ui/react";
 
-const Category = ({ category, categories, articles, totalArticles }) => {
+const Category = ({
+  category,
+  categories,
+  articles,
+  totalArticles,
+  global,
+}) => {
   // console.log(
   //   "props --> category: ",
   //   category,
@@ -56,6 +62,7 @@ const Category = ({ category, categories, articles, totalArticles }) => {
       <Seo
         seo={seo}
         url={`https://www.mzeeshan.me/category/${category.attributes.slug}`}
+        global={global}
       />
       <AppNavBar navItems={myNavItems()} />
       <BlogCategories categories={categories} />
@@ -112,10 +119,14 @@ export async function getStaticProps({ params }) {
     `/articles?pagination[limit]=10&sort=publishedAt:desc&filters[category][slug]=${params.slug}&populate[0]=image&populate[1]=category&populate[2]=writer.picture`
   );
 
+  const { data: global } = await fetchAPI(
+    "/global?populate[0]=defaultSeo.shareImage&populate[1]=favicon"
+  );
+
   const totalArticles = meta.pagination.total;
 
   return {
-    props: { category, categories, articles, totalArticles },
+    props: { category, categories, articles, totalArticles, global },
     revalidate: 1,
   };
 }

@@ -1,12 +1,4 @@
-import {
-  Box,
-  Flex,
-  Link,
-  Text,
-  chakra,
-  theme,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, Link, Text, chakra, theme } from "@chakra-ui/react";
 import React from "react";
 import Moment from "react-moment";
 import StrapiImage from "./StrapiImage";
@@ -23,7 +15,7 @@ const Articles = ({ articles }) => {
     return (
       <Flex
         key={idx}
-        bg={useColorModeValue("#F9FAFB", "gray.600")}
+        bg={theme.colors.gray[50]}
         p={50}
         w="full"
         alignItems="center"
@@ -33,7 +25,7 @@ const Articles = ({ articles }) => {
           mx="auto"
           rounded="lg"
           shadow="md"
-          bg={useColorModeValue("white", "gray.800")}
+          bg={theme.colors.white}
           maxW="2xl"
         >
           {imageData &&
@@ -60,7 +52,7 @@ const Articles = ({ articles }) => {
               <Link
                 href={`/article/${articleAttributes.slug}`}
                 display="block"
-                color={useColorModeValue("gray.800", "white")}
+                color={theme.colors.gray[800]}
                 fontWeight="bold"
                 fontSize="2xl"
                 mt={2}
@@ -68,11 +60,7 @@ const Articles = ({ articles }) => {
               >
                 {articleAttributes.title}
               </Link>
-              <chakra.p
-                mt={2}
-                fontSize="sm"
-                color={useColorModeValue("gray.600", "gray.400")}
-              >
+              <chakra.p mt={2} fontSize="sm" color={theme.colors.gray[600]}>
                 {articleAttributes.description}
               </chakra.p>
             </Box>

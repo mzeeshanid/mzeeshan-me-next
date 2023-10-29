@@ -87,7 +87,7 @@ const SampleFileResults = ({ categoryId, extension }) => {
                             bg="teal"
                             textColor="white"
                             _hover={{ bg: "teal.500" }}
-                            primary
+                            primary={"true"}
                             onClick={() => {
                               setSelectedItem(item);
                               setShow(true);

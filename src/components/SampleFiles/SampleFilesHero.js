@@ -139,6 +139,7 @@ function SampleFilesHero() {
                           const item = res.attributes;
                           return (
                             <Tr
+                              key={idx}
                               cursor={"pointer"}
                               _hover={{ background: "gray.200" }}
                             >

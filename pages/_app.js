@@ -1,16 +1,15 @@
-import { ChakraProvider } from "@chakra-ui/react";
 import App from "next/app";
+import { ChakraProvider } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
-import "../styles/globals.css";
 
 import * as ga from "../lib/ga";
 
 import { createContext } from "react";
-import { fetchAPI } from "../lib/api";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import chakraTheme from "../styles/chakraTheme";
 
 // Store Strapi Global object in context
 export const GlobalContext = createContext({});
@@ -39,7 +38,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <GlobalContext.Provider value={global}>
-      <ChakraProvider>
+      <ChakraProvider theme={chakraTheme}>
         <Component {...pageProps} />
       </ChakraProvider>
     </GlobalContext.Provider>
@@ -53,13 +52,8 @@ function MyApp({ Component, pageProps }) {
 MyApp.getInitialProps = async (ctx) => {
   // Calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(ctx);
-  // Fetch global site settings from Strapi
-  const { data: global } = await fetchAPI(
-    "/global?populate[0]=defaultSeo.shareImage&populate[1]=favicon"
-  );
 
-  // Pass the data to our page via props
-  return { ...appProps, pageProps: { global } };
+  return { ...appProps };
 };
 
 export default MyApp;

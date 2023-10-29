@@ -63,7 +63,7 @@ export default function SampleFileVariant({ extension }) {
                             bg="teal"
                             textColor="white"
                             _hover={{ bg: "teal.500" }}
-                            primary
+                            primary={"true"}
                             onClick={() => {
                               updateDownloads(variant.id);
                             }}

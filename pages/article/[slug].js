@@ -2,8 +2,6 @@ import { fetchAPI } from "../../lib/api";
 
 import myNavItems from "../../src/data/myNavItems";
 import Seo from "../../src/components/Blog/BlogSEO";
-import { Box, Center, Heading, Link } from "@chakra-ui/layout";
-import { LightMode } from "@chakra-ui/color-mode";
 import AppNavBar from "../../src/components/AppNavBar";
 import BlogCategories from "../../src/components/Blog/BlogCategories";
 import AppFooter from "../../src/components/AppFooter";
@@ -16,9 +14,9 @@ import rehypeRaw from "rehype-raw";
 import Image from "next/image";
 import StrapiImage from "../../src/components/Blog/StrapiImage";
 import Articles from "../../src/components/Blog/Articles";
-import { theme } from "@chakra-ui/react";
+import { Box, Center, Heading, LightMode, Link, theme } from "@chakra-ui/react";
 
-const Article = ({ article, categories }) => {
+const Article = ({ article, categories, global }) => {
   const components = {
     p: (paragraph) => {
       const { node } = paragraph;
@@ -83,6 +81,7 @@ const Article = ({ article, categories }) => {
       <Seo
         seo={seo}
         url={`https://www.mzeeshan.me/article/${articleAttributes.slug}`}
+        global={global}
       />
       <AppNavBar navItems={myNavItems()} />
       <BlogCategories categories={categories} />
@@ -145,10 +144,14 @@ export async function getStaticProps({ params }) {
   );
   const { data: categories } = await fetchAPI("/categories");
 
+  const { data: global } = await fetchAPI(
+    "/global?populate[0]=defaultSeo.shareImage&populate[1]=favicon"
+  );
+
   const article = articles[0];
 
   return {
-    props: { article: article, categories },
+    props: { article: article, categories, global },
     revalidate: 1,
   };
 }

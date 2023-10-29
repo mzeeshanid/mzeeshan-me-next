@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/layout";
+import { Link, Text } from "@chakra-ui/react";
 import React from "react";
 
 function AppAttributedText({ texts }) {
@@ -12,7 +12,16 @@ function AppAttributedText({ texts }) {
             as={text.attribtues.as}
             key={idx}
           >
-            {text.text}
+            {text.attribtues.link ? (
+              <Link
+                href={text.attribtues.link}
+                isExternal={text.attribtues.isExternal}
+              >
+                {text.text}{" "}
+              </Link>
+            ) : (
+              text.text
+            )}
           </Text>
         );
       })}

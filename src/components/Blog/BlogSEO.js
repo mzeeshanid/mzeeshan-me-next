@@ -1,10 +1,7 @@
 import Head from "next/head";
-import { useContext } from "react";
 import { getStrapiMedia } from "../../../lib/media.js";
-import { GlobalContext } from "../../../pages/_app.js";
 
-const Seo = ({ seo, url }) => {
-  const global = useContext(GlobalContext);
+const Seo = ({ seo, url, global }) => {
   const { defaultSeo, siteName } = global.attributes;
   const shareImageAttributes = defaultSeo.shareImage.data.attributes;
 
