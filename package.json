@@ -38,6 +38,7 @@
     "react-next-github-btn": "^1.2.1",
     "rehype-raw": "^6.1.0",
     "remark-gfm": "^3.0.1",
+    "string-metric": "^0.3.3",
     "yarn": "^1.22.19",
     "yup": "^0.32.9"
   },

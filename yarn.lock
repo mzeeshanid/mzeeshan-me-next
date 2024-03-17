@@ -3854,6 +3854,11 @@ strict-uri-encode@^2.0.0:
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-2.0.0.tgz#b9c7330c7042862f6b142dc274bbcc5866ce3546"
   integrity sha1-ucczDHBChi9rFC3CdLvMWGbONUY=
 
+string-metric@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/string-metric/-/string-metric-0.3.3.tgz#9c571a973669989a5c818d927f67c37d837529f3"
+  integrity sha512-7LHF1ADhfL2kxiVwJ+x6bJQBvFnm9LtXlDBZm8hVZz73eUst1Ccxs2tuK9CaDyM57pITSFV7fDMEtmyPF5tBUA==
+
 string-width@^4.2.0:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
