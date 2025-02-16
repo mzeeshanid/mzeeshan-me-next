@@ -4,6 +4,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
+    unoptimized: true,
     domains: ["dzm9gzl83npws.cloudfront.net", "localhost", "mzeeshan.me"],
   },
 };
