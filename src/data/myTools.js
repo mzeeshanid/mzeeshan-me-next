@@ -1,6 +1,7 @@
 import aspectRatioIcon from "../../public/assets/aspect_ratio_app_icon.png";
 import stringMetricsIcon from "../../public/assets/string_metric_app_icon.png";
 import g2dAppIcon from "../../public/assets/g2d_app_icon.png";
+import promotionalOfferAppIcon from "../../public/assets/promotional_offer_appicon.png";
 import fileManageIcon from "../../public/assets/mzfilemanage_appicon.png";
 
 function myTools() {
@@ -36,6 +37,14 @@ function myTools() {
       image: stringMetricsIcon,
       alt: "String Metrics app icon",
       url: "string-metrics",
+    },
+    {
+      title: "Promotional Offer",
+      detail:
+        "A tool that allows to generate promotional offer signature for testing required for buying promotional offer.",
+      image: promotionalOfferAppIcon,
+      alt: "Apple promotinoal offer signature generator app icon",
+      url: "apple-inapp-promotional-offer-signature-generator-for-testing",
     },
   ];
   return tools;

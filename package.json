@@ -22,6 +22,7 @@
     "add": "^2.0.6",
     "apisauce": "^3.0.1",
     "chakra-ui-markdown-renderer": "^4.1.0",
+    "ec-key": "^0.0.6",
     "formik": "^2.2.6",
     "framer-motion": "^10.16.4",
     "moment": "^2.29.1",
@@ -40,6 +41,7 @@
     "remark-gfm": "^3.0.1",
     "sharp": "^0.33.5",
     "string-metric": "^0.3.3",
+    "uuid": "^11.1.0",
     "yarn": "^1.22.19",
     "yup": "^0.32.9"
   },
