@@ -19,6 +19,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
     "@loadable/component": "^5.15.3",
+    "@next/third-parties": "^15.3.1",
     "add": "^2.0.6",
     "apisauce": "^3.0.1",
     "chakra-ui-markdown-renderer": "^4.1.0",

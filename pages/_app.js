@@ -10,6 +10,7 @@ import { createContext } from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import chakraTheme from "../styles/chakraTheme";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 // Store Strapi Global object in context
 export const GlobalContext = createContext({});
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps }) {
     <GlobalContext.Provider value={global}>
       <ChakraProvider theme={chakraTheme}>
         <Component {...pageProps} />
+        <GoogleAnalytics gaId="G-K7GTY2ZFWB" />
       </ChakraProvider>
     </GlobalContext.Provider>
   );
