@@ -39,7 +39,7 @@ function PromotionalOfferForm() {
       "Enter offer identifier e.g. com.app.gold.offer"
     ),
     accountToken: Yup.string()
-      .required("Enter app username or account token and should be lower cased")
+      .optional("Enter app username or account token and should be lower cased")
       .lowercase(),
     nonce: Yup.string()
       .required("Enter a valid UUID and should be in a lowercased")
@@ -90,7 +90,18 @@ function PromotionalOfferForm() {
           .replace("-----END PRIVATE KEY-----", "")
           .trim();
 
-        const combined = `${bundleId}${"\u2063"}${kid}${"\u2063"}${productId}${"\u2063"}${offerId}${"\u2063"}${token}${"\u2063"}${nonce}${"\u2063"}${timeStamp}`;
+        const components = [
+          bundleId,
+          kid,
+          productId,
+          offerId,
+          // Only add token if it's not empty
+          ...(token ? [token] : []),
+          nonce,
+          timeStamp,
+        ];
+        const combined = components.join("\u2063");
+        // const combined = `${bundleId}${"\u2063"}${kid}${"\u2063"}${productId}${"\u2063"}${offerId}${"\u2063"}${token}${"\u2063"}${nonce}${"\u2063"}${timeStamp}`;
         setSignatureRaw(combined);
 
         // Create an Elliptic Curve Digital Signature Algorithm (ECDSA) object using the private key.
