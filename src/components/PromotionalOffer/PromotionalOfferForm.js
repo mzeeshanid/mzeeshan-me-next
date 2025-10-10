@@ -95,13 +95,11 @@ function PromotionalOfferForm() {
           kid,
           productId,
           offerId,
-          // Only add token if it's not empty
-          ...(token ? [token] : []),
+          token,
           nonce,
           timeStamp,
         ];
         const combined = components.join("\u2063");
-        // const combined = `${bundleId}${"\u2063"}${kid}${"\u2063"}${productId}${"\u2063"}${offerId}${"\u2063"}${token}${"\u2063"}${nonce}${"\u2063"}${timeStamp}`;
         setSignatureRaw(combined);
 
         // Create an Elliptic Curve Digital Signature Algorithm (ECDSA) object using the private key.
