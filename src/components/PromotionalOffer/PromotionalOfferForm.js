@@ -181,7 +181,15 @@ function PromotionalOfferForm() {
             >
               <Text fontWeight={"bold"}>Note:</Text>
               <Text>
-                Make sure to set the same before adding to payment queue
+                For{" "}
+                <Link
+                  isExternal
+                  color={theme.colors.teal[500]}
+                  href="https://developer.apple.com/documentation/storekit/"
+                >
+                  StoreKit1
+                </Link>
+                , make sure to set the same before adding to payment queue
                 otherwise use will receive{" "}
                 <Link
                   isExternal
@@ -196,6 +204,19 @@ function PromotionalOfferForm() {
                 <br />
                 payment.applicationUsername = "xyz"
               </Code>
+              <Text textAlign={"start"}>
+                For{" "}
+                <Link
+                  isExternal
+                  color={theme.colors.teal[500]}
+                  href="https://developer.apple.com/storekit/"
+                >
+                  StoreKit2
+                </Link>{" "}
+                Application username or Account token is no longer required but
+                make sure to set it empty string while generating the signature.
+                Otherwise you will receive <Code>AMSServerErrorCode=3903</Code>
+              </Text>
             </VStack>
           </VStack>
         </GridItem>

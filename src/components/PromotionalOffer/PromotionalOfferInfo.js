@@ -15,7 +15,7 @@ function PromotionalOfferInfo() {
     <Center>
       <VStack maxW={"1200px"} p={4}>
         <Heading>Information</Heading>
-        <Text>
+        <Text w="100%">
           This tool is utilising the logic from the sample project provided by{" "}
           <Link
             color={theme.colors.teal[500]}
@@ -48,7 +48,7 @@ function PromotionalOfferInfo() {
           >
             payment queue
           </Link>
-          . For example:
+          . <b>StoreKit1 example:</b>
         </Text>
         <Code p={4}>
           let discount = SKPaymentDiscount(identifier: offerIdentifier,
@@ -62,6 +62,60 @@ function PromotionalOfferInfo() {
           <br />
           <br />
           SKPaymentQueue.default().add(payment)
+        </Code>
+        <Text textAlign={"start"} fontWeight={"bold"} w="100%">
+          StoreKit2 example:
+        </Text>
+        <Code p={4} whiteSpace="pre">
+          {`private func getOfferDetails(offerId: String,
+                                 productId: String) async throws -> Product.PurchaseOption {
+        try await withCheckedThrowingContinuation { continuation in
+            IMPPackagesAPI.getOfferDetails(offerID: offerId,
+                                           productId: productId) { result in
+                switch result {
+                case .success(let response):
+                    guard let offerData = response.data,
+                          let nonce = UUID(uuidString: offerData.nonce),
+                          let signature = Data(base64Encoded: offerData.signature) else {
+                        continuation.resume(throwing: NSError(domain: "OfferDataMissing", code: -1))
+                        return false
+                    }
+                    
+                    let offerId = offerData.offerIdentifier
+                    let keyId = offerData.keyIDentifier
+                    let timestamp = Int(offerData.timeStamp)
+                    
+                    let offer = Product.PurchaseOption.promotionalOffer(offerID: offerId,
+                                                                        keyID: keyId,
+                                                                        nonce: nonce,
+                                                                        signature: signature,
+                                                                        timestamp: timestamp)
+                    continuation.resume(returning: offer)
+                    return true
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                    return false
+                }
+            }
+        }
+    }`}
+        </Code>
+        <Text w="100%">
+          Here is how you purchase the product with the offer
+        </Text>
+        <Code p={4} whiteSpace="pre">
+          {`var options: [Product.PurchaseOption] = []
+                
+                if let offerId {
+                    let offer = try? await getOfferDetails(offerId: offerId,
+                                                          productId: productId)
+                    
+                    if let offer {
+                        options.append(offer)
+                    }
+                }
+                
+                let result = try await product.purchase(options: Set(options))`}
         </Code>
         <Text fontWeight={"bold"}>
           NB: This tool works within a browser locally and does not sync keys.
