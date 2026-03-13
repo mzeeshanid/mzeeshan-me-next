@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   Heading,
   HStack,
@@ -12,9 +11,7 @@ import React from "react";
 
 type ArticleListSkeletonItemProps = {};
 
-const ArticleListSkeletonItem: React.FC<ArticleListSkeletonItemProps> = (
-  props: ArticleListSkeletonItemProps
-) => {
+const ArticleListSkeletonItem: React.FC<ArticleListSkeletonItemProps> = () => {
   return (
     <Card.Root
       w="100%"

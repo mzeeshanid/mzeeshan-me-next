@@ -1,4 +1,4 @@
-import { Box, Breadcrumb, For } from "@chakra-ui/react";
+import { Breadcrumb } from "@chakra-ui/react";
 import { BreadcrumbJsonLd } from "next-seo";
 import React from "react";
 import { LuHouse } from "react-icons/lu";
@@ -16,7 +16,7 @@ const AppBreadcrumb: React.FC<AppBreadcrumbProps> = ({ items }) => {
   return (
     <>
       <BreadcrumbJsonLd
-        items={items.map((item, idx) => {
+        items={items.map((item) => {
           return {
             name: item.label,
             item: item.href,

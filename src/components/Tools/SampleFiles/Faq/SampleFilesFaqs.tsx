@@ -2,7 +2,6 @@ import ArticleContent from "@/components/Blog/ArticleContent/ArticleContent";
 import { CollapsibleStatus } from "@/components/Tools/DriveDirect/Faqs/DriveDirectFaqs";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
-  sampleFilesFAQData,
   SampleFilesFaqsData,
 } from "@/data/tools/sampleFiles/sampleFilesFaqsData";
 import {

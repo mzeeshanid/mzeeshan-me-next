@@ -6,7 +6,6 @@ import {
   IconButton,
   List,
   Spacer,
-  Text,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";

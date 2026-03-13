@@ -1,5 +1,5 @@
 import { ExtensionWhatIsData } from "@/data/tools/sampleFiles/sampleFilesExtensionDetails";
-import { Box, Center, Container, Spacer, Text } from "@chakra-ui/react";
+import { Box, Container, Spacer, Text } from "@chakra-ui/react";
 import React from "react";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 

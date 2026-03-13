@@ -1,8 +1,7 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { SampleFileFeature } from "@/data/tools/sampleFiles/statsData";
-import { Card, HStack, Icon, Text, VStack } from "@chakra-ui/react";
+import { Card, HStack, Icon, Text } from "@chakra-ui/react";
 import React from "react";
-import { FaFile } from "react-icons/fa6";
 
 type Props = {
   feature: SampleFileFeature;

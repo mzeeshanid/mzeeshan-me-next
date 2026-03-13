@@ -2,7 +2,6 @@ import { useColorPalette } from "@/contexts/useColorPalette";
 import { Icon, Link, LinkBox, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import { IconType } from "react-icons";
-import { FaAppStore } from "react-icons/fa6";
 
 type MyFrameworkItemProps = {
   title: string;

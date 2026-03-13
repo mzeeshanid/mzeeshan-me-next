@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import SampleFilesSearchBar from "./SampleFilesSearchBar";
 import SampleFilesCategoryTags from "./SampleFilesCategoryTags";
 

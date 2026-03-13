@@ -1,6 +1,18 @@
 import { IconType } from "react-icons";
-import { FaBolt, FaCode, FaDatabase, FaFingerprint, FaGlobe, FaRocket, FaShieldAlt, FaSpellCheck } from "react-icons/fa";
-import { FaArrowsSpin, FaMagnifyingGlass, FaNetworkWired, FaScaleBalanced, FaStopwatch } from "react-icons/fa6";
+import {
+  FaBolt,
+  FaCode,
+  FaDatabase,
+  FaFingerprint,
+  FaGlobe,
+  FaShieldAlt,
+  FaSpellCheck,
+} from "react-icons/fa";
+import {
+  FaArrowsSpin,
+  FaMagnifyingGlass,
+  FaScaleBalanced,
+} from "react-icons/fa6";
 
 /* Stats Data */
 export type StringMetricsStatItem = {

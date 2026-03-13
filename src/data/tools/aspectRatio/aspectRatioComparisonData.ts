@@ -1,6 +1,5 @@
 import { IconType } from "react-icons"
 import { FaCheck, FaExclamation, FaX } from "react-icons/fa6"
-import { DriveDirectComparisonData } from "../driveDirect/driveDirectComparisonData"
 import { AspectRatioSectionHeaderModel } from "./aspectRatioData"
 
 /* Comparison Data */

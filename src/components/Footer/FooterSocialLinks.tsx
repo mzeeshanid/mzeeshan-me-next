@@ -1,10 +1,9 @@
-import React from "react";
 import { Button, HStack, Icon, Link } from "@chakra-ui/react";
 import footerData from "../../data/footer/footerData";
 
 type FooterSocialLinksProps = {};
 
-const FooterSocialLinks = (props: FooterSocialLinksProps) => {
+const FooterSocialLinks = ({}: FooterSocialLinksProps) => {
   const { socialLinks } = footerData();
 
   return (

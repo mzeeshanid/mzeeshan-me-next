@@ -1,36 +1,25 @@
 import { ExtensionCompatibilityData as ExtensionCompatibilityData } from "@/data/tools/sampleFiles/sampleFilesExtensionDetails";
 import {
-  Badge,
   Box,
   Center,
-  Flex,
   GridItem,
   Icon,
   SimpleGrid,
   Spacer,
   Text,
   VStack,
-  Wrap,
-  WrapItem,
 } from "@chakra-ui/react";
 import React from "react";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { useColorPalette } from "@/contexts/useColorPalette";
-import { BiWindows, BiWorld } from "react-icons/bi";
+import { BiWorld } from "react-icons/bi";
 import {
   FaAndroid,
   FaApple,
-  FaAppStoreIos,
-  FaFirefoxBrowser,
   FaLinux,
   FaWindows,
 } from "react-icons/fa6";
-import { IconType } from "react-icons";
 import { GiPlatform } from "react-icons/gi";
-import { SiMacos } from "react-icons/si";
-import { LiaLinux } from "react-icons/lia";
-import { DiLinux } from "react-icons/di";
-import { PiLinuxLogo } from "react-icons/pi";
 
 interface Props {
   data: ExtensionCompatibilityData;

@@ -1,6 +1,6 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { MyToolFeature } from "@/data/tools/myTools/myToolsFeatures";
-import { Box, Card, Icon, Text, VStack } from "@chakra-ui/react";
+import { Card, Icon, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 
 type Props = {

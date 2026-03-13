@@ -1,14 +1,7 @@
 import { ArticleModel } from "@/apis/articles/articles";
 import React from "react";
 import ArticleCoverImage from "../ArticleCoverImage/ArticleCoverImage";
-import {
-  Container,
-  HStack,
-  Link,
-  Spacer,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Container, HStack, Spacer, Text, VStack } from "@chakra-ui/react";
 import ArticleMeta from "../ArticleMeta/ArticleMeta";
 import ArticleTitleDetail from "../ArticleTitleDetail/ArticleTitleDetail";
 import ArticleCategoryTags from "../ArticleCategoryTags/ArticleCategoryTags";

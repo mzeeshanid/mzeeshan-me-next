@@ -1,18 +1,7 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { AspectRatioItemModel } from "@/data/tools/aspectRatio/aspectRatioCommon";
-import {
-  Box,
-  HStack,
-  Icon,
-  Spacer,
-  Tag,
-  Text,
-  VStack,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Box, Spacer, Tag, Text, VStack, Wrap, WrapItem } from "@chakra-ui/react";
 import React from "react";
-import { FaTv } from "react-icons/fa6";
 
 type Props = {
   item: AspectRatioItemModel;

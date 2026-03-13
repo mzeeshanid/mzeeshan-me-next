@@ -1,5 +1,5 @@
 import { MyApp } from "@/data/home/myAppsData";
-import { Card, HStack, Link, Spacer, Text, VStack } from "@chakra-ui/react";
+import { Card, HStack, Link, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Button, Heading, Link, Text, VStack } from "@chakra-ui/react";
 
 import Image from "next/image";
@@ -7,7 +5,7 @@ import { useColorPalette } from "../../contexts/useColorPalette";
 
 type FooterContactMeProps = {};
 
-const FooterContactMe = (props: FooterContactMeProps) => {
+const FooterContactMe = ({}: FooterContactMeProps) => {
   const { palette } = useColorPalette();
 
   return (

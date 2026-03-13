@@ -1,7 +1,6 @@
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
-import { mzFileManageMetaData } from "@/data/myApps/mzFileManage/mzFileManageMetaData";
 import { Container, Spacer } from "@chakra-ui/react";
 import React from "react";
 import MyAppHero from "../Hero/MyAppHero";
@@ -10,7 +9,6 @@ import MyAppSeo from "../Seo/MyAppSeo";
 import MyAppScreenshots from "../Screenshots/MyAppScreenshots";
 import MyAppFeatures from "../Features/MyAppFeatures";
 import MyAppFaqs from "../Faqs/MyAppFaqs";
-import MyApp from "../../../../pages/_app";
 import MyAppStats from "../Stats/MyAppsStats";
 import MyAppReviews from "../Reviews/MyAppReviews";
 import MyAppClone from "../Clone/MyAppClone";

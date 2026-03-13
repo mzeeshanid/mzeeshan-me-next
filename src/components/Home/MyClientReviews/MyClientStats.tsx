@@ -1,13 +1,6 @@
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import myClientReviewsData from "@/data/home/myClientReviewsData";
-import {
-  Box,
-  Card,
-  Container,
-  GridItem,
-  SimpleGrid,
-  VStack,
-} from "@chakra-ui/react";
+import { Card, Container, GridItem, SimpleGrid, VStack } from "@chakra-ui/react";
 import React from "react";
 import MyClientStatItem from "./MyClientStatItem";
 

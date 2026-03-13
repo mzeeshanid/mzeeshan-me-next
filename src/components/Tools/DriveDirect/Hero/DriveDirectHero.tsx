@@ -2,16 +2,13 @@ import { useColorPalette } from "@/contexts/useColorPalette";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
 import {
   Box,
-  Button,
   Center,
   Heading,
   Stack,
   Tabs,
   Text,
-  Textarea,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import * as Yup from "yup";
 import DriveDirectSingleLink from "./DriveDirectSingleLink";
 import DriveDirectMultipleLinks from "./DriveDirectMultipleLinks";
 

@@ -4,7 +4,6 @@ import {
   Blockquote,
   Box,
   Heading,
-  Quote,
   SimpleGrid,
   Table,
   Text,

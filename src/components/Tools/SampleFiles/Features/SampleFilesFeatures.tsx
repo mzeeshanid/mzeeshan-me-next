@@ -1,14 +1,10 @@
 import React from "react";
 import {
-  Badge,
   Box,
   Center,
   GridItem,
-  Heading,
   SimpleGrid,
   Spacer,
-  Text,
-  VStack,
 } from "@chakra-ui/react";
 import { sampleFilesStatsData } from "@/data/tools/sampleFiles/statsData";
 import SampleFilesFeatureItem from "./SampleFilesFeatureItem";
@@ -16,7 +12,7 @@ import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 
 type Props = {};
 
-const SampleFilesFeatures: React.FC<Props> = (props: Props) => {
+const SampleFilesFeatures: React.FC<Props> = () => {
   const data = sampleFilesStatsData;
 
   return (

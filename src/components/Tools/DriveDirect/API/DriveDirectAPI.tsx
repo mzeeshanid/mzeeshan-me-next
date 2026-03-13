@@ -3,7 +3,6 @@ import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import {
   Box,
   Center,
-  Grid,
   GridItem,
   Heading,
   SimpleGrid,
@@ -15,7 +14,7 @@ import React from "react";
 
 type Props = {};
 
-const DriveDirectAPI: React.FC<Props> = (props: Props) => {
+const DriveDirectAPI: React.FC<Props> = () => {
   return (
     <Box as="section">
       <Center>

@@ -1,16 +1,7 @@
 import { ArticleModel } from "@/apis/articles/articles";
-import {
-  Card,
-  HStack,
-  Link,
-  Tag,
-  TagLabel,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Card, Link, VStack } from "@chakra-ui/react";
 import React from "react";
 import ArticleCoverImage from "../ArticleCoverImage/ArticleCoverImage";
-import { useColorPalette } from "@/contexts/useColorPalette";
 import ArticleCategoryTags from "../ArticleCategoryTags/ArticleCategoryTags";
 import ArticleAuthor from "../ArticleAuthor/ArticleAuthor";
 

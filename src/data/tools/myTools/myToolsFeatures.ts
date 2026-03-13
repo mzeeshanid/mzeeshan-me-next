@@ -2,7 +2,7 @@ import { IconType } from "react-icons";
 import { BsLaptopFill } from "react-icons/bs";
 import { FaTachometerAlt } from "react-icons/fa";
 import { RiLayout6Fill } from "react-icons/ri";
-import { FaLaptop, FaLock, FaMoneyBill, FaShield, FaUnlock } from "react-icons/fa6";
+import { FaMoneyBill, FaShield, FaUnlock } from "react-icons/fa6";
 
 export type MyToolFeature = {
     title: string;

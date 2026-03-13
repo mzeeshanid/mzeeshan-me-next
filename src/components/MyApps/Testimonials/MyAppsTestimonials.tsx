@@ -1,6 +1,5 @@
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { myAppsTestimonialData } from "@/data/myApps/myAppTestimonialData";
-import { mzFileManageReviewsData } from "@/data/myApps/mzFileManage/mzFileManageReviewsData";
 import { Box, Carousel, IconButton, Spacer } from "@chakra-ui/react";
 import React from "react";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";

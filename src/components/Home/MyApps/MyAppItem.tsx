@@ -1,7 +1,6 @@
 import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel";
 import { Card, HStack, Link, LinkBox, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
-import React from "react";
 
 type MyAppItemProps = {
   title: string;
@@ -12,7 +11,7 @@ type MyAppItemProps = {
 };
 
 const MyAppItem = (props: MyAppItemProps) => {
-  const { title, caption, detail, icon, url } = props;
+  const { title, caption, icon, url } = props;
   return (
     <Card.Root bg="bg.subtle" borderWidth={0}>
       <Card.Body>

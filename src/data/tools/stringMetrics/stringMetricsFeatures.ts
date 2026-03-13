@@ -1,6 +1,6 @@
 import { IconType } from "react-icons";
-import { FaBalanceScale, FaBolt, FaCode, FaGlobe, FaShieldAlt, FaUsers, FaWaveSquare } from "react-icons/fa";
-import { FaArrowsSpin, FaLock, FaMagnifyingGlass, FaRobot, FaScaleBalanced, FaStopwatch, FaWandMagicSparkles } from "react-icons/fa6";
+import { FaBolt, FaCode, FaGlobe, FaShieldAlt } from "react-icons/fa";
+import { FaMagnifyingGlass, FaWandMagicSparkles } from "react-icons/fa6";
 
 /* Features Data */
 export type StringMetricsFeature = {

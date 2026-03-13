@@ -4,7 +4,6 @@ import {
   GridItem,
   Separator,
   SimpleGrid,
-  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";

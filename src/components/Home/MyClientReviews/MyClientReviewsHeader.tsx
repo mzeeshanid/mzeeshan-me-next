@@ -1,7 +1,6 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
   Heading,
-  HStack,
   RatingGroup,
   Stack,
   Text,

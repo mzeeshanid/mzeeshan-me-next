@@ -1,11 +1,4 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Separator,
-  Spacer,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Separator, VStack } from "@chakra-ui/react";
 
 import MyIntro from "../MyIntro/MyIntro";
 import FooterContactMe from "./FooterContactMe";

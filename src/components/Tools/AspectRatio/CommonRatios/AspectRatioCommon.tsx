@@ -1,23 +1,12 @@
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { aspectRatioCommon } from "@/data/tools/aspectRatio/aspectRatioCommon";
-import {
-  Box,
-  Button,
-  Center,
-  Grid,
-  GridItem,
-  SimpleGrid,
-  Spacer,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Center, GridItem, SimpleGrid, Spacer } from "@chakra-ui/react";
 import React from "react";
 import AspectRatioCommonItem from "./AspectRatioCommonItem";
 
 type Props = {};
 
-const AspectRatioCommon: React.FC<Props> = (props: Props) => {
+const AspectRatioCommon: React.FC<Props> = () => {
   const ratioData = aspectRatioCommon;
   return (
     <Box as="section">

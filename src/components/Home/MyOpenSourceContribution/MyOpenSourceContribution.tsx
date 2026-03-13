@@ -1,13 +1,6 @@
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import myContributionData from "@/data/home/myContributionData";
-import {
-  Box,
-  Grid,
-  GridItem,
-  SimpleGrid,
-  Spacer,
-  Stack,
-} from "@chakra-ui/react";
+import { GridItem, SimpleGrid, Spacer, Stack } from "@chakra-ui/react";
 import MyOpenSourceContributionItem from "./MyOpenSourceContributionItem";
 
 type MyOpenSourceContributionProps = {};

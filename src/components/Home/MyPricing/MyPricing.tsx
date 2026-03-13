@@ -3,7 +3,6 @@ import myPricingData from "@/data/home/myPricingData";
 import {
   Box,
   Button,
-  Center,
   GridItem,
   Heading,
   HStack,
@@ -12,7 +11,6 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import React from "react";
 import { FiCheckCircle } from "react-icons/fi";

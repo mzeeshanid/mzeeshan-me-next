@@ -1,13 +1,6 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
 import myFrameworks from "@/data/home/myFrameworksData";
-import {
-  Box,
-  Container,
-  Heading,
-  SimpleGrid,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Container, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import MyFrameworkItem from "./MyFrameworkItem";
 import { TypewriterHighlight } from "@/components/TypewriterHighlight/TypewriterHighlight";
@@ -26,7 +19,6 @@ const MyFrameworks: React.FC<MyFrameworksProps> = (
     detail,
     frameworks,
   } = myFrameworks();
-  const space = " ";
   return (
     <Box as={"section"}>
       <Stack gap={{ base: 6, md: 8 }} align={"center"}>

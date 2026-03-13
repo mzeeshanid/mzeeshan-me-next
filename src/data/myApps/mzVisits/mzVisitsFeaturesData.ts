@@ -1,4 +1,4 @@
-import { FaMap, FaSearch, FaSortAmountDown, FaFileImport, FaPlus } from "react-icons/fa";
+import { FaSearch, FaSortAmountDown, FaFileImport } from "react-icons/fa";
 import { FaMapLocation } from "react-icons/fa6";
 import { MyAppFeaturesDataModel } from "../myAppFeaturesData";
 

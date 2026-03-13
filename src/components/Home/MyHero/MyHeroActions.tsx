@@ -1,6 +1,6 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
 import myHeroData from "@/data/home/myHeroData";
-import { Box, Button, Link, Stack } from "@chakra-ui/react";
+import { Button, Link, Stack } from "@chakra-ui/react";
 import React from "react";
 
 type MyHeroActionsProps = {};

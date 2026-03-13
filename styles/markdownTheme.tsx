@@ -1,6 +1,5 @@
 import { MarkDownCodeBlock } from "@/components/Markdown/CodeBlock";
 import { Gist } from "@/components/Markdown/Gist";
-import { useColorPalette } from "@/contexts/useColorPalette";
 import { Box, List } from "@chakra-ui/react";
 import { Components } from "react-markdown";
 

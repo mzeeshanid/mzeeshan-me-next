@@ -1,6 +1,6 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { MyAppFeatureItemDataModel } from "@/data/myApps/myAppFeaturesData";
-import { Box, Circle, HStack, Icon, Text, VStack } from "@chakra-ui/react";
+import { Box, HStack, Icon, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 

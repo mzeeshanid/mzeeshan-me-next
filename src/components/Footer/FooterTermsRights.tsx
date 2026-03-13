@@ -6,13 +6,12 @@ import {
   StackSeparator,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
 import footerData from "../../data/footer/footerData";
 import { useColorPalette } from "@/contexts/useColorPalette";
 
 type FooterTermsRightsProps = {};
 
-const FooterTermsRights = (props: FooterTermsRightsProps) => {
+const FooterTermsRights = ({}: FooterTermsRightsProps) => {
   const { rightsReserved, bottomLinks, nextJs, chakraUi } = footerData();
   const { palette } = useColorPalette();
   return (

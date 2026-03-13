@@ -2,11 +2,9 @@ import { RelatedExtensionData as RelatedExtensionsSectionType } from "@/data/too
 import {
   Box,
   Card,
-  Link as ChakraLink,
   GridItem,
   SimpleGrid,
   Spacer,
-  Stack,
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";

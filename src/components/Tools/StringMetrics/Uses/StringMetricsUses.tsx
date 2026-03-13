@@ -5,9 +5,7 @@ import {
   Badge,
   Box,
   Card,
-  Grid,
   GridItem,
-  Heading,
   Icon,
   SimpleGrid,
   Spacer,
@@ -65,7 +63,7 @@ const UseCaseCard: React.FC<{
   );
 };
 
-const StringMetricsUses: React.FC<Props> = (props: Props) => {
+const StringMetricsUses: React.FC<Props> = () => {
   const { palette } = useColorPalette();
   const useCasesData = stringMetricsUseCasesData;
 

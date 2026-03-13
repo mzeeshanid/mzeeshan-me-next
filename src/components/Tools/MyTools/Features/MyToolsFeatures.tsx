@@ -2,11 +2,8 @@ import { useColorPalette } from "@/contexts/useColorPalette";
 import { myToolsFeaturesData } from "@/data/tools/myTools/myToolsFeatures";
 import {
   Box,
-  Grid,
   GridItem,
-  Heading,
   SimpleGrid,
-  Text,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
@@ -16,7 +13,6 @@ import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 type Props = {};
 
 const MyToolsFeatures: React.FC<Props> = (props: Props) => {
-  const { palette } = useColorPalette();
   const data = myToolsFeaturesData;
 
   return (

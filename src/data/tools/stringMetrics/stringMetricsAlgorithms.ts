@@ -1,6 +1,6 @@
 import { IconType } from "react-icons";
-import { FaBalanceScale, FaCompressArrowsAlt, FaDna, FaRandom, FaSlidersH, FaSpellCheck } from "react-icons/fa";
-import { FaArrowsLeftRight, FaCode, FaListOl, FaMagnifyingGlass, FaPencil, FaRuler, FaWaveSquare } from "react-icons/fa6";
+import { FaBalanceScale, FaDna, FaSlidersH } from "react-icons/fa";
+import { FaArrowsLeftRight, FaListOl, FaPencil, FaRuler } from "react-icons/fa6";
 
 /* Algorithm Data */
 export type StringMetricsAlgorithm = {

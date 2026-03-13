@@ -1,4 +1,4 @@
-import { Box, Center, GridItem, SimpleGrid, VStack } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import React from "react";
 import ArticleItem from "./ArticleItem";
 import { ArticleModel } from "@/apis/articles/articles";
