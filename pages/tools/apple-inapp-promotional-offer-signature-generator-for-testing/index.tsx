@@ -1,4 +1,4 @@
-import { fetchArticleBySlugNextJs } from "@/apis/articles/articleDetail";
+import { fetchArticleBySlugStrapi } from "@/apis/articles/articleDetail";
 import { ArticleModel } from "@/apis/articles/articles";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
@@ -72,7 +72,7 @@ export const getStaticProps: GetStaticProps<Props> = (async (
   context: GetStaticPropsContext,
 ) => {
   const slug = "apple-promotional-offer-signature-generator";
-  const [article] = await Promise.all([fetchArticleBySlugNextJs(slug)]);
+  const [article] = await Promise.all([fetchArticleBySlugStrapi(slug)]);
 
   return {
     props: { article },

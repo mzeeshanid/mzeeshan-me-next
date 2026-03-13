@@ -7,7 +7,7 @@ import { Box, Container, Spacer } from "@chakra-ui/react";
 import React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import {
-  fetchSampleFilesExtensionsNextJs,
+  fetchSampleFilesExtensionsStrapi,
   SampleFilesExtensionModel,
 } from "@/apis/sampleFiles/sampleFilesExtension";
 import {
@@ -150,13 +150,11 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
     }
 
     // Fetch extensions for this category
-    const extensionsResponse = await fetchSampleFilesExtensionsNextJs(
+    const extensionsResponse = await fetchSampleFilesExtensionsStrapi(
       undefined,
       10,
       1,
       slug,
-      undefined,
-      undefined,
     );
 
     return {

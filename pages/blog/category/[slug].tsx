@@ -1,11 +1,11 @@
 import {
   ArticleCategoryModel,
   ArticleCategoryResponseCollection,
-  fetchArticleCategoriesNextJs,
+  fetchArticleCategoriesStrapi,
 } from "@/apis/articles/articleCategories";
 import {
   ArticleResponseCollection,
-  fetchArticlesNextJs,
+  fetchArticlesStrapi,
 } from "@/apis/articles/articles";
 import { ArticleListingContainer } from "@/components/Blog/ArticleListingContainer/ArticleListingContainer";
 import { ArticleCategorySeo } from "@/components/Blog/ArticleSeo/ArticleCategorySeo";
@@ -68,7 +68,7 @@ const BlogCategoryArticlesPage: React.FC<BlogCategoryArticlesPageProps> = (
 export const getStaticPaths: GetStaticPaths = async (
   context: GetStaticPathsContext
 ) => {
-  const categoriesResponse = await fetchArticleCategoriesNextJs();
+  const categoriesResponse = await fetchArticleCategoriesStrapi();
 
   const paths = categoriesResponse.data.map((category) => ({
     params: { slug: category.slug },
@@ -84,8 +84,8 @@ export const getStaticProps: GetStaticProps<BlogCategoryArticlesPageProps> =
   (async (context: GetStaticPropsContext) => {
     const slug = context.params?.slug as string;
     const [categoriesResponse, initialArticlesResponse] = await Promise.all([
-      fetchArticleCategoriesNextJs(),
-      fetchArticlesNextJs(1, PAGE_SIZE, undefined, slug),
+      fetchArticleCategoriesStrapi(),
+      fetchArticlesStrapi(1, PAGE_SIZE, undefined, slug),
     ]);
 
     const category = categoriesResponse.data.find(

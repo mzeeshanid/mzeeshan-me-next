@@ -1,4 +1,4 @@
-import { fetchArticleBySlugNextJs } from "@/apis/articles/articleDetail";
+import { fetchArticleBySlugStrapi } from "@/apis/articles/articleDetail";
 import { ArticleModel } from "@/apis/articles/articles";
 import React from "react";
 import Footer from "@/components/Footer/Footer";
@@ -101,7 +101,7 @@ const StringMetricsHome: React.FC<Props> = (props: Props) => {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
-    const article = await fetchArticleBySlugNextJs(
+    const article = await fetchArticleBySlugStrapi(
       "string-metrics-string-similarity-calculator",
     );
     return {

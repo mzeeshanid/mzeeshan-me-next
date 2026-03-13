@@ -1,4 +1,4 @@
-import { fetchArticleBySlugNextJs } from "@/apis/articles/articleDetail";
+import { fetchArticleBySlugStrapi } from "@/apis/articles/articleDetail";
 import { ArticleModel } from "@/apis/articles/articles";
 import ArticleDetail from "@/components/Blog/ArticleDetail/ArticleDetail";
 import { ArticleDetailSeo } from "@/components/Blog/ArticleSeo/ArticleDetailSeo";
@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps<ArticleDetailPageProps> = (async (
   context: GetStaticPropsContext
 ) => {
   const slug = context.params!.slug as string;
-  const [article] = await Promise.all([fetchArticleBySlugNextJs(slug)]);
+  const [article] = await Promise.all([fetchArticleBySlugStrapi(slug)]);
 
   return {
     props: { article },

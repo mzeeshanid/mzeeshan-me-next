@@ -1,10 +1,10 @@
 import {
   ArticleCategoryResponseCollection,
-  fetchArticleCategoriesNextJs,
+  fetchArticleCategoriesStrapi,
 } from "@/apis/articles/articleCategories";
 import {
   ArticleResponseCollection,
-  fetchArticlesNextJs,
+  fetchArticlesStrapi,
 } from "@/apis/articles/articles";
 import { ArticleListingContainer } from "@/components/Blog/ArticleListingContainer/ArticleListingContainer";
 import ArticleListingSeo from "@/components/Blog/ArticleSeo/ArticleListingSeo";
@@ -61,8 +61,8 @@ export const getStaticProps: GetStaticProps<BlogHomePageProps> = (async (
   context: GetStaticPropsContext,
 ) => {
   const [categoriesResponse, initialArticlesResponse] = await Promise.all([
-    fetchArticleCategoriesNextJs(),
-    fetchArticlesNextJs(1, PAGE_SIZE),
+    fetchArticleCategoriesStrapi(),
+    fetchArticlesStrapi(1, PAGE_SIZE),
   ]);
 
   return {

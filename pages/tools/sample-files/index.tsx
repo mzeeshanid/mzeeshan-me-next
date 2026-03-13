@@ -1,4 +1,4 @@
-import { fetchArticleBySlugNextJs } from "@/apis/articles/articleDetail";
+import { fetchArticleBySlugStrapi } from "@/apis/articles/articleDetail";
 import { ArticleModel } from "@/apis/articles/articles";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
@@ -16,7 +16,7 @@ import SampleFilesRequestFile from "@/components/Tools/SampleFiles/RequestFile/S
 import SampleFilesCTA from "@/components/Tools/SampleFiles/CTA/SampleFilesCTA";
 import { GetStaticProps } from "next";
 import {
-  fetchSampleFilesExtensionsNextJs,
+  fetchSampleFilesExtensionsStrapi,
   SampleFilesExtensionModel,
 } from "@/apis/sampleFiles/sampleFilesExtension";
 import SampleFilesCategories from "@/components/Tools/SampleFiles/Categories/SampleFilesCategories";
@@ -124,23 +124,20 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
     const [allExtensionsResponse, featuredResponse, article] =
       await Promise.all([
-        fetchSampleFilesExtensionsNextJs(
+        fetchSampleFilesExtensionsStrapi(
           undefined,
           10,
           1,
           undefined,
-          undefined,
-          undefined,
         ),
-        fetchSampleFilesExtensionsNextJs(
+        fetchSampleFilesExtensionsStrapi(
           undefined,
           6,
           1,
           undefined,
           true,
-          undefined,
         ),
-        fetchArticleBySlugNextJs(
+        fetchArticleBySlugStrapi(
           "download-sample-files-for-testing-development",
         ),
       ]);
