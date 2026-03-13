@@ -1,0 +1,81 @@
+import { BasicImageDataModel } from "../basicImage/basicImageDataModel";
+
+export type MyAppsData = {
+  tagline: string;
+  title: string;
+  details: string;
+  apps: MyApp[];
+}
+
+export type MyApp = {
+  title: string;
+  caption: string;
+  detail: string;
+  url: string;
+  icon: BasicImageDataModel;
+};
+
+const myAppsData = (): MyAppsData => {
+  return {
+    tagline: "Own iOS Apps",
+    title: "My Published iOS Apps",
+    details: "Here are some of the iOS applications that I have developed and published on the App Store. These apps showcase my skills in iOS development, user interface design, and user experience optimization.",
+    apps: [
+      {
+        title: "MZFileManage",
+        caption: "Fully featured file manager",
+        detail:
+        "It is the one stop file manager along with powerful download manager, playlist manager and much more!",
+        icon: {
+          src: "/assets/mzfilemanage_appicon.png",
+          alt: "MZFileManage app icon",
+          width: 300,
+          height: 300,
+        },
+        url: "/apps/mzfilemanage",
+      },
+      {
+        title: "MZPlayerHD",
+        caption: "Free Youtube in background",
+        detail:
+        "MZPlayerHD allows background playback of youtube videos. Enjoy your videos with advanced HD video player.",
+        icon: {
+          src: "/assets/mzplayer_hd_appicon.png",
+          alt: "MZPlayerHD app icon",
+          width: 300,
+          height: 300,
+        },
+        
+        url: "/apps/mzplayerhd",
+      },
+      {
+        title: "MZVisits",
+        caption: "See where you had been",
+        detail:
+        "MZVisits allows to track significant locations on the go. Install now and see where you had been in the past ;)",
+        icon: {
+          src: "/assets/mzvisit_app_icon.png",
+          alt: "MZVisits app icon",
+          width: 300,
+          height: 300,
+        },
+        url: "/apps/mzvisits",
+      },
+      {
+        title: "MZ100",
+        caption: "Challenge! Reveal all boxes",
+        detail:
+        "MZ100! A challenging puzzle to reveal all 100 boxes in shortest possible time. Obviously there are some rules ;)",
+        icon: {
+          src: "/assets/mz100_app_icon.png",
+          alt: "MZ100 app icon",
+          width: 300,
+          height: 300,
+        },
+        url: "/apps/mz100",
+      },
+    ]
+  }
+}
+
+export default myAppsData;
