@@ -2,6 +2,7 @@ import {
   fetchSampleFilesExtensionDetailsStrapi,
   SampleFilesExtensionDetailModel,
 } from "@/apis/sampleFiles/sampleFilesExtensionDetails";
+import { fetchSampleFilesExtensionsStrapi } from "@/apis/sampleFiles/sampleFilesExtension";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
@@ -156,16 +157,26 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Generate paths for popular extensions at build time
-  // You can expand this list based on your needs
-  const popularExtensions = ["mp4", "pdf", "zip", "jpg", "flac", "aiff", "m4a"];
+  try {
+    const extensionsResponse = await fetchSampleFilesExtensionsStrapi(
+      undefined,
+      200,
+      1,
+    );
 
-  return {
-    paths: popularExtensions.map((ext) => ({
-      params: { slug: ext },
-    })),
-    fallback: "blocking", // Use ISR for other extensions
-  };
+    return {
+      paths: (extensionsResponse.data || []).map((extension) => ({
+        params: { slug: extension.slug },
+      })),
+      fallback: "blocking",
+    };
+  } catch (error) {
+    console.error("Failed to fetch extension paths:", error);
+    return {
+      paths: [],
+      fallback: "blocking",
+    };
+  }
 };
 
 export default ExtensionDetailHome;
