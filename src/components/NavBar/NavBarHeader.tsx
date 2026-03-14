@@ -26,8 +26,8 @@ const NavBarHeader: React.FC<NavBarHeaderProps> = (
           src={props.icon}
           alt={props.alt}
           style={{ objectFit: "cover" }}
-          blurDataURL={props.icon}
-          loading="lazy"
+          priority
+          sizes="60px"
         />
       </Box>
       <VStack align={"flex-start"} gap={0}>

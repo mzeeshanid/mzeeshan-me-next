@@ -1,10 +1,4 @@
-import {
-  Box,
-  Container,
-  HStack,
-  useBreakpointValue,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Container, HStack, useDisclosure } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
 import MyIntro from "../MyIntro/MyIntro";
@@ -18,15 +12,7 @@ type NavBarProps = {
 };
 
 const NavBar: React.FC<NavBarProps> = (props) => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const { open, onToggle } = useDisclosure();
-  const showMobileMenu = useBreakpointValue<boolean>({ base: true, lg: false });
-
   const [scrolled, setScrolled] = useState<boolean>(false);
 
   useEffect(() => {
@@ -39,8 +25,6 @@ const NavBar: React.FC<NavBarProps> = (props) => {
   }, []);
 
   const navBarBgColor = scrolled ? "bg.subtle" : "transparent";
-
-  if (!mounted) return null;
 
   return (
     <Box
@@ -57,13 +41,16 @@ const NavBar: React.FC<NavBarProps> = (props) => {
       <Container maxW={"8xl"}>
         <HStack justify="space-between" align="center" py={4}>
           {props.header ? <NavBarHeader {...props.header} /> : <MyIntro />}
-          {showMobileMenu ? (
+          <Box display={{ base: "block", lg: "none" }}>
             <NavBarMobileMenu open={open} onToggle={onToggle} />
-          ) : (
+          </Box>
+          <Box display={{ base: "none", lg: "block" }}>
             <NavBarNormalMenu />
-          )}
+          </Box>
         </HStack>
-        <NavBarMobileMenuContent open={open} onToggle={onToggle} />
+        <Box display={{ base: "block", lg: "none" }}>
+          <NavBarMobileMenuContent open={open} onToggle={onToggle} />
+        </Box>
       </Container>
     </Box>
   );

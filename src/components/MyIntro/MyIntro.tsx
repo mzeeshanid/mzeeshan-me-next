@@ -14,8 +14,8 @@ const MyIntro: React.FC<MyIntroProps> = (props) => {
           src={`/assets/profile_pic.jpeg`}
           alt="picture of Muhammad Zeeshan"
           style={{ objectFit: "cover" }}
-          blurDataURL="/assets/profile_pic.jpeg"
-          loading="lazy"
+          priority
+          sizes="60px"
         />
       </Box>
       <VStack align={"flex-start"} gap={0}>
