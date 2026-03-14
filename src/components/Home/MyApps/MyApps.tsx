@@ -38,7 +38,7 @@ const MyApps = (props: MyAppsProps) => {
               />
             </GridItem>
           ))}
-          <GridItem colSpan={2}>
+          <GridItem colSpan={{ base: 1, md: 2 }}>
             <Center
               w="full"
               h="44px"

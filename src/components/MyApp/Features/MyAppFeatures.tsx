@@ -20,7 +20,10 @@ const MyAppFeatures: React.FC<Props> = (props: Props) => {
         />
       </Center>
       <Spacer p={4} />
-      <SimpleGrid minChildWidth={"sm"} gap={{ base: 4, md: 8 }}>
+      <SimpleGrid
+        minChildWidth={{ base: "none", md: "sm" }}
+        gap={{ base: 4, md: 8 }}
+      >
         {featuresData.features.map((feature, idx) => (
           <GridItem key={idx}>
             <MyAppFeatureItem key={idx} featureItem={feature} />

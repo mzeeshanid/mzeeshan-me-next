@@ -36,13 +36,13 @@ const DriveDirectAPI: React.FC<Props> = () => {
           </Text>
         </VStack>
       </Center>
-      <SimpleGrid minChildWidth={"sm"} gap={4}>
+      <SimpleGrid minChildWidth={{ base: "xs", md: "sm" }} gap={4}>
         <GridItem>
           <Spacer p={{ base: 2, md: 4 }} />
           <Text>{"Request"}</Text>
           <MarkDownCodeBlock>
             {String(
-              `curl --location 'https://mzeeshan.me/api/drivedirect?shareableLink=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1saOkqD7E3U3i5UzfJjsoiG4sL0Os66qO%2Fview%3Fusp%3Ddrive_link'`
+              `curl --location 'https://mzeeshan.me/api/drivedirect?shareableLink=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1saOkqD7E3U3i5UzfJjsoiG4sL0Os66qO%2Fview%3Fusp%3Ddrive_link'`,
             )}
           </MarkDownCodeBlock>
         </GridItem>
@@ -70,7 +70,7 @@ const DriveDirectAPI: React.FC<Props> = () => {
           </Text>
         </VStack>
       </Center>
-      <SimpleGrid minChildWidth={"sm"} gap={4}>
+      <SimpleGrid minChildWidth={{ base: "xs", md: "sm" }} gap={4}>
         <GridItem>
           <Spacer p={{ base: 2, md: 4 }} />
           <Text>{"Request"}</Text>

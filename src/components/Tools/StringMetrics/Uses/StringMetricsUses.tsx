@@ -75,7 +75,7 @@ const StringMetricsUses: React.FC<Props> = () => {
         description={useCasesData.header.description}
       />
       <Spacer p={1} />
-      <SimpleGrid w="full" minChildWidth={"sm"} gap={4}>
+      <SimpleGrid w="full" minChildWidth={{ base: "none", md: "sm" }} gap={4}>
         {useCasesData.useCases.map((useCase, idx) => (
           <GridItem key={idx}>
             <UseCaseCard useCase={useCase} palette={palette} />

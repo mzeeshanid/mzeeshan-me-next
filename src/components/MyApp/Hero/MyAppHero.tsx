@@ -78,8 +78,7 @@ const MyAppHero: React.FC<Props> = (props: Props) => {
             overflow={"hidden"}
             transition="transform 0.3s ease"
             _hover={{ transform: `scale(1.02)` }}
-            w={meta.heroImage.width}
-            h={meta.heroImage.height}
+            w={{ base: "full", md: undefined }}
           >
             <Image
               src={meta.heroImage.src}

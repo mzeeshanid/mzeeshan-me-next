@@ -33,7 +33,7 @@ const MyAppFaqs: React.FC<Props> = (props: Props) => {
           answer: item.answer,
         }))}
       />
-      <SimpleGrid minChildWidth={"md"} gap={4}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
         <GridItem>
           <VStack align={"flex-start"} gap={4}>
             <Tag.Root

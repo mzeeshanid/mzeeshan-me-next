@@ -1,4 +1,4 @@
-import { Box, BoxProps, Highlight } from "@chakra-ui/react";
+import { Box, BoxProps, Highlight, useBreakpointValue } from "@chakra-ui/react";
 import * as React from "react";
 
 type TypewriterHighlightProps = {
@@ -17,13 +17,42 @@ export const TypewriterHighlight: React.FC<TypewriterHighlightProps> = ({
   highlightStyles,
   ...boxProps
 }) => {
+  const useFadeOnMobile = useBreakpointValue({ base: true, md: false }) ?? true;
   const [wordIndex, setWordIndex] = React.useState(0);
   const [charIndex, setCharIndex] = React.useState(0);
   const [isDeleting, setIsDeleting] = React.useState(false);
+  const [isVisible, setIsVisible] = React.useState(true);
 
   const currentWord = words[wordIndex];
+  const longestWord = React.useMemo(
+    () => words.reduce((longest, word) => (word.length > longest.length ? word : longest), words[0] || ""),
+    [words],
+  );
 
   React.useEffect(() => {
+    if (useFadeOnMobile) {
+      const fadeOutDelay = pauseDelay;
+      const nextWordDelay = fadeOutDelay + 220;
+      const fadeInDelay = nextWordDelay + 60;
+      const cycleDelay = fadeInDelay + pauseDelay;
+
+      setIsVisible(true);
+
+      const fadeOutTimer = window.setTimeout(() => setIsVisible(false), fadeOutDelay);
+      const nextWordTimer = window.setTimeout(() => {
+        setWordIndex((i) => (i + 1) % words.length);
+      }, nextWordDelay);
+      const fadeInTimer = window.setTimeout(() => setIsVisible(true), fadeInDelay);
+      const noopTimer = window.setTimeout(() => undefined, cycleDelay);
+
+      return () => {
+        clearTimeout(fadeOutTimer);
+        clearTimeout(nextWordTimer);
+        clearTimeout(fadeInTimer);
+        clearTimeout(noopTimer);
+      };
+    }
+
     let timeoutId: number;
 
     if (!isDeleting && charIndex < currentWord.length) {
@@ -48,11 +77,52 @@ export const TypewriterHighlight: React.FC<TypewriterHighlightProps> = ({
     charIndex,
     isDeleting,
     currentWord,
+    useFadeOnMobile,
     typingSpeed,
     deletingSpeed,
     pauseDelay,
     words.length,
   ]);
+
+  if (useFadeOnMobile) {
+    return (
+      <Box
+        as="span"
+        position="relative"
+        display="inline-grid"
+        verticalAlign="top"
+        whiteSpace="normal"
+        {...boxProps}
+      >
+        <Box
+          as="span"
+          visibility="hidden"
+          pointerEvents="none"
+          gridArea="1 / 1"
+          fontWeight="bold"
+          {...highlightStyles}
+        >
+          {longestWord || " "}
+        </Box>
+        <Box
+          as="span"
+          gridArea="1 / 1"
+          transition="opacity 0.25s ease"
+          opacity={isVisible ? 1 : 0}
+        >
+          <Highlight
+            query={currentWord}
+            styles={{
+              fontWeight: "bold",
+              ...highlightStyles,
+            }}
+          >
+            {currentWord || " "}
+          </Highlight>
+        </Box>
+      </Box>
+    );
+  }
 
   const visibleText = currentWord.slice(0, charIndex);
   return (

@@ -1,3 +1,4 @@
+import { absoluteUrl } from "@/baseUrl/absoluteUrl";
 import { Breadcrumb } from "@chakra-ui/react";
 import { BreadcrumbJsonLd } from "next-seo";
 import React from "react";
@@ -19,7 +20,7 @@ const AppBreadcrumb: React.FC<AppBreadcrumbProps> = ({ items }) => {
         items={items.map((item) => {
           return {
             name: item.label,
-            item: item.href,
+            item: item.href ? absoluteUrl(item.href) : undefined,
           };
         })}
       />

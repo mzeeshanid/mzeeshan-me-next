@@ -28,7 +28,7 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = (props) => {
         </Text>
       </Box>
       <Spacer p={4} />
-      <SimpleGrid minChildWidth="sm" gap={4}>
+      <SimpleGrid minChildWidth={{ base: "none", md: "sm" }} gap={4}>
         {articles.map((article, key) => (
           <GridItem key={key} h="full">
             <RelatedArticleItem article={article} />

@@ -53,9 +53,7 @@ const MySkillItem: React.FC<MySkillItemProps> = (props: MySkillItemProps) => {
             {skill.features.map((feature, index) => (
               <HStack key={index}>
                 <Icon as={FiCheckCircle} color={"fg.muted"} />
-                <Text whiteSpace="nowrap" color={"fg.muted"}>
-                  {feature}
-                </Text>
+                <Text color={"fg.muted"}>{feature}</Text>
               </HStack>
             ))}
           </VStack>
