@@ -68,7 +68,8 @@ const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
                     width: "100%",
                     height: "100%",
                   }}
-                  loading="lazy"
+                  priority
+                  sizes="(max-width: 62em) 100vw, 50vw"
                 />
               </Box>
               <Box w="full">
