@@ -92,7 +92,7 @@ const MyAppHero: React.FC<Props> = (props: Props) => {
                 width: "100%",
                 height: "100%",
               }}
-              fetchPriority="high"
+              loading="lazy"
             />
           </Box>
         </Center>
