@@ -311,6 +311,40 @@ const PrivacyPolicyHome: React.FC<Props> = (props: Props) => {
           content based on preferences you have specified.{" "}
         </Text>
         <Heading size={{ base: "lg", md: "xl" }} pt={2} pb={2}>
+          Advertising Cookies
+        </Heading>
+        <Text color={"fg.muted"}>
+          We may use advertising cookies and similar technologies to show ads
+          that are more relevant to you, limit how often you see the same ad,
+          and measure the effectiveness of advertising campaigns. These cookies
+          may collect information about your visits to this and other websites,
+          including pages viewed, links clicked, approximate location, browser
+          information, and device identifiers.
+        </Text>
+        <Text color={"fg.muted"}>
+          You can usually control or disable cookies through your browser
+          settings. Please note that disabling some cookies may affect the
+          functionality of certain parts of the website.
+        </Text>
+        <Heading size={{ base: "lg", md: "xl" }} pt={2} pb={2}>
+          Google AdSense Disclosure
+        </Heading>
+        <Text color={"fg.muted"}>
+          We may use Google AdSense or other Google advertising products to
+          display advertisements on this website. Google and its partners may
+          use cookies to serve ads based on your visit to this site and/or
+          other sites on the internet. This may include the use of advertising
+          cookies that enable Google and its partners to serve ads to you based
+          on your browsing activity.
+        </Text>
+        <Text color={"fg.muted"}>
+          You can learn more about how Google uses information from sites and
+          apps that use its services by visiting Google&apos;s policies and
+          controls, including Ads Settings where available. If required by
+          applicable law, we will implement any additional notice, consent, or
+          opt-out mechanisms needed for personalised advertising.
+        </Text>
+        <Heading size={{ base: "lg", md: "xl" }} pt={2} pb={2}>
           Limits of Our Policy
         </Heading>
         <Text color={"fg.muted"}>
