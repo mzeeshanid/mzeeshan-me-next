@@ -9,6 +9,7 @@ const siteUrl = (
 const config: IConfig = {
   siteUrl,
   generateRobotsTxt: true,
+  generateIndexSitemap: false,
 };
 
 export default config;
