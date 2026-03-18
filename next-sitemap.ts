@@ -9,10 +9,6 @@ const siteUrl = (
 const config: IConfig = {
   siteUrl,
   generateRobotsTxt: true,
-  exclude: ["/server-sitemap.xml"],
-  robotsTxtOptions: {
-    additionalSitemaps: [`${siteUrl}/server-sitemap.xml`],
-  },
 };
 
 export default config;
