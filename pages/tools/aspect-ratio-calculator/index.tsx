@@ -3,6 +3,7 @@ import { ArticleModel } from "@/apis/articles/articles";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
 import AspectRatioCommon from "@/components/Tools/AspectRatio/CommonRatios/AspectRatioCommon";
 import AspectRatioComparison from "@/components/Tools/AspectRatio/Comparison/AspectRatioComparison";
 import AspectRatioFaqs from "@/components/Tools/AspectRatio/Faqs/AspectRatioFaqs";
@@ -10,9 +11,9 @@ import AspectRatioFeatures from "@/components/Tools/AspectRatio/Features/AspectR
 import AspectRatioFormula from "@/components/Tools/AspectRatio/Formula/AspectRatioFormula";
 import AspectRatioHero from "@/components/Tools/AspectRatio/Hero/AspectRatioHero";
 import AspectRatioInstructions from "@/components/Tools/AspectRatio/Instructions/AspectRatioInstructions";
-import AspectRatioLearnMore from "@/components/Tools/AspectRatio/LearnMore/AspectRatioLearnMore";
 import AspectRatioSeo from "@/components/Tools/AspectRatio/Seo/AspectRatioSeo";
 import { aspectRatioHeaderData } from "@/data/tools/aspectRatio/aspectRatioHeaderData";
+import { aspectRatioWorkingData } from "@/data/tools/aspectRatio/aspectRatioLearnMoreData";
 import { aspectRatioMetaData } from "@/data/tools/aspectRatio/aspectRatioMetaData";
 import { Container, Spacer } from "@chakra-ui/react";
 import { GetStaticProps, GetStaticPropsContext } from "next";
@@ -69,7 +70,7 @@ const AspectRatioCalculatorHome: React.FC<Props> = (props: Props) => {
 
       <Spacer p={8} />
       <Container maxW="6xl">
-        <AspectRatioLearnMore article={article} />
+        <ToolRelatedArticle article={article} header={aspectRatioWorkingData.header} />
       </Container>
 
       <Spacer p={8} />

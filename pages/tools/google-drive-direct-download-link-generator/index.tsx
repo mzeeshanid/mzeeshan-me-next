@@ -3,6 +3,7 @@ import { ArticleModel } from "@/apis/articles/articles";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
 import DriveDirectAPI from "@/components/Tools/DriveDirect/API/DriveDirectAPI";
 import DriveDirectComparison from "@/components/Tools/DriveDirect/Comparison/DriveDirectComparison";
 import DriveDirectFaqs from "@/components/Tools/DriveDirect/Faqs/DriveDirectFaqs";
@@ -13,7 +14,6 @@ import DriveDirectLinks from "@/components/Tools/DriveDirect/Output/DriveDirectL
 import DriveDirectSeo from "@/components/Tools/DriveDirect/Seo/DriveDirectSeo";
 import DriveDirectSteps from "@/components/Tools/DriveDirect/Steps/DriveDirectSteps";
 import DriveDirectUsage from "@/components/Tools/DriveDirect/Usage/DriveDirectUsage";
-import DriveDirectWorking from "@/components/Tools/DriveDirect/Working/DriveDirectWorking";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
 import { Container, Spacer } from "@chakra-ui/react";
 import { GetStaticProps, GetStaticPropsContext } from "next";
@@ -89,7 +89,7 @@ const DriveDirectHome: React.FC<DriveDirectHomeProps> = (
 
       <Spacer p={4} />
       <Container maxW="6xl">
-        <DriveDirectWorking article={article} />
+        <ToolRelatedArticle article={article} header={driveDirectData().working.header} />
       </Container>
 
       <Spacer p={4} />

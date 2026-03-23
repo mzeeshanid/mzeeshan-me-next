@@ -14,7 +14,7 @@ const RelatedArticleItem: React.FC<RelatedArticleItemProps> = (
 ) => {
   const { article } = props;
   return (
-    <Card.Root maxW="sm" overflow="hidden">
+    <Card.Root w="full" h="full" overflow="hidden">
       <Card.Header>
         <ArticleCoverImage article={article} borderRadius={"none"} />
       </Card.Header>

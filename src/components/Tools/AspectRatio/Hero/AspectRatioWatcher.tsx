@@ -1,6 +1,9 @@
 import { useFormikContext } from "formik";
 import { useEffect } from "react";
-import { AspectRatioFormValues } from "./AspectRatioForm";
+import {
+  calculateMissingAspectRatioDimension,
+  type AspectRatioFormValues,
+} from "@/utils/aspectRatio";
 
 type AspectRatioWatcherProps = {
   lastEdited?: "desiredWidth" | "desiredHeight";
@@ -39,9 +42,13 @@ const AspectRatioWatcher: React.FC<AspectRatioWatcherProps> = (
 
     if (lastEdited === "desiredWidth" && desiredWidth && !errors.desiredWidth) {
       const dw = Number(desiredWidth);
-      const newHeight = (oh / ow) * dw;
-
-      const dh = roundValues ? Math.round(newHeight) : newHeight.toFixed(2);
+      const { desiredHeight: dh } = calculateMissingAspectRatioDimension({
+        originalWidth: ow,
+        originalHeight: oh,
+        desiredWidth: dw,
+        roundValues,
+        lastEdited: "desiredWidth",
+      });
       setFieldValue("desiredHeight", dh, true);
 
       onFormValuesChange({
@@ -58,8 +65,13 @@ const AspectRatioWatcher: React.FC<AspectRatioWatcherProps> = (
       !errors.desiredHeight
     ) {
       const dh = Number(desiredHeight);
-      const newWidth = (dh * ow) / oh;
-      const dw = roundValues ? Math.round(newWidth) : newWidth.toFixed(2);
+      const { desiredWidth: dw } = calculateMissingAspectRatioDimension({
+        originalWidth: ow,
+        originalHeight: oh,
+        desiredHeight: dh,
+        roundValues,
+        lastEdited: "desiredHeight",
+      });
 
       setFieldValue("desiredWidth", dw, true);
 

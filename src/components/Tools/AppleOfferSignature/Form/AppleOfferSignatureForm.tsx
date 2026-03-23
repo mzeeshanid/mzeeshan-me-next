@@ -25,6 +25,10 @@ import AppleOfferSignatureInfo from "../Info/AppleOfferSignatureInfo";
 import ECKey from "ec-key";
 import AppleOfferSignatureOutput from "../Output/AppleOfferSignatureOutput";
 import { Toaster, toaster } from "@/components/ui/toaster";
+import {
+  buildAppleOfferSignaturePayload,
+  stripPrivateKeyPem,
+} from "@/utils/appleOfferSignature";
 import { sign } from "crypto";
 
 type Props = {};
@@ -65,21 +69,8 @@ const AppleOfferSignatureForm: React.FC<Props> = (props: Props) => {
             const timeStamp = values.timeStamp;
             const p8Key = values.p8Key;
 
-            const nakedKey = p8Key
-              .replace("-----BEGIN PRIVATE KEY-----", "")
-              .replace("-----END PRIVATE KEY-----", "")
-              .trim();
-
-            const components = [
-              bundleId,
-              kid,
-              productId,
-              offerId,
-              token,
-              nonce,
-              timeStamp,
-            ];
-            const combined = components.join("\u2063");
+            const nakedKey = stripPrivateKeyPem(p8Key);
+            const combined = buildAppleOfferSignaturePayload(values);
             setSignatureRaw(combined);
 
             // Create an Elliptic Curve Digital Signature Algorithm (ECDSA) object using the private key.

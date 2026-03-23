@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "postbuild": "NODE_OPTIONS=--experimental-strip-types next-sitemap --config next-sitemap.ts",
-    "chakra": "chakra"
+    "chakra": "chakra",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@chakra-ui/cli": "^3.29.0",
@@ -52,6 +54,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "next-sitemap": "^4.2.3",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^4.1.0"
   }
 }

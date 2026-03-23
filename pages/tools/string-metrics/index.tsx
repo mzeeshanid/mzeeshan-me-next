@@ -4,6 +4,7 @@ import React from "react";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
 import StringMetricsAlgorithms from "@/components/Tools/StringMetrics/Algorithms/StringMetricsAlgorithms";
 import StringMetricsComplexity from "@/components/Tools/StringMetrics/Complexity/StringMetricsComplexity";
 import StringMetricsFaqs from "@/components/Tools/StringMetrics/Faqs/StringMetricsFaqs";
@@ -12,8 +13,8 @@ import StringMetricsHero from "@/components/Tools/StringMetrics/Hero/StringMetri
 import StringMetricsSeo from "@/components/Tools/StringMetrics/Seo/StringMetricsSeo";
 import StringMetricsStats from "@/components/Tools/StringMetrics/Stats/StringMetricsStats";
 import StringMetricsUses from "@/components/Tools/StringMetrics/Uses/StringMetricsUses";
-import StringMetricsWorking from "@/components/Tools/StringMetrics/Working/StringMetricsWorking";
 import { stringMetricsHeaderData } from "@/data/tools/stringMetrics/stringMetricsFeatures";
+import { stringMetricsWorkingData } from "@/data/tools/stringMetrics/stringMetricsWorkingData";
 import { Box, Container, Spacer } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
 
@@ -83,7 +84,7 @@ const StringMetricsHome: React.FC<Props> = (props: Props) => {
         <Box>
           <Spacer p={8} />
           <Container maxW="6xl">
-            <StringMetricsWorking article={props.article} />
+            <ToolRelatedArticle article={props.article} header={stringMetricsWorkingData.header} />
           </Container>
         </Box>
       )}

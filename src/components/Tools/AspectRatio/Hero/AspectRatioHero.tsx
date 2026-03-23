@@ -1,7 +1,8 @@
 import { Box, Spacer, Stack } from "@chakra-ui/react";
 import React from "react";
+import type { AspectRatioFormValues } from "@/utils/aspectRatio";
 import AspectRatioBlockquote from "./AspectRatioBlockquote";
-import AspectRatioForm, { AspectRatioFormValues } from "./AspectRatioForm";
+import AspectRatioForm from "./AspectRatioForm";
 import AspectRatioVisualiser from "./AspectRatioVisualiser";
 
 type AspectRatioHeroProps = {};

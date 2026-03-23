@@ -3,6 +3,7 @@ import { ArticleModel } from "@/apis/articles/articles";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
 import SampleFilesStats from "@/components/Tools/SampleFiles/Stats/SampleFilesStats";
 import SampleFilesFaqs from "@/components/Tools/SampleFiles/Faq/SampleFilesFaqs";
 import { sampleFilesHeaderData } from "@/data/tools/sampleFiles/sampleFilesHeaderData";
@@ -22,7 +23,7 @@ import {
 import SampleFilesCategories from "@/components/Tools/SampleFiles/Categories/SampleFilesCategories";
 import { sampleFilesFAQData } from "@/data/tools/sampleFiles/sampleFilesFaqsData";
 import SampleFilesSeo from "@/components/Tools/SampleFiles/Seo/SampleFilesSeo";
-import SampleFilesWorking from "@/components/Tools/SampleFiles/Working/SampleFilesWorking";
+import { sampleFilesWorkingData } from "@/data/tools/sampleFiles/sampleFilesWorkingData";
 
 type Props = {
   article?: ArticleModel;
@@ -104,7 +105,7 @@ const SampleFilesHome: React.FC<Props> = (props: Props) => {
         <Box>
           <Spacer p={8} />
           <Container maxW="6xl">
-            <SampleFilesWorking article={props.article} />
+            <ToolRelatedArticle article={props.article} header={sampleFilesWorkingData.header} />
           </Container>
         </Box>
       )}

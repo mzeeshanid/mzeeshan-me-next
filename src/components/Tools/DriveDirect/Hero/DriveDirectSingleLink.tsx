@@ -2,6 +2,10 @@ import { Toaster, toaster } from "@/components/ui/toaster";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
 import {
+  buildGoogleDriveDirectLink,
+  isValidGoogleDriveShareableLink,
+} from "@/utils/driveDirect";
+import {
   Button,
   Field,
   HStack,
@@ -32,8 +36,12 @@ const DriveDirectSingleLink: React.FC<Props> = (props: Props) => {
       initialValues={initialValues}
       validationSchema={singleLinkValidationSchema}
       onSubmit={(values) => {
-        const fileId = extractGoogleDriveFileId(values.gdriveUrl);
-        const link = `https://drive.google.com/uc?export=download&id=${fileId}`;
+        const link = buildGoogleDriveDirectLink(values.gdriveUrl);
+
+        if (!link) {
+          return;
+        }
+
         onDirectLinkGenerated(link);
 
         toaster.success({
@@ -115,32 +123,12 @@ const singleLinkValidationSchema: Yup.ObjectSchema<ShareableLinksFormValue> =
           if (!value) return false;
 
           try {
-            const url = new URL(value);
-            const urlComponents = value.split("/");
-
-            return (
-              url.hostname === "drive.google.com" &&
-              urlComponents.length > 5 &&
-              urlComponents[5].length > 0
-            );
+            return isValidGoogleDriveShareableLink(value);
           } catch {
             return false;
           }
         },
       ),
   });
-
-export const extractGoogleDriveFileId = (url: string): string | null => {
-  try {
-    const parsed = new URL(url);
-    const idFromQuery = parsed.searchParams.get("id");
-    if (idFromQuery) return idFromQuery;
-
-    const parts = parsed.pathname.split("/");
-    return parts[parts.indexOf("d") + 1] ?? null;
-  } catch {
-    return null;
-  }
-};
 
 export default DriveDirectSingleLink;

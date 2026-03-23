@@ -3,8 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.mzeeshan.me
+Host: https://mzeeshan.me
 
 # Sitemaps
-Sitemap: https://www.mzeeshan.me/sitemap.xml
-Sitemap: https://www.mzeeshan.me/server-sitemap.xml
+Sitemap: https://mzeeshan.me/sitemap.xml

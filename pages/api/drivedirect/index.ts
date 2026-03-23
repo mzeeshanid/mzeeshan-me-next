@@ -7,6 +7,10 @@ import {
   shareableLinksValidationSchema,
   type ShareableLinksValidationValues,
 } from "@/validations/shareableLinksValidationSchema";
+import {
+  buildGoogleDriveDirectLink,
+  buildGoogleDriveDirectLinks,
+} from "@/utils/driveDirect";
 
 type SuccessResponse<T> = {
   success: true;
@@ -36,8 +40,7 @@ export default async function handler(
         },
       );
 
-      const fileId = values.gdriveUrl.split("/")[5];
-      const directLink = `https://drive.google.com/uc?export=download&id=${fileId}`;
+      const directLink = buildGoogleDriveDirectLink(values.gdriveUrl);
 
       res.status(200).json({
         success: true,
@@ -61,17 +64,7 @@ export default async function handler(
         },
       );
 
-      const urls = values.gdriveUrls;
-      const directLinks: string[] = [];
-
-      for (let i = 0; i < urls.length; i++) {
-        const url = urls[i];
-        if (!url) continue;
-
-        const fileId = url.split("/")[5];
-        const directLink = `https://drive.google.com/uc?export=download&id=${fileId}`;
-        directLinks.push(directLink);
-      }
+      const directLinks = buildGoogleDriveDirectLinks(values.gdriveUrls);
 
       res.status(200).json({
         success: true,

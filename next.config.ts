@@ -5,6 +5,18 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "www.mzeeshan.me",
+          },
+        ],
+        destination: "https://mzeeshan.me/:path*",
+        permanent: true,
+        basePath: false,
+      },
+      {
         source: "/samplefiles",
         destination: "/tools/sample-files",
         permanent: true,

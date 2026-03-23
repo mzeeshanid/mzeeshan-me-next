@@ -4,9 +4,12 @@ import React from "react";
 import { Toaster, toaster } from "@/components/ui/toaster";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
+import {
+  buildGoogleDriveDirectLinks,
+  isValidGoogleDriveShareableLink,
+} from "@/utils/driveDirect";
 import { Button, Field, HStack, Stack, Textarea } from "@chakra-ui/react";
 import * as Yup from "yup";
-import { extractGoogleDriveFileId } from "./DriveDirectSingleLink";
 
 type Props = {
   onDirectLinkGenerated: (directLinks: string[]) => void;
@@ -25,17 +28,7 @@ const DriveDirectMultipleLinks: React.FC<Props> = (props: Props) => {
       initialValues={initialValues}
       validationSchema={multilinksValidationSchema}
       onSubmit={(values) => {
-        const urls = values.gdriveUrls.split("\n");
-        const directLinks: string[] = [];
-        let i;
-        for (i = 0; i < urls.length; i++) {
-          let url = urls[i];
-          if (!url) continue;
-
-          const fileId = extractGoogleDriveFileId(url);
-          const directLink = `https://drive.google.com/uc?export=download&id=${fileId}`;
-          directLinks.push(directLink);
-        }
+        const directLinks = buildGoogleDriveDirectLinks(values.gdriveUrls.split("\n"));
 
         props.onDirectLinkGenerated(directLinks);
 
@@ -131,20 +124,7 @@ const multilinksValidationSchema: Yup.ObjectSchema<ShareableLinksFormValue> =
             const link = links[i].trim();
             if (!link) continue;
 
-            try {
-              const url = new URL(link);
-              const urlComponents = link.split("/");
-
-              const isValid =
-                url.hostname === "drive.google.com" &&
-                urlComponents.length > 5 &&
-                urlComponents[5].length > 0;
-
-              if (!isValid) {
-                invalidIndex = i;
-                break;
-              }
-            } catch {
+            if (!isValidGoogleDriveShareableLink(link)) {
               invalidIndex = i;
               break;
             }

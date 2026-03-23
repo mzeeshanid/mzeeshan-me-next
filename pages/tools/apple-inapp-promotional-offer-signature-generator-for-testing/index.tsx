@@ -3,10 +3,10 @@ import { ArticleModel } from "@/apis/articles/articles";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
 import AppleOfferSignatureBlockQuote from "@/components/Tools/AppleOfferSignature/BlockQuote/AppleOfferSignatureBlockQuote";
 import AppleOfferSignatureForm from "@/components/Tools/AppleOfferSignature/Form/AppleOfferSignatureForm";
 import AppleOfferSignatureHero from "@/components/Tools/AppleOfferSignature/Hero/AppleOfferSignatureHero";
-import AppleOfferSignatureLearnMore from "@/components/Tools/AppleOfferSignature/LearnMore/AppleOfferSignatureLearnMore";
 import AppleOfferSignatureSeo from "@/components/Tools/AppleOfferSignature/Seo/AppleOfferSignatureSeo";
 import AppleOfferSignatureUsage from "@/components/Tools/AppleOfferSignature/Usage/AppleOfferSignatureUsage";
 import { appleOfferSignatureHeaderData } from "@/data/tools/appleOfferSignature/appleOfferSignatureHeaderData";
@@ -60,7 +60,14 @@ const AppleInAppOfferSignatureHome: React.FC<Props> = (props: Props) => {
 
       <Spacer p={4} />
       <Container maxW="6xl">
-        <AppleOfferSignatureLearnMore article={props.article} />
+        <ToolRelatedArticle
+          article={props.article}
+          header={{
+            badge: "Learn More",
+            title: "More Information",
+            desc: "See Apple promotional offer signature generator in action and learn how it works.",
+          }}
+        />
       </Container>
 
       <Spacer p={4} />

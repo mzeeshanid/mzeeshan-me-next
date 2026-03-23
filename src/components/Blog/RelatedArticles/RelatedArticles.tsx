@@ -1,13 +1,14 @@
 import { ArticleModel } from "@/apis/articles/articles";
 import {
   Box,
-  GridItem,
-  SimpleGrid,
+  Carousel,
+  IconButton,
   Spacer,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import RelatedArticleItem from "./RelatedArticleItem";
 
 type RelatedArticlesProps = {
@@ -28,13 +29,43 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = (props) => {
         </Text>
       </Box>
       <Spacer p={4} />
-      <SimpleGrid minChildWidth={{ base: "none", md: "sm" }} gap={4}>
-        {articles.map((article, key) => (
-          <GridItem key={key} h="full">
-            <RelatedArticleItem article={article} />
-          </GridItem>
-        ))}
-      </SimpleGrid>
+      <Carousel.Root
+        autoSize
+        slideCount={articles.length}
+        gap={4}
+        w="full"
+        mx="auto"
+      >
+        <Carousel.ItemGroup>
+          {articles.map((article, index) => (
+            <Carousel.Item key={article.slug || index} index={index} width="auto">
+              <Box
+                w={{ base: "calc(100vw - 5rem)", md: "22rem" }}
+                maxW="full"
+                h="full"
+              >
+                <RelatedArticleItem article={article} />
+              </Box>
+            </Carousel.Item>
+          ))}
+        </Carousel.ItemGroup>
+
+        <Carousel.Control justifyContent="center" gap={4} pt={4}>
+          <Carousel.PrevTrigger asChild>
+            <IconButton size="xs" variant="outline">
+              <LuChevronLeft />
+            </IconButton>
+          </Carousel.PrevTrigger>
+
+          <Carousel.Indicators />
+
+          <Carousel.NextTrigger asChild>
+            <IconButton size="xs" variant="outline">
+              <LuChevronRight />
+            </IconButton>
+          </Carousel.NextTrigger>
+        </Carousel.Control>
+      </Carousel.Root>
     </VStack>
   );
 };

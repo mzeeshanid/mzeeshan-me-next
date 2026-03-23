@@ -1,18 +1,5 @@
 import * as Yup from "yup";
-
-const isValidGoogleDriveShareableLink = (value: string): boolean => {
-  try {
-    const url = new URL(value);
-    const urlComponents = value.split("/");
-    return (
-      url.hostname === "drive.google.com" &&
-      urlComponents.length > 5 &&
-      !!urlComponents[5]
-    );
-  } catch {
-    return false;
-  }
-};
+import { isValidGoogleDriveShareableLink } from "@/utils/driveDirect";
 
 export interface ShareableLinkValidationValues {
   gdriveUrl: string;
