@@ -87,6 +87,19 @@ export const myToolsData: MyToolsData = {
       url: "/tools/json-validator-and-formatter",
     },
     {
+      title: "App Icon Generator",
+      caption: "Generate It!",
+      detail:
+        "Create iOS, Android, watchOS, iPadOS, and macOS icon packs from one image and download a project-ready ZIP.",
+      icon: {
+        src: "/assets/app_icon_generator_app_icon.png",
+        alt: "App Icon Generator icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/app-icon-generator",
+    },
+    {
       title: "Promotional Offer",
       caption: "Signature generator",
       detail:
