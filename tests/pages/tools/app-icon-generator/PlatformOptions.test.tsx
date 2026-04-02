@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import AppIconPlatformOptions from "@/components/Tools/AppIconGenerator/Hero/AppIconPlatformOptions";
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { renderWithProviders } from "../../../testUtils/renderWithProviders";
@@ -14,7 +15,8 @@ const baseSelection = {
 };
 
 describe("AppIconPlatformOptions", () => {
-  it("toggles platform checkboxes", () => {
+  it("toggles platform checkboxes", async () => {
+    const user = userEvent.setup();
     const onPlatformChange = vi.fn();
 
     renderWithProviders(
@@ -26,7 +28,7 @@ describe("AppIconPlatformOptions", () => {
       />,
     );
 
-    fireEvent.click(screen.getAllByRole("checkbox")[0]);
+    await user.click(screen.getByTestId("platform-option-iphone"));
     expect(onPlatformChange).toHaveBeenCalledWith("iphone", true);
   });
 
