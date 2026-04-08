@@ -180,36 +180,7 @@ const createSourceCanvas = async ({
 
     return canvas;
   } catch {
-    const { Jimp } = await import("jimp");
-    const image = await Jimp.read(await file.arrayBuffer());
-    onProgress?.(35);
-
-    const sourceCanvas = document.createElement("canvas");
-    sourceCanvas.width = image.bitmap.width;
-    sourceCanvas.height = image.bitmap.height;
-
-    const sourceContext = sourceCanvas.getContext("2d");
-    if (!sourceContext) {
-      throw new Error("Canvas context is unavailable.");
-    }
-
-    sourceContext.putImageData(
-      new ImageData(
-        new Uint8ClampedArray(image.bitmap.data),
-        image.bitmap.width,
-        image.bitmap.height,
-      ),
-      0,
-      0,
-    );
-
-    canvas.width = resizeWidth ?? image.bitmap.width;
-    canvas.height = resizeHeight ?? image.bitmap.height;
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.drawImage(sourceCanvas, 0, 0, canvas.width, canvas.height);
-    onProgress?.(70);
-
-    return canvas;
+    throw new Error("Failed to load image. Please try a different format.");
   }
 };
 
@@ -251,29 +222,6 @@ export const convertImageInBrowser = async (options: {
     return pngBlob;
   }
 
-  if (isJimpOutputMimeType(options.outputMimeType)) {
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    const { Jimp } = await import("jimp");
-    const jimpImage = Jimp.fromBitmap({
-      data: imageData.data,
-      width: canvas.width,
-      height: canvas.height,
-    });
-    const outputBuffer = await jimpImage.getBuffer(
-      options.outputMimeType,
-      getJimpOutputOptions(
-        options.outputMimeType,
-        options.quality,
-        options.optimizeOutput,
-      ),
-    );
-    options.onProgress?.(100);
-
-    return new Blob([new Uint8Array(outputBuffer)], {
-      type: options.outputMimeType,
-    });
-  }
-
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob(
       (blob) => {
@@ -291,24 +239,6 @@ export const convertImageInBrowser = async (options: {
   });
 };
 
-type JimpOutputMimeType =
-  | "image/jpeg"
-  | "image/png"
-  | "image/bmp"
-  | "image/tiff"
-  | "image/gif";
-
-const JIMP_OUTPUT_MIME_TYPES = new Set<string>([
-  "image/jpeg",
-  "image/png",
-  "image/bmp",
-  "image/tiff",
-  "image/gif",
-]);
-
-const isJimpOutputMimeType = (mimeType: string): mimeType is JimpOutputMimeType =>
-  JIMP_OUTPUT_MIME_TYPES.has(mimeType);
-
 export const checkBrowserSupportsOutputFormat = (outputMimeType: string): boolean => {
   if (typeof window === "undefined") return true;
   
@@ -322,25 +252,6 @@ export const checkBrowserSupportsOutputFormat = (outputMimeType: string): boolea
   } catch {
     return false;
   }
-};
-
-const getJimpOutputOptions = (
-  mimeType: JimpOutputMimeType,
-  quality?: number,
-  optimizeOutput?: boolean,
-) => {
-  if (mimeType === "image/jpeg" && optimizeOutput && quality) {
-    return { quality: Math.round(quality * 100) };
-  }
-
-  if (mimeType === "image/png" && optimizeOutput) {
-    return {
-      deflateLevel: 9,
-      deflateStrategy: 3,
-    };
-  }
-
-  return undefined;
 };
 
 export const buildConvertedFilename = (
