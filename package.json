@@ -8,7 +8,7 @@
     "start": "next start",
     "postbuild": "NODE_OPTIONS=--experimental-strip-types next-sitemap --config next-sitemap.ts",
     "chakra": "chakra",
-    "test": "vitest run",
+    "test": "vitest run --maxWorkers=2",
     "test:watch": "vitest"
   },
   "dependencies": {

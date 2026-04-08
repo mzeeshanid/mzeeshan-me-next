@@ -23,6 +23,9 @@ jobs:
         run: yarn install
 
       - name: Run tests
+        env:
+          CI: true
+          NODE_OPTIONS: --max-old-space-size=4096
         run: yarn test
 
   deploy:
