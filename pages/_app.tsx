@@ -14,8 +14,15 @@ export const GlobalContext = createContext<Record<string, any>>({});
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const { global } = pageProps;
+  const isGoogleAnalyticsEnabled =
+    process.env.NODE_ENV === "production" &&
+    Boolean(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS);
 
   useEffect(() => {
+    if (!isGoogleAnalyticsEnabled) {
+      return;
+    }
+
     const handleRouteChange = (url: string) => {
       ga.pageview(url);
     };
@@ -28,14 +35,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
-  }, [router.events]);
+  }, [isGoogleAnalyticsEnabled, router.events]);
 
   return (
     <GlobalContext.Provider value={global}>
       <Provider>
         <ColorPaletteProvider>
           <Component {...pageProps} />
-          <GoogleAnalytics gaId="G-K7GTY2ZFWB" />
+          {isGoogleAnalyticsEnabled ? (
+            <GoogleAnalytics
+              gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS as string}
+            />
+          ) : null}
         </ColorPaletteProvider>
       </Provider>
     </GlobalContext.Provider>

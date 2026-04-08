@@ -14,12 +14,7 @@ const DriveDirectFeatureItem: React.FC<Props> = (props: Props) => {
     <Box>
       <HStack align={"flex-start"} gap={4}>
         <Box bg={`${palette}.subtle`} borderRadius="md">
-          <Icon
-            m={2}
-            as={icon}
-            size={"sm"}
-            color={`${palette}.focusRing`}
-          ></Icon>
+          <Icon m={2} as={icon} size={"sm"} color={`${palette}.focusRing`} />
         </Box>
         <VStack align="start" gap={2}>
           <Text fontWeight="bold">{title}</Text>

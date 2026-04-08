@@ -87,6 +87,19 @@ export const myToolsData: MyToolsData = {
       url: "/tools/json-validator-and-formatter",
     },
     {
+      title: "Image Converter",
+      caption: "Convert It!",
+      detail:
+        "Convert WebP, PNG, and JPG images locally in the browser without uploading them to a server.",
+      icon: {
+        src: "/assets/image_format_converter_icon.png",
+        alt: "Image Format Converter icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/image-format-converter",
+    },
+    {
       title: "App Icon Generator",
       caption: "Generate It!",
       detail:

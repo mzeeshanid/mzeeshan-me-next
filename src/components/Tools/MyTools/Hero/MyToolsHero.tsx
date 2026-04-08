@@ -25,6 +25,7 @@ const MyToolsHero: React.FC<Props> = (props: Props) => {
   const { palette } = useColorPalette();
 
   const router = useRouter();
+  const [shortcutModifier, setShortcutModifier] = React.useState("Ctrl");
 
   const [searchText, setSearchText] = React.useState(
     (router.query.keyword as string) || "",
@@ -50,6 +51,12 @@ const MyToolsHero: React.FC<Props> = (props: Props) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
+    const userAgent = window.navigator.userAgent.toUpperCase();
+    const platform = window.navigator.platform.toUpperCase();
+    setShortcutModifier(
+      userAgent.includes("MAC") || platform.includes("MAC") ? "⌘" : "Ctrl",
+    );
+
     const handler = (e: KeyboardEvent) => {
       // ⌘K / Ctrl+K → focus
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -112,12 +119,7 @@ const MyToolsHero: React.FC<Props> = (props: Props) => {
             <InputGroup
               endElement={
                 <HStack gap={1} display={{ base: "none", md: "flex" }}>
-                  <Kbd variant={"subtle"}>
-                    {navigator.userAgent.toUpperCase().includes("MAC") ||
-                    navigator.platform.toUpperCase().includes("MAC")
-                      ? "⌘"
-                      : "Ctrl"}
-                  </Kbd>
+                  <Kbd variant={"subtle"}>{shortcutModifier}</Kbd>
                   <Kbd variant={"subtle"}>k</Kbd>
                 </HStack>
               }

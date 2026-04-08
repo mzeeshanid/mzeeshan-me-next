@@ -23,8 +23,8 @@ const MyIntro: React.FC<MyIntroProps> = (props) => {
           {"Muhammad Zeeshan"}
         </Text>
         <HStack>
-          <Text>{"Swift Enthusiast"}</Text>
-          <Icon as={GrSwift} />
+          <Text color={"fg.muted"}>{"Swift Enthusiast"}</Text>
+          <Icon color={"fg.muted"} as={GrSwift} />
         </HStack>
       </VStack>
     </HStack>
