@@ -7,7 +7,7 @@ import React from "react";
 
 type Props = {};
 
-const AspectRatioSeo: React.FC<Props> = (props: Props) => {
+const AspectRatioSeo: React.FC<Props> = () => {
   const meta = aspectRatioMetaData;
   return (
     <>
@@ -15,6 +15,7 @@ const AspectRatioSeo: React.FC<Props> = (props: Props) => {
         {generateNextSeo({
           title: meta.title,
           description: meta.desc,
+          canonical: absoluteUrl(meta.url),
           openGraph: {
             title: meta.title,
             description: meta.desc,

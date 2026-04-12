@@ -19,11 +19,15 @@ const AspectRatioWatcher: React.FC<AspectRatioWatcherProps> = (
     useFormikContext<AspectRatioFormValues>();
 
   const { originalWidth, originalHeight, desiredWidth, desiredHeight } = values;
+  const errorOriginalWidth = errors.originalWidth;
+  const errorOriginalHeight = errors.originalHeight;
+  const errorDesiredWidth = errors.desiredWidth;
+  const errorDesiredHeight = errors.desiredHeight;
 
   useEffect(() => {
     if (
-      errors.originalWidth ||
-      errors.originalHeight ||
+      errorOriginalWidth ||
+      errorOriginalHeight ||
       !originalWidth ||
       !originalHeight ||
       !lastEdited
@@ -40,7 +44,7 @@ const AspectRatioWatcher: React.FC<AspectRatioWatcherProps> = (
     const ow = Number(originalWidth);
     const oh = Number(originalHeight);
 
-    if (lastEdited === "desiredWidth" && desiredWidth && !errors.desiredWidth) {
+    if (lastEdited === "desiredWidth" && desiredWidth && !errorDesiredWidth) {
       const dw = Number(desiredWidth);
       const { desiredHeight: dh } = calculateMissingAspectRatioDimension({
         originalWidth: ow,
@@ -59,11 +63,7 @@ const AspectRatioWatcher: React.FC<AspectRatioWatcherProps> = (
       });
     }
 
-    if (
-      lastEdited === "desiredHeight" &&
-      desiredHeight &&
-      !errors.desiredHeight
-    ) {
+    if (lastEdited === "desiredHeight" && desiredHeight && !errorDesiredHeight) {
       const dh = Number(desiredHeight);
       const { desiredWidth: dw } = calculateMissingAspectRatioDimension({
         originalWidth: ow,
@@ -87,7 +87,10 @@ const AspectRatioWatcher: React.FC<AspectRatioWatcherProps> = (
     originalHeight,
     desiredWidth,
     desiredHeight,
-    errors,
+    errorOriginalWidth,
+    errorOriginalHeight,
+    errorDesiredWidth,
+    errorDesiredHeight,
     lastEdited,
     setFieldValue,
   ]);

@@ -10,7 +10,7 @@ export type AspectRatioMetaData = {
 
 export const aspectRatioMetaData: AspectRatioMetaData = {
     title: "Aspect Ratio Calculator",
-    desc: "A tool that allows to calculate aspect ratio by entering original size and desired width or height.",
+    desc: "Free online aspect ratio calculator. Enter your original width and height, then instantly get the new dimension — perfect for resizing images, videos, and responsive layouts without distortion.",
     image: {
         alt: "aspect ratio calculator hero image",
         width: 333,
