@@ -260,6 +260,54 @@ export const collectSearchMatches = (
   return matches;
 };
 
+/**
+ * Assigns a stable line number to every node in the JSON tree, mirroring the
+ * line positions in the fully-formatted (fully-expanded) JSON text.
+ *
+ * Collapse/expand state is intentionally ignored: a collapsed object node
+ * still consumes the same number of lines as when it is expanded, so sibling
+ * nodes always share the same line numbers regardless of what the user has
+ * opened or closed. The tree renderer is responsible for showing only the
+ * line number of visible nodes; the numbers themselves never change.
+ *
+ * @param value   - The JSON value to number.
+ * @param path    - JSONPath of this node (default: "$" for the root).
+ * @param counter - Shared mutable counter threaded through the recursion.
+ * @returns A Map<path, lineNumber> covering every node in the subtree.
+ */
+export const computeViewerLineNumbers = (
+  value: JsonValue,
+  path = "$",
+  counter = { n: 1 },
+): Map<string, number> => {
+  const map = new Map<string, number>();
+  map.set(path, counter.n++);
+
+  const type = detectJsonType(value);
+  if (type === "object" || type === "array") {
+    const children =
+      type === "array"
+        ? (value as JsonValue[]).map((item, index) => ({
+            childValue: item,
+            childPath: `${path}.${index}`,
+          }))
+        : Object.entries(value as Record<string, JsonValue>).map(
+            ([k, child]) => ({
+              childValue: child,
+              childPath: `${path}.${k}`,
+            }),
+          );
+
+    for (const { childValue, childPath } of children) {
+      computeViewerLineNumbers(childValue, childPath, counter).forEach(
+        (v, k) => map.set(k, v),
+      );
+    }
+  }
+
+  return map;
+};
+
 export const tryRemoveEscapeCharacters = (text: string): string => {
   const trimmed = text.trim();
 

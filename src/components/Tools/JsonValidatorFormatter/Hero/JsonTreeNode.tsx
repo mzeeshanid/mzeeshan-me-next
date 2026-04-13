@@ -33,6 +33,8 @@ type Props = {
   matchPaths: Set<string>;
   activeMatchPath: string | null;
   typeColors: Record<JsonTypeName, string>;
+  showLineNumbers: boolean;
+  lineNumberMap: Map<string, number>;
 };
 
 const JsonTreeNode: React.FC<Props> = ({
@@ -50,6 +52,8 @@ const JsonTreeNode: React.FC<Props> = ({
   matchPaths,
   activeMatchPath,
   typeColors,
+  showLineNumbers,
+  lineNumberMap,
 }) => {
   const type = detectJsonType(value);
   const isExpandable = type === "object" || type === "array";
@@ -77,64 +81,87 @@ const JsonTreeNode: React.FC<Props> = ({
 
   return (
     <Box minW="max-content">
-      <HStack
-        gap={2}
-        align="flex-start"
-        pl={depth * 8}
-        py={1.5}
-        px={2}
-        minW="max-content"
-        borderRadius="md"
-        bg={
-          isActiveMatch
-            ? "rgba(250, 204, 21, 0.22)"
-            : isSelected
-              ? "bg.emphasized"
-              : isMatch
-                ? "rgba(250, 204, 21, 0.12)"
-                : "transparent"
-        }
-      >
-        {isExpandable ? (
-          <Button
-            size="2xs"
-            variant="ghost"
-            onClick={() => onToggle(path)}
-            aria-label={isExpanded ? "Collapse node" : "Expand node"}
+      <HStack gap={0} align="stretch" minW="max-content">
+        {showLineNumbers && (
+          <Box
+            minW="40px"
+            w="40px"
+            flexShrink={0}
+            textAlign="right"
+            pr={2}
+            display="flex"
+            alignItems="center"
+            justifyContent="flex-end"
+            color="fg.subtle"
+            fontFamily="mono"
+            fontSize="xs"
+            userSelect="none"
+            borderRightWidth="1px"
+            borderColor="border"
           >
-            {isExpanded ? <FaChevronDown /> : <FaChevronRight />}
-          </Button>
-        ) : (
-          <Box w="28px" />
+            {lineNumberMap.get(path)}
+          </Box>
         )}
-        <Button
-          variant="ghost"
-          size="sm"
-          justifyContent="flex-start"
-          px={1}
-          h="auto"
-          whiteSpace="nowrap"
-          onClick={() => onSelect({ path, key: nodeKey, value })}
+        <HStack
+          gap={2}
+          align="flex-start"
+          pl={depth * 8}
+          py={1.5}
+          px={2}
+          flex={1}
+          minW="max-content"
+          borderRadius="md"
+          bg={
+            isActiveMatch
+              ? "rgba(250, 204, 21, 0.22)"
+              : isSelected
+                ? "bg.emphasized"
+                : isMatch
+                  ? "rgba(250, 204, 21, 0.12)"
+                  : "transparent"
+          }
         >
-          <HStack align="center" gap={2} flexWrap="nowrap">
-            <Icon
-              as={FaCircle}
-              color={`${typeColors[type]}.solid`}
-              boxSize={3}
-            />
-            {getNodePrefix(type) && (
-              <Text fontFamily="mono" fontWeight="bold">
-                {getNodePrefix(type)}
+          {isExpandable ? (
+            <Button
+              size="2xs"
+              variant="ghost"
+              onClick={() => onToggle(path)}
+              aria-label={isExpanded ? "Collapse node" : "Expand node"}
+            >
+              {isExpanded ? <FaChevronDown /> : <FaChevronRight />}
+            </Button>
+          ) : (
+            <Box w="28px" />
+          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            justifyContent="flex-start"
+            px={1}
+            h="auto"
+            whiteSpace="nowrap"
+            onClick={() => onSelect({ path, key: nodeKey, value })}
+          >
+            <HStack align="center" gap={2} flexWrap="nowrap">
+              <Icon
+                as={FaCircle}
+                color={`${typeColors[type]}.solid`}
+                boxSize={3}
+              />
+              {getNodePrefix(type) && (
+                <Text fontFamily="mono" fontWeight="bold">
+                  {getNodePrefix(type)}
+                </Text>
+              )}
+              <Text fontFamily="mono" fontWeight="semibold">
+                {nodeKey}
               </Text>
-            )}
-            <Text fontFamily="mono" fontWeight="semibold">
-              {nodeKey}
-            </Text>
-            <Text color="fg.subtle" fontFamily="mono">
-              {getNodeSummary(value)}
-            </Text>
-          </HStack>
-        </Button>
+              <Text color="fg.subtle" fontFamily="mono">
+                {getNodeSummary(value)}
+              </Text>
+            </HStack>
+          </Button>
+        </HStack>
       </HStack>
       {isExpandable && isExpanded && (
         <VStack
@@ -162,6 +189,8 @@ const JsonTreeNode: React.FC<Props> = ({
               matchPaths={matchPaths}
               activeMatchPath={activeMatchPath}
               typeColors={typeColors}
+              showLineNumbers={showLineNumbers}
+              lineNumberMap={lineNumberMap}
             />
           ))}
         </VStack>

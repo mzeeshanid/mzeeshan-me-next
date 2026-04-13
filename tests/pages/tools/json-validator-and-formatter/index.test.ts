@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { jsonValidatorFormatterDefaultJson } from "@/data/tools/jsonValidatorFormatter/jsonValidatorFormatterData";
 import {
   collectSearchMatches,
+  computeViewerLineNumbers,
   detectJsonType,
   getAncestorPaths,
   getDisplayType,
@@ -214,5 +215,138 @@ describe("/tools/json-validator-and-formatter logic", () => {
       "$.limits",
       "$.limits.retry",
     ]);
+  });
+
+  // ─── computeViewerLineNumbers ───────────────────────────────────────────────
+
+  it("assigns line 1 to the root of a flat object", () => {
+    const map = computeViewerLineNumbers({ a: 1, b: 2 });
+
+    expect(map.get("$")).toBe(1);
+    expect(map.get("$.a")).toBe(2);
+    expect(map.get("$.b")).toBe(3);
+  });
+
+  it("numbers every node in a nested object regardless of collapse state", () => {
+    // { "a": 1, "b": { "c": 2, "d": 3 } }
+    // fully-expanded line layout:
+    //   1  root  $
+    //   2  a     $.a
+    //   3  b     $.b
+    //   4  c     $.b.c
+    //   5  d     $.b.d
+    const map = computeViewerLineNumbers({ a: 1, b: { c: 2, d: 3 } });
+
+    expect(map.get("$")).toBe(1);
+    expect(map.get("$.a")).toBe(2);
+    expect(map.get("$.b")).toBe(3);
+    expect(map.get("$.b.c")).toBe(4);
+    expect(map.get("$.b.d")).toBe(5);
+    expect(map.size).toBe(5);
+  });
+
+  it("numbers array items sequentially", () => {
+    // { "tags": ["x", "y", "z"] }
+    //   1  root   $
+    //   2  tags   $.tags
+    //   3  0      $.tags.0
+    //   4  1      $.tags.1
+    //   5  2      $.tags.2
+    const map = computeViewerLineNumbers({ tags: ["x", "y", "z"] });
+
+    expect(map.get("$")).toBe(1);
+    expect(map.get("$.tags")).toBe(2);
+    expect(map.get("$.tags.0")).toBe(3);
+    expect(map.get("$.tags.1")).toBe(4);
+    expect(map.get("$.tags.2")).toBe(5);
+  });
+
+  it("collapsed nodes do not change sibling line numbers — map is identical regardless of expandedPaths", () => {
+    // The function no longer accepts expandedPaths; calling it twice with the
+    // same value must always return the same map.
+    const value = { a: 1, b: { c: 2, d: 3 }, e: 4 };
+
+    const map1 = computeViewerLineNumbers(value);
+    const map2 = computeViewerLineNumbers(value);
+
+    expect(map1).toEqual(map2);
+
+    // $.e must be line 6 regardless of whether $.b is collapsed/expanded,
+    // because $.b contributes 3 lines ($.b, $.b.c, $.b.d).
+    expect(map1.get("$.e")).toBe(6);
+  });
+
+  it("line numbers remain consistent after an edit that adds a sibling", () => {
+    const before = computeViewerLineNumbers({ a: 1, b: 2 });
+    const after  = computeViewerLineNumbers({ a: 1, x: 99, b: 2 });
+
+    // original $.b was line 3; after inserting $.x it shifts to line 4
+    expect(before.get("$.b")).toBe(3);
+    expect(after.get("$.b")).toBe(4);
+    expect(after.get("$.x")).toBe(3);
+  });
+
+  it("line numbers remain consistent after an edit that removes a nested node", () => {
+    // before: $=1, $.a=2, $.a.p=3, $.a.q=4, $.b=5
+    const before = computeViewerLineNumbers({ a: { p: 1, q: 2 }, b: 3 });
+    // after:  $=1, $.a=2, $.a.p=3, $.b=4
+    const after  = computeViewerLineNumbers({ a: { p: 1 }, b: 3 });
+
+    // $.b shifts from line 5 to line 4 when $.a.q is removed
+    expect(before.get("$.b")).toBe(5);
+    expect(after.get("$.b")).toBe(4);
+  });
+
+  it("numbers a deeply nested structure correctly", () => {
+    const value = { outer: { middle: { inner: 42 } } };
+    const map = computeViewerLineNumbers(value);
+
+    expect(map.get("$")).toBe(1);
+    expect(map.get("$.outer")).toBe(2);
+    expect(map.get("$.outer.middle")).toBe(3);
+    expect(map.get("$.outer.middle.inner")).toBe(4);
+    expect(map.size).toBe(4);
+  });
+
+  it("handles an array of objects and numbers every leaf", () => {
+    const value = { list: [{ id: 1 }, { id: 2 }] };
+    const map = computeViewerLineNumbers(value);
+
+    // $=1, $.list=2, $.list.0=3, $.list.0.id=4, $.list.1=5, $.list.1.id=6
+    expect(map.get("$")).toBe(1);
+    expect(map.get("$.list")).toBe(2);
+    expect(map.get("$.list.0")).toBe(3);
+    expect(map.get("$.list.0.id")).toBe(4);
+    expect(map.get("$.list.1")).toBe(5);
+    expect(map.get("$.list.1.id")).toBe(6);
+    expect(map.size).toBe(6);
+  });
+
+  it("assigns line 1 to a primitive root value", () => {
+    const map = computeViewerLineNumbers(42);
+
+    expect(map.get("$")).toBe(1);
+    expect(map.size).toBe(1);
+  });
+
+  it("assigns line 1 to a null root value", () => {
+    const map = computeViewerLineNumbers(null);
+
+    expect(map.get("$")).toBe(1);
+    expect(map.size).toBe(1);
+  });
+
+  it("assigns line 1 to an empty object", () => {
+    const map = computeViewerLineNumbers({});
+
+    expect(map.get("$")).toBe(1);
+    expect(map.size).toBe(1);
+  });
+
+  it("assigns line 1 to an empty array", () => {
+    const map = computeViewerLineNumbers([]);
+
+    expect(map.get("$")).toBe(1);
+    expect(map.size).toBe(1);
   });
 });

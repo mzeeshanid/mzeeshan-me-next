@@ -1,38 +1,21 @@
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
-import {
-  jsonValidatorFormatterDefaultJson,
-  jsonValidatorFormatterHeroData,
-} from "@/data/tools/jsonValidatorFormatter/jsonValidatorFormatterData";
 import JsonSearch from "@/components/Tools/JsonValidatorFormatter/Hero/JsonSearch";
 import JsonSelectedNodeDetails from "@/components/Tools/JsonValidatorFormatter/Hero/JsonSelectedNodeDetails";
 import JsonTypeLegend from "@/components/Tools/JsonValidatorFormatter/Hero/JsonTypeLegend";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
-  collectSearchMatches,
-  detectJsonType,
-  getAncestorPaths,
-  getDisplayType,
-  getNodePrefix,
-  getNodeSummary,
-  getSelectedNodeDetailRows,
-  getSelectedNodeValueDisplay,
-  TYPE_COLORS,
-  tryRemoveEscapeCharacters,
-  validateJson,
-} from "./jsonValidatorFormatterUtils";
-import type {
-  JsonValue,
-  SearchMatch,
-  SelectedNode,
-  ValidationState,
-} from "./jsonValidatorFormatterTypes";
+  jsonValidatorFormatterDefaultJson,
+  jsonValidatorFormatterHeroData,
+} from "@/data/tools/jsonValidatorFormatter/jsonValidatorFormatterData";
 import {
   Box,
   Button,
+  Clipboard,
   Field,
   HStack,
   SimpleGrid,
   Spacer,
+  Switch,
   Tabs,
   Text,
   Textarea,
@@ -40,6 +23,26 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import JsonTreeNode from "./JsonTreeNode";
+import type {
+  JsonValue,
+  SearchMatch,
+  SelectedNode,
+  ValidationState,
+} from "./jsonValidatorFormatterTypes";
+import {
+  collectSearchMatches,
+  computeViewerLineNumbers,
+  detectJsonType,
+  getAncestorPaths,
+  getDisplayType,
+  getNodePrefix,
+  getNodeSummary,
+  getSelectedNodeDetailRows,
+  getSelectedNodeValueDisplay,
+  tryRemoveEscapeCharacters,
+  TYPE_COLORS,
+  validateJson,
+} from "./jsonValidatorFormatterUtils";
 
 const JsonValidatorFormatterHero: React.FC = () => {
   const { palette } = useColorPalette();
@@ -61,6 +64,9 @@ const JsonValidatorFormatterHero: React.FC = () => {
   const [matches, setMatches] = React.useState<SearchMatch[]>([]);
   const [activeMatchIndex, setActiveMatchIndex] = React.useState<number>(-1);
   const [lastSearchedTerm, setLastSearchedTerm] = React.useState("");
+  const [showLineNumbers, setShowLineNumbers] = React.useState(true);
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  const lineGutterRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     if (activeTab === "viewer") {
@@ -208,6 +214,20 @@ const JsonValidatorFormatterHero: React.FC = () => {
     ? getSelectedNodeDetailRows(selectedNode)
     : [];
 
+  const syncScroll = () => {
+    if (lineGutterRef.current && textareaRef.current) {
+      lineGutterRef.current.scrollTop = textareaRef.current.scrollTop;
+    }
+  };
+
+  const lineNumberMap = React.useMemo(
+    () =>
+      validation.value
+        ? computeViewerLineNumbers(validation.value)
+        : new Map<string, number>(),
+    [validation.value],
+  );
+
   return (
     <Box as="section">
       <SectionHeader
@@ -235,6 +255,15 @@ const JsonValidatorFormatterHero: React.FC = () => {
                 >
                   {"Format"}
                 </Button>
+                <Clipboard.Root value={jsonText}>
+                  <Clipboard.Trigger asChild>
+                    <Button variant="surface">
+                      <Clipboard.Indicator />
+                      <Clipboard.CopyText />
+                    </Button>
+                  </Clipboard.Trigger>
+                </Clipboard.Root>
+
                 <Button variant="surface" onClick={handleRemoveWhiteSpace}>
                   {"Remove White Space"}
                 </Button>
@@ -247,18 +276,70 @@ const JsonValidatorFormatterHero: React.FC = () => {
                 <Button variant="ghost" onClick={handleClear}>
                   {"Clear"}
                 </Button>
+                <Spacer />
+                <Switch.Root
+                  colorPalette={palette}
+                  checked={showLineNumbers}
+                  onCheckedChange={(e) => setShowLineNumbers(!!e.checked)}
+                >
+                  <Switch.HiddenInput />
+                  <Switch.Control>
+                    <Switch.Thumb />
+                  </Switch.Control>
+                  <Switch.Label color="fg.muted">{"Line Numbers"}</Switch.Label>
+                </Switch.Root>
               </HStack>
               <Field.Root>
                 <Field.Label>{heroData.textInputLabel}</Field.Label>
-                <Textarea
-                  value={jsonText}
-                  onChange={(event) => setJsonText(event.target.value)}
-                  minH={{ base: "24rem", md: "30rem" }}
+                <HStack
+                  align="stretch"
+                  gap={0}
+                  w="full"
+                  borderWidth="1px"
+                  borderRadius="md"
+                  overflow="hidden"
                   fontFamily="mono"
                   fontSize="sm"
-                  spellCheck={false}
-                  resize="vertical"
-                />
+                >
+                  {showLineNumbers && (
+                    <Box
+                      ref={lineGutterRef}
+                      minW="48px"
+                      overflowY="hidden"
+                      borderRightWidth="1px"
+                      bg="bg.subtle"
+                      color="fg.muted"
+                      userSelect="none"
+                      textAlign="right"
+                      pt="8px"
+                      pb="8px"
+                      flexShrink={0}
+                    >
+                      {jsonText.split("\n").map((_, i) => (
+                        <Box key={i} px={3} lineHeight="21px">
+                          {i + 1}
+                        </Box>
+                      ))}
+                    </Box>
+                  )}
+                  <Textarea
+                    ref={textareaRef}
+                    value={jsonText}
+                    onChange={(event) => setJsonText(event.target.value)}
+                    onScroll={syncScroll}
+                    minH={{ base: "24rem", md: "30rem" }}
+                    fontFamily="mono"
+                    fontSize="sm"
+                    lineHeight="21px"
+                    spellCheck={false}
+                    resize="vertical"
+                    borderWidth={0}
+                    borderRadius={0}
+                    flex={1}
+                    pt="8px"
+                    pb="8px"
+                  />
+                </HStack>
               </Field.Root>
               <Text color="fg.muted">{heroData.textInputHint}</Text>
             </VStack>
@@ -347,6 +428,8 @@ const JsonValidatorFormatterHero: React.FC = () => {
                             matchPaths={matchPaths}
                             activeMatchPath={activeMatch?.path ?? null}
                             typeColors={TYPE_COLORS}
+                            showLineNumbers={showLineNumbers}
+                            lineNumberMap={lineNumberMap}
                           />
                         </Box>
                       </Box>
