@@ -96,7 +96,7 @@ const JsonToCsvPage: React.FC<Props> = ({ article }) => (
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
-    const article = await fetchArticleBySlugStrapi("json-validator-and-formatter");
+    const article = await fetchArticleBySlugStrapi("working-with-json-five-tools-for-every-workflow");
     return { props: { article }, revalidate: 3600 };
   } catch {
     return { props: {}, revalidate: 60 };

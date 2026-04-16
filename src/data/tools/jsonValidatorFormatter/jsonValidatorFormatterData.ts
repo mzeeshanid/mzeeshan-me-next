@@ -25,6 +25,7 @@ export type JsonValidatorFormatterMetaData = {
     src: string;
     type: string;
   };
+  keywords?: string;
 };
 
 export type JsonValidatorFormatterFeature = {
@@ -78,9 +79,9 @@ export const jsonValidatorFormatterHeaderData: JsonValidatorFormatterHeaderData 
   };
 
 export const jsonValidatorFormatterMetaData: JsonValidatorFormatterMetaData = {
-  title: "JSON Validator And Formatter",
+  title: "JSON Validator with Error Line Detection — Free Online Formatter",
   description:
-    "Validate JSON, format and minify payloads, inspect nodes in a collapsible tree, and pinpoint parse errors with line-level feedback.",
+    "Free online JSON validator that shows the exact error line. Format, minify, strip escape characters from logs, and explore the collapsible tree — all in your browser, nothing uploaded.",
   url: "/tools/json-validator-and-formatter",
   image: {
     src: "/assets/json_validator_formatter_icon.png",
@@ -366,17 +367,27 @@ export const jsonValidatorFormatterFaqsData = {
     {
       question: "Does the tool send my JSON to a server?",
       answer:
-        "No. Validation, formatting, searching, and tree rendering happen in the browser, so you can inspect payloads without posting them to a backend.",
+        "No. Validation, formatting, searching, and tree rendering all happen entirely in your browser. Your JSON never leaves your device, so you can safely inspect payloads that contain credentials, PII, or internal API data.",
+    },
+    {
+      question: "Does the validator show which line the JSON error is on?",
+      answer:
+        "Yes. When JSON fails to parse, the viewer reports the exact error message and highlights the specific line that caused the failure. This makes it much faster to fix syntax errors in large payloads compared to tools that only say parsing failed without pointing to the location.",
+    },
+    {
+      question: "How do I format an escaped JSON string copied from a log?",
+      answer:
+        "Paste the escaped string into the Text tab and click Remove Escape Characters. The tool strips the surrounding quotes and unescapes backslashes, turning a raw log line like \"{\\\"key\\\":\\\"value\\\"}\" into clean, readable JSON that the formatter and tree viewer can then process normally.",
+    },
+    {
+      question: "Can I use this as an online JSON tree viewer?",
+      answer:
+        "Yes. Switch to the Viewer tab after pasting your JSON. Every object and array starts collapsed so large payloads stay manageable. You can expand only the branches you need, click any node to inspect its key, value, and type in the detail panel, and use the search bar to jump directly to a matching key or value.",
     },
     {
       question: "What does Remove White Space do?",
       answer:
-        "It minifies valid JSON by removing indentation and extra spacing while preserving the data structure.",
-    },
-    {
-      question: "What does Remove Escape Characters help with?",
-      answer:
-        "It is useful when JSON has been copied out of logs or APIs as an escaped string, for example with repeated backslashes or quoted braces.",
+        "It minifies valid JSON by removing indentation and extra spacing while preserving the data structure. Useful when you need to compact a payload before sending it in a request body or storing it in a database field.",
     },
     {
       question: "Will the viewer open all nodes automatically?",
@@ -483,41 +494,49 @@ export const jsonConverterTabMetaData: Record<
 > = {
   validator: jsonValidatorFormatterMetaData,
   csv: {
-    title: "JSON to CSV Converter",
+    title: "JSON to CSV Converter — Free Online, Auto-Headers, No Upload",
     description:
-      "Free online JSON to CSV converter. Paste any JSON array or object and instantly download a clean CSV — no server upload, works entirely in your browser.",
+      "Free online JSON to CSV converter. Auto-infers headers from every row, handles nested objects, RFC-compliant quoting — paste any JSON array and copy the CSV instantly, nothing uploaded.",
     url: "/tools/json-to-csv",
     image: { src: "/assets/json_to_csv_icon.png", type: "image/svg+xml" },
+    keywords:
+      "json to csv, json array to csv, convert json to csv online, json to csv with headers, json to csv no upload, json array to spreadsheet, flatten json to csv, export json to csv free, json to excel",
   },
   yaml: {
-    title: "JSON to YAML Converter",
+    title: "JSON to YAML Converter — Free Online for Kubernetes & Docker Compose",
     description:
-      "Convert JSON to YAML online for free. Paste JSON and get clean, readable YAML output instantly — ideal for Kubernetes configs, CI/CD pipelines, and Docker Compose files.",
+      "Convert JSON to YAML online for free. Handles deep nesting, string quoting, and arrays — ideal for Kubernetes manifests, Docker Compose files, and GitHub Actions workflows. Nothing uploaded.",
     url: "/tools/json-to-yaml",
     image: {
       src: "/assets/json_to_yaml_icon.png",
       type: "image/svg+xml",
     },
+    keywords:
+      "json to yaml, convert json to yaml online, json to kubernetes yaml, json to docker compose yaml, json to yaml free, json to yaml no upload, json to yaml for ci cd, json config to yaml, json to github actions yaml",
   },
   xml: {
-    title: "JSON to XML Converter",
+    title: "JSON to XML Converter — Free Online, Well-Formed Output, No Upload",
     description:
-      "Convert JSON to XML online for free. Paste JSON and get well-formed XML with proper nesting and declaration — no server upload, all processing in the browser.",
+      "Convert JSON to XML online for free. Generates well-formed XML with declaration, entity escaping, and correct array element nesting — nothing uploaded, works entirely in your browser.",
     url: "/tools/json-to-xml",
     image: {
       src: "/assets/json_to_xml_icon.png",
       type: "image/svg+xml",
     },
+    keywords:
+      "json to xml, convert json to xml online, json to well-formed xml, json to soap xml, json array to xml elements, json to xml no upload, json to xml free, json response to xml",
   },
   typescript: {
-    title: "JSON to TypeScript Interface Generator",
+    title: "JSON to TypeScript Interface Generator — Free, Nested Types, No Signup",
     description:
-      "Generate TypeScript interfaces from JSON instantly. Paste any JSON object and get typed interfaces with nested types — free, in-browser, no signup required.",
+      "Generate TypeScript interfaces from JSON instantly. Nested objects become named sub-interfaces, null fields become optional — paste any API response and copy the types. Free, no signup, nothing uploaded.",
     url: "/tools/json-to-typescript",
     image: {
       src: "/assets/json_to_type_script_icon.png",
       type: "image/svg+xml",
     },
+    keywords:
+      "json to typescript, generate typescript interfaces from json, json to typescript interface online, typescript type from json, json to typescript no signup, generate ts interface from api response, json to typescript nested interfaces, typescript interface generator from json",
   },
 };
 
@@ -1028,20 +1047,29 @@ export const jsonConverterFaqsDataByTab: Record<JsonConverterTabId, FaqsData> =
       },
       faqs: [
         {
+          question: "How do I convert a JSON array to CSV with automatic headers?",
+          answer:
+            "Paste your JSON array into the input, click Convert, and the tool automatically scans every object in the array to collect all unique keys as column headers. You do not need to specify headers manually — even arrays where individual objects have different keys will produce a complete, consistent header row.",
+        },
+        {
+          question: "Can I open the CSV output directly in Excel or Google Sheets?",
+          answer:
+            "Yes. The output is standard RFC 4180-compliant CSV. Copy it from the output panel and paste directly into Google Sheets, or save it as a .csv file and open it in Excel, LibreOffice Calc, or any other spreadsheet tool without any import configuration.",
+        },
+        {
+          question: "How are nested JSON objects handled in the CSV output?",
+          answer:
+            "Nested objects and arrays inside array items are serialized as JSON strings within the CSV cell rather than being silently dropped or causing an error. This keeps the row structure flat while preserving the nested data. If you need fully flattened columns, manually flatten the JSON before converting.",
+        },
+        {
           question: "What JSON shapes does the converter support?",
           answer:
             "Arrays of objects (the most common case), single objects, and arrays of primitives are all supported. Deeply nested objects inside array items have their nested values stringified as JSON within the CSV cell.",
         },
         {
-          question:
-            "What happens when objects in the array have different keys?",
+          question: "What happens when objects in the array have different keys?",
           answer:
             "All unique keys across every object in the array are collected and used as headers. Objects missing a key produce an empty cell for that column.",
-        },
-        {
-          question: "Are commas inside values handled correctly?",
-          answer:
-            "Yes. Values containing commas, double-quotes, or newlines are wrapped in double-quotes with internal quotes escaped — following RFC 4180.",
         },
         {
           question: "Does the tool send my JSON to a server?",
@@ -1057,6 +1085,16 @@ export const jsonConverterFaqsDataByTab: Record<JsonConverterTabId, FaqsData> =
         desc: "Common questions about the conversion and how edge cases are handled.",
       },
       faqs: [
+        {
+          question: "Can I use this to convert JSON to Kubernetes YAML?",
+          answer:
+            "Yes. Paste your JSON manifest or config object, click Convert, and the output is properly indented YAML you can drop directly into a Kubernetes manifest file. The converter handles nested objects, arrays, and string quoting exactly as Kubernetes expects, so the output is valid for kubectl apply without modification.",
+        },
+        {
+          question: "How do I convert a JSON config file to YAML for Docker Compose?",
+          answer:
+            "Paste the JSON version of your config, click Convert, and copy the YAML output into your docker-compose.yml. The converter preserves all nesting and uses block sequence style for arrays, which matches Docker Compose's expected format for services, volumes, and networks.",
+        },
         {
           question: "Is the output valid YAML?",
           answer:
@@ -1087,6 +1125,16 @@ export const jsonConverterFaqsDataByTab: Record<JsonConverterTabId, FaqsData> =
       },
       faqs: [
         {
+          question: "Can I use the XML output for SOAP API requests?",
+          answer:
+            "Yes. The converter produces well-formed XML with a declaration header and proper entity escaping, which is the baseline requirement for SOAP request bodies. You will still need to wrap the output in the appropriate SOAP Envelope and Body elements for your specific endpoint, but the inner payload XML can be generated directly from your JSON data here.",
+        },
+        {
+          question: "How do I convert a JSON API response to XML?",
+          answer:
+            "Paste the JSON response body into the input and click Convert. The tool maps each JSON key to an XML element, handles nested objects as child elements, and expands arrays as repeated sibling tags. The result includes a proper XML declaration and is immediately usable in tools that require XML input.",
+        },
+        {
           question: "What is the root element called?",
           answer:
             "The root element is always <root>. JSON arrays produce <item> elements inside <root>. JSON objects produce one child element per key inside <root>.",
@@ -1115,6 +1163,21 @@ export const jsonConverterFaqsDataByTab: Record<JsonConverterTabId, FaqsData> =
         desc: "Common questions about the interfaces generated and how to use them.",
       },
       faqs: [
+        {
+          question: "How do I generate TypeScript interfaces from an API response?",
+          answer:
+            "Copy the JSON body from your API response — from your browser's network tab, Postman, or any other tool — paste it into the input, and click Generate. The tool infers a TypeScript interface for every object in the response, including nested ones. Paste the output directly into a .ts or .d.ts file in your project and it will compile without modification.",
+        },
+        {
+          question: "Does it generate interfaces for nested objects automatically?",
+          answer:
+            "Yes. Each nested object becomes its own named sub-interface rather than an anonymous inline type. For example, a JSON payload with a nested address object produces a separate Address interface, and the parent interface references it by name. This keeps large response types readable and reusable.",
+        },
+        {
+          question: "Can I use this without signing up or creating an account?",
+          answer:
+            "Yes. The tool is completely free and requires no account, login, or email address. Paste JSON, generate interfaces, copy the output — nothing else required.",
+        },
         {
           question: "Can I paste the output directly into my project?",
           answer:

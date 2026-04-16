@@ -33,6 +33,9 @@ const ImageConverterSeo: React.FC<Props> = ({ meta }) => {
             ],
           },
         })}
+        {meta.keywords && (
+          <meta name="keywords" content={meta.keywords} />
+        )}
       </Head>
       <SoftwareApplicationJsonLd
         type="WebApplication"
