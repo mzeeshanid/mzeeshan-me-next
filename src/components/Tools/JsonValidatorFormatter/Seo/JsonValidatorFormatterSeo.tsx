@@ -38,7 +38,10 @@ const JsonValidatorFormatterSeo: React.FC<Props> = ({ meta: metaProp }) => {
         })}
         <meta
           name="keywords"
-          content="json validator, json formatter, json viewer, json tree viewer, json prettify, json minify, json parse error, json search"
+          content={
+            meta.keywords ??
+            "json validator, json formatter, json validator show error line, json validator with line numbers, json that shows error line, json tree viewer online, format escaped json string, remove escape characters from json online, json formatter no upload, json parse error line, json prettify, json minify, json search"
+          }
         />
       </Head>
       <SoftwareApplicationJsonLd

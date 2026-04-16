@@ -61,14 +61,16 @@ export const imageFormatConverterIndexData: ImageFormatConverterIndexData = {
     rounded: false,
   },
   meta: {
-    title: "Image Format Converter",
+    title: "Free Online Image Format Converter — WebP, PNG, JPG, AVIF, No Upload",
     description:
-      "Convert image formats in your browser without uploading files to a server. Switch between WebP, PNG, JPG, and more from one reusable conversion workflow.",
+      "Convert images between WebP, PNG, JPG, AVIF, ICO, and more — entirely in your browser. Nothing uploaded to a server. Choose a format pair and get the converted file in seconds.",
     url: "/tools/image-format-converter",
     image: {
       src: "/assets/image_format_converter_icon.png",
       type: "image/png",
     },
+    keywords:
+      "image format converter, convert image online free, convert image without upload, browser image converter, webp to png, png to webp, jpg to png, png to jpg, webp to jpg, online image converter no upload, image converter no signup",
   },
   hero: sharedHeroContent,
   supported: {
@@ -249,14 +251,24 @@ export const imageFormatConverterIndexData: ImageFormatConverterIndexData = {
     },
     items: [
       {
+        question: "Which image formats can I convert between?",
+        answer:
+          "The converter supports WebP, PNG, JPG, AVIF, ICO, TIFF, BMP, and GIF as source and target formats. Not every combination is available yet — active conversion pairs are shown on the index page. Use the source and target dropdowns to jump directly to the pair you need.",
+      },
+      {
+        question: "Does the converter work without uploading my images?",
+        answer:
+          "Yes. Every conversion runs entirely in your browser using the Canvas and File APIs. Your image file is never sent to a server, which means you can safely convert private assets, client work, or images that contain sensitive information.",
+      },
+      {
+        question: "Can I convert multiple images at once?",
+        answer:
+          "Yes. The detail conversion pages support batch conversion — you can select up to 20 images and the tool processes them with up to 5 simultaneous conversions, showing progress for each file individually.",
+      },
+      {
         question: "Does this upload my image to a server?",
         answer:
           "No. The image is processed locally in your browser. The file is not uploaded to a backend during conversion.",
-      },
-      {
-        question: "Why have separate pages for each conversion?",
-        answer:
-          "Dedicated conversion pages are easier to search, easier to link internally, and easier to tailor for each format pair.",
       },
       {
         question: "Can I switch between conversions without going back?",
@@ -334,14 +346,16 @@ export const webpToPngData: ImageFormatConverterDetailData = {
     rounded: false,
   },
   meta: {
-    title: "WebP to PNG Converter",
+    title: "WebP to PNG Converter — Free Online, No Upload, Preview Before Download",
     description:
-      "Convert WebP to PNG in your browser without uploading images to a server. Preview the file, convert it locally, and download the PNG instantly.",
+      "Convert WebP to PNG free in your browser. Nothing uploaded to a server — preview the original and converted result side by side, then download the PNG instantly.",
     url: "/tools/image-format-converter/webp-to-png",
     image: {
       src: "/assets/image_format_converter_icon.png",
       type: "image/png",
     },
+    keywords:
+      "webp to png, convert webp to png online, webp to png free, webp to png no upload, webp to png converter, change webp to png, save webp as png, webp to png without losing quality",
   },
   hero: {
     ...sharedHeroContent,
@@ -490,14 +504,19 @@ export const webpToPngData: ImageFormatConverterDetailData = {
     },
     items: [
       {
+        question: "How do I save a WebP image as PNG?",
+        answer:
+          "Drop your WebP file into the upload area, click Convert, and download the PNG result. The entire conversion happens in your browser — nothing is uploaded to a server. The downloaded file is a standard PNG you can open in any image editor, operating system viewer, or CMS.",
+      },
+      {
+        question: "Why is my WebP image not opening in some apps?",
+        answer:
+          "WebP is a modern format that some older apps, design tools, and CMS platforms do not support natively. Converting to PNG gives you a file that opens universally — in Photoshop, Figma, Microsoft Office, Apple Preview, and virtually any other software.",
+      },
+      {
         question: "Does this upload my WebP image?",
         answer:
           "No. The conversion is handled inside the browser and the image is not uploaded to a server.",
-      },
-      {
-        question: "Why use PNG instead of WebP?",
-        answer:
-          "PNG can be easier to reuse in editors, documentation, and workflows that do not prefer WebP input.",
       },
       {
         question: "Can I convert another WebP format from here?",
@@ -518,14 +537,16 @@ export const webpToJpgData: ImageFormatConverterDetailData = {
     rounded: false,
   },
   meta: {
-    title: "WebP to JPG Converter",
+    title: "WebP to JPG Converter — Free Online, Adjust Quality, No Upload",
     description:
-      "Convert WebP to JPG in your browser with no server upload. Adjust quality, preview the result, and download the JPG instantly.",
+      "Convert WebP to JPG free in your browser. Adjust output quality, preview the result, and download the JPG instantly — nothing uploaded to a server.",
     url: "/tools/image-format-converter/webp-to-jpg",
     image: {
       src: "/assets/image_format_converter_icon.png",
       type: "image/png",
     },
+    keywords:
+      "webp to jpg, convert webp to jpg online, webp to jpg free, webp to jpeg, webp to jpg no upload, change webp to jpg, save webp as jpg, webp to jpg converter",
   },
   hero: {
     ...sharedHeroContent,
@@ -672,14 +693,19 @@ export const webpToJpgData: ImageFormatConverterDetailData = {
     },
     items: [
       {
-        question: "Does JPG keep transparency?",
+        question: "How do I change a WebP file to JPG?",
         answer:
-          "No. JPG does not support transparency, so transparent areas are flattened during conversion.",
+          "Drop your WebP file into the upload area, adjust the quality slider if needed, click Convert, and download the JPG result. The conversion runs entirely in your browser — no server upload required. The output is a standard JPEG file accepted by email clients, social platforms, and legacy tools.",
       },
       {
-        question: "Can I control JPG quality?",
+        question: "Does converting WebP to JPG lose quality?",
         answer:
-          "Yes. This page includes a quality control so you can balance file size and image fidelity.",
+          "JPG is a lossy format, so some quality is lost compared to the original WebP. The quality slider lets you control the tradeoff — higher values preserve more detail at the cost of a larger file, while lower values produce a smaller file with more visible compression. For most sharing and publishing uses, a quality setting of 80–90 is a good balance.",
+      },
+      {
+        question: "Does JPG keep transparency?",
+        answer:
+          "No. JPG does not support transparency, so transparent areas are flattened to white during conversion.",
       },
       {
         question: "Does conversion happen in the browser?",
@@ -700,14 +726,16 @@ export const pngToWebpData: ImageFormatConverterDetailData = {
     rounded: false,
   },
   meta: {
-    title: "PNG to WebP Converter",
+    title: "PNG to WebP Converter — Free Online, Reduce File Size, No Upload",
     description:
-      "Convert PNG to WebP in your browser without uploading your image to a server. Preview, optimize, and download the WebP output instantly.",
+      "Convert PNG to WebP free in your browser. Reduce file size for web delivery, adjust quality, preview the result, and download the WebP — nothing uploaded to a server.",
     url: "/tools/image-format-converter/png-to-webp",
     image: {
       src: "/assets/image_format_converter_icon.png",
       type: "image/png",
     },
+    keywords:
+      "png to webp, convert png to webp online, png to webp free, png to webp no upload, png to webp converter, reduce png file size, optimize png for web, compress png to webp",
   },
   hero: {
     ...sharedHeroContent,
@@ -853,18 +881,24 @@ export const pngToWebpData: ImageFormatConverterDetailData = {
     },
     items: [
       {
+        question: "Why should I convert PNG to WebP for my website?",
+        answer:
+          "WebP files are typically 25–35% smaller than PNG at equivalent visual quality, which means faster page loads and lower bandwidth costs. Modern browsers including Chrome, Firefox, Safari, and Edge all support WebP natively. Converting your PNG assets to WebP is one of the simplest ways to improve Core Web Vitals scores without changing image dimensions.",
+      },
+      {
+        question: "Does PNG to WebP keep transparency?",
+        answer:
+          "Yes. WebP supports alpha transparency, so transparent areas in your PNG are preserved accurately in the WebP output. This makes it a direct drop-in for icons, logos, and product images that need a transparent background.",
+      },
+      {
         question: "Does PNG to WebP happen in the browser?",
         answer:
           "Yes. The conversion is handled locally in the browser without uploading the file to a server.",
       },
       {
         question: "Can I tune WebP quality?",
-        answer: "Yes. WebP output supports quality adjustment on this page.",
-      },
-      {
-        question: "Why convert PNG to WebP?",
         answer:
-          "WebP is often more useful when you want a lighter image format for web-facing content.",
+          "Yes. WebP output supports quality adjustment on this page. Lower values produce smaller files; higher values preserve more detail.",
       },
     ],
   },
@@ -880,14 +914,16 @@ export const jpgToPngData: ImageFormatConverterDetailData = {
     rounded: false,
   },
   meta: {
-    title: "JPG to PNG Converter",
+    title: "JPG to PNG Converter — Free Online, Lossless Output, No Upload",
     description:
-      "Convert JPG to PNG in your browser without uploading your image to a server. Preview the file and download a PNG version instantly.",
+      "Convert JPG to PNG free in your browser. Get a lossless PNG for editing, documentation, or asset handoff — preview the result and download instantly. Nothing uploaded to a server.",
     url: "/tools/image-format-converter/jpg-to-png",
     image: {
       src: "/assets/image_format_converter_icon.png",
       type: "image/png",
     },
+    keywords:
+      "jpg to png, convert jpg to png online, jpg to png free, jpg to png no upload, jpeg to png, change jpg to png, jpg to png converter, convert jpeg to png online free",
   },
   hero: {
     ...sharedHeroContent,
@@ -1033,18 +1069,23 @@ export const jpgToPngData: ImageFormatConverterDetailData = {
     },
     items: [
       {
+        question: "How do I convert a JPEG to PNG online for free?",
+        answer:
+          "Drop your JPG or JPEG file into the upload area, click Convert, and download the PNG result. The conversion runs entirely in your browser — no server upload, no account, no cost. The output is a lossless PNG file ready to use in any image editor, presentation tool, or CMS.",
+      },
+      {
+        question: "Does converting JPG to PNG improve quality?",
+        answer:
+          "Not exactly. PNG is a lossless format, so the conversion preserves exactly what is in the JPG without adding further compression artifacts. However, it cannot recover detail that was already lost when the original JPG was saved — it just prevents any additional quality loss from re-saving. If you need to re-export the image multiple times, PNG is a better intermediate format.",
+      },
+      {
         question: "Does JPG to PNG restore transparency?",
         answer:
-          "No. Converting a JPG to PNG changes the container format, but it does not recreate transparency that was not present in the original image.",
+          "No. Converting a JPG to PNG changes the container format, but it does not recreate transparency that was not present in the original image. JPG has no transparency channel, so the background in the PNG output will be opaque.",
       },
       {
         question: "Is the file uploaded to a server?",
-        answer: "No. The conversion runs entirely in your browser.",
-      },
-      {
-        question: "Why use PNG as the target?",
-        answer:
-          "PNG can be more convenient for editing, documentation, and workflows that expect PNG files.",
+        answer: "No. The conversion runs entirely in your browser without any server upload.",
       },
     ],
   },

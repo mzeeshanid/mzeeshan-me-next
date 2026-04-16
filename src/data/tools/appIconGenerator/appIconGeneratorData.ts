@@ -6,6 +6,7 @@ import {
   FaFileZipper,
   FaFont,
   FaIcons,
+  FaFeather,
   FaLayerGroup,
   FaWandMagicSparkles,
 } from "react-icons/fa6";
@@ -90,6 +91,11 @@ export const appIconGeneratorFeaturesData = {
       icon: FaBolt,
       title: "Instant, private generation",
       desc: "All processing happens in the browser — your image never leaves your device, and the ZIP is ready in seconds.",
+    },
+    {
+      icon: FaFeather,
+      title: "MVP-ready in minutes",
+      desc: "Minimal and simple by design — gives your app a polished, functional icon that looks far better than any default placeholder, without needing a designer.",
     },
   ],
 };

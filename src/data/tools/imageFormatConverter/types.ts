@@ -39,6 +39,7 @@ export type ToolMetaData = {
     src: string;
     type: string;
   };
+  keywords?: string;
 };
 
 export type SectionHeaderData = {
