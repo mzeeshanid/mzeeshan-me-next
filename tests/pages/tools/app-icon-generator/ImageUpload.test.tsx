@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import AppIconImageUpload from "@/components/Tools/AppIconGenerator/Hero/AppIconImageUpload";
+import AppIconGeneratorImageUpload from "@/components/Tools/AppIconGenerator/Hero/AppIconGeneratorImageUpload";
 import { screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -8,7 +8,7 @@ import { renderWithProviders } from "../../../testUtils/renderWithProviders";
 const createFile = (type = "image/png") =>
   new File(["icon"], "icon.png", { type });
 
-describe("AppIconImageUpload", () => {
+describe("AppIconGeneratorImageUpload", () => {
   const createObjectURL = vi.fn(() => "blob:preview");
   const revokeObjectURL = vi.fn();
 
@@ -29,7 +29,7 @@ describe("AppIconImageUpload", () => {
     const onValidationMessage = vi.fn();
 
     renderWithProviders(
-      <AppIconImageUpload
+      <AppIconGeneratorImageUpload
         image={null}
         error={null}
         warning={null}
@@ -55,7 +55,7 @@ describe("AppIconImageUpload", () => {
     const onImageAccepted = vi.fn();
 
     renderWithProviders(
-      <AppIconImageUpload
+      <AppIconGeneratorImageUpload
         image={null}
         error={null}
         warning={null}
@@ -79,7 +79,7 @@ describe("AppIconImageUpload", () => {
     const onValidationMessage = vi.fn();
 
     renderWithProviders(
-      <AppIconImageUpload
+      <AppIconGeneratorImageUpload
         image={null}
         error={null}
         warning={null}
@@ -104,7 +104,7 @@ describe("AppIconImageUpload", () => {
     const onImageRemoved = vi.fn();
 
     renderWithProviders(
-      <AppIconImageUpload
+      <AppIconGeneratorImageUpload
         image={{
           file: createFile(),
           previewUrl: "blob:preview",

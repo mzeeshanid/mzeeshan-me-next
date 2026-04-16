@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx vitest:*)",
+      "Bash(awk '{print}')",
+      "Bash(npx tsc:*)",
+      "Bash(sed -i '' -e 's/const IosIconGenerator:/const AppIconGeneratorIos:/g' -e 's/export default IosIconGenerator/export default AppIconGeneratorIos/g' src/components/Tools/AppIconGenerator/Hero/AppIconGeneratorIos.tsx)",
+      "Bash(sed -i '' -e 's/const AndroidIconGenerator:/const AppIconGeneratorAndroid:/g' -e 's/export default AndroidIconGenerator/export default AppIconGeneratorAndroid/g' src/components/Tools/AppIconGenerator/Hero/AppIconGeneratorAndroid.tsx)",
+      "Bash(sed -i '' -e 's/const AppIconPlatformOptions:/const AppIconGeneratorPlatformOptions:/g' -e 's/export default AppIconPlatformOptions/export default AppIconGeneratorPlatformOptions/g' src/components/Tools/AppIconGenerator/Hero/AppIconGeneratorPlatformOptions.tsx)",
+      "Bash(sed -i '' -e 's/const AppIconImageUpload:/const AppIconGeneratorImageUpload:/g' -e 's/export default AppIconImageUpload/export default AppIconGeneratorImageUpload/g' src/components/Tools/AppIconGenerator/Hero/AppIconGeneratorImageUpload.tsx)",
+      "Bash(sed -i '' -e 's/const AppIconGenerateButton:/const AppIconGeneratorGenerateButton:/g' -e 's/export default AppIconGenerateButton/export default AppIconGeneratorGenerateButton/g' src/components/Tools/AppIconGenerator/Hero/AppIconGeneratorGenerateButton.tsx)",
+      "Bash(xargs sed *)",
+      "Bash(sed -i '' -e 's/: SettingsItem\\\\[\\\\]/: AppIconGeneratorSettingsItem[]/g' -e 's/: SettingsItem;/: AppIconGeneratorSettingsItem;/g' src/components/Tools/AppIconGenerator/Hero/android/AppIconGeneratorSettingsSection.tsx)",
+      "Bash(sed -i '' -e 's/import AndroidStudioSteps from/import AppIconGeneratorAndroidStudioSteps from/g' -e 's/<AndroidStudioSteps /<AppIconGeneratorAndroidStudioSteps /g' pages/tools/app-icon-generator/index.tsx)"
+    ]
+  }
+}

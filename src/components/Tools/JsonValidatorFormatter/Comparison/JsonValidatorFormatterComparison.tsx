@@ -4,9 +4,13 @@ import { jsonValidatorFormatterComparisonData } from "@/data/tools/jsonValidator
 import { Box, HStack, Icon, Link, Spacer, Table, Text } from "@chakra-ui/react";
 import React from "react";
 
-const JsonValidatorFormatterComparison: React.FC = () => {
+type Props = {
+  data?: typeof jsonValidatorFormatterComparisonData;
+};
+
+const JsonValidatorFormatterComparison: React.FC<Props> = ({ data }) => {
   const { palette } = useColorPalette();
-  const comparison = jsonValidatorFormatterComparisonData;
+  const comparison = data ?? jsonValidatorFormatterComparisonData;
 
   return (
     <Box as="section">

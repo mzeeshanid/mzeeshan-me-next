@@ -10,7 +10,12 @@ import {
   getNodeSummary,
   getSelectedNodeDetailRows,
   getSelectedNodeValueDisplay,
+  jsonToCsv,
+  jsonToTypeScript,
+  jsonToXml,
+  jsonToYaml,
   parsePositionFromError,
+  softPrettifyJson,
   tryRemoveEscapeCharacters,
   validateJson,
 } from "@/components/Tools/JsonValidatorFormatter/Hero/jsonValidatorFormatterUtils";
@@ -348,5 +353,357 @@ describe("/tools/json-validator-and-formatter logic", () => {
 
     expect(map.get("$")).toBe(1);
     expect(map.size).toBe(1);
+  });
+
+  // ─── jsonToCsv ────────────────────────────────────────────────────────────────
+
+  it("converts an array of objects to CSV with a header row", () => {
+    const result = jsonToCsv([
+      { name: "Alice", age: 30 },
+      { name: "Bob", age: 25 },
+    ]);
+
+    const lines = result.split("\n");
+    expect(lines[0]).toBe("name,age");
+    expect(lines[1]).toBe("Alice,30");
+    expect(lines[2]).toBe("Bob,25");
+  });
+
+  it("wraps CSV cells containing commas in double quotes", () => {
+    const result = jsonToCsv([{ city: "New York, NY" }]);
+
+    expect(result).toContain('"New York, NY"');
+  });
+
+  it("wraps CSV cells containing double quotes and escapes them", () => {
+    const result = jsonToCsv([{ note: 'say "hello"' }]);
+
+    expect(result).toContain('"say ""hello"""');
+  });
+
+  it("converts a single object to CSV (wraps it as a one-row array)", () => {
+    const result = jsonToCsv({ id: 1, label: "test" });
+
+    const lines = result.split("\n");
+    expect(lines[0]).toBe("id,label");
+    expect(lines[1]).toBe("1,test");
+  });
+
+  it("fills missing columns with empty strings when objects have different keys", () => {
+    const result = jsonToCsv([{ a: 1 }, { b: 2 }]);
+
+    const lines = result.split("\n");
+    // header contains both keys
+    expect(lines[0]).toContain("a");
+    expect(lines[0]).toContain("b");
+    // row 1: a=1, b=empty; row 2: a=empty, b=2
+    expect(lines[1]).toMatch(/^1,|,1$/);
+    expect(lines[2]).toMatch(/^2,|,2$/);
+  });
+
+  // ─── jsonToYaml ───────────────────────────────────────────────────────────────
+
+  it("converts a flat object to YAML key-value pairs", () => {
+    const result = jsonToYaml({ name: "Alice", active: true });
+
+    expect(result).toContain("name: Alice");
+    expect(result).toContain("active: true");
+  });
+
+  it("indents nested objects in YAML output", () => {
+    const result = jsonToYaml({ outer: { inner: 42 } });
+
+    expect(result).toContain("outer:");
+    expect(result).toContain("  inner: 42");
+  });
+
+  it("renders YAML arrays with dash-prefixed items", () => {
+    const result = jsonToYaml({ tags: ["a", "b"] });
+
+    expect(result).toContain("tags:");
+    expect(result).toContain("  - a");
+    expect(result).toContain("  - b");
+  });
+
+  it("quotes YAML scalar strings that contain reserved characters", () => {
+    const result = jsonToYaml({ key: "value: with colon" });
+
+    // The value contains a colon so it must be quoted
+    expect(result).toMatch(/key: "value: with colon"/);
+  });
+
+  it("renders null as the YAML null literal", () => {
+    const result = jsonToYaml({ x: null });
+
+    expect(result).toContain("x: null");
+  });
+
+  // ─── jsonToXml ────────────────────────────────────────────────────────────────
+
+  it("includes an XML declaration in the output", () => {
+    const result = jsonToXml({ a: 1 });
+
+    expect(result).toContain('<?xml version="1.0" encoding="UTF-8"?>');
+  });
+
+  it("wraps an object's fields in a <root> element", () => {
+    const result = jsonToXml({ id: 42, label: "test" });
+
+    expect(result).toContain("<root>");
+    expect(result).toContain("<id>42</id>");
+    expect(result).toContain("<label>test</label>");
+    expect(result).toContain("</root>");
+  });
+
+  it("wraps an array in <root> with <item> children", () => {
+    const result = jsonToXml([1, 2]);
+
+    expect(result).toContain("<root>");
+    expect(result).toContain("<item>1</item>");
+    expect(result).toContain("<item>2</item>");
+  });
+
+  it("escapes XML entities in string values", () => {
+    const result = jsonToXml({ msg: "<hello> & 'world'" });
+
+    expect(result).toContain("&lt;hello&gt; &amp; &apos;world&apos;");
+  });
+
+  it("renders null values with xsi:nil attribute", () => {
+    const result = jsonToXml({ missing: null });
+
+    expect(result).toContain('xsi:nil="true"');
+  });
+
+  it("sanitizes tag names that start with a digit", () => {
+    const result = jsonToXml({ "1invalid": "value" });
+
+    // tag should be prefixed with underscore
+    expect(result).toContain("<_1invalid>");
+  });
+
+  // ─── jsonToTypeScript ─────────────────────────────────────────────────────────
+
+  it("generates a TypeScript interface for a flat object", () => {
+    const result = jsonToTypeScript({ id: 1, name: "Alice" });
+
+    expect(result).toContain("export interface Root");
+    expect(result).toContain("id: number;");
+    expect(result).toContain("name: string;");
+  });
+
+  it("marks null fields as optional in the TypeScript interface", () => {
+    const result = jsonToTypeScript({ active: null });
+
+    expect(result).toContain("active?: null;");
+  });
+
+  it("generates sub-interfaces for nested objects", () => {
+    const result = jsonToTypeScript({ user: { id: 1, email: "a@b.com" } });
+
+    expect(result).toContain("export interface User");
+    expect(result).toContain("export interface Root");
+    expect(result).toContain("user: User;");
+  });
+
+  it("infers array element types in TypeScript output", () => {
+    const result = jsonToTypeScript({ scores: [1, 2, 3] });
+
+    expect(result).toContain("scores: number[];");
+  });
+
+  it("uses a custom root interface name when provided", () => {
+    const result = jsonToTypeScript({ x: 1 }, "MyType");
+
+    expect(result).toContain("export interface MyType");
+  });
+
+  // ─── jsonToTypeScript — new options ──────────────────────────────────────────
+
+  it("generates a type alias when exportStyle is 'type'", () => {
+    const result = jsonToTypeScript({ id: 1, name: "Alice" }, "Root", { exportStyle: "type" });
+
+    expect(result).toContain("export type Root =");
+    expect(result).not.toContain("interface");
+  });
+
+  it("ends type alias declarations with a semicolon", () => {
+    const result = jsonToTypeScript({ ok: true }, "Root", { exportStyle: "type" });
+
+    expect(result).toMatch(/export type Root = \{[\s\S]*\};/);
+  });
+
+  it("marks all fields optional when optionalFields is 'all'", () => {
+    const result = jsonToTypeScript({ id: 1, name: "Alice" }, "Root", { optionalFields: "all" });
+
+    expect(result).toContain("id?: number;");
+    expect(result).toContain("name?: string;");
+  });
+
+  it("only marks null fields optional with the default nulls-only mode", () => {
+    const result = jsonToTypeScript({ id: 1, missing: null }, "Root", { optionalFields: "nulls-only" });
+
+    expect(result).toContain("id: number;");
+    expect(result).toContain("missing?: null;");
+  });
+
+  it("combines type alias and all-optional options together", () => {
+    const result = jsonToTypeScript({ count: 0 }, "Root", { exportStyle: "type", optionalFields: "all" });
+
+    expect(result).toContain("export type Root =");
+    expect(result).toContain("count?: number;");
+  });
+
+  // ─── jsonToCsv — custom delimiter ────────────────────────────────────────────
+
+  it("uses a semicolon delimiter when specified", () => {
+    const result = jsonToCsv([{ name: "Alice", age: 30 }, { name: "Bob", age: 25 }], ";");
+
+    const lines = result.split("\n");
+    expect(lines[0]).toBe("name;age");
+    expect(lines[1]).toBe("Alice;30");
+    expect(lines[2]).toBe("Bob;25");
+  });
+
+  it("uses a tab delimiter when specified", () => {
+    const result = jsonToCsv([{ a: 1, b: 2 }], "\t");
+
+    const lines = result.split("\n");
+    expect(lines[0]).toBe("a\tb");
+    expect(lines[1]).toBe("1\t2");
+  });
+
+  it("wraps cells that contain the custom delimiter in double quotes", () => {
+    const result = jsonToCsv([{ city: "New York; NY" }], ";");
+
+    expect(result).toContain('"New York; NY"');
+  });
+
+  it("does not quote cells that contain a comma when delimiter is semicolon", () => {
+    const result = jsonToCsv([{ note: "hello, world" }], ";");
+
+    // comma is safe when delimiter is semicolon — no quoting needed
+    expect(result).toContain("hello, world");
+    expect(result).not.toContain('"hello, world"');
+  });
+
+  // ─── jsonToXml — custom root tag ─────────────────────────────────────────────
+
+  it("uses a custom root tag when provided", () => {
+    const result = jsonToXml({ id: 1 }, "response");
+
+    expect(result).toContain("<response>");
+    expect(result).toContain("</response>");
+    expect(result).not.toContain("<root>");
+  });
+
+  it("sanitizes a custom root tag that starts with a digit", () => {
+    const result = jsonToXml({ id: 1 }, "1data");
+
+    expect(result).toContain("<_1data>");
+    expect(result).toContain("</_1data>");
+  });
+
+  it("uses the default root tag when none is provided", () => {
+    const result = jsonToXml({ id: 1 });
+
+    expect(result).toContain("<root>");
+    expect(result).toContain("</root>");
+  });
+
+  it("uses a custom root tag for array output", () => {
+    const result = jsonToXml([1, 2], "items");
+
+    expect(result).toContain("<items>");
+    expect(result).toContain("</items>");
+    expect(result).not.toContain("<root>");
+  });
+
+  // ─── jsonToYaml — quote style ─────────────────────────────────────────────────
+
+  it("uses minimal quoting by default — plain strings are unquoted", () => {
+    const result = jsonToYaml({ name: "Alice" });
+
+    expect(result).toContain("name: Alice");
+  });
+
+  it("quotes all string values and keys when quoteStyle is always", () => {
+    const result = jsonToYaml({ name: "Alice" }, "always");
+
+    expect(result).toContain('"name": "Alice"');
+  });
+
+  it("does not quote numbers or booleans even with always quote style", () => {
+    const result = jsonToYaml({ count: 42, active: true }, "always");
+
+    // keys are quoted, but number/boolean values are not
+    expect(result).toContain('"count": 42');
+    expect(result).toContain('"active": true');
+  });
+
+  it("quotes string values inside arrays with always quote style", () => {
+    const result = jsonToYaml({ tags: ["a", "b"] }, "always");
+
+    expect(result).toContain('- "a"');
+    expect(result).toContain('- "b"');
+  });
+
+  it("minimal style still quotes strings that contain reserved YAML characters", () => {
+    const result = jsonToYaml({ note: "value: with colon" }, "minimal");
+
+    expect(result).toMatch(/note: "value: with colon"/);
+  });
+
+  // ─── softPrettifyJson ─────────────────────────────────────────────────────────
+
+  it("expands a minified single-line JSON object into multiple lines", () => {
+    const result = softPrettifyJson('{"a":1,"b":2}');
+
+    expect(result).toContain("\n");
+    expect(result).toContain('"a": 1');
+    expect(result).toContain('"b": 2');
+  });
+
+  it("returns text unchanged when it already spans more than four lines", () => {
+    const multiLine = '{\n  "a": 1,\n  "b": 2,\n  "c": 3,\n  "d": 4\n}';
+    const result = softPrettifyJson(multiLine);
+
+    expect(result).toBe(multiLine);
+  });
+
+  it("expands nested objects with deeper indentation", () => {
+    const result = softPrettifyJson('{"outer":{"inner":42}}');
+
+    expect(result).toContain('"outer":');
+    expect(result).toContain('"inner": 42');
+    // inner key should be indented more than outer
+    const innerLine = result.split("\n").find((l) => l.includes('"inner"'))!;
+    const outerLine = result.split("\n").find((l) => l.includes('"outer"'))!;
+    const innerIndent = innerLine.length - innerLine.trimStart().length;
+    const outerIndent = outerLine.length - outerLine.trimStart().length;
+    expect(innerIndent).toBeGreaterThan(outerIndent);
+  });
+
+  it("does not corrupt string values that contain JSON structural characters", () => {
+    const result = softPrettifyJson('{"key":"val,ue: {nested}"}');
+
+    expect(result).toContain('"val,ue: {nested}"');
+  });
+
+  it("does not corrupt escaped characters inside strings", () => {
+    const result = softPrettifyJson('{"msg":"hello\\nworld"}');
+
+    expect(result).toContain('"hello\\nworld"');
+  });
+
+  it("expands arrays with each item on its own line", () => {
+    const result = softPrettifyJson('{"tags":["x","y"]}');
+
+    expect(result).toContain('"x"');
+    expect(result).toContain('"y"');
+    // both items should be on separate lines
+    const xLine = result.split("\n").findIndex((l) => l.includes('"x"'));
+    const yLine = result.split("\n").findIndex((l) => l.includes('"y"'));
+    expect(yLine).toBeGreaterThan(xLine);
   });
 });

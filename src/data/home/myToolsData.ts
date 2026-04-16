@@ -87,6 +87,58 @@ export const myToolsData: MyToolsData = {
       url: "/tools/json-validator-and-formatter",
     },
     {
+      title: "JSON to CSV",
+      caption: "Convert It!",
+      detail:
+        "Convert JSON arrays and objects to CSV with auto-inferred headers and RFC-compliant quoting — paste and copy in one click.",
+      icon: {
+        src: "/assets/json_to_csv_icon.png",
+        alt: "JSON to CSV Converter icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/json-to-csv",
+    },
+    {
+      title: "JSON to YAML",
+      caption: "Convert It!",
+      detail:
+        "Turn JSON into clean, readable YAML instantly — ideal for Kubernetes manifests, Docker Compose, and CI/CD pipelines.",
+      icon: {
+        src: "/assets/json_to_yaml_icon.png",
+        alt: "JSON to YAML Converter icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/json-to-yaml",
+    },
+    {
+      title: "JSON to XML",
+      caption: "Convert It!",
+      detail:
+        "Convert JSON to well-formed XML with proper nesting, entity escaping, and an XML declaration — all in the browser.",
+      icon: {
+        src: "/assets/json_to_xml_icon.png",
+        alt: "JSON to XML Converter icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/json-to-xml",
+    },
+    {
+      title: "JSON to TypeScript",
+      caption: "Generate It!",
+      detail:
+        "Generate TypeScript interfaces from any JSON object — nested objects become named sub-interfaces automatically.",
+      icon: {
+        src: "/assets/json_to_type_script_icon.png",
+        alt: "JSON to TypeScript Converter icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/json-to-typescript",
+    },
+    {
       title: "Image Converter",
       caption: "Convert It!",
       detail:

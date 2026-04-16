@@ -3,8 +3,12 @@ import { jsonValidatorFormatterBenefitsData } from "@/data/tools/jsonValidatorFo
 import { Box, GridItem, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 
-const JsonValidatorFormatterBenefits: React.FC = () => {
-  const benefitsData = jsonValidatorFormatterBenefitsData;
+type Props = {
+  data?: typeof jsonValidatorFormatterBenefitsData;
+};
+
+const JsonValidatorFormatterBenefits: React.FC<Props> = ({ data }) => {
+  const benefitsData = data ?? jsonValidatorFormatterBenefitsData;
 
   return (
     <Box as="section">

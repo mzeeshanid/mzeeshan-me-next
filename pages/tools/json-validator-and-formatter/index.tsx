@@ -4,16 +4,18 @@ import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
+import JsonValidatorFormatter from "@/components/Tools/JsonValidatorFormatter/Hero/JsonValidatorFormatter";
 import JsonValidatorFormatterBenefits from "@/components/Tools/JsonValidatorFormatter/Benefits/JsonValidatorFormatterBenefits";
 import JsonValidatorFormatterComparison from "@/components/Tools/JsonValidatorFormatter/Comparison/JsonValidatorFormatterComparison";
 import JsonValidatorFormatterFaqs from "@/components/Tools/JsonValidatorFormatter/Faqs/JsonValidatorFormatterFaqs";
 import JsonValidatorFormatterFeatures from "@/components/Tools/JsonValidatorFormatter/Features/JsonValidatorFormatterFeatures";
-import JsonValidatorFormatterHero from "@/components/Tools/JsonValidatorFormatter/Hero/JsonValidatorFormatterHero";
 import JsonValidatorFormatterIntro from "@/components/Tools/JsonValidatorFormatter/Intro/JsonValidatorFormatterIntro";
+import JsonRelatedTools from "@/components/Tools/JsonValidatorFormatter/RelatedTools/JsonRelatedTools";
 import JsonValidatorFormatterSeo from "@/components/Tools/JsonValidatorFormatter/Seo/JsonValidatorFormatterSeo";
 import {
   jsonValidatorFormatterHeaderData,
-  jsonValidatorFormatterRelatedArticleData,
+  jsonValidatorFormatterMetaData,
+  jsonConverterRelatedArticleDataByTab,
 } from "@/data/tools/jsonValidatorFormatter/jsonValidatorFormatterData";
 import { Container, Spacer } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
@@ -23,95 +25,80 @@ type Props = {
   article?: ArticleModel;
 };
 
-const JsonValidatorAndFormatterHome: React.FC<Props> = ({ article }) => {
-  return (
-    <>
-      <JsonValidatorFormatterSeo />
-      <NavBar header={jsonValidatorFormatterHeaderData} />
-      <Spacer p={4} />
+const relatedArticleHeader = jsonConverterRelatedArticleDataByTab.validator;
 
-      <Container maxW="6xl">
-        <PageHeader
-          title="JSON Validator And Formatter"
-          breadcrumbItems={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: "JSON Validator And Formatter" },
-          ]}
-        />
-      </Container>
+const JsonValidatorAndFormatterHome: React.FC<Props> = ({ article }) => (
+  <>
+    <JsonValidatorFormatterSeo />
+    <NavBar header={jsonValidatorFormatterHeaderData} />
+    <Spacer p={4} />
 
-      <Spacer p={4} />
-      <Container maxW="6xl">
-        <JsonValidatorFormatterHero />
-      </Container>
+    <Container maxW="6xl">
+      <PageHeader
+        title={jsonValidatorFormatterMetaData.title}
+        breadcrumbItems={[
+          { label: "Home", href: "/" },
+          { label: "Tools", href: "/tools" },
+          { label: jsonValidatorFormatterMetaData.title },
+        ]}
+      />
+    </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <JsonValidatorFormatterIntro />
-      </Container>
+    <Spacer p={4} />
+    <Container maxW="6xl">
+      <JsonValidatorFormatter />
+    </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <JsonValidatorFormatterBenefits />
-      </Container>
+    <Spacer p={8} />
+    <Container maxW="6xl">
+      <JsonRelatedTools currentToolId="validator" />
+    </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <JsonValidatorFormatterFeatures />
-      </Container>
+    <Spacer p={8} />
+    <Container maxW="6xl">
+      <JsonValidatorFormatterIntro />
+    </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <JsonValidatorFormatterComparison />
-      </Container>
+    <Spacer p={8} />
+    <Container maxW="6xl">
+      <JsonValidatorFormatterBenefits />
+    </Container>
 
-      {article && (
-        <>
-          <Spacer p={8} />
-          <Container maxW="6xl">
-            <ToolRelatedArticle
-              article={article}
-              header={{
-                badge: jsonValidatorFormatterRelatedArticleData.badge,
-                title: jsonValidatorFormatterRelatedArticleData.title,
-                desc: jsonValidatorFormatterRelatedArticleData.description,
-              }}
-            />
-          </Container>
-        </>
-      )}
+    <Spacer p={8} />
+    <Container maxW="6xl">
+      <JsonValidatorFormatterFeatures />
+    </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <JsonValidatorFormatterFaqs />
-      </Container>
+    <Spacer p={8} />
+    <Container maxW="6xl">
+      <JsonValidatorFormatterComparison />
+    </Container>
 
-      <Spacer p={8} />
-      <Footer />
-    </>
-  );
-};
+    {article && (
+      <>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <ToolRelatedArticle article={article} header={relatedArticleHeader} />
+        </Container>
+      </>
+    )}
+
+    <Spacer p={8} />
+    <Container maxW="6xl">
+      <JsonValidatorFormatterFaqs />
+    </Container>
+
+    <Spacer p={8} />
+    <Footer />
+  </>
+);
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
-    const article = await fetchArticleBySlugStrapi(
-      "json-validator-and-formatter",
-    );
-
-    return {
-      props: {
-        article,
-      },
-      revalidate: 3600,
-    };
-  } catch (error) {
-    console.error("Failed to fetch related article in getStaticProps:", error);
-
-    return {
-      props: {},
-      revalidate: 60,
-    };
+    const article = await fetchArticleBySlugStrapi("json-validator-and-formatter");
+    return { props: { article }, revalidate: 3600 };
+  } catch {
+    return { props: {}, revalidate: 60 };
   }
 };
 

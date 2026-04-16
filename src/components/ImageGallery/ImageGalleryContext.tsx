@@ -28,13 +28,12 @@ export const ImageGalleryProvider: React.FC<{
     >
       {children}
 
-      {activeIndex !== null && (
-        <ImageGalleryDialog
-          images={images}
-          startIndex={activeIndex}
-          onClose={() => setActiveIndex(null)}
-        />
-      )}
+      <ImageGalleryDialog
+        images={images}
+        open={activeIndex !== null}
+        startIndex={activeIndex ?? 0}
+        onClose={() => setActiveIndex(null)}
+      />
     </ImageGalleryContext.Provider>
   );
 };

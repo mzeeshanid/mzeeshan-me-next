@@ -25,9 +25,13 @@ const CollapsibleStatus: React.FC = () => {
   return <Icon as={collapsible.open ? FaChevronUp : FaChevronDown} />;
 };
 
-const JsonValidatorFormatterFaqs: React.FC = () => {
+type Props = {
+  data?: typeof jsonValidatorFormatterFaqsData;
+};
+
+const JsonValidatorFormatterFaqs: React.FC<Props> = ({ data }) => {
   const { palette } = useColorPalette();
-  const faqData = jsonValidatorFormatterFaqsData;
+  const faqData = data ?? jsonValidatorFormatterFaqsData;
 
   return (
     <Box as="section">

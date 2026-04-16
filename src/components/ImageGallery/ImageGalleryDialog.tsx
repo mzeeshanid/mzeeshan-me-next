@@ -6,12 +6,14 @@ import { ImageGallerySlide } from "./ImageGallerySlide";
 
 type Props = {
   images: { src: string; alt?: string }[];
+  open: boolean;
   startIndex: number;
   onClose: () => void;
 };
 
 export const ImageGalleryDialog: React.FC<Props> = ({
   images,
+  open,
   startIndex,
   onClose,
 }) => {
@@ -41,6 +43,10 @@ export const ImageGalleryDialog: React.FC<Props> = ({
     prev,
     next,
   });
+
+  useEffect(() => {
+    if (open) setIndex(startIndex);
+  }, [open, startIndex]);
 
   useEffect(() => {
     setScale(1);
@@ -76,8 +82,8 @@ export const ImageGalleryDialog: React.FC<Props> = ({
 
   return (
     <Dialog.Root
-      open
-      onOpenChange={onClose}
+      open={open}
+      onOpenChange={({ open: isOpen }) => { if (!isOpen) onClose(); }}
       size={"full"}
       motionPreset="slide-in-bottom"
     >

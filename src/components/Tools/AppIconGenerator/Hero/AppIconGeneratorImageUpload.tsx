@@ -56,7 +56,7 @@ const defaultResolveImageDimensions: ResolveImageDimensionsFn = async (
   }
 };
 
-const AppIconImageUpload: React.FC<Props> = ({
+const AppIconGeneratorImageUpload: React.FC<Props> = ({
   image,
   error,
   warning,
@@ -222,4 +222,4 @@ const AppIconImageUpload: React.FC<Props> = ({
   );
 };
 
-export default AppIconImageUpload;
+export default AppIconGeneratorImageUpload;

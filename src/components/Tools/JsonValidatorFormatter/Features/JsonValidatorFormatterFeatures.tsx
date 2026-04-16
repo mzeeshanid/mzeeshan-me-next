@@ -13,9 +13,13 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const JsonValidatorFormatterFeatures: React.FC = () => {
+type Props = {
+  data?: typeof jsonValidatorFormatterFeaturesData;
+};
+
+const JsonValidatorFormatterFeatures: React.FC<Props> = ({ data }) => {
   const { palette } = useColorPalette();
-  const featuresData = jsonValidatorFormatterFeaturesData;
+  const featuresData = data ?? jsonValidatorFormatterFeaturesData;
 
   return (
     <Box as="section">

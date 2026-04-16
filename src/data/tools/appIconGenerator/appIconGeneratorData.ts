@@ -4,7 +4,10 @@ import {
   FaBolt,
   FaDownload,
   FaFileZipper,
+  FaFont,
+  FaIcons,
   FaLayerGroup,
+  FaWandMagicSparkles,
 } from "react-icons/fa6";
 import {
   MdImage,
@@ -41,6 +44,11 @@ export const appIconGeneratorMarqueeIcons = [
   "/assets/react_app_icon.png",
   "/assets/string_metric_app_icon.png",
   "/assets/drive_direct_icon.png",
+  "/assets/image_format_converter_icon.png",
+  "/assets/json_to_csv_icon.png",
+  "/assets/json_to_type_script_icon.png",
+  "/assets/json_to_xml_icon.png",
+  "/assets/json_to_yaml_icon.png",
   "/assets/promotional_offer_appicon.png",
   "/assets/mzvisit_app_icon.png",
   "/assets/aspect_ratio_app_icon.png",
@@ -50,13 +58,28 @@ export const appIconGeneratorFeaturesData = {
   header: {
     badge: "Highlights",
     title: "Why use this generator",
-    desc: "Generate production-ready icon packs for Apple and Android platforms in one pass.",
+    desc: "A full custom icon builder with live previews — not just a resizer.",
   },
   items: [
     {
       icon: FaLayerGroup,
-      title: "Multi-platform support",
-      desc: "Create icon packs for iOS, iPadOS, watchOS, macOS, and Android from one source image.",
+      title: "Custom icon builder",
+      desc: "Design icons from scratch using layered foreground and background — choose image, clip art, or styled text for each layer.",
+    },
+    {
+      icon: FaIcons,
+      title: "React Icons clip art library",
+      desc: "Pick from thousands of icons across Font Awesome, Material Design, and more — no separate icon source needed.",
+    },
+    {
+      icon: FaFont,
+      title: "Text with typography styles",
+      desc: "Create text-based icons with Regular, Bold, or Italic styling directly in the builder.",
+    },
+    {
+      icon: MdPhoneIphone,
+      title: "Live device preview",
+      desc: "See your icon rendered in iPhone and Android device frames across 8 real-world contexts before downloading.",
     },
     {
       icon: FaFileZipper,
@@ -65,13 +88,8 @@ export const appIconGeneratorFeaturesData = {
     },
     {
       icon: FaBolt,
-      title: "Batch generation",
-      desc: "Produce every required size in one run instead of exporting dozens of files manually.",
-    },
-    {
-      icon: FaDownload,
-      title: "Instant download",
-      desc: "Generate and download the archive directly in the browser without sending your image to a server.",
+      title: "Instant, private generation",
+      desc: "All processing happens in the browser — your image never leaves your device, and the ZIP is ready in seconds.",
     },
   ],
 };
@@ -79,24 +97,29 @@ export const appIconGeneratorFeaturesData = {
 export const appIconGeneratorHowItWorksData = {
   header: {
     badge: "How It Works",
-    title: "Three quick steps",
-    desc: "Upload once, choose targets, and download a project-ready archive.",
+    title: "Four quick steps",
+    desc: "Upload or design, preview in context, then download a project-ready archive.",
   },
   items: [
     {
       icon: MdImage,
-      title: "Upload your image",
-      desc: "Drop in a square source image. A 1024 × 1024 PNG gives the cleanest results.",
+      title: "Upload or design",
+      desc: "Drop in a source image, or switch to custom mode to build your icon from layers — image, React Icons clip art, or styled text.",
     },
     {
       icon: FaApple,
       title: "Select target platforms",
-      desc: "Choose the Apple and Android outputs you need and customize the Android file name if required.",
+      desc: "Toggle the Apple and Android outputs you need. Choose individual device targets — iPhone, iPad, watchOS, macOS, and Android.",
+    },
+    {
+      icon: MdPhoneIphone,
+      title: "Preview in context",
+      desc: "Review your icon rendered in iPhone and Android device frames across home screen, spotlight, settings, notifications, and more.",
     },
     {
       icon: FaDownload,
       title: "Download the ZIP",
-      desc: "Get a ZIP archive with platform-specific folders and metadata files ready for import.",
+      desc: "Get a ZIP archive with platform-specific folders and metadata files ready for direct import into Xcode and Android Studio.",
     },
   ],
 };
@@ -129,6 +152,28 @@ export const appIconGeneratorComparisonData = {
       },
     },
     {
+      feature: { text: "Icon builder" },
+      thisTool: {
+        text: "Full layer builder — image, React Icons clip art library, or styled text as foreground/background",
+      },
+      competitor: { text: "Image upload only" },
+      competitorTwo: { text: "Image upload only" },
+    },
+    {
+      feature: { text: "Text styles" },
+      thisTool: { text: "Regular, Bold, and Italic text directly on the icon canvas" },
+      competitor: { text: "Not supported" },
+      competitorTwo: { text: "Not supported" },
+    },
+    {
+      feature: { text: "Live device preview" },
+      thisTool: {
+        text: "iPhone and Android device frames across 8 contexts (home screen, spotlight, settings, and more)",
+      },
+      competitor: { text: "Basic preview" },
+      competitorTwo: { text: "Shape-based previews, no device frames" },
+    },
+    {
       feature: { text: "Output clarity" },
       thisTool: {
         text: "Explicit ZIP folder structure for Xcode and Android Studio",
@@ -139,16 +184,10 @@ export const appIconGeneratorComparisonData = {
       },
     },
     {
-      feature: { text: "UI/UX" },
-      thisTool: { text: "Modern, responsive drag-and-drop workflow" },
-      competitor: { text: "More utilitarian interface" },
-      competitorTwo: {
-        text: "Polished interface with more customization controls",
-      },
-    },
-    {
       feature: { text: "Best fit" },
-      thisTool: { text: "Developers who want a clean upload-to-ZIP workflow" },
+      thisTool: {
+        text: "Developers who want to design, preview, and export icons without leaving the browser",
+      },
       competitor: { text: "Quick exports with a simpler utility feel" },
       competitorTwo: {
         text: "Users who want previews and styling controls before export",
@@ -239,4 +278,34 @@ export const appIconGeneratorPlatformCardData = {
       },
     ],
   },
+};
+
+export const appIconGeneratorValuePropsData = {
+  header: {
+    badge: "What Sets It Apart",
+    title: "More than a resizer",
+    desc: "Most icon generators just resize your image. This tool lets you design, preview, and export — all from the browser.",
+  },
+  items: [
+    {
+      icon: FaIcons,
+      title: "React Icons clip art library",
+      desc: "Access thousands of icons from Font Awesome, Material Design, Remix Icons, and more. Search and pick any icon as your foreground layer — no external source or design app required.",
+    },
+    {
+      icon: FaFont,
+      title: "Text with typography styles",
+      desc: "Type any character or word and apply Regular, Bold, or Italic styling. The builder renders it directly onto the icon canvas at full resolution.",
+    },
+    {
+      icon: MdPhoneIphone,
+      title: "Live device mockup preview",
+      desc: "See your icon in iPhone and Android device frames across 8 real-world contexts — home screen, spotlight, settings, notification bar, App Store, and Google Play — before you export.",
+    },
+    {
+      icon: FaWandMagicSparkles,
+      title: "Cleaner than Android Studio",
+      desc: "Skip the heavyweight IDE setup. Get the same adaptive icon output — foreground, background, legacy, round, and monochrome — with a drag-and-drop interface that takes seconds to learn.",
+    },
+  ],
 };

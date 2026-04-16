@@ -9,6 +9,8 @@ import AppIconGeneratorFeatures from "@/components/Tools/AppIconGenerator/Featur
 import AppIconGeneratorHero from "@/components/Tools/AppIconGenerator/Hero/AppIconGeneratorHero";
 import AppIconGeneratorHowItWorks from "@/components/Tools/AppIconGenerator/HowItWorks/AppIconGeneratorHowItWorks";
 import AppIconGeneratorSeo from "@/components/Tools/AppIconGenerator/Seo/AppIconGeneratorSeo";
+import AppIconGeneratorAndroidStudioSteps from "@/components/Tools/AppIconGenerator/AndroidStudio/AppIconGeneratorAndroidStudioSteps";
+import AppIconGeneratorValueProps from "@/components/Tools/AppIconGenerator/ValueProps/AppIconGeneratorValueProps";
 import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
 import { appIconGeneratorHeaderData } from "@/data/tools/appIconGenerator/appIconGeneratorData";
 import { Container, Spacer } from "@chakra-ui/react";
@@ -40,6 +42,16 @@ const AppIconGeneratorPage: React.FC<Props> = ({ article }) => {
       <Spacer p={4} />
       <Container maxW="6xl">
         <AppIconGeneratorHero />
+      </Container>
+
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <AppIconGeneratorValueProps />
+      </Container>
+
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <AppIconGeneratorAndroidStudioSteps />
       </Container>
 
       <Spacer p={8} />

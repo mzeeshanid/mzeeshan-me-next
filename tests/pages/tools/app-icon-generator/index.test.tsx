@@ -59,7 +59,7 @@ describe("/tools/app-icon-generator integration", () => {
     await waitFor(() => {
       expect(onGenerateArchive).toHaveBeenCalledWith(
         expect.objectContaining({
-          androidFileName: "ic_launcher",
+          androidFileName: "",
           imageFile: expect.any(File),
           selection: expect.objectContaining({ iphone: true }),
         }),

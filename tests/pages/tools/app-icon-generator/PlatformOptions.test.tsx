@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import AppIconPlatformOptions from "@/components/Tools/AppIconGenerator/Hero/AppIconPlatformOptions";
+import AppIconGeneratorPlatformOptions from "@/components/Tools/AppIconGenerator/Hero/AppIconGeneratorPlatformOptions";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
@@ -14,17 +14,15 @@ const baseSelection = {
   android: false,
 };
 
-describe("AppIconPlatformOptions", () => {
+describe("AppIconGeneratorPlatformOptions", () => {
   it("toggles platform checkboxes", async () => {
     const user = userEvent.setup();
     const onPlatformChange = vi.fn();
 
     renderWithProviders(
-      <AppIconPlatformOptions
+      <AppIconGeneratorPlatformOptions
         selection={baseSelection}
-        androidFileName="ic_launcher"
         onPlatformChange={onPlatformChange}
-        onAndroidFileNameChange={vi.fn()}
       />,
     );
 
@@ -32,32 +30,28 @@ describe("AppIconPlatformOptions", () => {
     expect(onPlatformChange).toHaveBeenCalledWith("iphone", true);
   });
 
-  it("shows android filename validation when android is selected", () => {
+  it("shows iOS platform options", () => {
     renderWithProviders(
-      <AppIconPlatformOptions
-        selection={{ ...baseSelection, android: true }}
-        androidFileName="Invalid Name"
+      <AppIconGeneratorPlatformOptions
+        selection={{ ...baseSelection, ipad: true }}
         onPlatformChange={vi.fn()}
-        onAndroidFileNameChange={vi.fn()}
       />,
     );
 
-    expect(
-      screen.getByText(/Use lowercase letters, numbers, and underscores/i),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("platform-option-ipad")).toHaveAttribute(
+      "data-state",
+      "checked",
+    );
   });
 
-  it("preserves controlled state values", () => {
+  it("preserves controlled checked state", () => {
     renderWithProviders(
-      <AppIconPlatformOptions
+      <AppIconGeneratorPlatformOptions
         selection={{ ...baseSelection, ipad: true }}
-        androidFileName="custom_icon"
         onPlatformChange={vi.fn()}
-        onAndroidFileNameChange={vi.fn()}
       />,
     );
 
-    expect(screen.getByDisplayValue("custom_icon")).toBeInTheDocument();
     expect(screen.getByTestId("platform-option-ipad")).toHaveAttribute(
       "data-state",
       "checked",

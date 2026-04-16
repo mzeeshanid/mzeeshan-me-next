@@ -1,12 +1,20 @@
 import { absoluteUrl } from "@/baseUrl/absoluteUrl";
-import { jsonValidatorFormatterMetaData } from "@/data/tools/jsonValidatorFormatter/jsonValidatorFormatterData";
+import {
+  jsonValidatorFormatterMetaData,
+  JsonValidatorFormatterMetaData,
+} from "@/data/tools/jsonValidatorFormatter/jsonValidatorFormatterData";
 import { SoftwareApplicationJsonLd } from "next-seo";
 import { generateNextSeo } from "next-seo/pages";
 import Head from "next/head";
 import React from "react";
 
-const JsonValidatorFormatterSeo: React.FC = () => {
-  const meta = jsonValidatorFormatterMetaData;
+type Props = {
+  /** Override meta for converter sub-pages. Defaults to the validator meta. */
+  meta?: JsonValidatorFormatterMetaData;
+};
+
+const JsonValidatorFormatterSeo: React.FC<Props> = ({ meta: metaProp }) => {
+  const meta = metaProp ?? jsonValidatorFormatterMetaData;
   const canonicalUrl = absoluteUrl(meta.url);
 
   return (
@@ -43,7 +51,7 @@ const JsonValidatorFormatterSeo: React.FC = () => {
         screenshot={[
           {
             url: absoluteUrl(meta.image.src),
-            caption: "JSON Validator and Formatter",
+            caption: meta.title,
           },
         ]}
         offers={[

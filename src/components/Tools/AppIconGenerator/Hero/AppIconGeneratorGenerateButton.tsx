@@ -9,7 +9,7 @@ type Props = {
   onClick: () => void;
 };
 
-const AppIconGenerateButton: React.FC<Props> = ({
+const AppIconGeneratorGenerateButton: React.FC<Props> = ({
   disabled,
   loading,
   onClick,
@@ -32,4 +32,4 @@ const AppIconGenerateButton: React.FC<Props> = ({
   );
 };
 
-export default AppIconGenerateButton;
+export default AppIconGeneratorGenerateButton;
