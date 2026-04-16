@@ -41,16 +41,16 @@ const NavBar: React.FC<NavBarProps> = (props) => {
       position="sticky"
       top={0}
       zIndex={1000}
-      transition="background 0.2s, backdrop-filter 0.2s"
-      bg={navBarBgColor}
-      style={{
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
-      }}
       pl={{ base: 0, md: 2 }}
       pr={{ base: 0, md: 2 }}
       borderBottomWidth={1}
-      borderColor={scrolled ? scrolledBorderColor : "transparent"}
+      style={{
+        background: navBarBgColor,
+        borderColor: scrolled ? scrolledBorderColor : "transparent",
+        backdropFilter: scrolled ? "blur(16px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
+        transition: "background 0.2s, backdrop-filter 0.2s, border-color 0.2s",
+      }}
     >
       <Container maxW={"8xl"}>
         <HStack justify="space-between" align="center" py={4}>

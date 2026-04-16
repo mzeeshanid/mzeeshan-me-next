@@ -42,6 +42,8 @@ git pull --ff-only origin "$BRANCH"
 
 mkdir -p "$YARN_CACHE_FOLDER"
 yarn install --frozen-lockfile
+# Rebuild native modules for the current platform (e.g. sharp: macOS -> Linux)
+npm rebuild sharp 2>/dev/null || true
 
 if [ ! -f "$ENV_FILE" ]; then
   echo "Environment file not found: $ENV_FILE" >&2
