@@ -11,7 +11,10 @@
       "Bash(sed -i '' -e 's/const AppIconGenerateButton:/const AppIconGeneratorGenerateButton:/g' -e 's/export default AppIconGenerateButton/export default AppIconGeneratorGenerateButton/g' src/components/Tools/AppIconGenerator/Hero/AppIconGeneratorGenerateButton.tsx)",
       "Bash(xargs sed *)",
       "Bash(sed -i '' -e 's/: SettingsItem\\\\[\\\\]/: AppIconGeneratorSettingsItem[]/g' -e 's/: SettingsItem;/: AppIconGeneratorSettingsItem;/g' src/components/Tools/AppIconGenerator/Hero/android/AppIconGeneratorSettingsSection.tsx)",
-      "Bash(sed -i '' -e 's/import AndroidStudioSteps from/import AppIconGeneratorAndroidStudioSteps from/g' -e 's/<AndroidStudioSteps /<AppIconGeneratorAndroidStudioSteps /g' pages/tools/app-icon-generator/index.tsx)"
+      "Bash(sed -i '' -e 's/import AndroidStudioSteps from/import AppIconGeneratorAndroidStudioSteps from/g' -e 's/<AndroidStudioSteps /<AppIconGeneratorAndroidStudioSteps /g' pages/tools/app-icon-generator/index.tsx)",
+      "Read(//Users/aliaslam/Downloads/MyAudios/**)",
+      "Read(//Users/aliaslam/Downloads/MyAudios/FLAC Base Files/**)",
+      "mcp__chakra-ui__get_component_example"
     ]
   }
 }

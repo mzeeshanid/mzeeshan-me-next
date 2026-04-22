@@ -38,6 +38,7 @@ const ExtensionDetailHome: React.FC<Props> = ({ extension }) => {
       <Container maxW="6xl">
         <PageHeader
           title="Sample Files"
+          currentHref={`/tools/sample-files/extensions/${extension.slug}`}
           breadcrumbItems={[
             { label: "Home", href: "/" },
             { label: "Tools", href: "/tools" },
