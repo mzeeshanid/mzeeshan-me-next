@@ -5,14 +5,29 @@ import { API } from '@strapi/client';
 import { SampleFilesCategoryModel } from './sampleFilesCategories';
 import { SampleFilesExtensionDetailsData } from '@/data/tools/sampleFiles/sampleFilesExtensionDetails';
 
+export interface StrapiMediaFile {
+    id: number;
+    url: string;
+    name: string;
+    size: number;
+    mime: string;
+}
+
 export interface SampleFileVariantModel extends API.Document {
     id: number;
     documentId: string;
     name: string;
     size: string;
-    url?: string;
+    url?: string;              // legacy Google Drive link
+    asset?: StrapiMediaFile;   // S3/CloudFront via Strapi media library
     downloads?: number;
+    section?: string;
+    duration?: string;
+    shortInfo?: string;
 }
+
+export const getVariantDownloadUrl = (variant: SampleFileVariantModel): string | undefined =>
+    variant.asset?.url ?? variant.url;
 
 export interface SampleFilesExtensionDetailModel extends API.Document {
     id: number;
@@ -40,7 +55,7 @@ export const fetchSampleFilesExtensionDetailsStrapi = async (
                 },
             },
             fields: ["id", "name", "slug", "info", "details", "isFeatured"],
-            populate: ["type", "variants"],
+            populate: ["type", "variants", "variants.asset"],
             pagination: {
                 page: 1,
                 pageSize: 1,

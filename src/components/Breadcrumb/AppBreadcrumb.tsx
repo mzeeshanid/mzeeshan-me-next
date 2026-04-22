@@ -4,26 +4,36 @@ import { BreadcrumbJsonLd } from "next-seo";
 import React from "react";
 import { LuHouse } from "react-icons/lu";
 
-export type AppBreadcrumbProps = {
-  items: AppBreadcrumbItem[];
-};
-
 export type AppBreadcrumbItem = {
   label: string;
   href?: string;
 };
 
-const AppBreadcrumb: React.FC<AppBreadcrumbProps> = ({ items }) => {
+export type AppBreadcrumbProps = {
+  items: AppBreadcrumbItem[];
+  /** URL of the current page — added to the last breadcrumb item in JSON-LD only (no visual link). */
+  currentHref?: string;
+  /** Emit BreadcrumbJsonLd structured data. Defaults to true. Set false to suppress when the parent already handles it. */
+  withJsonLd?: boolean;
+};
+
+const AppBreadcrumb: React.FC<AppBreadcrumbProps> = ({
+  items,
+  currentHref,
+  withJsonLd = true,
+}) => {
+  const jsonLdItems = items.map((item, index) => {
+    const isLast = index === items.length - 1;
+    const resolvedHref = item.href ?? (isLast && currentHref ? currentHref : undefined);
+    return {
+      name: item.label,
+      item: resolvedHref ? absoluteUrl(resolvedHref) : undefined,
+    };
+  });
+
   return (
     <>
-      <BreadcrumbJsonLd
-        items={items.map((item) => {
-          return {
-            name: item.label,
-            item: item.href ? absoluteUrl(item.href) : undefined,
-          };
-        })}
-      />
+      {withJsonLd && <BreadcrumbJsonLd items={jsonLdItems} />}
       <Breadcrumb.Root size={{ base: "md", md: "lg" }}>
         <Breadcrumb.List>
           {items.map((item, index) => (
