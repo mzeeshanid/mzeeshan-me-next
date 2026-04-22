@@ -23,32 +23,23 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import {
-  LuChevronDown,
-  LuChevronRight,
-  LuSearch,
-  LuX,
-} from "react-icons/lu";
+import { LuChevronDown, LuChevronRight, LuSearch, LuX } from "react-icons/lu";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 const SECTION_ORDER = [
-  { key: "size_duration",         label: "Size & Duration" },
-  { key: "audio_quality",         label: "Audio Quality" },
-  { key: "block_size",            label: "Block Size" },
-  { key: "channels",              label: "Channels" },
-  { key: "content_type",          label: "Content Type" },
-  { key: "encoding_variants",     label: "Encoding Variants" },
-  { key: "metadata",              label: "Metadata" },
+  { key: "size_duration", label: "Size & Duration" },
+  { key: "audio_quality", label: "Audio Quality" },
+  { key: "block_size", label: "Block Size" },
+  { key: "channels", label: "Channels" },
+  { key: "content_type", label: "Content Type" },
+  { key: "encoding_variants", label: "Encoding Variants" },
+  { key: "metadata", label: "Metadata" },
   { key: "sample_rate_bit_depth", label: "Sample Rate & Bit Depth" },
-  { key: "waveform_signal",       label: "Waveform & Signal Type" },
-  { key: "general",               label: "General" },
-  { key: "misc",                  label: "Misc" },
+  { key: "waveform_signal", label: "Waveform & Signal Type" },
+  { key: "general", label: "General" },
+  { key: "misc", label: "Misc" },
 ];
-
-const AUDIO_EXTENSIONS = new Set([
-  "mp3", "flac", "wav", "ogg", "aac", "aiff", "wma", "opus", "m4a", "m4r", "mmf",
-]);
 
 const SEARCH_LIMIT = 15;
 
@@ -101,18 +92,28 @@ interface AudioModalProps {
   onClose: () => void;
 }
 
-const AudioModal: React.FC<AudioModalProps> = ({ variant, extensionName, onClose }) => {
+const AudioModal: React.FC<AudioModalProps> = ({
+  variant,
+  extensionName,
+  onClose,
+}) => {
   const url = variant ? getVariantDownloadUrl(variant) : undefined;
 
   return (
     <Dialog.Root
       open={!!variant}
-      onOpenChange={(e) => { if (!e.open) onClose(); }}
+      onOpenChange={(e) => {
+        if (!e.open) onClose();
+      }}
       placement="center"
       motionPreset="slide-in-bottom"
     >
       <Portal>
-        <Dialog.Backdrop backdropFilter="auto" backdropBlur="sm" bg="blackAlpha.500" />
+        <Dialog.Backdrop
+          backdropFilter="auto"
+          backdropBlur="sm"
+          bg="blackAlpha.500"
+        />
         <Dialog.Positioner>
           <Dialog.Content maxW="sm" borderRadius="3xl" overflow="hidden">
             <Dialog.Header px={5} pt={5} pb={0}>
@@ -163,10 +164,14 @@ const AudioModal: React.FC<AudioModalProps> = ({ variant, extensionName, onClose
               {(variant?.duration || variant?.size) && (
                 <HStack mt={3} gap={4} justify="center">
                   {variant.duration && (
-                    <Text fontSize="xs" color="fg.muted">{variant.duration}</Text>
+                    <Text fontSize="xs" color="fg.muted">
+                      {variant.duration}
+                    </Text>
                   )}
                   {variant.size && (
-                    <Text fontSize="xs" color="fg.muted">{variant.size}</Text>
+                    <Text fontSize="xs" color="fg.muted">
+                      {variant.size}
+                    </Text>
                   )}
                 </HStack>
               )}
@@ -255,9 +260,13 @@ const VariantRow: React.FC<VariantRowProps> = ({
         {/* Duration + size */}
         <VStack gap={0} align="end" flexShrink={0}>
           {variant.duration && (
-            <Text fontSize="xs" color="fg.muted">{variant.duration}</Text>
+            <Text fontSize="xs" color="fg.muted">
+              {variant.duration}
+            </Text>
           )}
-          <Text fontSize="xs" color="fg.muted">{variant.size}</Text>
+          <Text fontSize="xs" color="fg.muted">
+            {variant.size}
+          </Text>
         </VStack>
 
         {/* Download */}
@@ -281,7 +290,7 @@ const VariantRow: React.FC<VariantRowProps> = ({
           ml={isAudio ? "60px" : "16px"}
           mr={0}
           borderBottomWidth="0.5px"
-          borderColor="border.subtle"
+          borderColor="border.emphasized"
         />
       )}
     </Box>
@@ -343,9 +352,15 @@ const SectionBlock: React.FC<SectionBlockProps> = ({
             >
               {label}
             </Text>
-            <Text fontSize="xs" color="fg.muted">{items.length}</Text>
+            <Text fontSize="xs" color="fg.muted">
+              {items.length}
+            </Text>
             <Collapsible.Indicator>
-              {open ? <LuChevronDown size={12} /> : <LuChevronRight size={12} />}
+              {open ? (
+                <LuChevronDown size={12} />
+              ) : (
+                <LuChevronRight size={12} />
+              )}
             </Collapsible.Indicator>
           </HStack>
         </Collapsible.Trigger>
@@ -397,7 +412,10 @@ const SectionChips: React.FC<SectionChipsProps> = ({
       gap={2}
       overflowX="auto"
       pb={1}
-      css={{ scrollbarWidth: "none", "&::-webkit-scrollbar": { display: "none" } }}
+      css={{
+        scrollbarWidth: "none",
+        "&::-webkit-scrollbar": { display: "none" },
+      }}
     >
       {count > 0 && (
         <Button
@@ -447,14 +465,19 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
 
   // Search: input value updates immediately; deferred value drives filtering
   const [inputValue, setInputValue] = React.useState("");
-  const debounceRef = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const debounceRef = React.useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
   const [committedQuery, setCommittedQuery] = React.useState("");
 
   const [downloadingId, setDownloadingId] = React.useState<string | null>(null);
-  const [playingVariant, setPlayingVariant] = React.useState<SampleFileVariantModel | null>(null);
-  const [selectedSections, setSelectedSections] = React.useState<Set<string>>(new Set());
+  const [playingVariant, setPlayingVariant] =
+    React.useState<SampleFileVariantModel | null>(null);
+  const [selectedSections, setSelectedSections] = React.useState<Set<string>>(
+    new Set(),
+  );
 
-  const isAudio = AUDIO_EXTENSIONS.has(extension.slug?.toLowerCase() ?? "");
+  const isAudio = extension.type?.slug?.toLowerCase() === "audios";
   const hasSections = variants.some((v) => v.section);
   const isSearching = committedQuery.trim().length > 0;
 
@@ -505,17 +528,20 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
     return results;
   }, [committedQuery, variants]);
 
-  const handleDownload = React.useCallback(async (variant: SampleFileVariantModel) => {
-    if (!getVariantDownloadUrl(variant)) return;
-    try {
-      setDownloadingId(variant.documentId);
-      await incrementVariantDownloadCount(variant.documentId);
-    } catch {
-      // silent
-    } finally {
-      setDownloadingId(null);
-    }
-  }, []);
+  const handleDownload = React.useCallback(
+    async (variant: SampleFileVariantModel) => {
+      if (!getVariantDownloadUrl(variant)) return;
+      try {
+        setDownloadingId(variant.documentId);
+        await incrementVariantDownloadCount(variant.documentId);
+      } catch {
+        // silent
+      } finally {
+        setDownloadingId(null);
+      }
+    },
+    [],
+  );
 
   const toggleSection = React.useCallback((key: string) => {
     setSelectedSections((prev) => {
@@ -543,10 +569,23 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
       />
       {hasSections && (
         <HStack mt={3} gap={2} flexWrap="wrap">
-          <Badge variant="subtle" colorPalette="gray" borderRadius="full" px={3} py={1}>
-            {variants.length} variant{variants.length !== 1 ? "s" : ""} available
+          <Badge
+            variant="subtle"
+            colorPalette="gray"
+            borderRadius="full"
+            px={3}
+            py={1}
+          >
+            {variants.length} variant{variants.length !== 1 ? "s" : ""}{" "}
+            available
           </Badge>
-          <Badge variant="subtle" colorPalette="gray" borderRadius="full" px={3} py={1}>
+          <Badge
+            variant="subtle"
+            colorPalette="gray"
+            borderRadius="full"
+            px={3}
+            py={1}
+          >
             {groups.length} section{groups.length !== 1 ? "s" : ""}
           </Badge>
         </HStack>
@@ -649,7 +688,8 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
               </Box>
               {searchResults.length === SEARCH_LIMIT && (
                 <Text fontSize="xs" color="fg.muted" textAlign="center" mt={2}>
-                  Showing first {SEARCH_LIMIT} results — refine your search to narrow down
+                  Showing first {SEARCH_LIMIT} results — refine your search to
+                  narrow down
                 </Text>
               )}
             </>
@@ -657,13 +697,7 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
         </Box>
       ) : hasSections ? (
         /* ── iOS 26 grouped sectioned view ── */
-        <Box
-          bg="bg.subtle"
-          borderRadius="2xl"
-          px={2}
-          pb={3}
-          mt={1}
-        >
+        <Box bg="bg.subtle" borderRadius="2xl" px={2} pb={3} mt={1}>
           {visibleGroups.map((g) => (
             <SectionBlock
               key={g.key}
