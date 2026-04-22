@@ -27,8 +27,7 @@ import { sampleFilesWorkingData } from "@/data/tools/sampleFiles/sampleFilesWork
 
 type Props = {
   article?: ArticleModel;
-  initialExtensions?: SampleFilesExtensionModel[];
-  initialTotal?: number;
+  extensions: SampleFilesExtensionModel[];
   featuredExtensions?: SampleFilesExtensionModel[];
 };
 
@@ -54,7 +53,7 @@ const SampleFilesHome: React.FC<Props> = (props: Props) => {
       <Spacer p={4} />
       <Container maxW="6xl">
         <Box data-sample-files-hero>
-          <SampleFilesHero />
+          <SampleFilesHero extensions={props.extensions} />
         </Box>
       </Container>
 
@@ -66,8 +65,8 @@ const SampleFilesHome: React.FC<Props> = (props: Props) => {
       <Spacer p={4} />
       <Container maxW="6xl">
         <SampleFilesExtensions
-          initialExtensions={props.initialExtensions}
-          initialTotal={props.initialTotal}
+          extensions={props.extensions}
+          grouped
           headerProps={{
             badge: "Extensions",
             title: "All Extensions",
@@ -105,7 +104,10 @@ const SampleFilesHome: React.FC<Props> = (props: Props) => {
         <Box>
           <Spacer p={8} />
           <Container maxW="6xl">
-            <ToolRelatedArticle article={props.article} header={sampleFilesWorkingData.header} />
+            <ToolRelatedArticle
+              article={props.article}
+              header={sampleFilesWorkingData.header}
+            />
           </Container>
         </Box>
       )}
@@ -125,19 +127,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
     const [allExtensionsResponse, featuredResponse, article] =
       await Promise.all([
-        fetchSampleFilesExtensionsStrapi(
-          undefined,
-          10,
-          1,
-          undefined,
-        ),
-        fetchSampleFilesExtensionsStrapi(
-          undefined,
-          6,
-          1,
-          undefined,
-          true,
-        ),
+        fetchSampleFilesExtensionsStrapi(undefined, 200, 1, undefined),
+        fetchSampleFilesExtensionsStrapi(undefined, 8, 1, undefined, true),
         fetchArticleBySlugStrapi(
           "download-sample-files-for-testing-development",
         ),
@@ -145,8 +136,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     return {
       props: {
         article,
-        initialExtensions: allExtensionsResponse.data || [],
-        initialTotal: allExtensionsResponse.meta?.pagination?.total || 0,
+        extensions: allExtensionsResponse.data || [],
         featuredExtensions: featuredResponse.data || [],
       },
       revalidate: 3600,
@@ -155,8 +145,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     console.error("Failed to fetch extensions in getStaticProps:", error);
     return {
       props: {
-        initialExtensions: [],
-        initialTotal: 0,
+        extensions: [],
         featuredExtensions: [],
       },
       revalidate: 60,

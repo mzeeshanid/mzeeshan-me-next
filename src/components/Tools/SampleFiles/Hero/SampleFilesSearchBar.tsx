@@ -17,110 +17,108 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-type Props = {
-  initialValue?: string;
-};
-
+const MAX_LOCAL = 6;
 const DEBOUNCE_DELAY = 150;
 
-const SampleFilesSearchBar: React.FC<Props> = ({ initialValue = "" }) => {
+type Props = {
+  initialValue?: string;
+  extensions?: SampleFilesExtensionModel[];
+};
+
+const SampleFilesSearchBar: React.FC<Props> = ({
+  initialValue = "",
+  extensions,
+}) => {
   const { palette } = useColorPalette();
+  const hasLocal = extensions !== undefined;
 
   const [searchText, setSearchText] = React.useState(initialValue);
-  const [suggestions, setSuggestions] = React.useState<
-    SampleFilesExtensionModel[]
-  >([]);
-  const [isLoading, setIsLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+
+  // API-mode state (only used when no local list is provided)
+  const [apiSuggestions, setApiSuggestions] = React.useState<SampleFilesExtensionModel[]>([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const inputRef = React.useRef<HTMLInputElement>(null);
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const debounceRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const abortRef = React.useRef<AbortController | null>(null);
 
-  const debounceTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(
-    null,
-  );
-  const abortControllerRef = React.useRef<AbortController | null>(null);
+  // Local filter — only when extensions list is available
+  const localSuggestions = React.useMemo<SampleFilesExtensionModel[]>(() => {
+    if (!hasLocal) return [];
+    const q = searchText.trim().toLowerCase();
+    if (!q) return [];
+    return (extensions ?? [])
+      .filter(
+        (ext) =>
+          ext.slug.includes(q) ||
+          ext.name.toLowerCase().includes(q) ||
+          (ext.info && ext.info.toLowerCase().includes(q)),
+      )
+      .slice(0, MAX_LOCAL);
+  }, [searchText, extensions, hasLocal]);
 
-  // ---- Fetch logic (abort-aware)
+  const suggestions = hasLocal ? localSuggestions : apiSuggestions;
+
+  // API fetch — only runs when no local list
   const fetchSuggestions = React.useCallback(
     async (keyword: string, signal: AbortSignal) => {
       if (!keyword.trim()) {
-        setSuggestions([]);
+        setApiSuggestions([]);
         return;
       }
-
       setIsLoading(true);
-
       try {
         const response = await fetchSampleFilesExtensionsNextJs(
-          keyword,
-          3,
-          1,
-          undefined,
-          undefined,
-          {
-            signal,
-          },
+          keyword, 6, 1, undefined, undefined, { signal },
         );
-        setSuggestions(response.data || []);
+        setApiSuggestions(response.data || []);
       } catch (error: any) {
         if (error.name !== "AbortError") {
-          console.error("Failed to fetch suggestions:", error);
-          setSuggestions([]);
+          setApiSuggestions([]);
         }
       } finally {
-        if (!signal.aborted) {
-          setIsLoading(false);
-        }
+        if (!signal.aborted) setIsLoading(false);
       }
     },
     [],
   );
 
-  // ---- Input handler (PURE)
+  // Debounce + abort — API mode only
+  React.useEffect(() => {
+    if (hasLocal) return;
+
+    if (!searchText.trim()) {
+      setApiSuggestions([]);
+      setIsLoading(false);
+      abortRef.current?.abort();
+      return;
+    }
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    abortRef.current?.abort();
+
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    debounceRef.current = setTimeout(() => {
+      fetchSuggestions(searchText, controller.signal);
+    }, DEBOUNCE_DELAY);
+
+    return () => {
+      clearTimeout(debounceRef.current!);
+      controller.abort();
+    };
+  }, [searchText, fetchSuggestions, hasLocal]);
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchText(value);
     setOpen(value.length > 0);
   };
 
-  // ---- Debounce + cancel previous request
-  React.useEffect(() => {
-    if (!searchText.trim()) {
-      setSuggestions([]);
-      setIsLoading(false);
-
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort();
-      }
-
-      return;
-    }
-
-    // Clear previous debounce timer
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-    }
-
-    // Abort previous request
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-
-    const controller = new AbortController();
-    abortControllerRef.current = controller;
-
-    debounceTimerRef.current = setTimeout(() => {
-      fetchSuggestions(searchText, controller.signal);
-    }, DEBOUNCE_DELAY);
-
-    return () => {
-      clearTimeout(debounceTimerRef.current!);
-      controller.abort();
-    };
-  }, [searchText, fetchSuggestions]);
-
-  // ---- Keyboard shortcuts
+  // Keyboard shortcuts
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -128,40 +126,30 @@ const SampleFilesSearchBar: React.FC<Props> = ({ initialValue = "" }) => {
         inputRef.current?.focus();
         return;
       }
-
-      if (e.key === "Escape") {
-        if (document.activeElement === inputRef.current) {
-          inputRef.current?.blur();
-          setOpen(false);
-        }
+      if (e.key === "Escape" && document.activeElement === inputRef.current) {
+        inputRef.current?.blur();
+        setOpen(false);
       }
     };
-
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
-  // ---- Click outside
+  // Click outside
   React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
-
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () =>
-        document.removeEventListener("mousedown", handleClickOutside);
-    }
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, [open]);
 
   return (
     <Box
-      as={"search"}
+      as="search"
       ref={containerRef}
       w={{ base: "full", md: "lg", lg: "2xl" }}
       position="relative"
@@ -212,20 +200,19 @@ const SampleFilesSearchBar: React.FC<Props> = ({ initialValue = "" }) => {
             </Box>
           ) : suggestions.length > 0 ? (
             <VStack gap={0} divideY="1px">
-              {suggestions.map((suggestion, index) => (
+              {suggestions.map((suggestion) => (
                 <Link
-                  w={"full"}
+                  key={suggestion.documentId}
+                  w="full"
                   href={`/tools/sample-files/extensions/${suggestion.slug}`}
                 >
                   <Box
-                    key={index}
                     w="full"
                     p={3}
                     cursor="pointer"
                     _hover={{ bg: "bg.subtle" }}
                     onClick={() => {
                       setSearchText(suggestion.name);
-                      setSuggestions([]);
                       setOpen(false);
                     }}
                   >
@@ -233,9 +220,11 @@ const SampleFilesSearchBar: React.FC<Props> = ({ initialValue = "" }) => {
                       <Text fontWeight="semibold" fontSize="sm">
                         {suggestion.name}
                       </Text>
-                      <Text fontSize="xs" color="fg.muted">
-                        {suggestion.info}
-                      </Text>
+                      {suggestion.info && (
+                        <Text fontSize="xs" color="fg.muted">
+                          {suggestion.info}
+                        </Text>
+                      )}
                     </VStack>
                   </Box>
                 </Link>
@@ -244,7 +233,7 @@ const SampleFilesSearchBar: React.FC<Props> = ({ initialValue = "" }) => {
           ) : (
             <Box p={4}>
               <Text textAlign="center" fontSize="sm">
-                {"No extensions found"}
+                No extensions found
               </Text>
             </Box>
           )}

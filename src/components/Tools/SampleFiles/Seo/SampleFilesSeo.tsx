@@ -4,23 +4,24 @@ import { generateNextSeo } from "next-seo/pages";
 import Head from "next/head";
 import React from "react";
 
-type Props = {};
-
-const SampleFilesSeo: React.FC<Props> = (props: Props) => {
-  const title = "Ultimate Resource for free Sample Files";
+const SampleFilesSeo: React.FC = () => {
+  const title = "Free Sample Files for Testing & Development – Download Instantly";
   const desc =
-    "A web app, that allow developers and testers to download free sample files, having 55+ differet types.";
+    "Download free sample files in 55+ formats including PDF, MP3, FLAC, WAV, MP4, DOCX and more. Instantly available for developers and testers.";
   const image = "/assets/mzfilemanage_appicon.png";
   const canonicalUrl = absoluteUrl("/tools/sample-files");
+
   return (
     <>
       <Head>
         {generateNextSeo({
-          title: title,
+          title,
           description: desc,
           canonical: canonicalUrl,
+          twitter: { cardType: "summary" },
           openGraph: {
-            title: title,
+            type: "website",
+            title,
             description: desc,
             url: canonicalUrl,
             images: [
@@ -29,12 +30,19 @@ const SampleFilesSeo: React.FC<Props> = (props: Props) => {
                 type: "image/png",
                 width: 300,
                 height: 300,
-                alt: "Sample Files Web App Icon",
+                alt: "Sample Files – free test file downloads",
               },
             ],
           },
         })}
+        <meta name="robots" content="index,follow" />
+        <meta name="googlebot" content="index,follow" />
+        <meta
+          name="keywords"
+          content="free sample files, test files, dummy files, download sample files, sample PDF, sample MP3, sample FLAC, sample video, file testing, developer test files"
+        />
       </Head>
+
       <SoftwareApplicationJsonLd
         type="WebApplication"
         name={title}
@@ -42,12 +50,8 @@ const SampleFilesSeo: React.FC<Props> = (props: Props) => {
         url={canonicalUrl}
         applicationCategory="Utility"
         operatingSystem="All"
-        screenshot={[
-          {
-            url: absoluteUrl(image),
-            caption: "Sample Files Web App Icon",
-          },
-        ]}
+        author={{ name: "mzeeshan.me", url: absoluteUrl("/") }}
+        screenshot={[{ url: absoluteUrl(image), caption: "Sample Files – free test file downloads" }]}
         offers={[
           {
             price: 0,

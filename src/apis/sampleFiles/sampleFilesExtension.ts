@@ -10,6 +10,7 @@ export interface SampleFilesExtensionModel extends API.Document {
   slug: string;
   info: string;
   isFeatured: boolean;
+  type?: { id: number; documentId: string; name: string; slug: string };
 }
 
 export type SampleFilesExtensionResponseCollection = API.DocumentResponseCollection<SampleFilesExtensionModel>;

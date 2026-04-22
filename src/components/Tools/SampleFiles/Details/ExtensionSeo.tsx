@@ -15,11 +15,19 @@ const ExtensionSeo: React.FC<Props> = ({ extension }) => {
 
   const title = `Free ${extension.name} Sample Files – Download for Testing`;
 
+  // Page meta description: short, prefer info, fall back to whatIs content
   const rawDesc =
     extension.info ||
     extension.details?.sections?.whatIs?.content ||
     `Download free ${extension.name} sample files for testing and development.`;
   const description = rawDesc.slice(0, 155);
+
+  // Dataset JSON-LD description: must be substantive (Google rejects < ~50 chars).
+  // Prefer the longer whatIs content; augment the short info string if needed.
+  const whatIsContent = extension.details?.sections?.whatIs?.content;
+  const datasetDesc = whatIsContent
+    ? whatIsContent.slice(0, 500)
+    : `A collection of free ${extension.name} sample files for developers and testers. Includes variants covering audio quality, channels, sample rates, metadata, and more. Download individual files to verify codec compatibility, player behaviour, and edge-case handling.`;
 
   const keywords = [
     extension.name,
@@ -66,9 +74,14 @@ const ExtensionSeo: React.FC<Props> = ({ extension }) => {
 
       <DatasetJsonLd
         name={title}
-        description={description}
+        description={datasetDesc}
         url={pageUrl}
         license="https://creativecommons.org/licenses/by/4.0/"
+        creator={{
+          "@type": "Organization",
+          name: "mzeeshan.me",
+          url: absoluteUrl("/"),
+        }}
         distribution={(extension.variants || []).map((v) => ({
           "@type": "DataDownload",
           name: v.name,

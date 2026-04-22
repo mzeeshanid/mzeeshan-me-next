@@ -2,7 +2,10 @@ import {
   fetchSampleFilesExtensionDetailsStrapi,
   SampleFilesExtensionDetailModel,
 } from "@/apis/sampleFiles/sampleFilesExtensionDetails";
-import { fetchSampleFilesExtensionsStrapi } from "@/apis/sampleFiles/sampleFilesExtension";
+import {
+  fetchSampleFilesExtensionsStrapi,
+  SampleFilesExtensionModel,
+} from "@/apis/sampleFiles/sampleFilesExtension";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
@@ -24,9 +27,10 @@ import React from "react";
 
 interface Props {
   extension: SampleFilesExtensionDetailModel;
+  allExtensions: SampleFilesExtensionModel[];
 }
 
-const ExtensionDetailHome: React.FC<Props> = ({ extension }) => {
+const ExtensionDetailHome: React.FC<Props> = ({ extension, allExtensions }) => {
   const header = sampleFilesHeaderData;
   const { sections } = extension.details || {};
 
@@ -50,7 +54,7 @@ const ExtensionDetailHome: React.FC<Props> = ({ extension }) => {
       <Spacer p={4} />
       <Container maxW="6xl">
         <Box data-sample-files-hero>
-          <SampleFilesHero initialValue={extension.name} />
+          <SampleFilesHero initialValue={extension.name} extensions={allExtensions} />
         </Box>
       </Container>
       {/* Extension Details Section */}
@@ -140,19 +144,23 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
   }
 
   try {
-    const extension = await fetchSampleFilesExtensionDetailsStrapi(slug);
+    const [extension, allExtensionsResponse] = await Promise.all([
+      fetchSampleFilesExtensionDetailsStrapi(slug),
+      fetchSampleFilesExtensionsStrapi(undefined, 200, 1),
+    ]);
 
     return {
       props: {
         extension,
+        allExtensions: allExtensionsResponse.data || [],
       },
-      revalidate: 3600, // Revalidate every hour
+      revalidate: 3600,
     };
   } catch (error) {
     console.error("Failed to fetch extension details:", error);
     return {
       notFound: true,
-      revalidate: 60, // Revalidate after 1 minute to handle temporary failures
+      revalidate: 60,
     };
   }
 };

@@ -26,8 +26,8 @@ import SampleFilesCategorySeo from "@/components/Tools/SampleFiles/Categories/Sa
 
 type Props = {
   category: SampleFilesCategoryModel;
-  initialExtensions: SampleFilesExtensionModel[];
-  initialTotal: number;
+  extensions: SampleFilesExtensionModel[];
+  allExtensions: SampleFilesExtensionModel[];
 };
 
 const SampleFilesCategoryPage: React.FC<Props> = (props: Props) => {
@@ -35,7 +35,7 @@ const SampleFilesCategoryPage: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <SampleFilesCategorySeo category={props.category} />
+      <SampleFilesCategorySeo category={props.category} extensions={props.extensions} />
       <NavBar header={header} />
       <Spacer p={4} />
 
@@ -54,16 +54,14 @@ const SampleFilesCategoryPage: React.FC<Props> = (props: Props) => {
       <Spacer p={4} />
       <Container maxW="6xl">
         <Box data-sample-files-hero>
-          <SampleFilesHero />
+          <SampleFilesHero extensions={props.allExtensions} />
         </Box>
       </Container>
 
       <Spacer p={4} />
       <Container maxW="6xl">
         <SampleFilesExtensions
-          initialExtensions={props.initialExtensions}
-          initialTotal={props.initialTotal}
-          categorySlug={props.category.slug}
+          extensions={props.extensions}
           headerProps={{
             badge: "Extensions",
             title: `${props.category.name} Extensions`,
@@ -149,19 +147,16 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
       };
     }
 
-    // Fetch extensions for this category
-    const extensionsResponse = await fetchSampleFilesExtensionsStrapi(
-      undefined,
-      10,
-      1,
-      slug,
-    );
+    const [extensionsResponse, allExtensionsResponse] = await Promise.all([
+      fetchSampleFilesExtensionsStrapi(undefined, 200, 1, slug),
+      fetchSampleFilesExtensionsStrapi(undefined, 200, 1),
+    ]);
 
     return {
       props: {
         category,
-        initialExtensions: extensionsResponse.data || [],
-        initialTotal: extensionsResponse.meta?.pagination?.total || 0,
+        extensions: extensionsResponse.data || [],
+        allExtensions: allExtensionsResponse.data || [],
       },
       revalidate: 3600,
     };
