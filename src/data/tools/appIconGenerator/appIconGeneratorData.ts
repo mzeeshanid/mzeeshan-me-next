@@ -210,24 +210,54 @@ export const appIconGeneratorFaqsData = {
   },
   faqs: [
     {
-      question: "What image should I upload?",
+      question: "What image size and format works best for generating app icons?",
       answer:
-        "A square 1024 × 1024 image works best. PNG is ideal, but JPG and WEBP are also accepted.",
+        "A square PNG at 1024 × 1024 pixels gives the sharpest results across all sizes. JPG and WEBP are also accepted. Avoid padding or rounded corners in the source image — the iOS and Android platforms apply their own corner masks at runtime.",
     },
     {
-      question: "What do the iOS and macOS files include?",
+      question: "What iOS icon sizes does this tool generate?",
       answer:
-        "The Apple output includes an AppIcon.appiconset folder and a Contents.json file so the archive can be imported directly into Xcode.",
+        "For iPhone it generates 14 sizes covering 20, 29, 38, 40, 60, 64, and 68 pt at @2x / @3x, plus the 1024 × 1024 App Store icon. Enabling iPad adds 76@2x and 83.5@2x. watchOS produces 20 sizes (22–129 pt @2x plus 1024). macOS generates 10 sizes from 16@1x through 512@2x. All targets follow the universal iOS appiconset idiom Xcode expects.",
     },
     {
-      question: "How is the Android file name used?",
+      question: "What is the difference between the Sizes folder and the iOS 26+ folder in the ZIP?",
       answer:
-        "The Android file name is applied to all generated Android icon assets and adaptive icon XML files.",
+        "The Sizes folder is a standard AppIcon.appiconset with a Contents.json that covers all legacy Xcode size slots. The iOS 26+ folder is a separate appiconset with only the 1024 × 1024 slot, which is the format Apple introduced for iOS 26 where the OS handles all resizing. Including both lets you support every Xcode version without changes.",
     },
     {
-      question: "Can I use the ZIP directly in my projects?",
+      question: "How do dark and tinted appearance iOS icons work?",
       answer:
-        "Yes. The ZIP is structured for direct use in Xcode and Android Studio resource folders, though you should still review the generated assets before shipping.",
+        "iOS 18 and later allow apps to supply dark and tinted variants of their icon alongside the default light variant. When enabled, the generator produces three sets of icons — Any (light), Dark, and Tinted — each with its own Contents.json appearances entry. The Sizes folder includes all variants at every legacy size; the iOS 26+ folder includes all three at 1024 × 1024. Each variant has its own independent Background and Foreground layer so you can design them separately.",
+    },
+    {
+      question: "How do I import the generated iOS icons into Xcode?",
+      answer:
+        "Open the ZIP, locate the iOS folder, and drag the AppIcon.appiconset folder directly into your Xcode project's Assets.xcassets. Xcode reads the Contents.json inside the folder and maps each image to the correct slot automatically. No manual slot assignment is needed.",
+    },
+    {
+      question: "What does the Android icon output include?",
+      answer:
+        "The Android output includes launcher icons in four mipmap densities (mdpi 48px, hdpi 72px, xhdpi 96px, xxhdpi 144px), a foreground layer PNG at 432px for adaptive icons, a background XML drawable, and an adaptive-icon XML in mipmap-anydpi-v26 for both the square and round variants. This matches the folder structure Android Studio expects under res/.",
+    },
+    {
+      question: "How do I add the Android icons to my Android Studio project?",
+      answer:
+        "Extract the ZIP and copy the android/ folder contents into your project's app/src/main/res/ directory. The mipmap-* and drawable folders drop in directly. Android Studio will pick up the adaptive icon XML automatically on API 26+ devices and fall back to the legacy PNGs on older ones.",
+    },
+    {
+      question: "Can I generate icons for macOS and watchOS as well?",
+      answer:
+        "Yes. In the iOS and macOS panel, enable macOS to get the 10-size set (16–512 pt at @1x and @2x) in mac idiom format, and enable watchOS to get all 20 complication and App Store sizes. All platforms share the same source design from the builder and are exported together in one ZIP download.",
+    },
+    {
+      question: "Is my image uploaded to a server?",
+      answer:
+        "No. All icon generation runs entirely in the browser using the Canvas API. Your source image and the generated ZIP never leave your device. There is no server-side processing, no account required, and no file storage.",
+    },
+    {
+      question: "What should I enter as the Android file name?",
+      answer:
+        "Use a lowercase snake_case name like ic_launcher or my_app_icon. The name is applied to every Android asset file and referenced inside the adaptive-icon XML. If you enter a name that starts with a number or contains special characters, it will be sanitized automatically to a valid Android resource identifier.",
     },
   ],
 };
