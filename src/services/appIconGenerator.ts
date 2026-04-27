@@ -1,4 +1,3 @@
-import JSZip from "jszip";
 import type {
   AppIconPlatformSelection,
   AppIconTarget,
@@ -274,6 +273,7 @@ export const generateIosArchiveBlob = async (
   options: IosArchiveOptions,
   resizeIcon: ResizeIconFn = defaultResizeIcon,
 ): Promise<Blob> => {
+  const JSZip = (await import("jszip")).default;
   const zip = new JSZip();
   const legacyBase = "iOS/Sizes/AppIcon.appiconset";
   const ios26Base  = "iOS/iOS 26+/AppIcon.appiconset";
@@ -383,6 +383,7 @@ export const generateAppIconArchive = async (
   options: GenerateAppIconOptions,
   resizeIcon: ResizeIconFn = defaultResizeIcon,
 ): Promise<Blob> => {
+  const JSZip = (await import("jszip")).default;
   const zip      = new JSZip();
   const manifest = createGenerationManifest(options.selection, options.androidFileName);
 
