@@ -25,12 +25,22 @@ const NavBar: React.FC<NavBarProps> = (props) => {
   );
 
   useEffect(() => {
+    let rafId: number | null = null;
+
     const handleScroll = (): void => {
-      setScrolled(window.scrollY > 10);
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 10);
+        rafId = null;
+      });
     };
+
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const navBarBgColor = scrolled ? scrolledBg : "transparent";

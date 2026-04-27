@@ -31,6 +31,14 @@ const SampleFilesSearchBar: React.FC<Props> = ({
 }) => {
   const { palette } = useColorPalette();
   const hasLocal = extensions !== undefined;
+  const isMac = React.useMemo(() => {
+    if (typeof navigator === "undefined") return false;
+    return (
+      navigator.userAgent.toUpperCase().includes("MAC") ||
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (navigator as any).platform?.toUpperCase().includes("MAC")
+    );
+  }, []);
 
   const [searchText, setSearchText] = React.useState(initialValue);
   const [open, setOpen] = React.useState(false);
@@ -158,12 +166,7 @@ const SampleFilesSearchBar: React.FC<Props> = ({
         <InputGroup
           endElement={
             <HStack gap={1} display={{ base: "none", md: "flex" }}>
-              <Kbd variant="subtle">
-                {navigator.userAgent.toUpperCase().includes("MAC") ||
-                navigator.platform.toUpperCase().includes("MAC")
-                  ? "⌘"
-                  : "Ctrl"}
-              </Kbd>
+              <Kbd variant="subtle">{isMac ? "⌘" : "Ctrl"}</Kbd>
               <Kbd variant="subtle">k</Kbd>
             </HStack>
           }
