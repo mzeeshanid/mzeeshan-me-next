@@ -20,7 +20,8 @@ const ArticleContent: React.FC<ArticleContentProps> = (
   props: ArticleContentProps,
 ) => {
   const { content } = props;
-  const markdownTheme = getMarkdownTheme();
+
+  const markdownTheme = React.useMemo(() => getMarkdownTheme(), []);
 
   const images = React.useMemo(
     () => extractImagesFromMarkdown(content),
@@ -30,32 +31,33 @@ const ArticleContent: React.FC<ArticleContentProps> = (
   const imageIndexMap = React.useMemo(() => {
     const map = new Map<string, number>();
     images.forEach((img, index) => {
-      // key must be stable
       map.set(`${img.src}`, index);
     });
     return map;
   }, [images]);
+
+  const components = React.useMemo(
+    () => ({
+      ...markdownTheme,
+      ...markdownComponents,
+      img: ({ src, alt }: any) => {
+        if (!src) return null;
+        const index = imageIndexMap.get(src);
+        if (index === undefined) {
+          return <img src={src} alt={alt ?? ""} />;
+        }
+        return <MarkdownImage src={src} alt={alt} index={index} my={6} />;
+      },
+    }),
+    [markdownTheme, imageIndexMap],
+  );
 
   return (
     <Box w="full">
       <ImageGalleryProvider images={images}>
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
-          components={{
-            ...markdownTheme,
-            ...markdownComponents,
-            img: ({ src, alt }: any) => {
-              if (!src) return null;
-
-              const index = imageIndexMap.get(src);
-              if (index === undefined) {
-                // safety fallback
-                return <img src={src} alt={alt ?? ""} />;
-              }
-
-              return <MarkdownImage src={src} alt={alt} index={index} my={6} />;
-            },
-          }}
+          components={components}
           rehypePlugins={[rehypeRaw, [rehypeSanitize, markdownSanitizeSchema]]}
         >
           {content}
