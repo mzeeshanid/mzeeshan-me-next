@@ -15,10 +15,12 @@ export interface SectionHeaderProps extends StackProps {
   description?: React.ReactNode;
   /** Optional content to render below the header section */
   children?: React.ReactNode;
+  /** Semantic heading level for the headline. Defaults to h2. */
+  headingAs?: "h1" | "h2" | "h3";
 }
 
 export const SectionHeader = (props: SectionHeaderProps) => {
-  const { tagline, headline, description, ...rootProps } = props;
+  const { tagline, headline, description, headingAs = "h2", ...rootProps } = props;
   const { palette } = useColorPalette();
 
   return (
@@ -34,7 +36,7 @@ export const SectionHeader = (props: SectionHeaderProps) => {
               {tagline}
             </Text>
           )}
-          <Heading as="h2" textStyle={{ base: "3xl", md: "4xl" }}>
+          <Heading as={headingAs} textStyle={{ base: "3xl", md: "4xl" }}>
             {headline}
           </Heading>
         </Stack>

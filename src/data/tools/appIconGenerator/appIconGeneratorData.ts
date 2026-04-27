@@ -28,9 +28,9 @@ export const appIconGeneratorHeaderData = {
 };
 
 export const appIconGeneratorMetaData = {
-  title: "App Icon Generator",
+  title: "Free App Icon Generator - iOS, Android, macOS Icons Online Tool",
   description:
-    "Create ready-to-import iOS, Android, macOS, and watchOS app icon sets from a single image and download them as a ZIP.",
+    "Free app icon generator for iOS, Android, macOS, and watchOS. Build icons with the layer builder, preview in device frames, and export a ZIP ready for Xcode and Android Studio. No upload required.",
   url: "/tools/app-icon-generator",
   image: {
     src: "/assets/app_icon_generator_app_icon.png",

@@ -61,9 +61,9 @@ export const imageFormatConverterIndexData: ImageFormatConverterIndexData = {
     rounded: false,
   },
   meta: {
-    title: "Free Online Image Format Converter — WebP, PNG, JPG, AVIF, No Upload",
+    title: "Free Image Converter - WebP, PNG, JPG, AVIF - No Upload",
     description:
-      "Convert images between WebP, PNG, JPG, AVIF, ICO, and more — entirely in your browser. Nothing uploaded to a server. Choose a format pair and get the converted file in seconds.",
+      "Convert images between WebP, PNG, JPG, AVIF formats in your browser. No server upload required. Fast, secure, and free image format conversion.",
     url: "/tools/image-format-converter",
     image: {
       src: "/assets/image_format_converter_icon.png",

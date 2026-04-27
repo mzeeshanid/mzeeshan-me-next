@@ -234,6 +234,7 @@ const JsonValidatorFormatterHero: React.FC = () => {
         tagline={heroData.badge}
         headline={heroData.title}
         description={heroData.description}
+        headingAs="h1"
       />
       <Spacer p={4} />
       <Box borderWidth="1px" borderRadius="2xl" overflow="hidden" bg="bg.panel">

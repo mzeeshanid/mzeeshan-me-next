@@ -30,7 +30,7 @@ const AppIconGeneratorPage: React.FC<Props> = ({ article }) => {
 
       <Container maxW="6xl">
         <PageHeader
-          title="App Icon Generator"
+          title="Free App Icon Generator for iOS, Android & macOS"
           breadcrumbItems={[
             { label: "Home", href: "/" },
             { label: "Tools", href: "/tools" },

@@ -1,6 +1,6 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
 import myFrameworks from "@/data/home/myFrameworksData";
-import { Box, Container, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import MyFrameworkItem from "./MyFrameworkItem";
 import { TypewriterHighlight } from "@/components/TypewriterHighlight/TypewriterHighlight";
@@ -32,7 +32,8 @@ const MyFrameworks: React.FC<MyFrameworksProps> = (
             >
               {tagline}
             </Text>
-            <Container
+            <Heading
+              as="h2"
               fontWeight={"medium"}
               fontSize={{ base: "2xl", md: "3xl", lg: "5xl" }}
               textAlign={"center"}
@@ -50,7 +51,7 @@ const MyFrameworks: React.FC<MyFrameworksProps> = (
                 }}
               />
               {typeWriterPost}
-            </Container>
+            </Heading>
           </Stack>
           <Text
             color="fg.muted"

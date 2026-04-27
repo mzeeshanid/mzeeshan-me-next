@@ -17,6 +17,8 @@ const AppIconGeneratorSeo: React.FC = () => {
           description: meta.description,
           canonical: canonicalUrl,
           openGraph: {
+            type: "website",
+            siteName: "mzeeshan.me",
             title: meta.title,
             description: meta.description,
             url: canonicalUrl,
@@ -28,6 +30,7 @@ const AppIconGeneratorSeo: React.FC = () => {
             ],
           },
         })}
+        <link rel="canonical" href={canonicalUrl} />
       </Head>
       <SoftwareApplicationJsonLd
         type="WebApplication"

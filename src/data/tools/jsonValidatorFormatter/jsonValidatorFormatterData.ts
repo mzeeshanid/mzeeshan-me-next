@@ -81,7 +81,7 @@ export const jsonValidatorFormatterHeaderData: JsonValidatorFormatterHeaderData 
 export const jsonValidatorFormatterMetaData: JsonValidatorFormatterMetaData = {
   title: "JSON Validator with Error Line Detection — Free Online Formatter",
   description:
-    "Free online JSON validator that shows the exact error line. Format, minify, strip escape characters from logs, and explore the collapsible tree — all in your browser, nothing uploaded.",
+    "Free online JSON validator that shows the exact error line. Format, minify, remove escape characters, and explore the tree. Nothing leaves your browser.",
   url: "/tools/json-validator-and-formatter",
   image: {
     src: "/assets/json_validator_formatter_icon.png",
@@ -113,7 +113,7 @@ export const jsonValidatorFormatterDefaultJson = `{
 
 export const jsonValidatorFormatterHeroData = {
   badge: "JSON Tool",
-  title: "Validate, format, inspect, and search JSON",
+  title: "JSON Validator with Error Line Detection",
   description:
     "Use the Text tab to clean and format payloads, then switch to Viewer to inspect a collapsed JSON tree, validate syntax, and debug parse errors.",
   textInputLabel: "JSON Input",

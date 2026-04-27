@@ -39,7 +39,7 @@ const MyPricing: React.FC<MyPricingProps> = (props: MyPricingProps) => {
           >
             {tagline}
           </Text>
-          <Text>
+          <Heading as="h2">
             <Heading
               as="span"
               textStyle={{ base: "3xl", md: "5xl" }}
@@ -51,7 +51,7 @@ const MyPricing: React.FC<MyPricingProps> = (props: MyPricingProps) => {
             <Heading as="span" textStyle={{ base: "lg", md: "xl" }}>
               {normalTitle}
             </Heading>
-          </Text>
+          </Heading>
           <Text
             color="fg.muted"
             textStyle={{ base: "md", md: "lg" }}

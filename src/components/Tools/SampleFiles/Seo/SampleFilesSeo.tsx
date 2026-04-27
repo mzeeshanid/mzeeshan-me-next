@@ -5,7 +5,7 @@ import Head from "next/head";
 import React from "react";
 
 const SampleFilesSeo: React.FC = () => {
-  const title = "Free Sample Files for Testing & Development – Download Instantly";
+  const title = "Free Sample Files for Testing – Download 55+ Formats";
   const desc =
     "Download free sample files in 55+ formats including PDF, MP3, FLAC, WAV, MP4, DOCX and more. Instantly available for developers and testers.";
   const image = "/assets/mzfilemanage_appicon.png";
@@ -21,6 +21,7 @@ const SampleFilesSeo: React.FC = () => {
           twitter: { cardType: "summary" },
           openGraph: {
             type: "website",
+            siteName: "mzeeshan.me",
             title,
             description: desc,
             url: canonicalUrl,
@@ -35,6 +36,7 @@ const SampleFilesSeo: React.FC = () => {
             ],
           },
         })}
+        <link rel="canonical" href={canonicalUrl} />
         <meta name="robots" content="index,follow" />
         <meta name="googlebot" content="index,follow" />
         <meta

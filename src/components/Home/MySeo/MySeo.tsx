@@ -9,6 +9,7 @@ type MySeoProps = {};
 
 const MySeo: React.FC<MySeoProps> = (props: MySeoProps) => {
   const mySeo = mySEOData();
+  const canonicalUrl = mySeo.url;
 
   return (
     <>
@@ -19,8 +20,9 @@ const MySeo: React.FC<MySeoProps> = (props: MySeoProps) => {
           openGraph: {
             title: mySeo.title,
             description: mySeo.desc,
-            url: mySeo.url,
+            url: canonicalUrl,
             type: mySeo.type,
+            siteName: "mzeeshan.me",
             profile: {
               firstName: mySeo.firstName,
               lastName: mySeo.lastName,
@@ -39,6 +41,7 @@ const MySeo: React.FC<MySeoProps> = (props: MySeoProps) => {
             ],
           },
         })}
+        <link rel="canonical" href={canonicalUrl} />
         <meta
           name="keywords"
           content="Senior iOS Developer, Senior iOS Developer Pakistan, Experienced iOS Developer, Swift iOS Developer, SwiftUI iOS Developer, Freelance iOS Developer, Experienced React Native Developer, Experienced cross platform developer, Experienced iOS Native developer, Native iOS Development, Test driven development, Freelancer from Pakistan, Hire freelance native iOS Developer from Pakistan, Hire iOS Developer, Hire experienced iOS Developer"

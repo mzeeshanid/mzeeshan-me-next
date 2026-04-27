@@ -1,4 +1,4 @@
-import { Box, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, VStack } from "@chakra-ui/react";
 import React from "react";
 import AppBreadcrumb, { AppBreadcrumbItem } from "../Breadcrumb/AppBreadcrumb";
 
@@ -14,9 +14,9 @@ const PageHeader: React.FC<PageHeaderProps> = (props: PageHeaderProps) => {
   return (
     <Box rounded={"lg"} bg={"bg.muted"} p={{ base: 4, md: 6 }}>
       <VStack>
-        <Text fontSize="2xl" fontWeight="bold">
+        <Heading as="h1" fontSize="2xl" fontWeight="bold">
           {title}
-        </Text>
+        </Heading>
         <AppBreadcrumb items={breadcrumbItems} currentHref={currentHref} />
       </VStack>
     </Box>

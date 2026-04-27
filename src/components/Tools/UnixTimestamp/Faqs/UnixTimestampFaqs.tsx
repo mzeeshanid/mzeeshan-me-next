@@ -1,5 +1,6 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
-import { aspectRatioFaqsData } from "@/data/tools/aspectRatio/aspectRatioFaqsData";
+import { unixTimestampFaqsData } from "@/data/tools/unixTimestamp/unixTimestampFaqsData";
+import { CollapsibleStatus } from "@/components/Tools/DriveDirect/Faqs/DriveDirectFaqs";
 import {
   Box,
   Collapsible,
@@ -15,13 +16,12 @@ import {
 } from "@chakra-ui/react";
 import { FAQJsonLd } from "next-seo";
 import React from "react";
-import { CollapsibleStatus } from "../../DriveDirect/Faqs/DriveDirectFaqs";
 
 type Props = {};
 
-const AspectRatioFaqs: React.FC<Props> = (props: Props) => {
-  const faq = aspectRatioFaqsData;
+const UnixTimestampFaqs: React.FC<Props> = () => {
   const { palette } = useColorPalette();
+  const faq = unixTimestampFaqsData;
 
   return (
     <Box as="section">
@@ -33,9 +33,9 @@ const AspectRatioFaqs: React.FC<Props> = (props: Props) => {
       />
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
         <GridItem>
-          <VStack align={"flex-start"} gap={4}>
+          <VStack align="flex-start" gap={4}>
             <Tag.Root
-              variant={"surface"}
+              variant="surface"
               colorPalette={palette}
               size={{ base: "lg", md: "xl" }}
             >
@@ -43,22 +43,22 @@ const AspectRatioFaqs: React.FC<Props> = (props: Props) => {
             </Tag.Root>
             <Heading
               as="h2"
-              fontWeight={"bold"}
+              fontWeight="bold"
               fontSize={{ base: "2xl", md: "4xl" }}
-              lineHeight={"normal"}
+              lineHeight="normal"
             >
               {faq.header.title}
             </Heading>
-            <Text color={"fg.muted"}>{faq.header.desc}</Text>
+            <Text color="fg.muted">{faq.header.desc}</Text>
           </VStack>
         </GridItem>
         <GridItem>
-          <VStack align={"flex-start"} separator={<StackSeparator />}>
+          <VStack align="flex-start" separator={<StackSeparator />}>
             {faq.faqs.map((faqItem, idx) => (
               <Collapsible.Root key={idx} unmountOnExit w="full">
                 <Collapsible.Trigger paddingY={2} w="full">
-                  <HStack justify={"space-between"} w="full">
-                    <Text textAlign={"start"}>{faqItem.question}</Text>
+                  <HStack justify="space-between" w="full">
+                    <Text textAlign="start">{faqItem.question}</Text>
                     <CollapsibleStatus />
                   </HStack>
                 </Collapsible.Trigger>
@@ -78,4 +78,4 @@ const AspectRatioFaqs: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default AspectRatioFaqs;
+export default UnixTimestampFaqs;
