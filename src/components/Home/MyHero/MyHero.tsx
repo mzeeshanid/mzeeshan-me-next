@@ -3,6 +3,7 @@ import myHeroData from "@/data/home/myHeroData";
 import {
   Box,
   GridItem,
+  Heading,
   SimpleGrid,
   Spacer,
   Tag,
@@ -33,14 +34,15 @@ const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
               <Tag.Root size="lg" colorPalette={palette} variant={"surface"}>
                 <Tag.Label>{tagline}</Tag.Label>
               </Tag.Root>
-              <Text
+              <Heading
+                as="h1"
                 fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
                 fontWeight={"extrabold"}
                 lineHeight={1}
                 color={`${palette}.fg`}
               >
                 {title}
-              </Text>
+              </Heading>
               <Text color={"fg.muted"} fontSize={{ base: "md", md: "lg" }}>
                 {details}
               </Text>

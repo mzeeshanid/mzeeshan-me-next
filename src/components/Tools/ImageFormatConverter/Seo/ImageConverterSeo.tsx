@@ -22,6 +22,8 @@ const ImageConverterSeo: React.FC<Props> = ({ meta }) => {
           description: meta.description,
           canonical: canonicalUrl,
           openGraph: {
+            type: "website",
+            siteName: "mzeeshan.me",
             title: meta.title,
             description: meta.description,
             url: canonicalUrl,
@@ -33,6 +35,7 @@ const ImageConverterSeo: React.FC<Props> = ({ meta }) => {
             ],
           },
         })}
+        <link rel="canonical" href={canonicalUrl} />
         {meta.keywords && (
           <meta name="keywords" content={meta.keywords} />
         )}

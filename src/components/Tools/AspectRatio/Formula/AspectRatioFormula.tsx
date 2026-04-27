@@ -28,7 +28,7 @@ const AspectRatioFormula: React.FC<Props> = (props: Props) => {
           {formulaData.formulas.map((formula, idx) => (
             <Center key={idx} w="full" bg="bg.subtle" p={8} borderRadius="lg">
               <VStack>
-                <Heading>{formula.heading}</Heading>
+                <Heading as="h3">{formula.heading}</Heading>
                 <Text fontSize={{ base: "md", md: "lg" }}>{formula.text}</Text>
               </VStack>
             </Center>

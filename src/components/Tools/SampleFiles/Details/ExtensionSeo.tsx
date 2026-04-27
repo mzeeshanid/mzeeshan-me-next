@@ -10,14 +10,15 @@ type Props = {
 };
 
 const ExtensionSeo: React.FC<Props> = ({ extension }) => {
-  const pageUrl = absoluteUrl(`/tools/sample-files/extensions/${extension.slug}`);
+  const pageUrl = absoluteUrl(
+    `/tools/sample-files/extensions/${extension.slug}`,
+  );
   const image = absoluteUrl("/assets/mzfilemanage_appicon.png");
 
   const title = `Free ${extension.name} Sample Files – Download for Testing`;
 
   // Page meta description: short, prefer info, fall back to whatIs content
   const rawDesc =
-    extension.info ||
     extension.details?.sections?.whatIs?.content ||
     `Download free ${extension.name} sample files for testing and development.`;
   const description = rawDesc.slice(0, 155);
@@ -53,6 +54,7 @@ const ExtensionSeo: React.FC<Props> = ({ extension }) => {
           canonical: pageUrl,
           openGraph: {
             type: "website",
+            siteName: "mzeeshan.me",
             url: pageUrl,
             title,
             description,

@@ -34,7 +34,7 @@ const JsonValidatorFormatterFeatures: React.FC<Props> = ({ data }) => {
               <Tag.Label>{featuresData.header.badge}</Tag.Label>
             </Tag.Root>
             <Heading
-              as="h3"
+              as="h2"
               fontWeight="bold"
               fontSize={{ base: "2xl", md: "4xl" }}
               lineHeight="normal"

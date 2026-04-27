@@ -14,7 +14,8 @@
       "Bash(sed -i '' -e 's/import AndroidStudioSteps from/import AppIconGeneratorAndroidStudioSteps from/g' -e 's/<AndroidStudioSteps /<AppIconGeneratorAndroidStudioSteps /g' pages/tools/app-icon-generator/index.tsx)",
       "Read(//Users/aliaslam/Downloads/MyAudios/**)",
       "Read(//Users/aliaslam/Downloads/MyAudios/FLAC Base Files/**)",
-      "mcp__chakra-ui__get_component_example"
+      "mcp__chakra-ui__get_component_example",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|json\\)$\")"
     ]
   }
 }

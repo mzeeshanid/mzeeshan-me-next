@@ -15,10 +15,14 @@ const SampleFilesHero: React.FC<Props> = ({ initialValue = "", extensions }) => 
       <VStack gap={8} alignItems="center">
         <VStack gap={3} textAlign="center">
           <Heading as="h1" size={{ base: "3xl", md: "5xl" }}>
-            {"Looking for a sample file?"}
+            {initialValue
+              ? `Free ${initialValue} Sample Files`
+              : "Find & Download Sample Files"}
           </Heading>
           <Text fontSize="lg" color="fg.muted">
-            {"To download, enter the extension name in the field below."}
+            {initialValue
+              ? `Download free ${initialValue} files for testing and development.`
+              : "Enter an extension name below to find and download free sample files."}
           </Text>
         </VStack>
 

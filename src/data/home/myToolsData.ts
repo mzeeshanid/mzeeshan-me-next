@@ -177,5 +177,18 @@ export const myToolsData: MyToolsData = {
       },
       url: "/tools/apple-inapp-promotional-offer-signature-generator-for-testing",
     },
+    {
+      title: "Epoch Converter",
+      caption: "Convert It!",
+      detail:
+        "Convert Unix timestamps to human-readable dates and back — supports seconds and milliseconds with a live epoch clock.",
+      icon: {
+        src: "/assets/unix_time_stamp_icon.png",
+        alt: "Unix Timestamp Epoch Converter icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/unix-timestamp-converter",
+    },
   ],
 };
