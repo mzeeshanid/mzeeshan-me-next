@@ -75,7 +75,7 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
-    unoptimized: true,
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",
@@ -96,6 +96,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "http",
         hostname: "mzeeshan.me",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.mzeeshan.me",
       },
     ],
   },

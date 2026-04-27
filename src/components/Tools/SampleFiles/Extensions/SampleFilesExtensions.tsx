@@ -109,10 +109,11 @@ const ExtensionRow: React.FC<ExtensionRowProps> = ({ extension, isLast }) => (
 interface CategorySectionProps {
   name: string;
   items: SampleFilesExtensionModel[];
+  initialOpen?: boolean;
 }
 
-const CategorySection: React.FC<CategorySectionProps> = ({ name, items }) => {
-  const [open, setOpen] = React.useState(false);
+const CategorySection: React.FC<CategorySectionProps> = ({ name, items, initialOpen = false }) => {
+  const [open, setOpen] = React.useState(initialOpen);
 
   return (
     <Box mb={1}>
@@ -184,6 +185,8 @@ const CategoryChips: React.FC<CategoryChipsProps> = ({
   <HStack
     gap={2}
     overflowX="auto"
+    flexWrap="nowrap"
+    w="full"
     pb={1}
     css={{
       scrollbarWidth: "none",
@@ -297,11 +300,12 @@ const SampleFilesExtensions: React.FC<Props> = ({ extensions, headerProps, group
           </Text>
         ) : grouped ? (
           <Box bg="bg.subtle" borderRadius="2xl" px={2} pb={3} w="full">
-            {visibleGroups.map((g) => (
+            {visibleGroups.map((g, index) => (
               <CategorySection
                 key={g.key}
                 name={g.name}
                 items={g.items}
+                initialOpen={index < 3}
               />
             ))}
           </Box>

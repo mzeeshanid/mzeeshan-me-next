@@ -60,8 +60,6 @@ const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
               >
                 <Image
                   src={heroImage.src}
-                  blurDataURL={heroImage.src}
-                  placeholder="blur"
                   alt={heroImage.alt}
                   width={heroImage.width}
                   height={heroImage.height}
@@ -71,6 +69,7 @@ const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
                     height: "100%",
                   }}
                   priority
+                  fetchPriority="high"
                   sizes="(max-width: 62em) 100vw, 50vw"
                 />
               </Box>

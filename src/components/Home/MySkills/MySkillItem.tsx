@@ -31,7 +31,7 @@ const MySkillItem: React.FC<MySkillItemProps> = (props: MySkillItemProps) => {
   const flexDirection = useBreakpointValue({
     base: isEven ? "column-reverse" : "column",
     md: isEven ? "row-reverse" : "row",
-  });
+  }) ?? (isEven ? "column-reverse" : "column");
 
   return (
     <SimpleGrid

@@ -698,13 +698,13 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
       ) : hasSections ? (
         /* ── iOS 26 grouped sectioned view ── */
         <Box bg="bg.subtle" borderRadius="2xl" px={2} pb={3} mt={1}>
-          {visibleGroups.map((g) => (
+          {visibleGroups.map((g, index) => (
             <SectionBlock
               key={g.key}
               sectionKey={g.key}
               label={g.label}
               items={g.items}
-              defaultOpen={g.key !== "misc"}
+              defaultOpen={index < 3}
               palette={palette}
               onPlay={setPlayingVariant}
               onDownload={handleDownload}
