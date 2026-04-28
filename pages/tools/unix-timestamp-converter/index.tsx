@@ -21,6 +21,7 @@ const UnixTimestampConverterHome: React.FC = () => {
     <>
       <UnixTimestampSeo />
       <NavBar header={unixTimestampHeaderData} />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -83,6 +84,7 @@ const UnixTimestampConverterHome: React.FC = () => {
       </Container>
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

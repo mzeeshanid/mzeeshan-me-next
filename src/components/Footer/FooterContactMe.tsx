@@ -19,14 +19,15 @@ const FooterContactMe = ({}: FooterContactMeProps) => {
       borderWidth={1}
       textAlign={"center"}
     >
-      <Box borderRadius="md" rounded={"full"} overflow="hidden">
+      <Box w="80px" h="80px" flexShrink={0} borderRadius="md" rounded={"full"} overflow="hidden">
         <Image
           width={80}
           height={80}
           src={profilePic}
           alt="Logo"
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
           placeholder="blur"
+          sizes="80px"
         />
       </Box>
       <Heading as={"h3"}>{"Have any questions?"}</Heading>

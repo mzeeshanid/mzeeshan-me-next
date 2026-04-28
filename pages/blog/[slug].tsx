@@ -31,6 +31,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = (
     <>
       <ArticleDetailSeo article={article} />
       <NavBar />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -59,6 +60,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = (
         </>
       )}
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

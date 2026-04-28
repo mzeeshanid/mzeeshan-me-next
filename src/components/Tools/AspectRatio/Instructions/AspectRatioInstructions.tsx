@@ -28,14 +28,21 @@ const AspectRatioInstructions: React.FC<Props> = (props: Props) => {
           </List.Root>
         </Box>
         <Box w="full">
-          <Center bg="bg.subtle" borderRadius={"2xl"} overflow={"hidden"}>
+          <Center
+            bg="bg.subtle"
+            borderRadius={"2xl"}
+            overflow={"hidden"}
+            w="full"
+            aspectRatio={instructions.heroImage.width / instructions.heroImage.height}
+          >
             <Image
               src={instructions.heroImage.src}
               alt={instructions.heroImage.alt}
               placeholder="blur"
               width={instructions.heroImage.width}
               height={instructions.heroImage.height}
-              style={{ width: "100%", height: "auto" }}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              sizes="(max-width: 62em) 100vw, 50vw"
             />
           </Center>
         </Box>

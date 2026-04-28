@@ -1,5 +1,5 @@
 import { IconType } from "react-icons";
-import { SiFiverr, SiUpwork } from "react-icons/si";
+import { UpworkIcon, FiverrIcon } from "@/icons/platformIcons";
 
 export type MyClientReviewData = {
     title: string;
@@ -58,7 +58,7 @@ const myClientReviewsData = (): MyClientReviewData => {
                 country: "USA",
                 platform: "Upwork" as MyClientPlatformType,
                 text: "Good and fast work. Very good communication, really flexible guy! Would recommend.",
-                icon: SiUpwork,
+                icon: UpworkIcon,
                 isVerified: true,
                 date: "July 15th 2023",
                 source: "https://www.upwork.com/freelancers/~016fe2b0c9f5009b00"
@@ -70,7 +70,7 @@ const myClientReviewsData = (): MyClientReviewData => {
                 country: "USA",
                 platform: "Upwork" as MyClientPlatformType,
                 text: "A highly versatile dev, open to new challenges, and a skilled CS graduate and it shows.",
-                icon: SiUpwork,
+                icon: UpworkIcon,
                 isVerified: true,
                 date: "July 31th 2024",
                 source: "https://www.upwork.com/freelancers/~016fe2b0c9f5009b00"
@@ -82,7 +82,7 @@ const myClientReviewsData = (): MyClientReviewData => {
                 country: "Iraq",
                 platform: "Upwork" as MyClientPlatformType,
                 text: "Muhammad Professional ios developer he always do the great work.",
-                icon: SiUpwork,
+                icon: UpworkIcon,
                 isVerified: true,
                 date: "Dec 27th 2024",
                 source: "https://www.upwork.com/freelancers/~016fe2b0c9f5009b00"
@@ -94,7 +94,7 @@ const myClientReviewsData = (): MyClientReviewData => {
                 country: "Georgia",
                 platform: "Upwork" as MyClientPlatformType,
                 text: "It was a pleasure to work with Muhammad! He has excellent communication skills and he's very easy to work with. I highly recommend working with him!",
-                icon: SiUpwork,
+                icon: UpworkIcon,
                 isVerified: true,
                 date: "May 31st 2022",
                 source: "https://www.upwork.com/freelancers/~016fe2b0c9f5009b00"
@@ -106,7 +106,7 @@ const myClientReviewsData = (): MyClientReviewData => {
                 country: "Morocco",
                 platform: "Fiverr" as MyClientPlatformType,
                 text: "I am very pleased with the work with mzeeshanid. He has been very responsive and communicative throughout the process, and has consistently delivered high-quality work.",
-                icon: SiFiverr,
+                icon: FiverrIcon,
                 isVerified: true,
                 date: "July 31st 2024",
                 source: "https://www.fiverr.com/s/jja2RdV"
@@ -118,7 +118,7 @@ const myClientReviewsData = (): MyClientReviewData => {
                 country: "Morocco",
                 platform: "Upwork" as MyClientPlatformType,
                 text: "Great job.",
-                icon: SiUpwork,
+                icon: UpworkIcon,
                 isVerified: true,
                 date: "July 17th 2022",
                 source: "https://www.upwork.com/freelancers/~016fe2b0c9f5009b00"

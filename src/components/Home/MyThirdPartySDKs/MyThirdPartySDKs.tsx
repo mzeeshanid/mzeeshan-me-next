@@ -48,11 +48,11 @@ const MyThirdPartySDKs: React.FC<MyThirdPartySDKsProps> = (
           minH={300}
         >
           <Image
+            style={{ width: `${heroImage.width}px`, height: "auto" }}
             src={heroImage.src}
             placeholder="blur"
-            width={heroImage.width}
-            height={heroImage.height}
             alt={heroImage.alt}
+            sizes="(max-width: 48em) 100vw, 50vw"
           />
         </Center>
       </GridItem>

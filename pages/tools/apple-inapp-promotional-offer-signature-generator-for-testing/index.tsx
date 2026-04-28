@@ -25,6 +25,7 @@ const AppleInAppOfferSignatureHome: React.FC<Props> = (props: Props) => {
     <>
       <AppleOfferSignatureSeo />
       <NavBar header={appleOfferSignatureHeaderData} />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -71,6 +72,7 @@ const AppleInAppOfferSignatureHome: React.FC<Props> = (props: Props) => {
       </Container>
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

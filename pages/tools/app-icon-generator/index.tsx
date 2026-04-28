@@ -26,6 +26,7 @@ const AppIconGeneratorPage: React.FC<Props> = ({ article }) => {
     <>
       <AppIconGeneratorSeo />
       <NavBar header={appIconGeneratorHeaderData} />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -87,6 +88,7 @@ const AppIconGeneratorPage: React.FC<Props> = ({ article }) => {
       </Container>
 
       <Spacer p={8} />
+      </main>
       <Footer />
     </>
   );

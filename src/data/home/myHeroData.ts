@@ -1,7 +1,6 @@
 import type { StaticImageData } from "next/image";
 import { IconType } from "react-icons";
-import { FaUpwork } from "react-icons/fa6";
-import { TbBrandFiverr } from "react-icons/tb";
+import { FaUpwork, FaArrowUpRightFromSquare } from "react-icons/fa6";
 import heroImg from "../../../public/assets/mzeeshan_me_hero.jpeg";
 import xcodeIcon from "../../../public/assets/xcode_app_icon.png";
 import iosIcon from "../../../public/assets/ios_app_icon.png";
@@ -51,7 +50,7 @@ const myHeroData = () : MyHeroData => {
                 link: "https://fiverr.com/s/w52zEo",
                 buttonText: "Hire me @Fiverr",
                 variant: "surface",
-                icon: TbBrandFiverr,
+                icon: FaArrowUpRightFromSquare,
             }
         ],
 

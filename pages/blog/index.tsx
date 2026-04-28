@@ -34,6 +34,7 @@ const BlogHomePage: React.FC<BlogHomePageProps> = (
     <>
       <ArticleListingSeo />
       <NavBar />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -52,6 +53,7 @@ const BlogHomePage: React.FC<BlogHomePageProps> = (
       />
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

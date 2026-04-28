@@ -16,13 +16,17 @@ const MyAppsTestimonialItem: React.FC<Props> = (props: Props) => {
     <Box h={"full"}>
       <VStack h={"full"} justify={"space-between"} gap={6}>
         <HStack>
-          <Image
-            src={testimonial.app.icon.src}
-            placeholder="blur"
-            alt={`${testimonial.app.title} icon`}
-            width={44}
-            height={44}
-          />
+          <Box w="44px" h="44px" flexShrink={0} bg="bg.muted" rounded="lg" overflow="hidden">
+            <Image
+              src={testimonial.app.icon.src}
+              placeholder="blur"
+              alt={`${testimonial.app.title} icon`}
+              width={44}
+              height={44}
+              sizes="44px"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </Box>
           <Text>{testimonial.app.title}</Text>
         </HStack>
 

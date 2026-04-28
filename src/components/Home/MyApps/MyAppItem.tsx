@@ -1,5 +1,5 @@
 import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel";
-import { Card, HStack, Link, LinkBox, Text, VStack } from "@chakra-ui/react";
+import { Box, Card, HStack, Link, LinkBox, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 
 type MyAppItemProps = {
@@ -18,13 +18,16 @@ const MyAppItem = (props: MyAppItemProps) => {
         <LinkBox>
           <Link href={url}>
             <HStack align={"flex-start"} gap={4}>
-              <Image
-                alt={icon.alt}
-                src={icon.src}
-                placeholder="blur"
-                width={64}
-                height={64}
-              />
+              <Box w="64px" h="64px" flexShrink={0} bg="bg.muted" rounded="xl" overflow="hidden">
+                <Image
+                  alt={icon.alt}
+                  src={icon.src}
+                  placeholder="blur"
+                  width={64}
+                  height={64}
+                  sizes="64px"
+                />
+              </Box>
               <VStack align={"flex-start"} gap={0}>
                 <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
                   {title}

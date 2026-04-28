@@ -30,6 +30,7 @@ const MyToolsHome: React.FC<Props> = (props: Props) => {
     <>
       <MyToolsSeo />
       <NavBar />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -75,6 +76,7 @@ const MyToolsHome: React.FC<Props> = (props: Props) => {
       </Container>
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

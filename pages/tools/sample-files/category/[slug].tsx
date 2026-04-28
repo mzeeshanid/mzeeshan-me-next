@@ -37,6 +37,7 @@ const SampleFilesCategoryPage: React.FC<Props> = (props: Props) => {
     <>
       <SampleFilesCategorySeo category={props.category} extensions={props.extensions} />
       <NavBar header={header} />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -101,6 +102,7 @@ const SampleFilesCategoryPage: React.FC<Props> = (props: Props) => {
       </Container>
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );
