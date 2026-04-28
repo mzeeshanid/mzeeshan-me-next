@@ -1,11 +1,12 @@
+import dynamic from "next/dynamic";
 import Footer from "@/components/Footer/Footer";
-import MyAppStats from "@/components/MyApp/Stats/MyAppsStats";
 import MyAppsHero from "@/components/MyApps/Hero/MyAppsHero";
-import MyAppsListing from "@/components/MyApps/Listing/MyAppsListing";
 import MyAppsSeo from "@/components/MyApps/Seo/MyAppsSeo";
-import MyAppsTestimonials from "@/components/MyApps/Testimonials/MyAppsTestimonials";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
+const MyAppsListing = dynamic(() => import("@/components/MyApps/Listing/MyAppsListing"));
+const MyAppStats = dynamic(() => import("@/components/MyApp/Stats/MyAppsStats"));
+const MyAppsTestimonials = dynamic(() => import("@/components/MyApps/Testimonials/MyAppsTestimonials"));
 import { myAppsStatsData } from "@/data/myApps/myAppStatsData";
 import { Container, Spacer } from "@chakra-ui/react";
 import React from "react";

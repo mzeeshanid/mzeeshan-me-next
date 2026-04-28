@@ -123,22 +123,28 @@ const JsonConverterPanel: React.FC<Props> = ({
   const outputPreRef = React.useRef<HTMLElement>(null);
 
   const syncInputScroll = () => {
-    if (inputGutterRef.current && inputTextareaRef.current) {
-      inputGutterRef.current.scrollTop = inputTextareaRef.current.scrollTop;
+    if (!inputTextareaRef.current) return;
+    const scrollTop = inputTextareaRef.current.scrollTop;
+    const scrollLeft = inputTextareaRef.current.scrollLeft;
+    if (inputGutterRef.current) {
+      inputGutterRef.current.scrollTop = scrollTop;
     }
-    if (inputPreRef.current && inputTextareaRef.current) {
-      inputPreRef.current.scrollTop = inputTextareaRef.current.scrollTop;
-      inputPreRef.current.scrollLeft = inputTextareaRef.current.scrollLeft;
+    if (inputPreRef.current) {
+      inputPreRef.current.scrollTop = scrollTop;
+      inputPreRef.current.scrollLeft = scrollLeft;
     }
   };
 
   const syncOutputScroll = () => {
-    if (outputGutterRef.current && outputTextareaRef.current) {
-      outputGutterRef.current.scrollTop = outputTextareaRef.current.scrollTop;
+    if (!outputTextareaRef.current) return;
+    const scrollTop = outputTextareaRef.current.scrollTop;
+    const scrollLeft = outputTextareaRef.current.scrollLeft;
+    if (outputGutterRef.current) {
+      outputGutterRef.current.scrollTop = scrollTop;
     }
-    if (outputPreRef.current && outputTextareaRef.current) {
-      outputPreRef.current.scrollTop = outputTextareaRef.current.scrollTop;
-      outputPreRef.current.scrollLeft = outputTextareaRef.current.scrollLeft;
+    if (outputPreRef.current) {
+      outputPreRef.current.scrollTop = scrollTop;
+      outputPreRef.current.scrollLeft = scrollLeft;
     }
   };
 

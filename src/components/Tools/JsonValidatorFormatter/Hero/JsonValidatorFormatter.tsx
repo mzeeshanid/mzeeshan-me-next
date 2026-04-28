@@ -273,12 +273,16 @@ const JsonValidatorFormatter: React.FC = () => {
     : [];
 
   const syncScroll = () => {
-    if (lineGutterRef.current && textareaRef.current) {
-      lineGutterRef.current.scrollTop = textareaRef.current.scrollTop;
+    if (!textareaRef.current) return;
+    // Batch all reads before any writes to avoid forced reflow
+    const scrollTop = textareaRef.current.scrollTop;
+    const scrollLeft = textareaRef.current.scrollLeft;
+    if (lineGutterRef.current) {
+      lineGutterRef.current.scrollTop = scrollTop;
     }
-    if (inputPreRef.current && textareaRef.current) {
-      inputPreRef.current.scrollTop = textareaRef.current.scrollTop;
-      inputPreRef.current.scrollLeft = textareaRef.current.scrollLeft;
+    if (inputPreRef.current) {
+      inputPreRef.current.scrollTop = scrollTop;
+      inputPreRef.current.scrollLeft = scrollLeft;
     }
   };
 

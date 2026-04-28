@@ -1,15 +1,18 @@
-import MyApps from "@/components/Home/MyApps/MyApps";
-import MyClientReviews from "@/components/Home/MyClientReviews/MyClientReviews";
-import MyCTA from "@/components/Home/MyCTA/MyCTA";
-import MyFrameworks from "@/components/Home/MyFrameworks/MyFrameworks";
+import dynamic from "next/dynamic";
+// Above fold — eager (visible without scrolling)
 import MyHero from "@/components/Home/MyHero/MyHero";
-import MyOpenSourceContribution from "@/components/Home/MyOpenSourceContribution/MyOpenSourceContribution";
-import MyPerformanceStats from "@/components/Home/MyPerformanceStats/MyPerformanceStats";
-import MyPricing from "@/components/Home/MyPricing/MyPricing";
 import MySeo from "@/components/Home/MySeo/MySeo";
-import MySkills from "@/components/Home/MySkills/MySkills";
-import MyStats from "@/components/Home/MyStats/MyStats";
-import MyThirdPartySDKs from "@/components/Home/MyThirdPartySDKs/MyThirdPartySDKs";
+// Below fold — lazy chunks loaded in parallel after initial paint
+const MySkills = dynamic(() => import("@/components/Home/MySkills/MySkills"));
+const MyFrameworks = dynamic(() => import("@/components/Home/MyFrameworks/MyFrameworks"));
+const MyThirdPartySDKs = dynamic(() => import("@/components/Home/MyThirdPartySDKs/MyThirdPartySDKs"));
+const MyPricing = dynamic(() => import("@/components/Home/MyPricing/MyPricing"));
+const MyPerformanceStats = dynamic(() => import("@/components/Home/MyPerformanceStats/MyPerformanceStats"));
+const MyCTA = dynamic(() => import("@/components/Home/MyCTA/MyCTA"));
+const MyApps = dynamic(() => import("@/components/Home/MyApps/MyApps"));
+const MyStats = dynamic(() => import("@/components/Home/MyStats/MyStats"));
+const MyClientReviews = dynamic(() => import("@/components/Home/MyClientReviews/MyClientReviews"));
+const MyOpenSourceContribution = dynamic(() => import("@/components/Home/MyOpenSourceContribution/MyOpenSourceContribution"));
 import { Container, Spacer } from "@chakra-ui/react";
 import React from "react";
 import Footer from "../src/components/Footer/Footer";
