@@ -1,4 +1,8 @@
 import { BasicImageDataModel } from "../basicImage/basicImageDataModel";
+import mzFileManageIcon from "../../../public/assets/mzfilemanage_appicon.png";
+import mzPlayerHDIcon from "../../../public/assets/mzplayer_hd_appicon.png";
+import mzVisitsIcon from "../../../public/assets/mzvisit_app_icon.png";
+import mz100Icon from "../../../public/assets/mz100_app_icon.png";
 
 export type MyAppsData = {
   tagline: string;
@@ -27,7 +31,7 @@ const myAppsData = (): MyAppsData => {
         detail:
         "It is the one stop file manager along with powerful download manager, playlist manager and much more!",
         icon: {
-          src: "/assets/mzfilemanage_appicon.png",
+          src: mzFileManageIcon,
           alt: "MZFileManage app icon",
           width: 300,
           height: 300,
@@ -40,7 +44,7 @@ const myAppsData = (): MyAppsData => {
         detail:
         "MZPlayerHD allows background playback of youtube videos. Enjoy your videos with advanced HD video player.",
         icon: {
-          src: "/assets/mzplayer_hd_appicon.png",
+          src: mzPlayerHDIcon,
           alt: "MZPlayerHD app icon",
           width: 300,
           height: 300,
@@ -54,7 +58,7 @@ const myAppsData = (): MyAppsData => {
         detail:
         "MZVisits allows to track significant locations on the go. Install now and see where you had been in the past ;)",
         icon: {
-          src: "/assets/mzvisit_app_icon.png",
+          src: mzVisitsIcon,
           alt: "MZVisits app icon",
           width: 300,
           height: 300,
@@ -67,7 +71,7 @@ const myAppsData = (): MyAppsData => {
         detail:
         "MZ100! A challenging puzzle to reveal all 100 boxes in shortest possible time. Obviously there are some rules ;)",
         icon: {
-          src: "/assets/mz100_app_icon.png",
+          src: mz100Icon,
           alt: "MZ100 app icon",
           width: 300,
           height: 300,

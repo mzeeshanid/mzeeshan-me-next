@@ -1,10 +1,10 @@
-import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel"
+type SeoImage = { src: string; alt: string; width: number; height: number };
 
 /* Meta Data */
 export type AppleOfferSignatureMetaData = {
     title: string,
     desc: string,
-    image: BasicImageDataModel,
+    image: SeoImage,
     url: string
 }
 

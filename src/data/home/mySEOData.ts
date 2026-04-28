@@ -1,5 +1,6 @@
-import { BasicImageDataModel } from "../basicImage/basicImageDataModel";
 import myClientReviewsData, { MyClientReviewData } from "./myClientReviewsData";
+
+type SeoImage = { src: string; alt: string; width: number; height: number };
 
 type MySEOData = {
   firstName: string;
@@ -10,8 +11,8 @@ type MySEOData = {
   url: string;
   title: string;
   desc: string;
-  logo: BasicImageDataModel;
-  hero: BasicImageDataModel;
+  logo: SeoImage;
+  hero: SeoImage;
   sameAs: string[];
   reviewsData: MyClientReviewData;
 }

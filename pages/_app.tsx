@@ -1,7 +1,6 @@
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useEffect, createContext } from "react";
-import Script from "next/script";
 
 import * as ga from "../lib/ga";
 
@@ -50,13 +49,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           ) : null}
         </ColorPaletteProvider>
       </Provider>
-      <Script
-        id="adsense"
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7172772388497840"
-        crossOrigin="anonymous"
-        strategy="afterInteractive"
-      />
     </GlobalContext.Provider>
   );
 }

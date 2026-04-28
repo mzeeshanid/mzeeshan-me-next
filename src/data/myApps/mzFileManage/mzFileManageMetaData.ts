@@ -1,4 +1,6 @@
 import { MyAppMetaDataModel } from "../myAppMetaData";
+import mzFileManageHero from "../../../../public/assets/mzfilemanage/mzfilemanage_hero.png";
+import mzFileManageIcon from "../../../../public/assets/mzfilemanage_appicon.png";
 
 export const mzFileManageMetaData: MyAppMetaDataModel = {
     badge: "File and download manager",
@@ -13,17 +15,17 @@ export const mzFileManageMetaData: MyAppMetaDataModel = {
     appStoreLink: "https://apps.apple.com/us/app/mzfilemanager/id1436458918",
 
     heroImage: {
-        src: "/assets/mzfilemanage/mzfilemanage_hero.png",
+        src: mzFileManageHero,
         alt: "MZFileManage Hero Image",
         width: 650,
         height: 450,
     },
 
     appIcon: {
-        src: "/assets/mzfilemanage_appicon.png",
-          alt: "MZFileManage app icon",
-          width: 300,
-          height: 300,
+        src: mzFileManageIcon,
+        alt: "MZFileManage app icon",
+        width: 300,
+        height: 300,
     },
 
     siteUrl: "/apps/mzfilemanage",

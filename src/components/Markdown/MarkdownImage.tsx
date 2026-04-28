@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Box } from "@chakra-ui/react";
 import { useImageGallery } from "@/components/ImageGallery/ImageGalleryContext";
+import { getCdnBlurUrl, isCdnUrl } from "@/utils/cdnImage";
 
 type MarkdownImageProps = {
   src?: string;
@@ -23,6 +24,8 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
 
   if (!src) return null;
 
+  const blurUrl = isCdnUrl(src) ? getCdnBlurUrl(src) : undefined;
+
   return (
     <Box
       my={my ?? 0}
@@ -39,6 +42,8 @@ export const MarkdownImage: React.FC<MarkdownImageProps> = ({
         alt={alt ?? ""}
         width={width ?? 800}
         height={height ?? 450}
+        placeholder={blurUrl ? "blur" : "empty"}
+        blurDataURL={blurUrl}
         style={{ width: "100%", height: "auto" }}
       />
     </Box>

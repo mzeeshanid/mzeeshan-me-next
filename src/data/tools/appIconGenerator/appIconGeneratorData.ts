@@ -1,3 +1,4 @@
+import appIconGeneratorAppIcon from "../../../../public/assets/app_icon_generator_app_icon.png";
 import {
   FaAndroid,
   FaApple,
@@ -23,7 +24,7 @@ export const appIconGeneratorHeaderData = {
   title: "App Icon Generator",
   description: "Generate platform-specific app icons instantly",
   subtitle: "Generate platform-specific app icons instantly",
-  icon: "/assets/app_icon_generator_app_icon.png",
+  icon: appIconGeneratorAppIcon,
   alt: "App Icon Generator icon",
 };
 

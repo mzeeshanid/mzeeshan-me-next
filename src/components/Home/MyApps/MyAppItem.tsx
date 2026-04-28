@@ -21,7 +21,6 @@ const MyAppItem = (props: MyAppItemProps) => {
               <Image
                 alt={icon.alt}
                 src={icon.src}
-                blurDataURL={icon.src}
                 placeholder="blur"
                 width={64}
                 height={64}

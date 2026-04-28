@@ -1,4 +1,5 @@
 import { BasicImageDataModel } from "../basicImage/basicImageDataModel";
+import thirdPartySDKsIcon from "../../../public/assets/third_party_sdks_icon.png";
 
 type MyThirdPartySDKData = {
     tagline: string;
@@ -19,7 +20,7 @@ const myThirdPartySDKsData = () : MyThirdPartySDKData => {
         title: "Looking for a Third Party SDK Integration in your app?",
         detail: "I have extensive experience integrating various third-party SDKs into iOS applications, ensuring seamless functionality and optimal performance. You just name it.",
         heroImage: {
-            src: "/assets/third_party_sdks_icon.png",
+            src: thirdPartySDKsIcon,
             alt: "Third Party SDKs Hero Image",
             width: 300,
             height: 300,

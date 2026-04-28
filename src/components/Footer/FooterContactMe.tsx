@@ -1,6 +1,6 @@
 import { Box, Button, Heading, Link, Text, VStack } from "@chakra-ui/react";
-
 import Image from "next/image";
+import profilePic from "../../../public/assets/profile_pic.jpeg";
 import { useColorPalette } from "../../contexts/useColorPalette";
 
 type FooterContactMeProps = {};
@@ -23,11 +23,10 @@ const FooterContactMe = ({}: FooterContactMeProps) => {
         <Image
           width={80}
           height={80}
-          src={"/assets/profile_pic.jpeg"}
+          src={profilePic}
           alt="Logo"
           style={{ objectFit: "cover" }}
           placeholder="blur"
-          blurDataURL="/assets/profile_pic.jpeg"
         />
       </Box>
       <Heading as={"h3"}>{"Have any questions?"}</Heading>

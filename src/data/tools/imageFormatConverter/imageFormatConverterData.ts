@@ -1,3 +1,4 @@
+import imageConverterIcon from "../../../../public/assets/image_format_converter_icon.png";
 import {
   FaBolt,
   FaCodeBranch,
@@ -56,7 +57,7 @@ export const imageFormatConverterIndexData: ImageFormatConverterIndexData = {
   header: {
     title: "Image Format Converter",
     subtitle: "Convert images locally in your browser.",
-    icon: "/assets/image_format_converter_icon.png",
+    icon: imageConverterIcon,
     alt: "Image Format Converter icon",
     rounded: false,
   },
@@ -341,7 +342,7 @@ export const webpToPngData: ImageFormatConverterDetailData = {
   header: {
     title: "WebP to PNG",
     subtitle: "Convert WebP files to PNG locally in your browser.",
-    icon: "/assets/image_format_converter_icon.png",
+    icon: imageConverterIcon,
     alt: "WebP to PNG icon",
     rounded: false,
   },
@@ -532,7 +533,7 @@ export const webpToJpgData: ImageFormatConverterDetailData = {
   header: {
     title: "WebP to JPG",
     subtitle: "Convert WebP images to JPG in your browser.",
-    icon: "/assets/image_format_converter_icon.png",
+    icon: imageConverterIcon,
     alt: "WebP to JPG icon",
     rounded: false,
   },
@@ -721,7 +722,7 @@ export const pngToWebpData: ImageFormatConverterDetailData = {
   header: {
     title: "PNG to WebP",
     subtitle: "Convert PNG images to WebP in your browser.",
-    icon: "/assets/image_format_converter_icon.png",
+    icon: imageConverterIcon,
     alt: "PNG to WebP icon",
     rounded: false,
   },
@@ -909,7 +910,7 @@ export const jpgToPngData: ImageFormatConverterDetailData = {
   header: {
     title: "JPG to PNG",
     subtitle: "Convert JPG images to PNG locally in your browser.",
-    icon: "/assets/image_format_converter_icon.png",
+    icon: imageConverterIcon,
     alt: "JPG to PNG icon",
     rounded: false,
   },

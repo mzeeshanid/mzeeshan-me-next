@@ -25,7 +25,7 @@ const MyAppSeo: React.FC<Props> = (props: Props) => {
             url: absoluteUrl(meta.siteUrl),
             images: [
               {
-                url: absoluteUrl(meta.heroImage.src),
+                url: absoluteUrl(meta.heroImage.src.src),
                 type: "image/png",
               },
             ],
@@ -42,11 +42,11 @@ const MyAppSeo: React.FC<Props> = (props: Props) => {
         operatingSystem={meta.operatingSystems}
         screenshot={[
           {
-            url: absoluteUrl(meta.heroImage.src),
+            url: absoluteUrl(meta.heroImage.src.src),
             caption: "Hero Image",
           },
           ...screenshotsData.screenshots.map((screenshot) => ({
-            url: absoluteUrl(screenshot.src),
+            url: absoluteUrl(screenshot.src.src),
             caption: screenshot.alt,
           })),
         ]}

@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { fetchArticlesStrapi, ArticleModel } from "@/apis/articles/articles";
+import { fetchArticlesStrapi } from "@/apis/articles/articles";
 import { MyStrapiError } from "@/strapiClient/strapiError";
-import { getImageBlurData } from "@/strapiClient/strapiBlurImage";
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,36 +18,9 @@ export default async function handler(
     const keyword = req.query.keyword as string | undefined;
     const category = req.query.category as string | undefined;
 
-    let articles = await fetchArticlesStrapi(
-      page,
-      pageSize,
-      keyword,
-      category
-    );
+    const articles = await fetchArticlesStrapi(page, pageSize, keyword, category);
 
-    const articlesWithBlur = await Promise.all(
-      articles.data.map(async (article) => {
-        const image = article.image;
-
-        if (!image?.formats?.thumbnail?.url) {
-          return article;
-        }
-
-        const blurData = await getImageBlurData(
-          image.formats.thumbnail.url
-        );
-
-        return {
-          ...article,
-          blurData,
-        } as ArticleModel;
-      })
-    );
-
-    res.status(200).json({
-      ...articles,
-      data: articlesWithBlur,
-    });
+    res.status(200).json(articles);
   } catch (error) {
     if (error instanceof MyStrapiError) {
       return res.status(error.status ?? 500).json({

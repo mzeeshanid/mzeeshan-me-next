@@ -70,7 +70,6 @@ const DriveDirectHero: React.FC<Props> = (props: Props) => {
               src={hero.heroImage.src}
               alt={hero.heroImage.alt}
               placeholder="blur"
-              blurDataURL={hero.heroImage.src}
               width={hero.heroImage.width}
               height={hero.heroImage.height}
             />

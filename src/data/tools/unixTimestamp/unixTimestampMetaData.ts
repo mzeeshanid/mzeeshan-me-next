@@ -1,9 +1,9 @@
-import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel";
+type SeoImage = { src: string; alt: string; width: number; height: number };
 
 export type UnixTimestampMetaData = {
   title: string;
   desc: string;
-  image: BasicImageDataModel;
+  image: SeoImage;
   url: string;
 };
 

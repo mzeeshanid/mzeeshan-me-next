@@ -42,7 +42,6 @@ const AppleOfferSignatureHero: React.FC<Props> = (props: Props) => {
             >
               <Image
                 src={heroImage.src}
-                blurDataURL={heroImage.src}
                 placeholder="blur"
                 alt={heroImage.alt}
                 width={heroImage.width}

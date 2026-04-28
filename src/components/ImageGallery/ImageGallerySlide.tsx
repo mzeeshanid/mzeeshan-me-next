@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
+import { getCdnBlurUrl, isCdnUrl } from "@/utils/cdnImage";
 
 type Props = {
   img: { src: string; alt?: string };
@@ -35,6 +36,8 @@ export const ImageGallerySlide = React.memo<Props>(
               alt={img.alt ?? ""}
               fill
               priority
+              placeholder={isCdnUrl(img.src) ? "blur" : "empty"}
+              blurDataURL={isCdnUrl(img.src) ? getCdnBlurUrl(img.src) : undefined}
               style={{
                 objectFit: "contain",
                 transform: `scale(${scale})`,

@@ -28,8 +28,8 @@ const MyHeroSkills: React.FC<MyHeroSkillsProps> = (
                 width={img.width}
                 height={img.height}
                 src={img.src}
-                blurDataURL={img.src}
                 alt={img.alt}
+                placeholder="blur"
               />
             </Center>
           </GridItem>

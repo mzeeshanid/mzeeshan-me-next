@@ -72,8 +72,8 @@ const MySkillItem: React.FC<MySkillItemProps> = (props: MySkillItemProps) => {
             width={featureIconSize}
             height={featureIconSize}
             src={skill.featureIcon}
-            blurDataURL={skill.featureIcon}
             alt={skill.featureIconAlt}
+            placeholder="blur"
           />
         </Center>
       </GridItem>

@@ -18,7 +18,6 @@ const MyAppsTestimonialItem: React.FC<Props> = (props: Props) => {
         <HStack>
           <Image
             src={testimonial.app.icon.src}
-            blurDataURL={testimonial.app.icon.src}
             placeholder="blur"
             alt={`${testimonial.app.title} icon`}
             width={44}

@@ -1,4 +1,5 @@
 import { fetchArticleBySlugStrapi } from "@/apis/articles/articleDetail";
+import { MyStrapiError } from "@/strapiClient/strapiError";
 import { ArticleModel } from "@/apis/articles/articles";
 import ArticleDetail from "@/components/Blog/ArticleDetail/ArticleDetail";
 import { ArticleDetailSeo } from "@/components/Blog/ArticleSeo/ArticleDetailSeo";
@@ -76,12 +77,15 @@ export const getStaticProps: GetStaticProps<ArticleDetailPageProps> = (async (
   context: GetStaticPropsContext
 ) => {
   const slug = context.params!.slug as string;
-  const [article] = await Promise.all([fetchArticleBySlugStrapi(slug)]);
-
-  return {
-    props: { article },
-    revalidate: 60,
-  };
+  try {
+    const article = await fetchArticleBySlugStrapi(slug);
+    return { props: { article }, revalidate: 60 };
+  } catch (error) {
+    if (error instanceof MyStrapiError && error.status === 404) {
+      return { notFound: true };
+    }
+    throw error;
+  }
 }) satisfies GetStaticProps<ArticleDetailPageProps>;
 
 export default ArticleDetailPage;

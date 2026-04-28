@@ -1,6 +1,8 @@
+import type { StaticImageData } from "next/image";
 import { IconType } from "react-icons";
 import { FaBolt, FaCode, FaGlobe, FaShieldAlt } from "react-icons/fa";
 import { FaMagnifyingGlass, FaWandMagicSparkles } from "react-icons/fa6";
+import stringMetricIcon from "../../../../public/assets/string_metric_app_icon.png";
 
 /* Features Data */
 export type StringMetricsFeature = {
@@ -62,14 +64,14 @@ export const stringMetricsFeaturesData: StringMetricsFeaturesData = {
 export type StringMetricsHeaderData = {
     title: string;
     subtitle: string;
-    icon: string;
+    icon: StaticImageData;
     alt: string;
 }
 
 export const stringMetricsHeaderData: StringMetricsHeaderData = {
     title: "String Metrics",
     subtitle: "Compare it!",
-    icon: "/assets/string_metric_app_icon.png",
+    icon: stringMetricIcon,
     alt: "String Metrics app icon"
 };
 

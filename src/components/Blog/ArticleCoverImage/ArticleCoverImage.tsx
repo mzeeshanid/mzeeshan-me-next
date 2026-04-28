@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Box, ConditionalValue } from "@chakra-ui/react";
 import { ArticleModel } from "@/apis/articles/articles";
+import { getCdnBlurUrl } from "@/utils/cdnImage";
 
 const ArticleCoverImage: React.FC<{
   article: ArticleModel;
@@ -28,8 +29,8 @@ const ArticleCoverImage: React.FC<{
         alt={article.title}
         width={image.width}
         height={image.height}
-        placeholder={article.blurData ? "blur" : "empty"}
-        blurDataURL={article.blurData}
+        placeholder="blur"
+        blurDataURL={getCdnBlurUrl(image.url)}
         style={{ width: "100%", height: "auto" }}
         priority
       />

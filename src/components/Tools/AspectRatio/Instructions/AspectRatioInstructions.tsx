@@ -33,7 +33,6 @@ const AspectRatioInstructions: React.FC<Props> = (props: Props) => {
               src={instructions.heroImage.src}
               alt={instructions.heroImage.alt}
               placeholder="blur"
-              blurDataURL={instructions.heroImage.src}
               width={instructions.heroImage.width}
               height={instructions.heroImage.height}
               style={{ width: "100%", height: "auto" }}

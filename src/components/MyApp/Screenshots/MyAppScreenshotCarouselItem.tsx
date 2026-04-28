@@ -29,7 +29,6 @@ const MyAppScreenshotCarouselItem: React.FC<Props> = (props: Props) => {
     >
       <Image
         src={screenshot.src}
-        blurDataURL={screenshot.src}
         placeholder="blur"
         alt={screenshot.alt}
         width={screenshot.width}

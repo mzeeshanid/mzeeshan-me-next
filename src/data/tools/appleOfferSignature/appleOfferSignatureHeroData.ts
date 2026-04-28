@@ -1,4 +1,5 @@
 import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel";
+import promoOfferHero from "../../../../public/assets/promotional_offer_hero.png";
 
 type AppleOfferSignatureHeroData = {
     tagline: string;
@@ -17,7 +18,7 @@ const appleOfferSignatureHeroData = () : AppleOfferSignatureHeroData => {
         alt: "Apple Offer Signature hero image",
         width: 800,
         height: 533,
-        src: `/assets/promotional_offer_hero.png`
+        src: promoOfferHero
     }
     };
 }
