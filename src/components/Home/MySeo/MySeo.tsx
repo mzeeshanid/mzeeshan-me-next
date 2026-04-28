@@ -42,13 +42,6 @@ const MySeo: React.FC<MySeoProps> = (props: MySeoProps) => {
           },
         })}
         <link rel="canonical" href={canonicalUrl} />
-        <link
-          rel="preload"
-          as="image"
-          href="/assets/mzeeshan_me_hero.jpeg"
-          // @ts-ignore
-          fetchpriority="high"
-        />
         <meta
           name="keywords"
           content="Senior iOS Developer, Senior iOS Developer Pakistan, Experienced iOS Developer, Swift iOS Developer, SwiftUI iOS Developer, Freelance iOS Developer, Experienced React Native Developer, Experienced cross platform developer, Experienced iOS Native developer, Native iOS Development, Test driven development, Freelancer from Pakistan, Hire freelance native iOS Developer from Pakistan, Hire iOS Developer, Hire experienced iOS Developer"
