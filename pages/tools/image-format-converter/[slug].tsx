@@ -39,6 +39,7 @@ const ImageFormatConverterDetailPage: React.FC<Props> = ({ article, slug }) => {
     <>
       <ImageConverterSeo meta={data.meta} />
       <NavBar header={data.header} />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -121,6 +122,7 @@ const ImageFormatConverterDetailPage: React.FC<Props> = ({ article, slug }) => {
       </Container>
 
       <Spacer p={8} />
+      </main>
       <Footer />
     </>
   );

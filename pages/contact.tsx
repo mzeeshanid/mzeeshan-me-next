@@ -14,6 +14,7 @@ const ContactHome: React.FC<Props> = (props: Props) => {
       <Container p={0} maxW="full">
         {/* --- NavBar --- */}
         <NavBar />
+        <main>
         <Spacer p={{ base: 4, lg: 8 }} />
 
         <Container maxW="6xl">
@@ -22,6 +23,7 @@ const ContactHome: React.FC<Props> = (props: Props) => {
 
         <Spacer p={4} />
         {/* --- Footer --- */}
+        </main>
         <Footer />
       </Container>
     </>

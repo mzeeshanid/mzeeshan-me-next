@@ -39,6 +39,8 @@ const AppleOfferSignatureHero: React.FC<Props> = (props: Props) => {
               overflow={"hidden"}
               transition="transform 0.3s ease"
               _hover={{ transform: `scale(1.02)` }}
+              w="full"
+              aspectRatio={heroImage.width / heroImage.height}
             >
               <Image
                 src={heroImage.src}
@@ -46,12 +48,9 @@ const AppleOfferSignatureHero: React.FC<Props> = (props: Props) => {
                 alt={heroImage.alt}
                 width={heroImage.width}
                 height={heroImage.height}
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "100%",
-                }}
+                style={{ objectFit: "cover", width: "100%", height: "100%" }}
                 loading="lazy"
+                sizes="(max-width: 62em) 100vw, 50vw"
               />
             </Box>
           </VStack>

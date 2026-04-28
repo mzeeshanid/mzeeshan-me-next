@@ -8,7 +8,7 @@ const siteUrl = (
 
 const config: IConfig = {
   siteUrl,
-  generateRobotsTxt: true,
+  generateRobotsTxt: false,
   generateIndexSitemap: false,
 };
 

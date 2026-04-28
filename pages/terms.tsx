@@ -44,6 +44,7 @@ const TermsAndConditionsHome: React.FC<Props> = (props: Props) => {
         })}
       </Head>
       <NavBar />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -410,6 +411,7 @@ const TermsAndConditionsHome: React.FC<Props> = (props: Props) => {
         </Text>
       </Container>
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

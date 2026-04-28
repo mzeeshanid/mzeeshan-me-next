@@ -24,6 +24,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
       <Container p={0} maxW="full">
         {/* --- NavBar --- */}
         <NavBar />
+        <main>
         <Spacer p={{ base: 4, lg: 8 }} />
         {/* --- Hero --- */}
         <Container maxW="6xl">
@@ -81,6 +82,7 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         </Container>
         <Spacer p={4} />
         {/* --- Footer --- */}
+        </main>
         <Footer />
       </Container>
     </>

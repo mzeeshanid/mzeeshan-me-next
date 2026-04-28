@@ -30,6 +30,7 @@ const MyHeroSkills: React.FC<MyHeroSkillsProps> = (
                 src={img.src}
                 alt={img.alt}
                 placeholder="blur"
+                sizes="100px"
               />
             </Center>
           </GridItem>

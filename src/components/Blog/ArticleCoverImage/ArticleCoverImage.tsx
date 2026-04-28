@@ -12,17 +12,14 @@ const ArticleCoverImage: React.FC<{
   const image = article.image?.formats?.large;
   if (!image) return null;
 
-  const desiredWidth = 300;
-  const desiredHeight = (image.height / image.width) * desiredWidth;
-
   return (
     <Box
       borderRadius={borderRadius}
       overflow="hidden"
       bg="bg.muted"
       maxW={maxW}
-      minW={desiredWidth}
-      minH={desiredHeight}
+      w="full"
+      aspectRatio={image.width / image.height}
     >
       <Image
         src={image.url}
@@ -31,8 +28,9 @@ const ArticleCoverImage: React.FC<{
         height={image.height}
         placeholder="blur"
         blurDataURL={getCdnBlurUrl(image.url)}
-        style={{ width: "100%", height: "auto" }}
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
         priority
+        sizes="(max-width: 48em) 100vw, 350px"
       />
     </Box>
   );

@@ -38,6 +38,7 @@ const JsonToCsvPage: React.FC<Props> = ({ article }) => (
   <>
     <JsonValidatorFormatterSeo meta={meta} />
     <NavBar header={header} />
+    <main>
     <Spacer p={4} />
     <Container maxW="6xl">
       <PageHeader
@@ -90,6 +91,7 @@ const JsonToCsvPage: React.FC<Props> = ({ article }) => (
     </Container>
 
     <Spacer p={8} />
+    </main>
     <Footer />
   </>
 );

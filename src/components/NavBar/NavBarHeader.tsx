@@ -17,6 +17,9 @@ const NavBarHeader: React.FC<NavBarHeaderProps> = (
   return (
     <HStack gap={4} justify={{ base: "center", md: "flex-start" }}>
       <Box
+        w="60px"
+        h="60px"
+        flexShrink={0}
         borderRadius="md"
         rounded={props.rounded ? "full" : undefined}
         overflow="hidden"
@@ -26,7 +29,7 @@ const NavBarHeader: React.FC<NavBarHeaderProps> = (
           height={60}
           src={props.icon}
           alt={props.alt}
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
           placeholder="blur"
           priority
           sizes="60px"

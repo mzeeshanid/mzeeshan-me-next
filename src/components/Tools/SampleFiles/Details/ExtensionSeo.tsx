@@ -15,7 +15,7 @@ const ExtensionSeo: React.FC<Props> = ({ extension }) => {
   );
   const image = absoluteUrl("/assets/mzfilemanage_appicon.png");
 
-  const title = `Free ${extension.name} Sample Files – Download for Testing`;
+  const title = `Free ${extension.name} Sample Files`;
 
   // Page meta description: short, prefer info, fall back to whatIs content
   const rawDesc =

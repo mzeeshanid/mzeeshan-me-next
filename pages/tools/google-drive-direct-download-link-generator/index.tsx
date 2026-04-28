@@ -35,6 +35,7 @@ const DriveDirectHome: React.FC<DriveDirectHomeProps> = (
     <>
       <DriveDirectSeo />
       <NavBar header={header} />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -103,6 +104,7 @@ const DriveDirectHome: React.FC<DriveDirectHomeProps> = (
       </Container>
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

@@ -1,8 +1,5 @@
 import { IconType } from 'react-icons';
-import { FaBloggerB, FaGithub, FaGraduationCap, FaLinkedin, FaMedium, FaStackOverflow, FaUpwork, FaXTwitter, FaYoutube } from 'react-icons/fa6';
-import { TbBrandFiverr } from "react-icons/tb";
-import { SiChakraui } from "react-icons/si";
-import { RiNextjsFill } from "react-icons/ri";
+import { FaBloggerB, FaGithub, FaGraduationCap, FaLinkedin, FaMedium, FaStackOverflow, FaUpwork, FaXTwitter, FaYoutube, FaArrowUpRightFromSquare } from 'react-icons/fa6';
 
 
 type FooterData = {
@@ -72,7 +69,7 @@ const footerData = (): FooterData => {
             {
                 label: 'Fiverr',
                 url: 'https://www.fiverr.com/s/w52zEo',
-                icon: TbBrandFiverr
+                icon: FaArrowUpRightFromSquare
             },
         ],
         bottomLinks: [
@@ -88,13 +85,11 @@ const footerData = (): FooterData => {
         rightsReserved: `© ${new Date().getFullYear()} All rights reserved.`,
         nextJs: {
             label: 'Next.js',
-                url: 'https://nextjs.org/',
-                icon: RiNextjsFill,
+            url: 'https://nextjs.org/',
         },
         chakraUi: {
             label: 'Chakra UI',
-                url: 'https://chakra-ui.com/',
-                icon: SiChakraui,
+            url: 'https://chakra-ui.com/',
         },
     }
 }

@@ -37,6 +37,7 @@ const StringMetricsHome: React.FC<Props> = (props: Props) => {
           rounded: false,
         }}
       />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -95,6 +96,7 @@ const StringMetricsHome: React.FC<Props> = (props: Props) => {
       </Container>
 
       <Spacer p={8} />
+      </main>
       <Footer />
     </>
   );

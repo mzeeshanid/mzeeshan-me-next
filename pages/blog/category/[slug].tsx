@@ -37,6 +37,7 @@ const BlogCategoryArticlesPage: React.FC<BlogCategoryArticlesPageProps> = (
     <>
       <ArticleCategorySeo category={category} />
       <NavBar />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -60,6 +61,7 @@ const BlogCategoryArticlesPage: React.FC<BlogCategoryArticlesPageProps> = (
       />
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

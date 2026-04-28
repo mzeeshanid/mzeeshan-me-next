@@ -30,6 +30,7 @@ const AspectRatioCalculatorHome: React.FC<Props> = (props: Props) => {
     <>
       <AspectRatioSeo />
       <NavBar header={aspectRatioHeaderData} />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -84,6 +85,7 @@ const AspectRatioCalculatorHome: React.FC<Props> = (props: Props) => {
       </Container>
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

@@ -57,6 +57,8 @@ const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
                 overflow={"hidden"}
                 transition="transform 0.3s ease"
                 _hover={{ transform: `scale(1.02)` }}
+                w="full"
+                aspectRatio={heroImage.width / heroImage.height}
               >
                 <Image
                   src={heroImage.src}
@@ -66,10 +68,11 @@ const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
                   style={{
                     objectFit: "cover",
                     width: "100%",
-                    height: "auto",
+                    height: "100%",
                   }}
                   placeholder="blur"
                   priority
+                  fetchPriority="high"
                   sizes="(max-width: 62em) 100vw, 50vw"
                 />
               </Box>

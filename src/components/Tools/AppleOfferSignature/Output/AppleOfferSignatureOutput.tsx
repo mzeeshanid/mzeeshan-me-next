@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { IconType } from "react-icons";
-import { PiKey, PiLockKey, PiSignature } from "react-icons/pi";
+import { LuKey, LuLock, LuSignature } from "react-icons/lu";
 
 type Props = {
   plainSignature: string;
@@ -25,17 +25,17 @@ const AppleOfferSignatureOutput: React.FC<Props> = (props: Props) => {
         <CodeBlockComponent
           title="Plain Signature"
           content={props.plainSignature}
-          icon={PiSignature}
+          icon={LuSignature}
         />
         <CodeBlockComponent
           title="Signed Signature"
           content={props.signedSignature}
-          icon={PiLockKey}
+          icon={LuLock}
         />
         <CodeBlockComponent
           title="Key PEM"
           content={props.pemKey}
-          icon={PiKey}
+          icon={LuKey}
         />
         <Spacer p={1} />
         <VStack w={"full"} align={"flex-start"}>

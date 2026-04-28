@@ -65,13 +65,21 @@ const DriveDirectHero: React.FC<Props> = (props: Props) => {
           </Box>
         </Stack>
         <Box w={{ base: "full", md: "50%" }}>
-          <Center bg="bg.subtle" borderRadius={"2xl"}>
+          <Center
+            bg="bg.subtle"
+            borderRadius={"2xl"}
+            overflow="hidden"
+            w="full"
+            aspectRatio={hero.heroImage.width / hero.heroImage.height}
+          >
             <Image
               src={hero.heroImage.src}
               alt={hero.heroImage.alt}
               placeholder="blur"
               width={hero.heroImage.width}
               height={hero.heroImage.height}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              sizes="(max-width: 62em) 100vw, 50vw"
             />
           </Center>
         </Box>

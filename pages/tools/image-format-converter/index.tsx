@@ -29,6 +29,7 @@ const ImageFormatConverterIndexPage: React.FC<Props> = ({ article }) => {
     <>
       <ImageConverterSeo meta={data.meta} />
       <NavBar header={data.header} />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -101,6 +102,7 @@ const ImageFormatConverterIndexPage: React.FC<Props> = ({ article }) => {
       </Container>
 
       <Spacer p={8} />
+      </main>
       <Footer />
     </>
   );

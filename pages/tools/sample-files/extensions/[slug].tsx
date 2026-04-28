@@ -38,6 +38,7 @@ const ExtensionDetailHome: React.FC<Props> = ({ extension, allExtensions }) => {
     <>
       <ExtensionSeo extension={extension} />
       <NavBar header={header} />
+      <main>
       <Spacer p={4} />
       <Container maxW="6xl">
         <PageHeader
@@ -129,6 +130,7 @@ const ExtensionDetailHome: React.FC<Props> = ({ extension, allExtensions }) => {
         </Container>
       )}
       <Spacer p={8} />
+      </main>
       <Footer />
     </>
   );

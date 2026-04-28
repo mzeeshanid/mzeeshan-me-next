@@ -17,6 +17,7 @@ const MyAppsHome: React.FC<Props> = (props: Props) => {
     <>
       <MyAppsSeo />
       <NavBar />
+      <main>
       <Spacer p={4} />
       <Container maxW="6xl">
         <PageHeader
@@ -46,6 +47,7 @@ const MyAppsHome: React.FC<Props> = (props: Props) => {
       </Container>
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

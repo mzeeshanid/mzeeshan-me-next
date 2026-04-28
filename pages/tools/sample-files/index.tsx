@@ -37,6 +37,7 @@ const SampleFilesHome: React.FC<Props> = (props: Props) => {
     <>
       <SampleFilesSeo />
       <NavBar header={header} />
+      <main>
       <Spacer p={4} />
 
       <Container maxW="6xl">
@@ -118,6 +119,7 @@ const SampleFilesHome: React.FC<Props> = (props: Props) => {
       </Container>
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );

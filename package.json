@@ -17,6 +17,7 @@
     "@chakra-ui/react": "^3.34.0",
     "@emotion/react": "^11.14.0",
     "@loadable/component": "^5.16.7",
+    "@next/bundle-analyzer": "^16.2.4",
     "@next/third-parties": "^16.0.3",
     "@strapi/client": "^1.6.0",
     "add": "^2.0.6",

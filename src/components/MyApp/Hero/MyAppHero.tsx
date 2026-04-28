@@ -78,7 +78,8 @@ const MyAppHero: React.FC<Props> = (props: Props) => {
             overflow={"hidden"}
             transition="transform 0.3s ease"
             _hover={{ transform: `scale(1.02)` }}
-            w={{ base: "full", md: undefined }}
+            w="full"
+            aspectRatio={meta.heroImage.width / meta.heroImage.height}
           >
             <Image
               src={meta.heroImage.src}
@@ -86,12 +87,9 @@ const MyAppHero: React.FC<Props> = (props: Props) => {
               alt={meta.heroImage.alt}
               width={meta.heroImage.width}
               height={meta.heroImage.height}
-              style={{
-                objectFit: "cover",
-                width: "100%",
-                height: "100%",
-              }}
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
               loading="lazy"
+              sizes="(max-width: 48em) 100vw, 768px"
             />
           </Box>
         </Center>

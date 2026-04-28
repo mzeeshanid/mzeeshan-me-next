@@ -31,6 +31,7 @@ const JsonValidatorAndFormatterHome: React.FC<Props> = ({ article }) => (
   <>
     <JsonValidatorFormatterSeo />
     <NavBar header={jsonValidatorFormatterHeaderData} />
+    <main>
     <Spacer p={4} />
 
     <Container maxW="6xl">
@@ -89,6 +90,7 @@ const JsonValidatorAndFormatterHome: React.FC<Props> = ({ article }) => (
     </Container>
 
     <Spacer p={8} />
+    </main>
     <Footer />
   </>
 );

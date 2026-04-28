@@ -38,6 +38,7 @@ const MyAppHome: React.FC<Props> = (props: Props) => {
           alt: meta.appIcon.alt,
         }}
       />
+      <main>
       <Spacer p={4} />
       <Container maxW="6xl">
         <PageHeader
@@ -86,6 +87,7 @@ const MyAppHome: React.FC<Props> = (props: Props) => {
       </Container>
 
       <Spacer p={4} />
+      </main>
       <Footer />
     </>
   );
