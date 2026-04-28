@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
@@ -6,12 +7,12 @@ import React from "react";
 import MyAppHero from "../Hero/MyAppHero";
 import { MyAppDataModel } from "@/data/myApps/myAppData";
 import MyAppSeo from "../Seo/MyAppSeo";
-import MyAppScreenshots from "../Screenshots/MyAppScreenshots";
-import MyAppFeatures from "../Features/MyAppFeatures";
-import MyAppFaqs from "../Faqs/MyAppFaqs";
-import MyAppStats from "../Stats/MyAppsStats";
-import MyAppReviews from "../Reviews/MyAppReviews";
-import MyAppClone from "../Clone/MyAppClone";
+const MyAppScreenshots = dynamic(() => import("../Screenshots/MyAppScreenshots"));
+const MyAppFeatures = dynamic(() => import("../Features/MyAppFeatures"));
+const MyAppStats = dynamic(() => import("../Stats/MyAppsStats"));
+const MyAppReviews = dynamic(() => import("../Reviews/MyAppReviews"));
+const MyAppClone = dynamic(() => import("../Clone/MyAppClone"));
+const MyAppFaqs = dynamic(() => import("../Faqs/MyAppFaqs"));
 
 type Props = {
   appData: MyAppDataModel;

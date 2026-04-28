@@ -94,8 +94,9 @@ export function extractIconSvg(
   const { flushSync } = require("react-dom") as typeof import("react-dom");
   const { createElement } = require("react") as typeof import("react");
 
+  // Detached container — never appended to document.body so the live
+  // document layout is never dirtied and no forced reflow occurs.
   const container = document.createElement("div");
-  document.body.appendChild(container);
   const root = createRoot(container);
   try {
     flushSync(() => {
@@ -107,6 +108,5 @@ export function extractIconSvg(
     return new XMLSerializer().serializeToString(svg);
   } finally {
     root.unmount();
-    document.body.removeChild(container);
   }
 }
