@@ -1,4 +1,6 @@
 import { MyAppMetaDataModel } from "../myAppMetaData";
+import mzPlayerHDHero from "../../../../public/assets/mzplayerhd/mzplayerhd_hero.png";
+import mzPlayerHDIcon from "../../../../public/assets/mzplayer_hd_appicon.png";
 
 export const mzPlayerHDMetaData: MyAppMetaDataModel = {
     badge: "YouTube video player",
@@ -13,17 +15,17 @@ export const mzPlayerHDMetaData: MyAppMetaDataModel = {
     appStoreLink: "https://apps.apple.com/us/app/mzplayerhd/id1436966516",
 
     heroImage: {
-        src: "/assets/mzplayerhd/mzplayerhd_hero.png",
+        src: mzPlayerHDHero,
         alt: "MZPlayerHD Hero Image",
         width: 650,
         height: 450,
     },
 
     appIcon: {
-        src: "/assets/mzplayer_hd_appicon.png",
-          alt: "MZPlayerHD app icon",
-          width: 300,
-          height: 300,
+        src: mzPlayerHDIcon,
+        alt: "MZPlayerHD app icon",
+        width: 300,
+        height: 300,
     },
 
     siteUrl: "/apps/mzplayerhd",

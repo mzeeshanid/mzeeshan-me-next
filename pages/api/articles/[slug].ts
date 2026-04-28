@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { MyStrapiError } from "@/strapiClient/strapiError";
-import { getImageBlurData } from "@/strapiClient/strapiBlurImage";
-import { ArticleModel } from "@/apis/articles/articles";
 import { fetchArticleBySlugStrapi } from "@/apis/articles/articleDetail";
 
 export default async function handler(
@@ -21,19 +19,7 @@ export default async function handler(
       return res.status(400).json({ error: "Slug is required" });
     }
 
-    let article = await fetchArticleBySlugStrapi(slug);
-
-    // Add blur placeholder (same pattern as listing)
-    if (article.image?.formats?.thumbnail?.url) {
-      const blurData = await getImageBlurData(
-        article.image.formats.thumbnail.url
-      );
-
-      article = {
-        ...article,
-        blurData,
-      } as ArticleModel;
-    }
+    const article = await fetchArticleBySlugStrapi(slug);
 
     res.status(200).json(article);
   } catch (error) {

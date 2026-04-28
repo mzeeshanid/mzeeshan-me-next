@@ -4,7 +4,13 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7172772388497840"
+            crossOrigin="anonymous"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

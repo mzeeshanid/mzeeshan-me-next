@@ -18,7 +18,6 @@ export interface ArticleModel extends API.Document {
     updatedAt: string;
     writer: ArticleWriter,
     category: ArticleCategoryModel;
-    blurData?: string;
     related?: ArticleModel[];
 };
 

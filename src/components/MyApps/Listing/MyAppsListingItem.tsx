@@ -16,7 +16,6 @@ const MyAppsListingItem: React.FC<Props> = (props) => {
           <HStack gap={4}>
             <Image
               src={app.icon.src}
-              blurDataURL={app.icon.src}
               placeholder="blur"
               alt={`${app.title} icon`}
               width={54}

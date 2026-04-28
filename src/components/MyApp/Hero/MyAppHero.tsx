@@ -82,7 +82,6 @@ const MyAppHero: React.FC<Props> = (props: Props) => {
           >
             <Image
               src={meta.heroImage.src}
-              blurDataURL={meta.heroImage.src}
               placeholder="blur"
               alt={meta.heroImage.alt}
               width={meta.heroImage.width}

@@ -1,4 +1,5 @@
 import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel"
+import driveDirectHero from "../../../../public/assets/drive_direct_hero.png"
 
 /* Hero Data */
 export type DriveDirectHeroData = {
@@ -17,7 +18,7 @@ export const driveDirectHeroData: DriveDirectHeroData = {
         alt: "drive direct hero image",
         width: 400,
         height: 400,
-        src: `/assets/drive_direct_hero.png`
+        src: driveDirectHero
     },
     heroSingleLinkCTA: "Generate Direct Link",
     heroMultiLinkCTA: "Generate Direct Links",

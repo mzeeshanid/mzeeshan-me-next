@@ -1,5 +1,6 @@
 import { Box, HStack, Icon, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
+import profilePic from "../../../public/assets/profile_pic.jpeg";
 import { GrSwift } from "react-icons/gr";
 
 type MyIntroProps = {};
@@ -11,9 +12,10 @@ const MyIntro: React.FC<MyIntroProps> = (props) => {
         <Image
           width={60}
           height={60}
-          src={`/assets/profile_pic.jpeg`}
+          src={profilePic}
           alt="picture of Muhammad Zeeshan"
           style={{ objectFit: "cover" }}
+          placeholder="blur"
           priority
           sizes="60px"
         />

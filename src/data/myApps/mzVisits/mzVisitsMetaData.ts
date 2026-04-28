@@ -1,4 +1,6 @@
 import { MyAppMetaDataModel } from "../myAppMetaData";
+import mzVisitsHero from "../../../../public/assets/mzvisits/mzvisits_hero.png";
+import mzVisitsIcon from "../../../../public/assets/mzvisit_app_icon.png";
 
 export const mzVisitsMetaData: MyAppMetaDataModel = {
     badge: "Travelling tracker",
@@ -13,17 +15,17 @@ export const mzVisitsMetaData: MyAppMetaDataModel = {
     appStoreLink: "https://apps.apple.com/us/app/mzvisits-travelling-tracker/id1459482393",
 
     heroImage: {
-        src: "/assets/mzvisits/mzvisits_hero.png",
+        src: mzVisitsHero,
         alt: "MZVisits Hero Image",
         width: 650,
         height: 450,
     },
 
     appIcon: {
-        src: "/assets/mzvisit_app_icon.png",
-          alt: "MZVisits app icon",
-          width: 300,
-          height: 300,
+        src: mzVisitsIcon,
+        alt: "MZVisits app icon",
+        width: 300,
+        height: 300,
     },
 
     siteUrl: "/apps/mzvisits",

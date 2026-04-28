@@ -1,5 +1,6 @@
 import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel"
 import { AspectRatioSectionHeaderModel } from "./aspectRatioData"
+import aspectRatioHero from "../../../../public/assets/aspect_ratio_hero.png"
 
 export type AspectRatioInstructionsData = {
     header: AspectRatioSectionHeaderModel,
@@ -21,7 +22,7 @@ export const aspectRatioInstructions: AspectRatioInstructionsData = {
         alt: "drive direct hero image",
         width: 333,
         height: 250,
-        src: `/assets/aspect_ratio_hero.png`
+        src: aspectRatioHero
     },
     steps: [
         {

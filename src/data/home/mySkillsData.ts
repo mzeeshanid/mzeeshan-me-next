@@ -1,3 +1,7 @@
+import type { StaticImageData } from "next/image";
+import xcodeIcon from "../../../public/assets/xcode_app_icon.png";
+import reactIcon from "../../../public/assets/react_app_icon.png";
+
 export type MySkill = {
     tagline: string;
     title: string;
@@ -9,7 +13,7 @@ export type MySkillData = {
     tag: string;
     title: string;
     description: string;
-    featureIcon: string;
+    featureIcon: StaticImageData;
     featureIconAlt: string;
     features: string[];
 }
@@ -24,7 +28,7 @@ const mySkillsData = (): MySkill => {
                 tag: "Native iOS",
                 title: "Lead iOS Developer",
                 description: "Building apps for iOS using Swift, SwiftUI, and Objective-C. Creating user-friendly interfaces and ensuring optimal performance. Collaborating with cross-functional teams to deliver high-quality mobile applications.",
-                featureIcon: "/assets/xcode_app_icon.png",
+                featureIcon: xcodeIcon,
                 featureIconAlt: "Xcode App Icon",
                 features: [
                     "Expert in Swift and Objective-C",
@@ -40,7 +44,7 @@ const mySkillsData = (): MySkill => {
                 tag: "React Native",
                 title: "React Native Developer",
                 description: "Building cross-platform apps using React Native. Creating user-friendly interfaces and ensuring optimal performance. Collaborating with cross-functional teams to deliver high-quality mobile applications.",
-                featureIcon: "/assets/react_app_icon.png",
+                featureIcon: reactIcon,
                 featureIconAlt: "React Native Icon",
                 features: [
                     "Expert in JavaScript and TypeScript",

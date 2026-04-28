@@ -1,4 +1,6 @@
 import { MyAppMetaDataModel } from "../myAppMetaData";
+import mz100Hero from "../../../../public/assets/mz100/mz100_hero.png";
+import mz100Icon from "../../../../public/assets/mz100_app_icon.png";
 
 export const mz100MetaData: MyAppMetaDataModel = {
     badge: "Game, Puzzle",
@@ -13,17 +15,17 @@ export const mz100MetaData: MyAppMetaDataModel = {
     appStoreLink: "https://apps.apple.com/us/app/mz100/id1460376599",
 
     heroImage: {
-        src: "/assets/mz100/mz100_hero.png",
+        src: mz100Hero,
         alt: "MZ100 Hero Image",
         width: 650,
         height: 450,
     },
 
     appIcon: {
-        src: "/assets/mz100_app_icon.png",
-          alt: "MZ100 app icon",
-          width: 300,
-          height: 300,
+        src: mz100Icon,
+        alt: "MZ100 app icon",
+        width: 300,
+        height: 300,
     },
 
     siteUrl: "/apps/mz100",

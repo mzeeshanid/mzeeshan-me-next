@@ -49,8 +49,7 @@ const MyThirdPartySDKs: React.FC<MyThirdPartySDKsProps> = (
         >
           <Image
             src={heroImage.src}
-            blurDataURL={heroImage.src}
-            placeholder={"blur"}
+            placeholder="blur"
             width={heroImage.width}
             height={heroImage.height}
             alt={heroImage.alt}

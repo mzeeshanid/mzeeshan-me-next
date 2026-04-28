@@ -1,3 +1,4 @@
+import type { StaticImageData } from "next/image";
 import { IconType } from "react-icons";
 
 export type ImageConversionStatus = "active" | "coming_soon";
@@ -26,7 +27,7 @@ export type ImageConversionRoute = {
 export type ToolHeaderData = {
   title: string;
   subtitle: string;
-  icon: string;
+  icon: StaticImageData;
   alt: string;
   rounded: boolean;
 };

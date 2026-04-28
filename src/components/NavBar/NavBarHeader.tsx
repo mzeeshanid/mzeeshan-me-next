@@ -1,11 +1,12 @@
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
+import type { StaticImageData } from "next/image";
 import React from "react";
 
 export type NavBarHeaderProps = {
   title: string;
   subtitle: string;
-  icon: string;
+  icon: StaticImageData;
   alt: string;
   rounded?: boolean;
 };
@@ -26,6 +27,7 @@ const NavBarHeader: React.FC<NavBarHeaderProps> = (
           src={props.icon}
           alt={props.alt}
           style={{ objectFit: "cover" }}
+          placeholder="blur"
           priority
           sizes="60px"
         />

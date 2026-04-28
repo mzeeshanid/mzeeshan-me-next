@@ -14,7 +14,7 @@ const MyAppScreenshotCarousel: React.FC<Props> = (props: Props) => {
   const { screenshots } = props;
 
   return (
-    <ImageGalleryProvider images={screenshots}>
+    <ImageGalleryProvider images={screenshots.map((s) => ({ src: s.src.src, alt: s.alt }))}>
       <Carousel.Root
         gap={2}
         autoSize

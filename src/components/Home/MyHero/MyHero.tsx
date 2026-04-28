@@ -66,8 +66,9 @@ const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
                   style={{
                     objectFit: "cover",
                     width: "100%",
-                    height: "100%",
+                    height: "auto",
                   }}
+                  placeholder="blur"
                   priority
                   sizes="(max-width: 62em) 100vw, 50vw"
                 />

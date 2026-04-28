@@ -1,4 +1,10 @@
+import type { StaticImageData } from "next/image";
 import { IconType } from "react-icons";
+import jsonValidatorIcon from "../../../../public/assets/json_validator_formatter_icon.png";
+import jsonToCsvIcon from "../../../../public/assets/json_to_csv_icon.png";
+import jsonToYamlIcon from "../../../../public/assets/json_to_yaml_icon.png";
+import jsonToXmlIcon from "../../../../public/assets/json_to_xml_icon.png";
+import jsonToTypeScriptIcon from "../../../../public/assets/json_to_type_script_icon.png";
 import {
   FaArrowPointer,
   FaBugSlash,
@@ -12,7 +18,7 @@ import {
 export type JsonValidatorFormatterHeaderData = {
   title: string;
   subtitle: string;
-  icon: string;
+  icon: StaticImageData;
   alt: string;
   rounded: boolean;
 };
@@ -73,7 +79,7 @@ export const jsonValidatorFormatterHeaderData: JsonValidatorFormatterHeaderData 
   {
     title: "JSON Validator",
     subtitle: "Validate, format, inspect, and search JSON faster.",
-    icon: "/assets/json_validator_formatter_icon.png",
+    icon: jsonValidatorIcon,
     alt: "JSON Validator and Formatter icon",
     rounded: false,
   };
@@ -550,28 +556,28 @@ export const jsonConverterTabHeaderData: Record<
   csv: {
     title: "JSON to CSV Converter",
     subtitle: "Convert JSON arrays and objects to CSV in one click.",
-    icon: "/assets/json_to_csv_icon.png",
+    icon: jsonToCsvIcon,
     alt: "JSON to CSV Converter icon",
     rounded: false,
   },
   yaml: {
     title: "JSON to YAML Converter",
     subtitle: "Turn JSON into clean, readable YAML instantly.",
-    icon: "/assets/json_to_yaml_icon.png",
+    icon: jsonToYamlIcon,
     alt: "JSON to YAML Converter icon",
     rounded: false,
   },
   xml: {
     title: "JSON to XML Converter",
     subtitle: "Convert JSON to well-formed XML in your browser.",
-    icon: "/assets/json_to_xml_icon.png",
+    icon: jsonToXmlIcon,
     alt: "JSON to XML Converter icon",
     rounded: false,
   },
   typescript: {
     title: "JSON to TypeScript Interface Generator",
     subtitle: "Generate TypeScript interfaces from any JSON object.",
-    icon: "/assets/json_to_type_script_icon.png",
+    icon: jsonToTypeScriptIcon,
     alt: "JSON to TypeScript Converter icon",
     rounded: false,
   },

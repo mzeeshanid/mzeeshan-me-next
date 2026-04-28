@@ -16,7 +16,6 @@ const MyToolListingItem: React.FC<Props> = (props: Props) => {
           <HStack gap={4}>
             <Image
               src={tool.icon.src}
-              blurDataURL={tool.icon.src}
               placeholder="blur"
               alt={`${tool.title} icon`}
               width={54}
