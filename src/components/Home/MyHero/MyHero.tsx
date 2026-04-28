@@ -69,7 +69,6 @@ const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
                     height: "100%",
                   }}
                   priority
-                  fetchPriority="high"
                   sizes="(max-width: 62em) 100vw, 50vw"
                 />
               </Box>
