@@ -52,7 +52,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/apple-inapp-promotional-offer-signature-generator-for-testing",
+        source:
+          "/apple-inapp-promotional-offer-signature-generator-for-testing",
         destination:
           "/tools/apple-inapp-promotional-offer-signature-generator-for-testing",
         permanent: true,
@@ -107,6 +108,9 @@ const nextConfig: NextConfig = {
         hostname: "cdn.mzeeshan.me",
       },
     ],
+  },
+  experimental: {
+    optimizePackageImports: ["@chakra-ui/react"],
   },
 };
 
