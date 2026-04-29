@@ -71,7 +71,7 @@ const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
                     height: "100%",
                   }}
                   placeholder="blur"
-                  loading="eager"
+                  preload={true}
                   sizes="(max-width: 62em) 100vw, 50vw"
                 />
               </Box>
