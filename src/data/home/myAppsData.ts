@@ -1,8 +1,8 @@
 import { BasicImageDataModel } from "../basicImage/basicImageDataModel";
-import mzFileManageIcon from "../../../public/assets/mzfilemanage_appicon.png";
-import mzPlayerHDIcon from "../../../public/assets/mzplayer_hd_appicon.png";
-import mzVisitsIcon from "../../../public/assets/mzvisit_app_icon.png";
-import mz100Icon from "../../../public/assets/mz100_app_icon.png";
+import mzFileManageIcon from "public/assets/mzfilemanage_appicon.png";
+import mzPlayerHDIcon from "public/assets/mzplayer_hd_appicon.png";
+import mzVisitsIcon from "public/assets/mzvisit_app_icon.png";
+import mz100Icon from "public/assets/mz100_app_icon.png";
 
 export type MyAppsData = {
   tagline: string;

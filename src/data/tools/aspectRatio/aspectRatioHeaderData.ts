@@ -1,5 +1,5 @@
 import { NavBarHeaderProps } from "@/components/NavBar/NavBarHeader";
-import aspectRatioAppIcon from "../../../../public/assets/aspect_ratio_app_icon.png";
+import aspectRatioAppIcon from "public/assets/aspect_ratio_app_icon.png";
 
 /* Header */
 export const aspectRatioHeaderData: NavBarHeaderProps = {

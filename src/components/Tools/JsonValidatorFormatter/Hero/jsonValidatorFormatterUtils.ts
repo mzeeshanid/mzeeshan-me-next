@@ -1,4 +1,4 @@
-import { JsonPrimitive, JsonValue, JsonTypeName, SearchMatch, SelectedNode, SelectedNodeDetailRow, ValidationErrorDetails, ValidationState } from "./jsonValidatorFormatterTypes";
+import { DiffNode, DiffStats, JsonPrimitive, JsonValue, JsonTypeName, SearchMatch, SelectedNode, SelectedNodeDetailRow, ValidationErrorDetails, ValidationState } from "./jsonValidatorFormatterTypes";
 
 export const TYPE_COLORS: Record<JsonTypeName, string> = {
   object: "orange",
@@ -273,6 +273,25 @@ export const validateJson = (
       error: parsePositionFromError(message, processedText),
     };
   }
+};
+
+export const collectAllExpandablePaths = (
+  value: JsonValue,
+  path = "$",
+): Set<string> => {
+  const paths = new Set<string>();
+  if (Array.isArray(value)) {
+    paths.add(path);
+    value.forEach((item, index) => {
+      collectAllExpandablePaths(item, `${path}.${index}`).forEach((p) => paths.add(p));
+    });
+  } else if (value !== null && typeof value === "object") {
+    paths.add(path);
+    Object.entries(value as Record<string, JsonValue>).forEach(([key, child]) => {
+      collectAllExpandablePaths(child, `${path}.${key}`).forEach((p) => paths.add(p));
+    });
+  }
+  return paths;
 };
 
 export const collectSearchMatches = (
@@ -812,4 +831,117 @@ export const jsonToTypeScript = (
   const interfaces = new Map<string, string>();
   inferTsType(value, rootName, interfaces, opts);
   return Array.from(interfaces.values()).reverse().join("\n\n");
+};
+
+// ─── JSON Diff ────────────────────────────────────────────────────────────────
+
+const isPlainObject = (v: JsonValue | undefined): v is Record<string, JsonValue> =>
+  v !== null && v !== undefined && typeof v === "object" && !Array.isArray(v);
+
+const isContainer = (v: JsonValue | undefined): boolean =>
+  v !== null && v !== undefined && typeof v === "object";
+
+const flattenAsDiff = (value: JsonValue, type: "added" | "removed"): DiffNode[] => {
+  if (Array.isArray(value)) {
+    return value.map((item, i): DiffNode => ({
+      type,
+      key: String(i),
+      oldValue: type === "removed" ? item : undefined,
+      newValue: type === "added" ? item : undefined,
+      children: isContainer(item) ? flattenAsDiff(item, type) : undefined,
+    }));
+  }
+  if (isPlainObject(value)) {
+    return Object.entries(value).map(([k, v]): DiffNode => ({
+      type,
+      key: k,
+      oldValue: type === "removed" ? v : undefined,
+      newValue: type === "added" ? v : undefined,
+      children: isContainer(v) ? flattenAsDiff(v, type) : undefined,
+    }));
+  }
+  return [];
+};
+
+export const computeJsonDiff = (
+  oldVal: JsonValue,
+  newVal: JsonValue,
+  key = "root",
+): DiffNode => {
+  if (JSON.stringify(oldVal) === JSON.stringify(newVal)) {
+    return { type: "unchanged", key, oldValue: oldVal, newValue: newVal };
+  }
+
+  if (isPlainObject(oldVal) && isPlainObject(newVal)) {
+    const allKeys = [...new Set([...Object.keys(oldVal), ...Object.keys(newVal)])];
+    const children: DiffNode[] = allKeys.map((k): DiffNode => {
+      if (!(k in oldVal)) {
+        return {
+          type: "added", key: k, oldValue: undefined, newValue: newVal[k],
+          children: isContainer(newVal[k]) ? flattenAsDiff(newVal[k], "added") : undefined,
+        };
+      }
+      if (!(k in newVal)) {
+        return {
+          type: "removed", key: k, oldValue: oldVal[k], newValue: undefined,
+          children: isContainer(oldVal[k]) ? flattenAsDiff(oldVal[k], "removed") : undefined,
+        };
+      }
+      return computeJsonDiff(oldVal[k], newVal[k], k);
+    });
+    return { type: "nested", key, oldValue: oldVal, newValue: newVal, children };
+  }
+
+  if (Array.isArray(oldVal) && Array.isArray(newVal)) {
+    const len = Math.max(oldVal.length, newVal.length);
+    const children: DiffNode[] = Array.from({ length: len }, (_, i): DiffNode => {
+      if (i >= oldVal.length) {
+        return {
+          type: "added", key: String(i), oldValue: undefined, newValue: newVal[i],
+          children: isContainer(newVal[i]) ? flattenAsDiff(newVal[i], "added") : undefined,
+        };
+      }
+      if (i >= newVal.length) {
+        return {
+          type: "removed", key: String(i), oldValue: oldVal[i], newValue: undefined,
+          children: isContainer(oldVal[i]) ? flattenAsDiff(oldVal[i], "removed") : undefined,
+        };
+      }
+      return computeJsonDiff(oldVal[i], newVal[i], String(i));
+    });
+    return { type: "nested", key, oldValue: oldVal, newValue: newVal, children };
+  }
+
+  return { type: "changed", key, oldValue: oldVal, newValue: newVal };
+};
+
+export const countDiffStats = (node: DiffNode): DiffStats => {
+  if (node.type === "added") return { added: 1, removed: 0, changed: 0 };
+  if (node.type === "removed") return { added: 0, removed: 1, changed: 0 };
+  if (node.type === "changed") return { added: 0, removed: 0, changed: 1 };
+  if (!node.children) return { added: 0, removed: 0, changed: 0 };
+  return node.children.reduce(
+    (acc, child) => {
+      const s = countDiffStats(child);
+      return { added: acc.added + s.added, removed: acc.removed + s.removed, changed: acc.changed + s.changed };
+    },
+    { added: 0, removed: 0, changed: 0 },
+  );
+};
+
+const diffNodeHasAnyChange = (node: DiffNode): boolean => {
+  if (node.type === "added" || node.type === "removed" || node.type === "changed") return true;
+  return (node.children ?? []).some(diffNodeHasAnyChange);
+};
+
+export const collectDefaultExpandedDiffPaths = (node: DiffNode, path = "$"): Set<string> => {
+  const paths = new Set<string>();
+  if (!node.children || node.children.length === 0) return paths;
+  const shouldExpand = path === "$" || (node.type === "nested" && diffNodeHasAnyChange(node));
+  if (!shouldExpand) return paths;
+  paths.add(path);
+  node.children.forEach((child) => {
+    collectDefaultExpandedDiffPaths(child, `${path}.${child.key}`).forEach((p) => paths.add(p));
+  });
+  return paths;
 };

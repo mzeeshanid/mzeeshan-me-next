@@ -1,4 +1,5 @@
 import { getBaseUrl } from '@/baseUrl/getBaseUrl';
+import { getBeBaseUrl } from '@/baseUrl/getBeBaseUrl';
 import strapiClient from '@/strapiClient/strapiClient';
 import { MyStrapiError } from '@/strapiClient/strapiError';
 import { API } from '@strapi/client';
@@ -10,6 +11,7 @@ export interface SampleFilesExtensionModel extends API.Document {
   slug: string;
   info: string;
   isFeatured: boolean;
+  downloads?: number;
   type?: { id: number; documentId: string; name: string; slug: string };
 }
 
@@ -20,11 +22,12 @@ export const fetchSampleFilesExtensionsStrapi = async (
   limit: number = 50,
   page: number = 1,
   categorySlug?: string,
-  isFeatured?: boolean
+  isFeatured?: boolean,
+  sort?: { field: string; order: 'asc' | 'desc' }
 ): Promise<SampleFilesExtensionResponseCollection> => {
   try {
     const filters: any = {};
-    
+
     if (keyword) {
       filters.$or = [
         { name: { $containsi: keyword } },
@@ -32,26 +35,27 @@ export const fetchSampleFilesExtensionsStrapi = async (
         { info: { $containsi: keyword } },
       ];
     }
-    
+
     if (categorySlug) {
       filters.type = {
         slug: { $eq: categorySlug },
       };
     }
-    
+
     if (isFeatured !== undefined) {
       filters.isFeatured = { $eq: isFeatured };
     }
-    
+
     const response = await strapiClient()
     .collection("sample-file-extensions")
     .find({
-      fields: ["id", "name", "slug", "info", "isFeatured"],
+      fields: ["id", "name", "slug", "info", "isFeatured", "downloads"],
       pagination: { page, pageSize: limit },
       filters,
       populate: ["type"],
+      ...(sort ? { sort: [`${sort.field}:${sort.order}`] } : {}),
     });
-    
+
     return response as SampleFilesExtensionResponseCollection;
   } catch (error: any) {
     throw new MyStrapiError(
@@ -148,4 +152,65 @@ export const fetchSampleFilesExtensionsNextJs = async (
 
     throw error;
   }
+};
+
+export interface SampleFilesStatsModel {
+  totalDownloads: number;
+  totalVariants: number;
+  totalExtensions: number;
+  totalCategories: number;
+  totalRequests: number;
+}
+
+export const incrementExtensionDownloadCountStrapi = async (
+  extensionDocumentId: string,
+): Promise<{ success: boolean; message: string }> => {
+  const beBaseUrl = getBeBaseUrl();
+  const apiToken = process.env.BE_STRAPI_API_TOKEN;
+
+  if (!apiToken) {
+    throw new Error("BE_STRAPI_API_TOKEN is not defined");
+  }
+
+  const response = await fetch(
+    `${beBaseUrl}/api/sample-file-extensions/${extensionDocumentId}/increment-download`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${apiToken}`,
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new MyStrapiError(
+      "Failed to increment extension download count",
+      response.status,
+    );
+  }
+
+  return response.json();
+};
+
+export const fetchSampleFilesStatsStrapi = async (): Promise<SampleFilesStatsModel> => {
+  const beBaseUrl = getBeBaseUrl();
+  const apiToken = process.env.BE_STRAPI_API_TOKEN;
+
+  if (!apiToken) {
+    throw new Error("BE_STRAPI_API_TOKEN is not defined");
+  }
+
+  const response = await fetch(`${beBaseUrl}/api/sample-file-stats`, {
+    headers: {
+      Authorization: `Bearer ${apiToken}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new MyStrapiError("Failed to fetch sample files stats", response.status);
+  }
+
+  return response.json();
 };

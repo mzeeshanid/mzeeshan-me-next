@@ -1,6 +1,6 @@
 import { MyAppMetaDataModel } from "../myAppMetaData";
-import mzPlayerHDHero from "../../../../public/assets/mzplayerhd/mzplayerhd_hero.png";
-import mzPlayerHDIcon from "../../../../public/assets/mzplayer_hd_appicon.png";
+import mzPlayerHDHero from "public/assets/mzplayerhd/mzplayerhd_hero.png";
+import mzPlayerHDIcon from "public/assets/mzplayer_hd_appicon.png";
 
 export const mzPlayerHDMetaData: MyAppMetaDataModel = {
     badge: "YouTube video player",

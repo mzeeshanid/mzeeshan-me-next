@@ -1,5 +1,11 @@
 import { fetchArticleBySlugStrapi } from "@/apis/articles/articleDetail";
 import { ArticleModel } from "@/apis/articles/articles";
+import {
+  fetchSampleFilesExtensionsStrapi,
+  fetchSampleFilesStatsStrapi,
+  SampleFilesExtensionModel,
+  SampleFilesStatsModel,
+} from "@/apis/sampleFiles/sampleFilesExtension";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
@@ -9,6 +15,7 @@ import SampleFilesFaqs from "@/components/Tools/SampleFiles/Faq/SampleFilesFaqs"
 import { sampleFilesHeaderData } from "@/data/tools/sampleFiles/sampleFilesHeaderData";
 import { Box, Container, Spacer } from "@chakra-ui/react";
 import React from "react";
+import dynamic from "next/dynamic";
 import SampleFilesHero from "@/components/Tools/SampleFiles/Hero/SampleFilesHero";
 import SampleFilesFeatured from "@/components/Tools/SampleFiles/Featured/SampleFilesFeatured";
 import SampleFilesExtensions from "@/components/Tools/SampleFiles/Extensions/SampleFilesExtensions";
@@ -16,19 +23,26 @@ import SampleFilesFeatures from "@/components/Tools/SampleFiles/Features/SampleF
 import SampleFilesRequestFile from "@/components/Tools/SampleFiles/RequestFile/SampleFilesRequestFile";
 import SampleFilesCTA from "@/components/Tools/SampleFiles/CTA/SampleFilesCTA";
 import { GetStaticProps } from "next";
-import {
-  fetchSampleFilesExtensionsStrapi,
-  SampleFilesExtensionModel,
-} from "@/apis/sampleFiles/sampleFilesExtension";
 import SampleFilesCategories from "@/components/Tools/SampleFiles/Categories/SampleFilesCategories";
 import { sampleFilesFAQData } from "@/data/tools/sampleFiles/sampleFilesFaqsData";
 import SampleFilesSeo from "@/components/Tools/SampleFiles/Seo/SampleFilesSeo";
 import { sampleFilesWorkingData } from "@/data/tools/sampleFiles/sampleFilesWorkingData";
+import SampleFilesPopularFormats from "@/components/Tools/SampleFiles/Popular/SampleFilesPopularFormats";
+import SampleFilesChartsSkeleton from "@/components/Tools/SampleFiles/Charts/SampleFilesChartsSkeleton";
+import { SampleFilesChartsData } from "@/components/Tools/SampleFiles/Charts/SampleFilesCharts";
+
+const SampleFilesCharts = dynamic(
+  () => import("@/components/Tools/SampleFiles/Charts/SampleFilesCharts"),
+  { ssr: false, loading: () => <SampleFilesChartsSkeleton /> },
+);
 
 type Props = {
   article?: ArticleModel;
   extensions: SampleFilesExtensionModel[];
   featuredExtensions?: SampleFilesExtensionModel[];
+  stats: SampleFilesStatsModel | null;
+  popularExtensions: SampleFilesExtensionModel[] | null;
+  chartsData: SampleFilesChartsData | null;
 };
 
 const SampleFilesHome: React.FC<Props> = (props: Props) => {
@@ -63,6 +77,15 @@ const SampleFilesHome: React.FC<Props> = (props: Props) => {
         <SampleFilesFeatured featured={props.featuredExtensions || []} />
       </Container>
 
+      {props.popularExtensions && props.popularExtensions.length > 0 && (
+        <>
+          <Spacer p={4} />
+          <Container maxW="6xl">
+            <SampleFilesPopularFormats extensions={props.popularExtensions} />
+          </Container>
+        </>
+      )}
+
       <Spacer p={4} />
       <Container maxW="6xl">
         <SampleFilesExtensions
@@ -83,8 +106,17 @@ const SampleFilesHome: React.FC<Props> = (props: Props) => {
 
       <Spacer p={8} />
       <Container maxW="6xl">
-        <SampleFilesStats />
+        <SampleFilesStats dynamicStats={props.stats ?? undefined} />
       </Container>
+
+      {props.chartsData && (
+        <>
+          <Spacer p={8} />
+          <Container maxW="6xl">
+            <SampleFilesCharts chartsData={props.chartsData} />
+          </Container>
+        </>
+      )}
 
       <Spacer p={8} />
       <Container maxW="6xl">
@@ -127,19 +159,48 @@ const SampleFilesHome: React.FC<Props> = (props: Props) => {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
-    const [allExtensionsResponse, featuredResponse, article] =
+    const [allExtensionsResponse, featuredResponse, article, stats, popularResponse] =
       await Promise.all([
         fetchSampleFilesExtensionsStrapi(undefined, 200, 1, undefined),
         fetchSampleFilesExtensionsStrapi(undefined, 8, 1, undefined, true),
         fetchArticleBySlugStrapi(
           "download-sample-files-for-testing-development",
         ),
+        fetchSampleFilesStatsStrapi().catch(() => null),
+        fetchSampleFilesExtensionsStrapi(
+          undefined, 6, 1, undefined, undefined,
+          { field: "downloads", order: "desc" }
+        ).catch(() => null),
       ]);
+
+    const allExtensions = allExtensionsResponse.data ?? [];
+    const popularExts = popularResponse?.data ?? [];
+
+    // Bar chart: top extensions by downloads
+    const topExtensions = popularExts
+      .filter((ext) => (ext.downloads ?? 0) > 0)
+      .map((ext) => ({ name: ext.name, downloads: ext.downloads! }));
+
+    // Donut chart: count of extensions per category
+    const categoryMap = new Map<string, number>();
+    for (const ext of allExtensions) {
+      if (!ext.type) continue;
+      categoryMap.set(ext.type.name, (categoryMap.get(ext.type.name) ?? 0) + 1);
+    }
+    const byCategory = Array.from(categoryMap.entries())
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value);
+
+    const chartsData = byCategory.length > 0 ? { topExtensions, byCategory } : null;
+
     return {
       props: {
         article,
-        extensions: allExtensionsResponse.data || [],
+        extensions: allExtensions,
         featuredExtensions: featuredResponse.data || [],
+        stats: stats ?? null,
+        popularExtensions: popularResponse?.data ?? null,
+        chartsData,
       },
       revalidate: 3600,
     };
@@ -149,6 +210,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       props: {
         extensions: [],
         featuredExtensions: [],
+        stats: null,
+        popularExtensions: null,
+        chartsData: null,
       },
       revalidate: 60,
     };

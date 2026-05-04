@@ -1,4 +1,4 @@
-import appIconGeneratorAppIcon from "../../../../public/assets/app_icon_generator_app_icon.png";
+import appIconGeneratorAppIcon from "public/assets/app_icon_generator_app_icon.png";
 import {
   FaAndroid,
   FaApple,

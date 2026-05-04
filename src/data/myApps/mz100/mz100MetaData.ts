@@ -1,6 +1,6 @@
 import { MyAppMetaDataModel } from "../myAppMetaData";
-import mz100Hero from "../../../../public/assets/mz100/mz100_hero.png";
-import mz100Icon from "../../../../public/assets/mz100_app_icon.png";
+import mz100Hero from "public/assets/mz100/mz100_hero.png";
+import mz100Icon from "public/assets/mz100_app_icon.png";
 
 export const mz100MetaData: MyAppMetaDataModel = {
     badge: "Game, Puzzle",

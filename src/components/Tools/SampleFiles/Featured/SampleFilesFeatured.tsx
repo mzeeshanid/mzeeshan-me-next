@@ -16,9 +16,9 @@ const SampleFilesFeatured: React.FC<Props> = (props: Props) => {
     <Box as="section">
       <SectionHeader
         tagline={"Featured"}
-        headline={"Explore Popular Sample File Formats"}
+        headline={"Featured Sample Files"}
         description={
-          "Discover the most popular and commonly used sample file formats."
+          "Discover the handpicked featured and commonly used sample file formats."
         }
       />
       <Spacer p={4} />

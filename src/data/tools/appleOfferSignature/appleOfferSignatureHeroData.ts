@@ -1,5 +1,5 @@
 import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel";
-import promoOfferHero from "../../../../public/assets/promotional_offer_hero.png";
+import promoOfferHero from "public/assets/promotional_offer_hero.png";
 
 type AppleOfferSignatureHeroData = {
     tagline: string;

@@ -1,17 +1,20 @@
 import { BasicImageDataModel } from "../basicImage/basicImageDataModel";
-import sampleFilesIcon from "../../../public/assets/mzfilemanage_appicon.png";
-import aspectRatioIcon from "../../../public/assets/aspect_ratio_app_icon.png";
-import driveDirectIcon from "../../../public/assets/drive_direct_icon.png";
-import stringMetricIcon from "../../../public/assets/string_metric_app_icon.png";
-import jsonValidatorIcon from "../../../public/assets/json_validator_formatter_icon.png";
-import jsonToCsvIcon from "../../../public/assets/json_to_csv_icon.png";
-import jsonToYamlIcon from "../../../public/assets/json_to_yaml_icon.png";
-import jsonToXmlIcon from "../../../public/assets/json_to_xml_icon.png";
-import jsonToTypeScriptIcon from "../../../public/assets/json_to_type_script_icon.png";
-import imageConverterIcon from "../../../public/assets/image_format_converter_icon.png";
-import appIconGeneratorIcon from "../../../public/assets/app_icon_generator_app_icon.png";
-import promoOfferIcon from "../../../public/assets/promotional_offer_appicon.png";
-import unixTimestampIcon from "../../../public/assets/unix_time_stamp_icon.png";
+import sampleFilesIcon from "public/assets/mzfilemanage_appicon.png";
+import aspectRatioIcon from "public/assets/aspect_ratio_app_icon.png";
+import driveDirectIcon from "public/assets/drive_direct_icon.png";
+import stringMetricIcon from "public/assets/string_metric_app_icon.png";
+import jsonValidatorIcon from "public/assets/json_validator_formatter_icon.png";
+import jsonToCsvIcon from "public/assets/json_to_csv_icon.png";
+import jsonToYamlIcon from "public/assets/json_to_yaml_icon.png";
+import jsonToXmlIcon from "public/assets/json_to_xml_icon.png";
+import jsonToTypeScriptIcon from "public/assets/json_to_type_script_icon.png";
+import imageConverterIcon from "public/assets/image_format_converter_icon.png";
+import appIconGeneratorIcon from "public/assets/app_icon_generator_app_icon.png";
+import promoOfferIcon from "public/assets/promotional_offer_appicon.png";
+import unixTimestampIcon from "public/assets/unix_time_stamp_icon.png";
+import base64EncoderDecoderIcon from "public/assets/base64_encoder_decoder_icon.png";
+import salaryTaxCalculatorIcon from "public/assets/salary_tax_calculator_icon.png";
+import freelanceTaxCalculatorIcon from "public/assets/freelance_tax_calculator_icon.png";
 
 export type MyToolsData = {
   tagline: string;
@@ -202,6 +205,45 @@ export const myToolsData: MyToolsData = {
         height: 300,
       },
       url: "/tools/unix-timestamp-converter",
+    },
+    {
+      title: "Base64 Tool",
+      caption: "Encode It!",
+      detail:
+        "Encode and decode plain text, images, and files to Base64 in your browser — with Base64URL support and ready-to-use HTML/CSS snippets.",
+      icon: {
+        src: base64EncoderDecoderIcon,
+        alt: "Base64 Encoder Decoder icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/base64-encoder-decoder",
+    },
+    {
+      title: "Salary Tax Calculator",
+      caption: "Calculate It!",
+      detail:
+        "Calculate your net take-home salary with Pakistan FBR's latest 2025-26 income tax slabs — with visual charts and step-by-step breakdown.",
+      icon: {
+        src: salaryTaxCalculatorIcon,
+        alt: "Pakistan Salary Tax Calculator icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/salary-tax-calculator",
+    },
+    {
+      title: "Freelance Tax Calculator",
+      caption: "Calculate It!",
+      detail:
+        "Calculate your Pakistan freelance income tax under PSEB (0.25%) or standard Section 154A (1%) withholding on foreign income — with visual charts.",
+      icon: {
+        src: freelanceTaxCalculatorIcon,
+        alt: "Pakistan Freelance Tax Calculator icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/freelance-tax-calculator",
     },
   ],
 };

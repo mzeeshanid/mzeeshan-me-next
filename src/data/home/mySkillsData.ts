@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
-import xcodeIcon from "../../../public/assets/xcode_app_icon.png";
-import reactIcon from "../../../public/assets/react_app_icon.png";
+import xcodeIcon from "public/assets/xcode_app_icon.png";
+import reactIcon from "public/assets/react_app_icon.png";
 
 export type MySkill = {
     tagline: string;

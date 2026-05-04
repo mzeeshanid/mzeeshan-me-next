@@ -1,6 +1,6 @@
 import { MyAppMetaDataModel } from "../myAppMetaData";
-import mzFileManageHero from "../../../../public/assets/mzfilemanage/mzfilemanage_hero.png";
-import mzFileManageIcon from "../../../../public/assets/mzfilemanage_appicon.png";
+import mzFileManageHero from "public/assets/mzfilemanage/mzfilemanage_hero.png";
+import mzFileManageIcon from "public/assets/mzfilemanage_appicon.png";
 
 export const mzFileManageMetaData: MyAppMetaDataModel = {
     badge: "File and download manager",

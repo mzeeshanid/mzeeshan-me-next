@@ -16,12 +16,21 @@ import {
 } from "@chakra-ui/react";
 import { Highlight, themes } from "prism-react-renderer";
 import React from "react";
-import { softPrettifyJson, stripTrailingCommas, tryRemoveEscapeCharacters, validateJson } from "./jsonValidatorFormatterUtils";
+import {
+  softPrettifyJson,
+  stripTrailingCommas,
+  tryRemoveEscapeCharacters,
+  validateJson,
+} from "./jsonValidatorFormatterUtils";
 import InputErrorPanel from "./InputErrorPanel";
 import JsonToolSettings, { ToolId } from "./JsonToolSettings";
 import type { ValidationErrorDetails } from "./jsonValidatorFormatterTypes";
 
-type ConvertOpts = { sortKeys: boolean; sortOrder: "asc" | "desc"; allowComments: boolean };
+type ConvertOpts = {
+  sortKeys: boolean;
+  sortOrder: "asc" | "desc";
+  allowComments: boolean;
+};
 
 type Props = {
   storageKey: string;
@@ -93,23 +102,49 @@ const JsonConverterPanel: React.FC<Props> = ({
       : themes.gruvboxMaterialLight
     : undefined;
   const [activeTab, setActiveTab] = React.useState("input");
-  const [inputError, setInputError] = React.useState<ValidationErrorDetails | null>(null);
+  const [inputError, setInputError] =
+    React.useState<ValidationErrorDetails | null>(null);
 
   const sk = `mz-json-${storageKey}`;
-  const [syntaxHighlight, setSyntaxHighlight] = useLocalStorage(`${sk}-syntax-highlight`, true);
-  const [showLineNumbers, setShowLineNumbers] = useLocalStorage(`${sk}-show-line-numbers`, true);
+  const [syntaxHighlight, setSyntaxHighlight] = useLocalStorage(
+    `${sk}-syntax-highlight`,
+    true,
+  );
+  const [showLineNumbers, setShowLineNumbers] = useLocalStorage(
+    `${sk}-show-line-numbers`,
+    true,
+  );
   const [wordWrap, setWordWrap] = useLocalStorage(`${sk}-word-wrap`, false);
   const [fontSize, setFontSize] = useLocalStorage(`${sk}-font-size`, 14);
   const [indent, setIndent] = useLocalStorage(`${sk}-indent`, 2);
-  const [indentStyle, setIndentStyle] = useLocalStorage<"spaces" | "tabs">(`${sk}-indent-style`, "spaces");
+  const [indentStyle, setIndentStyle] = useLocalStorage<"spaces" | "tabs">(
+    `${sk}-indent-style`,
+    "spaces",
+  );
   const [sortKeys, setSortKeys] = useLocalStorage(`${sk}-sort-keys`, false);
-  const [sortOrder, setSortOrder] = useLocalStorage<"asc" | "desc">(`${sk}-sort-order`, "asc");
-  const [trailingCommas, setTrailingCommas] = useLocalStorage(`${sk}-trailing-commas`, false);
-  const [allowComments, setAllowComments] = useLocalStorage(`${sk}-allow-comments`, false);
+  const [sortOrder, setSortOrder] = useLocalStorage<"asc" | "desc">(
+    `${sk}-sort-order`,
+    "asc",
+  );
+  const [trailingCommas, setTrailingCommas] = useLocalStorage(
+    `${sk}-trailing-commas`,
+    false,
+  );
+  const [allowComments, setAllowComments] = useLocalStorage(
+    `${sk}-allow-comments`,
+    false,
+  );
 
   React.useEffect(() => {
     if (!inputValue.trim()) return;
-    const next = validateJson(inputValue, { indent, indentStyle, sortKeys, sortOrder, trailingCommas, allowComments });
+    const next = validateJson(inputValue, {
+      indent,
+      indentStyle,
+      sortKeys,
+      sortOrder,
+      trailingCommas,
+      allowComments,
+    });
     if (next.formatted) onInputChange(next.formatted);
     // intentionally only re-runs when formatting options change
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -149,8 +184,11 @@ const JsonConverterPanel: React.FC<Props> = ({
   };
 
   const handleConvert = () => {
-    const processedInput = trailingCommas ? stripTrailingCommas(inputValue) : inputValue;
-    if (trailingCommas && processedInput !== inputValue) onInputChange(processedInput);
+    const processedInput = trailingCommas
+      ? stripTrailingCommas(inputValue)
+      : inputValue;
+    if (trailingCommas && processedInput !== inputValue)
+      onInputChange(processedInput);
     onConvert(processedInput, { sortKeys, sortOrder, allowComments });
     setActiveTab("output");
   };
@@ -164,7 +202,14 @@ const JsonConverterPanel: React.FC<Props> = ({
   const handleFormat = () => {
     const expanded = softPrettifyJson(inputValue, indent);
     const textToValidate = expanded !== inputValue ? expanded : inputValue;
-    const result = validateJson(textToValidate, { indent, indentStyle, sortKeys, sortOrder, trailingCommas, allowComments });
+    const result = validateJson(textToValidate, {
+      indent,
+      indentStyle,
+      sortKeys,
+      sortOrder,
+      trailingCommas,
+      allowComments,
+    });
     if (result.formatted) {
       onInputChange(result.formatted);
       setInputError(null);
@@ -297,7 +342,11 @@ const JsonConverterPanel: React.FC<Props> = ({
           zIndex={1}
           bg="transparent"
           color={syntaxHighlight && prismTheme ? "transparent" : undefined}
-          style={syntaxHighlight && prismTheme ? { caretColor: colorMode === "dark" ? "white" : "black" } : undefined}
+          style={
+            syntaxHighlight && prismTheme
+              ? { caretColor: colorMode === "dark" ? "white" : "black" }
+              : undefined
+          }
           px="12px"
           pt="8px"
           pb="8px"
@@ -343,7 +392,7 @@ const JsonConverterPanel: React.FC<Props> = ({
                 {"Remove White Space"}
               </Button>
               <Button variant="surface" onClick={handleRemoveEscapeCharacters}>
-                {"Remove Escape Characters"}
+                {"Remove Escape Chars"}
               </Button>
               <Button variant="ghost" onClick={handleClear}>
                 {"Clear"}
@@ -389,7 +438,10 @@ const JsonConverterPanel: React.FC<Props> = ({
               <Field.Label>{inputLabel}</Field.Label>
               {textareaWithGutter(
                 inputValue,
-                (v) => { onInputChange(v); setInputError(null); },
+                (v) => {
+                  onInputChange(v);
+                  setInputError(null);
+                },
                 inputTextareaRef,
                 inputGutterRef,
                 inputPreRef,
@@ -414,7 +466,10 @@ const JsonConverterPanel: React.FC<Props> = ({
             <HStack gap={3} flexWrap="wrap">
               <Clipboard.Root value={outputValue}>
                 <Clipboard.Trigger asChild>
-                  <Button variant="surface" disabled={!outputValue && !outputError}>
+                  <Button
+                    variant="surface"
+                    disabled={!outputValue && !outputError}
+                  >
                     <Clipboard.Indicator />
                     <Clipboard.CopyText />
                   </Button>
@@ -436,7 +491,13 @@ const JsonConverterPanel: React.FC<Props> = ({
             <Field.Root>
               <Field.Label>{outputLabel}</Field.Label>
               {outputError ? (
-                <Box w="full" borderWidth="1px" borderRadius="md" p={4} bg="bg.panel">
+                <Box
+                  w="full"
+                  borderWidth="1px"
+                  borderRadius="md"
+                  p={4}
+                  bg="bg.panel"
+                >
                   <Text color="fg.error" fontFamily="mono" fontSize="sm">
                     {outputError}
                   </Text>

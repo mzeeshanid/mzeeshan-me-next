@@ -1,6 +1,6 @@
 import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel"
 import { AspectRatioSectionHeaderModel } from "./aspectRatioData"
-import aspectRatioHero from "../../../../public/assets/aspect_ratio_hero.png"
+import aspectRatioHero from "public/assets/aspect_ratio_hero.png"
 
 export type AspectRatioInstructionsData = {
     header: AspectRatioSectionHeaderModel,

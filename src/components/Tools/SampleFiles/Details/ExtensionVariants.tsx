@@ -533,14 +533,14 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
       if (!getVariantDownloadUrl(variant)) return;
       try {
         setDownloadingId(variant.documentId);
-        await incrementVariantDownloadCount(variant.documentId);
+        await incrementVariantDownloadCount(variant.documentId, extension.documentId);
       } catch {
         // silent
       } finally {
         setDownloadingId(null);
       }
     },
-    [],
+    [extension.documentId],
   );
 
   const toggleSection = React.useCallback((key: string) => {

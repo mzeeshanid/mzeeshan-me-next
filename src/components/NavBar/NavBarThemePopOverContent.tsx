@@ -11,6 +11,7 @@ import { LuMoon, LuSun } from "react-icons/lu";
 import { useColorPalette } from "../../contexts/useColorPalette";
 import navBarData from "../../data/navBar/navBarData";
 import { useColorMode } from "../ui/color-mode";
+import { useMounted } from "@/hooks/useMounted";
 
 type NavBarThemePopOverContentProps = {};
 
@@ -20,6 +21,7 @@ const NavBarThemePopOverContent: React.FC<NavBarThemePopOverContentProps> = (
   const { colorMode, toggleColorMode } = useColorMode();
   const { themeColors } = navBarData();
   const { palette, setPalette } = useColorPalette();
+  const mounted = useMounted();
 
   return (
     <Stack>
@@ -30,7 +32,7 @@ const NavBarThemePopOverContent: React.FC<NavBarThemePopOverContentProps> = (
           aria-label="toggle dark light theme"
           onClick={toggleColorMode}
         >
-          <Icon as={colorMode === "light" ? LuSun : LuMoon} />
+          {mounted && <Icon as={colorMode === "light" ? LuSun : LuMoon} />}
         </Button>
       </HStack>
       <Stack>

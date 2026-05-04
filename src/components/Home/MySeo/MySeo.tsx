@@ -1,6 +1,6 @@
 import { absoluteUrl } from "@/baseUrl/absoluteUrl";
 import mySEOData from "@/data/home/mySEOData";
-import { ClaimReviewJsonLd, ProfilePageJsonLd } from "next-seo";
+import { ProfilePageJsonLd } from "next-seo";
 import { generateNextSeo } from "next-seo/pages";
 import Head from "next/head";
 import React from "react";
@@ -56,20 +56,6 @@ const MySeo: React.FC<MySeoProps> = (props: MySeoProps) => {
           sameAs: mySeo.sameAs,
         }}
       />
-      {mySeo.reviewsData.reviews.map((review, idx) => (
-        <ClaimReviewJsonLd
-          key={idx}
-          claimReviewed={review.text}
-          reviewRating={{
-            ratingValue: review.rating,
-            bestRating: 5,
-            worstRating: 1,
-            alternateName: review.platform,
-          }}
-          url={review.source}
-          author={review.name}
-        />
-      ))}
     </>
   );
 };

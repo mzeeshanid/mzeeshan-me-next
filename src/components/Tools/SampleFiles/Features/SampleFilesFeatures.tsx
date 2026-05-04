@@ -28,7 +28,7 @@ const SampleFilesFeatures: React.FC<Props> = () => {
       <Spacer p={4} />
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={4}>
         {data.features.map((feature, index) => (
-          <GridItem key={index}>
+          <GridItem key={index} display="flex" alignItems="stretch">
             <SampleFilesFeatureItem feature={feature} />
             {/* <MyPerformanceStatItem
               title={stat.title}

@@ -1,5 +1,5 @@
 import { NavBarHeaderProps } from "@/components/NavBar/NavBarHeader";
-import promoOfferIcon from "../../../../public/assets/promotional_offer_appicon.png";
+import promoOfferIcon from "public/assets/promotional_offer_appicon.png";
 
 /* Header */
 export const appleOfferSignatureHeaderData: NavBarHeaderProps = {

@@ -1,5 +1,5 @@
 import { NavBarHeaderProps } from "@/components/NavBar/NavBarHeader";
-import sampleFilesIcon from "../../../../public/assets/mzfilemanage_appicon.png";
+import sampleFilesIcon from "public/assets/mzfilemanage_appicon.png";
 
 /* Header */
 export const sampleFilesHeaderData: NavBarHeaderProps = {

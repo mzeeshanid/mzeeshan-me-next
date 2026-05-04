@@ -1,10 +1,10 @@
 import type { StaticImageData } from "next/image";
 import { IconType } from "react-icons";
 import { FaUpwork, FaArrowUpRightFromSquare } from "react-icons/fa6";
-import heroImg from "../../../public/assets/mzeeshan_me_hero.jpeg";
-import xcodeIcon from "../../../public/assets/xcode_app_icon.png";
-import iosIcon from "../../../public/assets/ios_app_icon.png";
-import reactIcon from "../../../public/assets/react_app_icon.png";
+import heroImg from "public/assets/mzeeshan_me_hero.jpeg";
+import xcodeIcon from "public/assets/xcode_app_icon.png";
+import iosIcon from "public/assets/ios_app_icon.png";
+import reactIcon from "public/assets/react_app_icon.png";
 
 type MyHeroData = {
     tagline: string;

@@ -272,7 +272,7 @@ const JsonValidatorFormatterHero: React.FC = () => {
                   variant="surface"
                   onClick={handleRemoveEscapeCharacters}
                 >
-                  {"Remove Escape Characters"}
+                  {"Remove Escape Chars"}
                 </Button>
                 <Button variant="ghost" onClick={handleClear}>
                   {"Clear"}
