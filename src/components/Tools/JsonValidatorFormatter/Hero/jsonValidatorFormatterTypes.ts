@@ -37,3 +37,19 @@ export type SelectedNodeDetailRow = {
   key: string;
   value: JsonValue;
 };
+
+export type DiffType = "added" | "removed" | "changed" | "unchanged" | "nested";
+
+export interface DiffNode {
+  type: DiffType;
+  key: string;
+  oldValue: JsonValue | undefined;
+  newValue: JsonValue | undefined;
+  children?: DiffNode[];
+}
+
+export interface DiffStats {
+  added: number;
+  removed: number;
+  changed: number;
+}

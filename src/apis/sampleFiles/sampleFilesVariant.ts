@@ -61,6 +61,7 @@ export const incrementVariantDownloadCountStrapi = async (
  */
 export const incrementVariantDownloadCount = async (
   variantDocumentId: string,
+  extensionDocumentId?: string,
 ): Promise<{ success: boolean }> => {
   const baseUrl = getBaseUrl();
 
@@ -72,6 +73,9 @@ export const incrementVariantDownloadCount = async (
         headers: {
           "Content-Type": "application/json",
         },
+        body: extensionDocumentId
+          ? JSON.stringify({ extensionDocumentId })
+          : undefined,
       },
     );
 

@@ -1,3 +1,4 @@
+import { SampleFilesStatsModel } from "@/apis/sampleFiles/sampleFilesExtension";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import {
   Box,
@@ -9,13 +10,25 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-import { sampleFilesStatsData } from "@/data/tools/sampleFiles/sampleFilesStatsData";
+import {
+  formatStatsValue,
+  sampleFilesStatsData,
+} from "@/data/tools/sampleFiles/sampleFilesStatsData";
 import SampleFilesStatItem from "./SampleFilesStatItem";
 
-type Props = {};
+type Props = {
+  dynamicStats?: SampleFilesStatsModel;
+};
 
-const SampleFilesStats: React.FC<Props> = (props: Props) => {
-  const statsData = sampleFilesStatsData;
+const SampleFilesStats: React.FC<Props> = ({ dynamicStats }) => {
+  const resolvedItems = sampleFilesStatsData.stats.map((item) => {
+    if (!dynamicStats) return item;
+    const raw = dynamicStats[item.key];
+    if (raw == null) return item;
+    const { value, unit } = formatStatsValue(raw);
+    return { ...item, value, unit };
+  });
+
   return (
     <Box as="section">
       <Card.Root>
@@ -24,7 +37,7 @@ const SampleFilesStats: React.FC<Props> = (props: Props) => {
             <VStack gap={8}>
               <SectionHeader textAlign="center" headline={"Stats"} />
               <SimpleGrid w="full" minChildWidth={200} gap={4}>
-                {statsData.stats.map((item, idx) => (
+                {resolvedItems.map((item, idx) => (
                   <GridItem key={idx}>
                     <SampleFilesStatItem idx={idx} item={item} />
                   </GridItem>

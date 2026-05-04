@@ -1,6 +1,6 @@
 import { MyAppMetaDataModel } from "../myAppMetaData";
-import mzVisitsHero from "../../../../public/assets/mzvisits/mzvisits_hero.png";
-import mzVisitsIcon from "../../../../public/assets/mzvisit_app_icon.png";
+import mzVisitsHero from "public/assets/mzvisits/mzvisits_hero.png";
+import mzVisitsIcon from "public/assets/mzvisit_app_icon.png";
 
 export const mzVisitsMetaData: MyAppMetaDataModel = {
     badge: "Travelling tracker",

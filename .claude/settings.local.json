@@ -15,7 +15,9 @@
       "Read(//Users/aliaslam/Downloads/MyAudios/**)",
       "Read(//Users/aliaslam/Downloads/MyAudios/FLAC Base Files/**)",
       "mcp__chakra-ui__get_component_example",
-      "Bash(grep -E \"\\\\.\\(ts|tsx|json\\)$\")"
+      "Bash(grep -E \"\\\\.\\(ts|tsx|json\\)$\")",
+      "WebSearch",
+      "WebFetch(domain:base64.guru)"
     ]
   }
 }

@@ -1,6 +1,6 @@
 import { Box, Button, Heading, Link, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
-import profilePic from "../../../public/assets/profile_pic.jpeg";
+import profilePic from "public/assets/profile_pic.jpeg";
 import { useColorPalette } from "../../contexts/useColorPalette";
 
 type FooterContactMeProps = {};

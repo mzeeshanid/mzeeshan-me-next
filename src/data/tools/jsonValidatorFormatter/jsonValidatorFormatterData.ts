@@ -1,10 +1,10 @@
 import type { StaticImageData } from "next/image";
 import { IconType } from "react-icons";
-import jsonValidatorIcon from "../../../../public/assets/json_validator_formatter_icon.png";
-import jsonToCsvIcon from "../../../../public/assets/json_to_csv_icon.png";
-import jsonToYamlIcon from "../../../../public/assets/json_to_yaml_icon.png";
-import jsonToXmlIcon from "../../../../public/assets/json_to_xml_icon.png";
-import jsonToTypeScriptIcon from "../../../../public/assets/json_to_type_script_icon.png";
+import jsonValidatorIcon from "public/assets/json_validator_formatter_icon.png";
+import jsonToCsvIcon from "public/assets/json_to_csv_icon.png";
+import jsonToYamlIcon from "public/assets/json_to_yaml_icon.png";
+import jsonToXmlIcon from "public/assets/json_to_xml_icon.png";
+import jsonToTypeScriptIcon from "public/assets/json_to_type_script_icon.png";
 import {
   FaArrowPointer,
   FaBugSlash,

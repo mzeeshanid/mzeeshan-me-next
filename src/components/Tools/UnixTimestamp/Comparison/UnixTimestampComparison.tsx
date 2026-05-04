@@ -147,7 +147,7 @@ const UnixTimestampComparison: React.FC<Props> = () => {
           </Text>
         </VStack>
 
-        <Box borderWidth="1px" borderRadius="md" overflow="hidden" w="full">
+        <Table.ScrollArea borderWidth="1px" borderRadius="md" w="full">
           <Table.Root size="sm">
             <Table.Header>
               <Table.Row bg="bg.subtle">
@@ -211,7 +211,7 @@ const UnixTimestampComparison: React.FC<Props> = () => {
               ))}
             </Table.Body>
           </Table.Root>
-        </Box>
+        </Table.ScrollArea>
 
         <Text fontSize="xs" color="fg.subtle">
           Comparison based on publicly available features as of 2025. Feature availability may change over time.

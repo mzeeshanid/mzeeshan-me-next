@@ -1,5 +1,12 @@
 import { IconType } from "react-icons"
-import { FaDownload, FaFile, FaNetworkWired, FaUsers } from "react-icons/fa6"
+import { FaCopy, FaDownload, FaFile, FaLayerGroup, FaNetworkWired } from "react-icons/fa6"
+
+export type SampleFilesStatKey =
+  | "totalDownloads"
+  | "totalExtensions"
+  | "totalVariants"
+  | "totalCategories"
+  | "totalRequests";
 
 export type SampleFilesStatsDataModel = {
     headline: string,
@@ -7,6 +14,7 @@ export type SampleFilesStatsDataModel = {
 }
 
 export type SampleFilesStatItemDataModel = {
+    key: SampleFilesStatKey,
     label: string,
     value: string,
     unit?: string,
@@ -18,32 +26,50 @@ export const sampleFilesStatsData: SampleFilesStatsDataModel = {
     headline: "App Performance at a Glance",
     stats: [
         {
-            label: "File Types",
-            value: "55",
-            unit: "+",
-            helper: "Different formats",
-            icon: FaFile
-        },
-        {
-            label: "Downloads",
+            key: "totalDownloads",
+            label: "Total Downloads",
             value: "50",
             unit: "k+",
             helper: "Files downloaded",
             icon: FaDownload
         },
         {
+            key: "totalExtensions",
+            label: "File Formats",
+            value: "55",
+            unit: "+",
+            helper: "Supported extensions",
+            icon: FaFile
+        },
+        {
+            key: "totalVariants",
+            label: "Sample Files",
+            value: "200",
+            unit: "+",
+            helper: "Downloadable files",
+            icon: FaCopy
+        },
+        {
+            key: "totalCategories",
+            label: "File Categories",
+            value: "5",
+            unit: "+",
+            helper: "Type categories",
+            icon: FaLayerGroup
+        },
+        {
+            key: "totalRequests",
             label: "File Requests",
             value: "15",
             unit: "+",
             helper: "Requested by users",
             icon: FaNetworkWired
-        },
-        {
-            label: "Page Visits",
-            value: "100",
-            unit: "k+",
-            helper: "Monthly visitors",
-            icon: FaUsers
         }
     ]
 }
+
+export const formatStatsValue = (n: number): { value: string; unit?: string } => {
+    if (n >= 1_000_000) return { value: (n / 1_000_000).toFixed(1), unit: "M+" };
+    if (n >= 1_000) return { value: (n / 1_000).toFixed(1), unit: "k+" };
+    return { value: String(n), unit: "+" };
+};

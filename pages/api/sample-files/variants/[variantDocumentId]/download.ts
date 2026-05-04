@@ -1,3 +1,4 @@
+import { incrementExtensionDownloadCountStrapi } from "@/apis/sampleFiles/sampleFilesExtension";
 import { incrementVariantDownloadCountStrapi } from "@/apis/sampleFiles/sampleFilesVariant";
 import { MyStrapiError } from "@/strapiClient/strapiError";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -16,10 +17,20 @@ export default async function handler(
           .json({ error: "Variant document ID is required" });
       }
 
-      // Increment the download count
-      const updatedVariant =
-        await incrementVariantDownloadCountStrapi(variantDocumentId);
-      res.status(200).json(updatedVariant);
+      const { extensionDocumentId } = req.body ?? {};
+
+      const incrementCalls: Promise<any>[] = [
+        incrementVariantDownloadCountStrapi(variantDocumentId),
+      ];
+
+      if (extensionDocumentId && typeof extensionDocumentId === "string") {
+        incrementCalls.push(
+          incrementExtensionDownloadCountStrapi(extensionDocumentId),
+        );
+      }
+
+      await Promise.all(incrementCalls);
+      res.status(200).json({ success: true });
     } catch (error) {
       if (error instanceof MyStrapiError) {
         return res.status(error.status ?? 500).json({

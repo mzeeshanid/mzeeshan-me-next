@@ -1,5 +1,5 @@
 import { BasicImageDataModel } from "../basicImage/basicImageDataModel";
-import thirdPartySDKsIcon from "../../../public/assets/third_party_sdks_icon.png";
+import thirdPartySDKsIcon from "public/assets/third_party_sdks_icon.png";
 
 type MyThirdPartySDKData = {
     tagline: string;

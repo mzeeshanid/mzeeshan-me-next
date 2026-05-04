@@ -15,6 +15,7 @@ import { RiDoubleQuotesL } from "react-icons/ri";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import React from "react";
 import { IconType } from "react-icons";
+import { ReviewJsonLd } from "next-seo";
 
 type MyClientReviewItemProps = {
   name: string;
@@ -26,6 +27,7 @@ type MyClientReviewItemProps = {
   icon: IconType;
   isVerified: boolean;
   date: string;
+  source: string;
 };
 
 const MyClientReviewItem: React.FC<MyClientReviewItemProps> = ({
@@ -37,10 +39,20 @@ const MyClientReviewItem: React.FC<MyClientReviewItemProps> = ({
   isVerified,
   date,
   icon,
+  source,
 }) => {
   const { palette } = useColorPalette();
   return (
-    <Card.Root h="full">
+    <>
+      <ReviewJsonLd
+        scriptId={`review-${name.replace(/\s+/g, "-").toLowerCase()}`}
+        author={name}
+        reviewRating={{ ratingValue: rating, bestRating: 5, worstRating: 1 }}
+        itemReviewed={{ name: "Muhammad Zeeshan" }}
+        reviewBody={text}
+        url={source}
+      />
+      <Card.Root h="full">
       <Card.Header>
         <HStack justify="space-between">
           <RatingGroup.Root
@@ -96,6 +108,7 @@ const MyClientReviewItem: React.FC<MyClientReviewItemProps> = ({
         </Stack>
       </Card.Footer>
     </Card.Root>
+    </>
   );
 };
 

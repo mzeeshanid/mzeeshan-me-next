@@ -10,7 +10,7 @@ type Props = {
 const SampleFilesFeatureItem: React.FC<Props> = ({ feature }) => {
   const { palette } = useColorPalette();
   return (
-    <Card.Root bg="bg.subtle" borderWidth={0}>
+    <Card.Root bg="bg.subtle" borderWidth={0} h="full">
       <Card.Header>
         <HStack justify={"space-between"}>
           <Text

@@ -1,5 +1,5 @@
 import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel"
-import driveDirectHero from "../../../../public/assets/drive_direct_hero.png"
+import driveDirectHero from "public/assets/drive_direct_hero.png"
 
 /* Hero Data */
 export type DriveDirectHeroData = {

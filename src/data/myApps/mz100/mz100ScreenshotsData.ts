@@ -1,8 +1,8 @@
 import { MyAppScreenshotsDataModel } from "../myAppScreenshotsData";
-import screen1 from "../../../../public/assets/mz100/MZ100_Screenshot_1.png";
-import screen2 from "../../../../public/assets/mz100/MZ100_Screenshot_2.png";
-import screen3 from "../../../../public/assets/mz100/MZ100_Screenshot_3.png";
-import screen4 from "../../../../public/assets/mz100/MZ100_Screenshot_4.png";
+import screen1 from "public/assets/mz100/MZ100_Screenshot_1.png";
+import screen2 from "public/assets/mz100/MZ100_Screenshot_2.png";
+import screen3 from "public/assets/mz100/MZ100_Screenshot_3.png";
+import screen4 from "public/assets/mz100/MZ100_Screenshot_4.png";
 
 export const mz100ScreenshotsData: MyAppScreenshotsDataModel = {
     header: {

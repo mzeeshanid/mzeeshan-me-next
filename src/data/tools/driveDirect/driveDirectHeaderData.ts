@@ -1,5 +1,5 @@
 import { NavBarHeaderProps } from "@/components/NavBar/NavBarHeader";
-import driveDirectIcon from "../../../../public/assets/drive_direct_icon.png";
+import driveDirectIcon from "public/assets/drive_direct_icon.png";
 
 /* Header */
 export const driveDirectHeaderData: NavBarHeaderProps = {

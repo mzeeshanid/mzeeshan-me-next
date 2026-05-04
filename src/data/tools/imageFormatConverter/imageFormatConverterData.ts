@@ -1,4 +1,4 @@
-import imageConverterIcon from "../../../../public/assets/image_format_converter_icon.png";
+import imageConverterIcon from "public/assets/image_format_converter_icon.png";
 import {
   FaBolt,
   FaCodeBranch,

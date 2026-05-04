@@ -1,5 +1,5 @@
 import { NavBarHeaderProps } from "@/components/NavBar/NavBarHeader";
-import unixTimestampIcon from "../../../../public/assets/unix_time_stamp_icon.png";
+import unixTimestampIcon from "public/assets/unix_time_stamp_icon.png";
 
 export const unixTimestampHeaderData: NavBarHeaderProps = {
   title: "Epoch Converter",
