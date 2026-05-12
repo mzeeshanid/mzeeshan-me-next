@@ -5,11 +5,11 @@ import {
   Card,
   Heading,
   HStack,
-  Icon,
   Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { FaGithub } from "react-icons/fa6";
 import { FiCheckCircle } from "react-icons/fi";
 import { GithubInfoButton } from "./GithubInfoButton";
@@ -28,8 +28,8 @@ const MyOpenSourceContributionItem: React.FC<
       <Card.Header>
         <VStack align={"flex-start"}>
           <HStack alignItems={"flex-start"} justify={"flex-start"}>
-            <Icon
-              as={FaGithub}
+            <DeferredIcon
+              icon={FaGithub}
               size={{ base: "xl", md: "2xl" }}
               colorPalette={palette}
             />
@@ -54,7 +54,7 @@ const MyOpenSourceContributionItem: React.FC<
           {contribution.features.map((feature, fIdx) => (
             <Box as="li" key={fIdx} mb={2}>
               <HStack>
-                <Icon as={FiCheckCircle} colorPalette={palette} />
+                <DeferredIcon icon={FiCheckCircle} colorPalette={palette} />
                 <Text aria-label={feature}>{feature}</Text>
               </HStack>
             </Box>

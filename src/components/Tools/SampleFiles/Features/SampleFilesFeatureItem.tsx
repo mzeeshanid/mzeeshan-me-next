@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { SampleFileFeature } from "@/data/tools/sampleFiles/statsData";
 import { Card, HStack, Icon, Text } from "@chakra-ui/react";
@@ -20,7 +21,7 @@ const SampleFilesFeatureItem: React.FC<Props> = ({ feature }) => {
           >
             {feature.title}
           </Text>
-          <Icon as={feature.icon} color={`${palette}.fg`} size="md" />
+          <DeferredIcon icon={feature.icon} color={`${palette}.fg`} size="md" />
         </HStack>
       </Card.Header>
       <Card.Body>

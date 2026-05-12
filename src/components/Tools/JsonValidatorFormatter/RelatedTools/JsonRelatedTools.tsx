@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
@@ -7,7 +8,6 @@ import {
 import {
   Box,
   GridItem,
-  Icon,
   Link,
   SimpleGrid,
   Text,
@@ -57,7 +57,7 @@ const JsonRelatedTools: React.FC<Props> = ({ currentToolId }) => {
                     <Text color="fg.muted" fontSize="sm" flex={1}>
                       {tool.description}
                     </Text>
-                    <Icon as={FaArrowRight} color={`${palette}.fg`} boxSize={3} />
+                    <DeferredIcon icon={FaArrowRight} color={`${palette}.fg`} boxSize={3} />
                   </VStack>
                 </Box>
               </NextLink>

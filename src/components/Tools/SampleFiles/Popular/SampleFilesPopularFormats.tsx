@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { SampleFilesExtensionModel } from "@/apis/sampleFiles/sampleFilesExtension";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { useColorPalette } from "@/contexts/useColorPalette";
@@ -7,7 +8,6 @@ import {
   Box,
   Card,
   HStack,
-  Icon,
   SimpleGrid,
   Spacer,
   Text,
@@ -64,7 +64,7 @@ const SampleFilesPopularFormats: React.FC<Props> = ({ extensions }) => {
                     )}
                     {formatted && (
                       <HStack gap={1} mt="auto">
-                        <Icon as={FaDownload} color="fg.muted" boxSize={3} />
+                        <DeferredIcon icon={FaDownload} color="fg.muted" boxSize={3} />
                         <Text fontSize="xs" color="fg.muted">
                           {formatted.value}
                           {formatted.unit}

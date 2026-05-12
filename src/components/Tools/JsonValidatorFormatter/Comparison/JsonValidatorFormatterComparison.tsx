@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { jsonValidatorFormatterComparisonData } from "@/data/tools/jsonValidatorFormatter/jsonValidatorFormatterData";
@@ -52,7 +53,7 @@ const JsonValidatorFormatterComparison: React.FC<Props> = ({ data }) => {
                     <Table.Cell key={column.key}>
                       <HStack colorPalette={palette}>
                         {cell.icon && (
-                          <Icon as={cell.icon} size="sm" color={cell.color} />
+                          <DeferredIcon icon={cell.icon} size="sm" color={cell.color} />
                         )}
                         <Text>{cell.text}</Text>
                       </HStack>

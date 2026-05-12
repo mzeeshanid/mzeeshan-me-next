@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
@@ -5,7 +6,6 @@ import {
   GridItem,
   Heading,
   HStack,
-  Icon,
   Link,
   SimpleGrid,
   Tag,
@@ -136,8 +136,8 @@ const FreelanceTaxWhatIsPSEB: React.FC = () => {
               bg="bg.panel"
             >
               <HStack align="flex-start" gap={3}>
-                <Icon
-                  as={FaInfoCircle}
+                <DeferredIcon
+                  icon={FaInfoCircle}
                   color="fg.muted"
                   boxSize={4}
                   mt={0.5}
@@ -209,7 +209,7 @@ const FreelanceTaxWhatIsPSEB: React.FC = () => {
                   justifyContent="center"
                 >
                   Visit PSEB Registration Portal
-                  <Icon as={FiExternalLink} boxSize={3.5} />
+                  <DeferredIcon icon={FiExternalLink} boxSize={3.5} />
                 </Link>
               </VStack>
             </Box>

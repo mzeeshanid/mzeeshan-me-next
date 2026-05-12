@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
@@ -6,7 +7,6 @@ import {
   GridItem,
   Heading,
   HStack,
-  Icon,
   SimpleGrid,
   Tag,
   Text,
@@ -110,13 +110,13 @@ const FreelanceTaxFilerBenefits: React.FC = () => {
             <VStack align="stretch" gap={3}>
               <HStack gap={4} justify="flex-end">
                 <HStack gap={1}>
-                  <Icon as={FaCheckCircle} color="fg.success" boxSize={4} />
+                  <DeferredIcon icon={FaCheckCircle} color="fg.success" boxSize={4} />
                   <Text fontSize="sm" fontWeight="semibold">
                     Filer
                   </Text>
                 </HStack>
                 <HStack gap={1}>
-                  <Icon as={FaTimesCircle} color="fg.error" boxSize={4} />
+                  <DeferredIcon icon={FaTimesCircle} color="fg.error" boxSize={4} />
                   <Text fontSize="sm" fontWeight="semibold">
                     Non-Filer
                   </Text>
@@ -137,8 +137,8 @@ const FreelanceTaxFilerBenefits: React.FC = () => {
                   </Text>
                   <HStack gap={4} wrap="wrap">
                     <HStack gap={2}>
-                      <Icon
-                        as={FaCheckCircle}
+                      <DeferredIcon
+                        icon={FaCheckCircle}
                         color="fg.success"
                         boxSize={3.5}
                         flexShrink={0}
@@ -148,8 +148,8 @@ const FreelanceTaxFilerBenefits: React.FC = () => {
                       </Badge>
                     </HStack>
                     <HStack gap={2}>
-                      <Icon
-                        as={FaTimesCircle}
+                      <DeferredIcon
+                        icon={FaTimesCircle}
                         color="fg.error"
                         boxSize={3.5}
                         flexShrink={0}

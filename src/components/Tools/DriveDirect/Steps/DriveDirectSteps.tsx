@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { GalleryImage } from "@/components/Blog/ArticleContent/ArticleContent";
 import { ImageGalleryProvider } from "@/components/ImageGallery/ImageGalleryContext";
 import { MarkdownImage } from "@/components/Markdown/MarkdownImage";
@@ -58,7 +59,7 @@ const DriveDirectSteps: React.FC<Props> = (props: Props) => {
                 <Timeline.Connector>
                   <Timeline.Separator />
                   <Timeline.Indicator>
-                    <Icon as={step.icon} size={"md"}></Icon>
+                    <DeferredIcon icon={step.icon} size={"md"}></DeferredIcon>
                   </Timeline.Indicator>
                 </Timeline.Connector>
                 <Timeline.Content>

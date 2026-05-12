@@ -1,5 +1,6 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
-import { Icon, Link, LinkBox, Text, VStack } from "@chakra-ui/react";
+import { Link, LinkBox, Text, VStack } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { IconType } from "react-icons";
 
@@ -19,7 +20,7 @@ const MyFrameworkItem: React.FC<MyFrameworkItemProps> = (
     <LinkBox>
       <Link href={link}>
         <VStack>
-          <Icon as={icon} boxSize={12} color={`${palette}.fg`} />
+          <DeferredIcon icon={icon} boxSize={12} color={`${palette}.fg`} />
           <Text
             fontWeight={"semibold"}
             fontSize={"lg"}

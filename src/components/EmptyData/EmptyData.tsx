@@ -1,4 +1,5 @@
-import { Box, Icon, Text, VStack } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { FiHardDrive } from "react-icons/fi";
 
@@ -12,9 +13,7 @@ const EmptyData: React.FC<EmptyDataProps> = (props: EmptyDataProps) => {
   return (
     <Box>
       <VStack pt={12} pb={12}>
-        <Icon boxSize={{ base: 10, md: 12 }}>
-          <FiHardDrive />
-        </Icon>
+        <DeferredIcon icon={FiHardDrive} boxSize={{ base: 10, md: 12 }} />
         <Text fontWeight={"semibold"} fontSize={"2xl"}>
           {title}
         </Text>

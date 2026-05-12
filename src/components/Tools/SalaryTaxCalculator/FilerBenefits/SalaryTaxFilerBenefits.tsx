@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
@@ -6,7 +7,6 @@ import {
   GridItem,
   Heading,
   HStack,
-  Icon,
   SimpleGrid,
   Tag,
   Text,
@@ -101,13 +101,13 @@ const SalaryTaxFilerBenefits: React.FC = () => {
             <VStack align="stretch" gap={3}>
               <HStack gap={4} justify="flex-end">
                 <HStack gap={1}>
-                  <Icon as={FaCheckCircle} color="green.500" boxSize={4} />
+                  <DeferredIcon icon={FaCheckCircle} color="green.500" boxSize={4} />
                   <Text fontSize="sm" fontWeight="semibold">
                     Filer
                   </Text>
                 </HStack>
                 <HStack gap={1}>
-                  <Icon as={FaTimesCircle} color="red.500" boxSize={4} />
+                  <DeferredIcon icon={FaTimesCircle} color="red.500" boxSize={4} />
                   <Text fontSize="sm" fontWeight="semibold">
                     Non-Filer
                   </Text>
@@ -128,13 +128,13 @@ const SalaryTaxFilerBenefits: React.FC = () => {
                   </Text>
                   <HStack gap={4} wrap="wrap">
                     <HStack gap={2}>
-                      <Icon as={FaCheckCircle} color="green.500" boxSize={3.5} flexShrink={0} />
+                      <DeferredIcon icon={FaCheckCircle} color="green.500" boxSize={3.5} flexShrink={0} />
                       <Badge colorPalette="green" variant="surface" size="sm">
                         {row.filer}
                       </Badge>
                     </HStack>
                     <HStack gap={2}>
-                      <Icon as={FaTimesCircle} color="red.500" boxSize={3.5} flexShrink={0} />
+                      <DeferredIcon icon={FaTimesCircle} color="red.500" boxSize={3.5} flexShrink={0} />
                       <Badge colorPalette="red" variant="surface" size="sm">
                         {row.nonFiler}
                       </Badge>

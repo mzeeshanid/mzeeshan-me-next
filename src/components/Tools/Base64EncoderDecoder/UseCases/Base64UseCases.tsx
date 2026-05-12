@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { base64UseCasesData } from "@/data/tools/base64EncoderDecoder";
@@ -6,7 +7,6 @@ import {
   Box,
   Card,
   GridItem,
-  Icon,
   SimpleGrid,
   Spacer,
   Text,
@@ -20,7 +20,7 @@ const UseCaseCard: React.FC<{
 }> = ({ useCase, palette }) => (
   <Card.Root variant="outline" h="full" bg="bg.subtle">
     <Card.Header>
-      <Icon as={useCase.icon} boxSize={{ base: 8, md: 10 }} color={`${palette}.fg`} />
+      <DeferredIcon icon={useCase.icon} boxSize={{ base: 8, md: 10 }} color={`${palette}.fg`} />
     </Card.Header>
     <Card.Body>
       <VStack gap={1} align="flex-start">

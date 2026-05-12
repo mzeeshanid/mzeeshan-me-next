@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { SampleFilesCategoryDataModel } from "@/data/tools/sampleFiles/sampleFilesCategoriesData";
 import { Icon, Link, Text, VStack } from "@chakra-ui/react";
 import React from "react";
@@ -10,7 +11,7 @@ const SampleFilesCategoryItem: React.FC<Props> = (props: Props) => {
   return (
     <Link href={props.category.path}>
       <VStack>
-        <Icon as={props.category.icon} boxSize={12} />
+        <DeferredIcon icon={props.category.icon} boxSize={12} />
         <Text
           as="h2"
           fontWeight={"bold"}

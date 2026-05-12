@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
@@ -6,7 +7,6 @@ import {
   GridItem,
   Heading,
   HStack,
-  Icon,
   Link,
   SimpleGrid,
   Tag,
@@ -102,7 +102,7 @@ const SalaryTaxFilingServices: React.FC = () => {
                     >
                       <HStack gap={2} justify="center">
                         <Text>Visit {service.name}</Text>
-                        <Icon as={FiExternalLink} boxSize={3.5} />
+                        <DeferredIcon icon={FiExternalLink} boxSize={3.5} />
                       </HStack>
                     </Link>
                   </VStack>
@@ -120,7 +120,7 @@ const SalaryTaxFilingServices: React.FC = () => {
           bg="bg.panel"
         >
           <HStack align="flex-start" gap={3}>
-            <Icon as={FaInfoCircle} color="fg.muted" boxSize={4} mt={0.5} flexShrink={0} />
+            <DeferredIcon icon={FaInfoCircle} color="fg.muted" boxSize={4} mt={0.5} flexShrink={0} />
             <Text fontSize="sm" color="fg.muted">
               <strong>Disclaimer:</strong> We are not affiliated with, endorsed by, or in
               partnership with any of the services listed above. These links are provided for

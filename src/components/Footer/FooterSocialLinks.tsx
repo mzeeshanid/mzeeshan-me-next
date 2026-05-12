@@ -1,4 +1,5 @@
-import { Button, HStack, Icon, Link } from "@chakra-ui/react";
+import { Button, HStack, Link } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import footerData from "../../data/footer/footerData";
 
 type FooterSocialLinksProps = {};
@@ -11,7 +12,7 @@ const FooterSocialLinks = ({}: FooterSocialLinksProps) => {
       {socialLinks.map(({ icon, link }, idx) => (
         <Button key={idx} as={"span"} p={0} variant={"ghost"}>
           <Link href={link} aria-label={link}>
-            <Icon as={icon} size="md" />
+            <DeferredIcon icon={icon} size="md" />
           </Link>
         </Button>
       ))}

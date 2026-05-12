@@ -1,11 +1,11 @@
 import {
   HStack,
-  Icon,
   Link,
   Stack,
   StackSeparator,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 
 import footerData from "../../data/footer/footerData";
 
@@ -31,7 +31,7 @@ const FooterMainLinks = (props: FooterMainLinksProps) => {
           fontSize={"lg"}
         >
           <HStack gap={2}>
-            <Icon as={linkItem.icon} />
+            {linkItem.icon && <DeferredIcon icon={linkItem.icon} />}
             {linkItem.label}
           </HStack>
         </Link>

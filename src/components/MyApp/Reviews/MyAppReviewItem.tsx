@@ -4,12 +4,12 @@ import {
   Avatar,
   Card,
   HStack,
-  Icon,
   RatingGroup,
   Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { FiCheckCircle } from "react-icons/fi";
 import { RiDoubleQuotesL } from "react-icons/ri";
@@ -42,15 +42,15 @@ const MyAppReviewItem: React.FC<Props> = (props: Props) => {
               {date}
             </Text>
             {isVerified && (
-              <Icon as={FiCheckCircle} color={palette} size={"md"} />
+              <DeferredIcon icon={FiCheckCircle} color={palette} size={"md"} />
             )}
           </HStack>
         </HStack>
       </Card.Header>
       <Card.Body>
         <HStack align="start">
-          <Icon
-            as={RiDoubleQuotesL}
+          <DeferredIcon
+            icon={RiDoubleQuotesL}
             color={palette}
             size={{ base: "lg", md: "xl", lg: "2xl" }}
           />
@@ -73,7 +73,7 @@ const MyAppReviewItem: React.FC<Props> = (props: Props) => {
                 </Text>
               </VStack>
             </HStack>
-            <Icon as={icon} size={"md"} color={"fg.muted"} />
+            <DeferredIcon icon={icon} size={"md"} color={"fg.muted"} />
           </HStack>
         </Stack>
       </Card.Footer>

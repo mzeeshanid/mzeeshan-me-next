@@ -6,12 +6,12 @@ import {
   GridItem,
   Heading,
   HStack,
-  Icon,
   Link,
   SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { FiCheckCircle } from "react-icons/fi";
 
@@ -82,7 +82,7 @@ const MyPricing: React.FC<MyPricingProps> = (props: MyPricingProps) => {
               {features.map((feature, idx) => (
                 <Box as="li" key={idx} mb={2}>
                   <HStack>
-                    <Icon as={FiCheckCircle} color={"fg.muted"} />
+                    <DeferredIcon icon={FiCheckCircle} color={"fg.muted"} />
                     <Text color="fg.muted" textStyle={{ base: "md", md: "lg" }}>
                       {feature}
                     </Text>

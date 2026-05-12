@@ -14,13 +14,13 @@ import {
   Center,
   Float,
   HStack,
-  Icon,
   Link,
   Spacer,
   Text,
   Timeline,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -62,7 +62,7 @@ const DocsCard: React.FC<{
               bg={`${palette}.subtle`}
               color={`${palette}.fg`}
             >
-              <Icon as={FaBook} boxSize={4} />
+              <DeferredIcon icon={FaBook} boxSize={4} />
             </Box>
             <Badge colorPalette={palette} variant="subtle" size="sm">
               {"Official Docs"}
@@ -76,7 +76,7 @@ const DocsCard: React.FC<{
           </Text>
           <HStack gap={1} color={`${palette}.fg`} fontSize="xs" fontWeight="medium">
             <Text>{"developer.android.com"}</Text>
-            <Icon as={FaArrowUpRightFromSquare} boxSize={3} />
+            <DeferredIcon icon={FaArrowUpRightFromSquare} boxSize={3} />
           </HStack>
         </VStack>
       </Box>
@@ -148,7 +148,7 @@ const VideoCard: React.FC<{
                 transition="transform 0.18s"
                 _hover={{ transform: "scale(1.08)" }}
               >
-                <Icon as={FaYoutube} boxSize={7} color="white" />
+                <DeferredIcon icon={FaYoutube} boxSize={7} color="white" />
               </Box>
             </Box>
           </Box>
@@ -208,7 +208,7 @@ const AppIconGeneratorAndroidStudioSteps: React.FC = () => {
                 <Timeline.Connector>
                   <Timeline.Separator />
                   <Timeline.Indicator>
-                    <Icon as={step.icon} size="md" />
+                    <DeferredIcon icon={step.icon} size="md" />
                   </Timeline.Indicator>
                 </Timeline.Connector>
                 <Timeline.Content>

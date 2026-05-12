@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { appIconGeneratorValuePropsData } from "@/data/tools/appIconGenerator/appIconGeneratorData";
@@ -27,7 +28,7 @@ const AppIconGeneratorValueProps: React.FC = () => {
             p={5}
             bg="bg.panel"
           >
-            <Icon as={item.icon} boxSize={12} color={`${palette}.fg`} />
+            <DeferredIcon icon={item.icon} boxSize={12} color={`${palette}.fg`} />
             <Text fontWeight="bold" fontSize="lg" color={`${palette}.fg`}>
               {item.title}
             </Text>

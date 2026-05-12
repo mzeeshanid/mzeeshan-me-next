@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { MyToolFeature } from "@/data/tools/myTools/myToolsFeatures";
 import { Card, Icon, Text, VStack } from "@chakra-ui/react";
@@ -15,7 +16,7 @@ const MyToolFeatureItem: React.FC<Props> = (props: Props) => {
     <Card.Root w="full" h="full" bg="bg.subtle">
       <Card.Body gap={4}>
         <VStack alignItems="flex-start" gap={2}>
-          <Icon as={feature.icon} colorPalette={palette} boxSize={8} />
+          <DeferredIcon icon={feature.icon} colorPalette={palette} boxSize={8} />
           <Text fontWeight="bold" fontSize="lg">
             {feature.title}
           </Text>

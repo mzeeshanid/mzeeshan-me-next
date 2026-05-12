@@ -4,11 +4,11 @@ import {
   Box,
   Container,
   HStack,
-  Icon,
   Tag,
   Text,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { FC } from "react";
 import { GrSwift } from "react-icons/gr";
 import { IoIosPhonePortrait } from "react-icons/io";
@@ -21,9 +21,9 @@ export const MyAppsHero: FC = () => {
         <Tag.Root colorPalette={palette}>
           <Tag.Label>
             <HStack>
-              <Icon as={IoIosPhonePortrait} />
+              <DeferredIcon icon={IoIosPhonePortrait} />
               {"Native Apps"}
-              <Icon as={GrSwift} />
+              <DeferredIcon icon={GrSwift} />
             </HStack>
           </Tag.Label>
         </Tag.Root>

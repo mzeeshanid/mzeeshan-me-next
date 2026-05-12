@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
@@ -8,7 +9,6 @@ import {
   Box,
   GridItem,
   Heading,
-  Icon,
   Link,
   SimpleGrid,
   Tag,
@@ -65,7 +65,7 @@ const PakTaxRelatedTools: React.FC<Props> = ({ currentToolId }) => {
                     <Text color="fg.muted" fontSize="sm" flex={1}>
                       {tool.description}
                     </Text>
-                    <Icon as={FaArrowRight} color={`${palette}.fg`} boxSize={3} />
+                    <DeferredIcon icon={FaArrowRight} color={`${palette}.fg`} boxSize={3} />
                   </VStack>
                 </Box>
               </NextLink>

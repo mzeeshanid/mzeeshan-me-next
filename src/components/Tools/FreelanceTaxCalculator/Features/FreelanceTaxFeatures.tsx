@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { freelanceTaxFeaturesData } from "@/data/tools/freelanceTaxCalculator";
@@ -5,7 +6,6 @@ import {
   Box,
   GridItem,
   Heading,
-  Icon,
   SimpleGrid,
   Tag,
   Text,
@@ -54,7 +54,7 @@ const FreelanceTaxFeatures: React.FC = () => {
                     bg={`${palette}.subtle`}
                     display="inline-flex"
                   >
-                    <Icon as={feature.icon} color={`${palette}.fg`} boxSize={5} />
+                    <DeferredIcon icon={feature.icon} color={`${palette}.fg`} boxSize={5} />
                   </Box>
                   <Text fontWeight="bold" fontSize="md">
                     {feature.title}

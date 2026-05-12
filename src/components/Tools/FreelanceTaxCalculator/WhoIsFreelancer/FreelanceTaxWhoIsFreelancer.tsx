@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
@@ -5,7 +6,6 @@ import {
   GridItem,
   Heading,
   HStack,
-  Icon,
   Link,
   SimpleGrid,
   Tag,
@@ -68,7 +68,7 @@ const FreelanceTaxWhoIsFreelancer: React.FC = () => {
             >
               <VStack align="flex-start" gap={4}>
                 <HStack gap={2}>
-                  <Icon as={FaCheckCircle} color="fg.success" boxSize={5} />
+                  <DeferredIcon icon={FaCheckCircle} color="fg.success" boxSize={5} />
                   <Text fontWeight="bold" fontSize="lg">
                     This calculator IS for you if:
                   </Text>
@@ -76,8 +76,8 @@ const FreelanceTaxWhoIsFreelancer: React.FC = () => {
                 <VStack align="flex-start" gap={3}>
                   {qualifies.map((item, idx) => (
                     <HStack key={idx} align="flex-start" gap={3}>
-                      <Icon
-                        as={FaCheckCircle}
+                      <DeferredIcon
+                        icon={FaCheckCircle}
                         color="fg.success"
                         boxSize={4}
                         flexShrink={0}
@@ -102,7 +102,7 @@ const FreelanceTaxWhoIsFreelancer: React.FC = () => {
             >
               <VStack align="flex-start" gap={4}>
                 <HStack gap={2}>
-                  <Icon as={FaTimesCircle} color="fg.error" boxSize={5} />
+                  <DeferredIcon icon={FaTimesCircle} color="fg.error" boxSize={5} />
                   <Text fontWeight="bold" fontSize="lg">
                     This calculator is NOT for you if:
                   </Text>
@@ -110,8 +110,8 @@ const FreelanceTaxWhoIsFreelancer: React.FC = () => {
                 <VStack align="flex-start" gap={3}>
                   {doesNotQualify.map((item, idx) => (
                     <HStack key={idx} align="flex-start" gap={3}>
-                      <Icon
-                        as={FaTimesCircle}
+                      <DeferredIcon
+                        icon={FaTimesCircle}
                         color="fg.error"
                         boxSize={4}
                         flexShrink={0}
@@ -152,7 +152,7 @@ const FreelanceTaxWhoIsFreelancer: React.FC = () => {
                       _hover={{ textDecoration: "underline" }}
                     >
                       Go to Salary Tax Calculator
-                      <Icon as={FaArrowRight} boxSize={3} />
+                      <DeferredIcon icon={FaArrowRight} boxSize={3} />
                     </Link>
                   </VStack>
                 </Box>

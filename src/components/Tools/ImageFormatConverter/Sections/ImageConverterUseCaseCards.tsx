@@ -1,8 +1,8 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import {
   Box,
   GridItem,
   HStack,
-  Icon,
   SimpleGrid,
   Text,
   VStack,
@@ -52,7 +52,7 @@ const ImageConverterUseCaseCards: React.FC<Props> = ({ header, items }) => {
                   bg={`${palette}.subtle`}
                   color={`${palette}.focusRing`}
                 >
-                  <Icon as={item.icon} boxSize={7} />
+                  <DeferredIcon icon={item.icon} boxSize={7} />
                 </HStack>
                 <VStack align="start" gap={2}>
                   <Text fontWeight="bold">{item.title}</Text>

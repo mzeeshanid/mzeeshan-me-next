@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { stringMetricsAlgorithmsData } from "@/data/tools/stringMetrics";
@@ -6,7 +7,6 @@ import {
   Center,
   Circle,
   GridItem,
-  Icon,
   SimpleGrid,
   Spacer,
   Text,
@@ -38,7 +38,7 @@ const AlgorithmCard: React.FC<AlgorithmCardProps> = ({
   return (
     <VStack gap={4}>
       <Circle p={4} bg={"bg.muted"}>
-        <Icon as={algorithm.icon} boxSize={6} color={`${palette}.focusRing`} />
+        <DeferredIcon icon={algorithm.icon} boxSize={6} color={`${palette}.focusRing`} />
       </Circle>
       <Text
         fontSize={{ base: "lg", md: "xl" }}

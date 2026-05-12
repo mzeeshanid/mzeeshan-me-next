@@ -1,3 +1,4 @@
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { base64TroubleshootingData } from "@/data/tools/base64EncoderDecoder";
@@ -7,7 +8,6 @@ import {
   Box,
   Card,
   GridItem,
-  Icon,
   SimpleGrid,
   Spacer,
   Text,
@@ -21,7 +21,7 @@ const TroubleshootCard: React.FC<{
 }> = ({ item, palette }) => (
   <Card.Root variant="outline" bg="bg.subtle" h="full">
     <Card.Header>
-      <Icon as={item.icon} boxSize={{ base: 7, md: 8 }} color={`${palette}.fg`} />
+      <DeferredIcon icon={item.icon} boxSize={{ base: 7, md: 8 }} color={`${palette}.fg`} />
     </Card.Header>
     <Card.Body>
       <VStack align="flex-start" gap={3}>

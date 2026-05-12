@@ -7,13 +7,13 @@ import {
   Center,
   GridItem,
   HStack,
-  Icon,
   SimpleGrid,
   Tag,
   Text,
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import Image from "next/image";
 import React from "react";
 
@@ -52,7 +52,7 @@ const MySkillItem: React.FC<MySkillItemProps> = (props: MySkillItemProps) => {
           <VStack align={"flex-start"} gap={2} px={{ base: 2, md: 4 }}>
             {skill.features.map((feature, index) => (
               <HStack key={index}>
-                <Icon as={FiCheckCircle} color={"fg.muted"} />
+                <DeferredIcon icon={FiCheckCircle} color={"fg.muted"} />
                 <Text color={"fg.muted"}>{feature}</Text>
               </HStack>
             ))}
