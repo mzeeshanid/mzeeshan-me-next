@@ -1,6 +1,7 @@
 import { MarkDownCodeBlock } from "@/components/Markdown/CodeBlock";
 import { Gist } from "@/components/Markdown/Gist";
 import { Box, List } from "@chakra-ui/react";
+import Image from "next/image";
 import { Components } from "react-markdown";
 
 const BLOCK_TAGS = new Set(["pre", "gist", "iframe", "table", "img"]);
@@ -87,6 +88,18 @@ export const getMarkdownTheme = (): Components => {
         {...props}
       />
     ),
+    img: ({ src, alt }: any) => {
+      if (!src) return null;
+      return (
+        <Image
+          src={src}
+          alt={alt ?? ""}
+          width={800}
+          height={450}
+          style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+        />
+      );
+    },
   };
 };
 

@@ -94,8 +94,7 @@ export type SalaryTaxMetaData = {
 };
 
 export const salaryTaxMetaData: SalaryTaxMetaData = {
-  title:
-    "Pakistan Salary Tax Calculator 2025-26 | FBR Net Take-Home Pay | mzeeshan.me",
+  title: "Pakistan Salary Tax Calculator 2025-26 | FBR Net Take-Home Pay",
   description:
     "Calculate your exact net take-home salary for FY 2025-26. See monthly tax deductions, annual tax, and effective rate based on the latest FBR income tax slabs for salaried individuals in Pakistan. Supports 2025-26, 2024-25, and 2023-24.",
   url: "/tools/salary-tax-calculator",

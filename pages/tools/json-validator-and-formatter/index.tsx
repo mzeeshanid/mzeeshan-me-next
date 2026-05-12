@@ -4,7 +4,7 @@ import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
-import JsonValidatorFormatter from "@/components/Tools/JsonValidatorFormatter/Hero/JsonValidatorFormatter";
+import JsonValidatorHero from "@/components/Tools/JsonValidatorFormatter/Hero/JsonValidatorHero";
 import JsonValidatorFormatterBenefits from "@/components/Tools/JsonValidatorFormatter/Benefits/JsonValidatorFormatterBenefits";
 import JsonValidatorFormatterComparison from "@/components/Tools/JsonValidatorFormatter/Comparison/JsonValidatorFormatterComparison";
 import JsonValidatorFormatterFaqs from "@/components/Tools/JsonValidatorFormatter/Faqs/JsonValidatorFormatterFaqs";
@@ -32,64 +32,64 @@ const JsonValidatorAndFormatterHome: React.FC<Props> = ({ article }) => (
     <JsonValidatorFormatterSeo />
     <NavBar header={jsonValidatorFormatterHeaderData} />
     <main>
-    <Spacer p={4} />
+      <Spacer p={4} />
 
-    <Container maxW="6xl">
-      <PageHeader
-        title={jsonValidatorFormatterMetaData.title}
-        breadcrumbItems={[
-          { label: "Home", href: "/" },
-          { label: "Tools", href: "/tools" },
-          { label: jsonValidatorFormatterMetaData.title },
-        ]}
-      />
-    </Container>
+      <Container maxW="6xl">
+        <PageHeader
+          title={jsonValidatorFormatterMetaData.title}
+          breadcrumbItems={[
+            { label: "Home", href: "/" },
+            { label: "Tools", href: "/tools" },
+            { label: jsonValidatorFormatterMetaData.title },
+          ]}
+        />
+      </Container>
 
-    <Spacer p={4} />
-    <Container maxW="6xl">
-      <JsonValidatorFormatter />
-    </Container>
+      <Spacer p={4} />
+      <Container maxW="6xl">
+        <JsonValidatorHero />
+      </Container>
 
-    <Spacer p={8} />
-    <Container maxW="6xl">
-      <JsonRelatedTools currentToolId="validator" />
-    </Container>
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <JsonRelatedTools currentToolId="validator" />
+      </Container>
 
-    <Spacer p={8} />
-    <Container maxW="6xl">
-      <JsonValidatorFormatterIntro />
-    </Container>
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <JsonValidatorFormatterIntro />
+      </Container>
 
-    <Spacer p={8} />
-    <Container maxW="6xl">
-      <JsonValidatorFormatterBenefits />
-    </Container>
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <JsonValidatorFormatterBenefits />
+      </Container>
 
-    <Spacer p={8} />
-    <Container maxW="6xl">
-      <JsonValidatorFormatterFeatures />
-    </Container>
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <JsonValidatorFormatterFeatures />
+      </Container>
 
-    <Spacer p={8} />
-    <Container maxW="6xl">
-      <JsonValidatorFormatterComparison />
-    </Container>
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <JsonValidatorFormatterComparison />
+      </Container>
 
-    {article && (
-      <>
-        <Spacer p={8} />
-        <Container maxW="6xl">
-          <ToolRelatedArticle article={article} header={relatedArticleHeader} />
-        </Container>
-      </>
-    )}
+      {article && (
+        <>
+          <Spacer p={8} />
+          <Container maxW="6xl">
+            <ToolRelatedArticle article={article} header={relatedArticleHeader} />
+          </Container>
+        </>
+      )}
 
-    <Spacer p={8} />
-    <Container maxW="6xl">
-      <JsonValidatorFormatterFaqs />
-    </Container>
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <JsonValidatorFormatterFaqs />
+      </Container>
 
-    <Spacer p={8} />
+      <Spacer p={8} />
     </main>
     <Footer />
   </>

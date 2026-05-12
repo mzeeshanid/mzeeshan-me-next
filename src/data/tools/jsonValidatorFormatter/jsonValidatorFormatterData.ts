@@ -10,7 +10,11 @@ import {
   FaBugSlash,
   FaCheck,
   FaCodeBranch,
+  FaCodeMerge,
+  FaFloppyDisk,
+  FaFolderTree,
   FaMagnifyingGlass,
+  FaScrewdriverWrench,
   FaWandMagicSparkles,
   FaX,
 } from "react-icons/fa6";
@@ -77,22 +81,24 @@ export type JsonValidatorFormatterComparisonRow = {
 
 export const jsonValidatorFormatterHeaderData: JsonValidatorFormatterHeaderData =
   {
-    title: "JSON Validator",
-    subtitle: "Validate, format, inspect, and search JSON faster.",
+    title: "JSON Editor & Validator",
+    subtitle: "Edit, format, diff, and repair JSON — all in your browser.",
     icon: jsonValidatorIcon,
-    alt: "JSON Validator and Formatter icon",
+    alt: "JSON Editor and Validator icon",
     rounded: false,
   };
 
 export const jsonValidatorFormatterMetaData: JsonValidatorFormatterMetaData = {
-  title: "JSON Validator with Error Line Detection — Free Online Formatter",
+  title: "JSON Editor Online — Validate, Format, Diff & Repair | Free",
   description:
-    "Free online JSON validator that shows the exact error line. Format, minify, remove escape characters, and explore the tree. Nothing leaves your browser.",
+    "Free online JSON editor with real-time validation, one-click auto-repair, split and unified diff, and interactive tree editing. Format, minify, sort, compare and fix JSON — everything runs in your browser, nothing uploaded.",
   url: "/tools/json-validator-and-formatter",
   image: {
     src: "/assets/json_validator_formatter_icon.png",
     type: "image/svg+xml",
   },
+  keywords:
+    "json editor online, online json editor, json formatter online free, json validator online, json diff tool, json diff online, compare json online, json diff viewer, json compare two json, json repair online, fix broken json online, auto fix json, json fixer, repair invalid json, json tree editor online, json tree viewer online, json visual editor, json editor with syntax highlighting, json editor with tree view, json validator show error line, json validator line number, json search and replace, json search online, json formatter no upload, json beautifier online, format json online, json prettify online, json minify online, json editor autosave, json load from url, json from curl, json editor free, json codemirror"
 };
 
 export const jsonValidatorFormatterDefaultJson = `{
@@ -118,13 +124,13 @@ export const jsonValidatorFormatterDefaultJson = `{
 }`;
 
 export const jsonValidatorFormatterHeroData = {
-  badge: "JSON Tool",
-  title: "JSON Validator with Error Line Detection",
+  badge: "JSON Editor",
+  title: "JSON Editor with Live Validation, Auto-Repair & Diff",
   description:
-    "Use the Text tab to clean and format payloads, then switch to Viewer to inspect a collapsed JSON tree, validate syntax, and debug parse errors.",
+    "A full-featured JSON editor powered by CodeMirror. Validate as you type with exact error lines, auto-repair broken JSON in one click, compare payloads in split or unified diff, and inspect or edit your data in an interactive visual tree.",
   textInputLabel: "JSON Input",
   textInputHint:
-    "Switch to Viewer to validate the payload, browse the tree, and inspect individual nodes.",
+    "Switch to Tree to browse the structure, inspect nodes, and edit visually. Switch to Diff to compare two JSON payloads.",
   viewerTitle: "JSON Tree",
   viewerDescription:
     "All nodes start collapsed. Expand only the branches you need.",
@@ -143,26 +149,26 @@ export const jsonValidatorFormatterIntroData: {
   cards: SimpleContentCard[];
 } = {
   header: {
-    badge: "About JSON",
-    title: "What JSON is",
+    badge: "About this tool",
+    title: "A JSON editor built for developers",
     description:
-      "JSON stands for JavaScript Object Notation. It is a lightweight text format used to represent structured data in a way that is easy for humans to read and simple for applications to parse.",
+      "Most free JSON tools are basic text formatters. This one is a full editor — powered by the same CodeMirror engine used in VS Code and GitHub — with live validation, visual tree editing, diff comparison, and auto-repair built in.",
   },
   cards: [
     {
-      title: "Readable structure",
+      title: "Real editor, not a textarea",
       description:
-        "JSON organizes data into objects, arrays, strings, numbers, booleans, and null values. That makes it a natural fit for configuration files, API payloads, and log inspection.",
+        "The editor supports syntax highlighting, line numbers, code folding, undo/redo, and search and replace with regex. It handles large JSON payloads without slowing down or crashing the tab.",
     },
     {
-      title: "Default format for APIs",
+      title: "Fix and compare, not just view",
       description:
-        "Most modern frontend and backend systems exchange data as JSON. When you are debugging requests, validating responses, or checking nested objects, being able to inspect JSON quickly saves time.",
+        "When your JSON is broken, a one-click repair button fixes it automatically. When you need to compare two payloads, the built-in diff view shows changes side-by-side or unified with accept and reject controls.",
     },
     {
-      title: "Why this tool helps",
+      title: "Visual tree editing",
       description:
-        "Large payloads become hard to read when they are minified, escaped, or deeply nested. This tool helps format them, validate syntax, search the structure, and inspect specific nodes with less friction.",
+        "Switch to the Tree tab to browse your JSON structure, click any node to edit its value inline, add or delete keys, drag to reorder array items, and copy any path or value with a single click.",
     },
   ],
 };
@@ -231,40 +237,52 @@ export const jsonValidatorFormatterSearchData = {
 export const jsonValidatorFormatterFeaturesData = {
   header: {
     badge: "Features",
-    title: "Built for reading messy JSON quickly",
+    title: "More than a formatter — a complete JSON editor",
     description:
-      "Move from raw payloads to validated structure without leaving the page. The tool is designed for debugging APIs, checking request bodies, and exploring nested documents.",
+      "Every feature is designed around real developer workflows: debugging API payloads, comparing responses across environments, fixing broken JSON from logs, and editing configs visually.",
   },
   features: [
     {
-      icon: FaWandMagicSparkles,
-      title: "Format, minify, and clean escaped payloads",
-      description:
-        "Pretty-print readable JSON, compress it into a single line, or strip escape characters from JSON copied out of logs and APIs.",
-    },
-    {
       icon: FaBugSlash,
-      title: "Line-aware validation feedback",
+      title: "Live validation with exact error lines",
       description:
-        "When parsing fails, the viewer reports the error message and highlights the exact line that needs attention.",
+        "The editor validates JSON as you type. When parsing fails, an inline error marker highlights the exact line and column — no more guessing where the broken bracket is.",
     },
     {
-      icon: FaCodeBranch,
-      title: "Collapsed tree explorer by default",
+      icon: FaScrewdriverWrench,
+      title: "One-click JSON auto-repair",
       description:
-        "Open only the branches you care about, keeping large payloads readable even when objects and arrays are deeply nested.",
+        "When the linter detects an error, a Repair JSON button appears inline. Click it to automatically fix missing quotes, unclosed brackets, trailing commas, and other common syntax issues.",
     },
     {
-      icon: FaArrowPointer,
-      title: "Node inspection panel",
+      icon: FaCodeMerge,
+      title: "Split and unified diff view",
       description:
-        "Select any node to see its key, the current value preview, and the detected data type with color-coded context.",
+        "Compare two JSON payloads side-by-side or in a unified diff. Differences are highlighted at the character level. Accept or reject individual chunks, swap panels, and format both with one click.",
+    },
+    {
+      icon: FaFolderTree,
+      title: "Interactive visual tree editor",
+      description:
+        "Browse your JSON in a collapsible tree, click any node to edit its value inline, add or remove keys, drag items to reorder, and copy any path or value with a single click.",
     },
     {
       icon: FaMagnifyingGlass,
-      title: "Search with next and previous navigation",
+      title: "Search and replace with regex support",
       description:
-        "Find matching keys, paths, and primitive values, then jump through results without manually expanding the entire document.",
+        "The built-in CodeMirror search panel supports plain text and regular expressions. Find and replace across the entire JSON document without leaving the editor.",
+    },
+    {
+      icon: FaWandMagicSparkles,
+      title: "Toolbar one-click actions",
+      description:
+        "Format, minify, sort keys A→Z or Z→A, remove escape characters, fold or unfold all nodes, copy, and save — all from a single scrollable toolbar without opening any settings.",
+    },
+    {
+      icon: FaFloppyDisk,
+      title: "Auto-save with named document history",
+      description:
+        "Changes are saved to local storage automatically every second. Name your documents, manage multiple payloads, and restore any previous version from the history panel — without creating an account.",
     },
   ] as JsonValidatorFormatterFeature[],
 };
@@ -273,7 +291,7 @@ export const jsonValidatorFormatterComparisonData = {
   header: {
     badge: "Comparison",
     title: "Why use this instead of a basic formatter?",
-    desc: "Popular tools can format JSON, but this one is designed to help you inspect and debug the structure as well.",
+    desc: "Most JSON tools can format text. This one repairs, diffs, and visually edits — without sending your data anywhere.",
   },
   columns: [
     {
@@ -298,67 +316,73 @@ export const jsonValidatorFormatterComparisonData = {
   rows: [
     {
       feature: {
-        text: "Viewer and raw text workflow in one place",
+        text: "Real code editor (not a plain textarea)",
         color: "fg",
       },
-      mz: { text: "Yes", color: "fg.success", icon: FaCheck },
-      jsonViewer: {
-        text: "Mostly viewer-first",
-        color: "fg.warning",
-        icon: FaCheck,
-      },
-      jsonLint: { text: "Validation-first", color: "fg.warning", icon: FaX },
+      mz: { text: "CodeMirror 6 — syntax highlighting, folding, undo/redo", color: "fg.success", icon: FaCheck },
+      jsonViewer: { text: "Plain textarea", color: "fg.warning", icon: FaX },
+      jsonLint: { text: "Plain textarea", color: "fg.warning", icon: FaX },
     },
     {
-      feature: { text: "Selected node detail panel", color: "fg" },
+      feature: { text: "One-click JSON auto-repair", color: "fg" },
       mz: {
-        text: "Key, value, and type table",
+        text: "Fixes missing quotes, trailing commas, unclosed brackets",
         color: "fg.success",
         icon: FaCheck,
       },
       jsonViewer: {
-        text: "Limited detail context",
-        color: "fg.warning",
+        text: "No",
+        color: "fg.error",
         icon: FaX,
       },
       jsonLint: { text: "No", color: "fg.error", icon: FaX },
     },
     {
       feature: {
-        text: "Search with next and previous result navigation",
+        text: "JSON diff (compare two payloads)",
         color: "fg",
       },
-      mz: { text: "Built in", color: "fg.success", icon: FaCheck },
+      mz: { text: "Split and unified diff with accept/reject controls", color: "fg.success", icon: FaCheck },
       jsonViewer: {
-        text: "Search available but less guided",
-        color: "fg.warning",
-        icon: FaCheck,
+        text: "No",
+        color: "fg.error",
+        icon: FaX,
       },
       jsonLint: { text: "No", color: "fg.error", icon: FaX },
     },
     {
-      feature: { text: "Escape cleanup for logged JSON strings", color: "fg" },
-      mz: { text: "Yes", color: "fg.success", icon: FaCheck },
+      feature: { text: "Interactive visual tree editor", color: "fg" },
+      mz: { text: "Collapsible tree with inline editing, path copy, type badges", color: "fg.success", icon: FaCheck },
       jsonViewer: {
-        text: "Manual cleanup needed",
+        text: "Read-only viewer only",
         color: "fg.warning",
         icon: FaX,
       },
       jsonLint: {
-        text: "Manual cleanup needed",
-        color: "fg.warning",
+        text: "No tree view",
+        color: "fg.error",
         icon: FaX,
       },
     },
     {
-      feature: { text: "UI and responsiveness", color: "fg" },
+      feature: { text: "Auto-save with named document history", color: "fg" },
       mz: {
-        text: "Modern and responsive UI/UX",
+        text: "Saves every second to localStorage — no account needed",
         color: "fg.success",
         icon: FaCheck,
       },
-      jsonViewer: { text: "Stone age UI/UX", color: "fg.error", icon: FaX },
-      jsonLint: { text: "Stone age UI/UX", color: "fg.error", icon: FaX },
+      jsonViewer: { text: "No", color: "fg.error", icon: FaX },
+      jsonLint: { text: "No", color: "fg.error", icon: FaX },
+    },
+    {
+      feature: { text: "UI and responsiveness", color: "fg" },
+      mz: {
+        text: "Modern, responsive, dark-mode support",
+        color: "fg.success",
+        icon: FaCheck,
+      },
+      jsonViewer: { text: "Outdated UI", color: "fg.error", icon: FaX },
+      jsonLint: { text: "Outdated UI", color: "fg.error", icon: FaX },
     },
   ] as JsonValidatorFormatterComparisonRow[],
 };
@@ -371,34 +395,39 @@ export const jsonValidatorFormatterFaqsData = {
   },
   faqs: [
     {
-      question: "Does the tool send my JSON to a server?",
+      question: "Can I compare two JSON payloads online?",
       answer:
-        "No. Validation, formatting, searching, and tree rendering all happen entirely in your browser. Your JSON never leaves your device, so you can safely inspect payloads that contain credentials, PII, or internal API data.",
+        "Yes. Click the Diff tab, paste your original JSON in the left panel and the modified version in the right panel, then choose between Split (side-by-side) and Unified view. Changes are highlighted at the character level. In Unified mode you can accept or reject individual diff chunks without leaving the editor.",
     },
     {
-      question: "Does the validator show which line the JSON error is on?",
+      question: "Can the tool automatically fix broken JSON?",
       answer:
-        "Yes. When JSON fails to parse, the viewer reports the exact error message and highlights the specific line that caused the failure. This makes it much faster to fix syntax errors in large payloads compared to tools that only say parsing failed without pointing to the location.",
+        "Yes. When the editor detects a syntax error, a Repair JSON button appears inline next to the error marker. Click it and the tool uses the jsonrepair library to fix the most common issues — missing quotes around keys, trailing commas, unclosed brackets and braces, unescaped characters, and invalid number formats — in one click. The repair result appears in the diff view so you can review exactly what changed before accepting it.",
+    },
+    {
+      question: "Can I edit JSON in a visual tree instead of raw text?",
+      answer:
+        "Yes. Switch to the Tree tab. Every object and array starts collapsed so large payloads stay manageable. Click any node to expand it, click a value to edit it inline, and use the action buttons on each node to add a key, delete a field, or copy the full path. Type badges (String, Int, Float, Boolean, Null, Array, Object) show the type of every value at a glance.",
+    },
+    {
+      question: "Does the tool save my work automatically?",
+      answer:
+        "Yes. Every change is written to your browser's localStorage within one second. You can also name documents, manage multiple payloads in the history panel, and restore any previously saved version — without creating an account. Nothing is stored on a server.",
+    },
+    {
+      question: "Does the validator show which line the error is on?",
+      answer:
+        "Yes. When JSON fails to parse, an inline error marker highlights the exact line and column where parsing broke down. The error message also appears below the toolbar. This is much faster than tools that only say \"parsing failed\" without pointing to the location.",
     },
     {
       question: "How do I format an escaped JSON string copied from a log?",
       answer:
-        "Paste the escaped string into the Text tab and click Remove Escape Characters. The tool strips the surrounding quotes and unescapes backslashes, turning a raw log line like \"{\\\"key\\\":\\\"value\\\"}\" into clean, readable JSON that the formatter and tree viewer can then process normally.",
+        "Paste the escaped string into the Text tab and click Remove Escape Characters. The tool strips surrounding quotes and unescapes backslashes, turning a raw log line like \"{\\\"key\\\":\\\"value\\\"}\" into readable JSON that the formatter and tree view can process normally.",
     },
     {
-      question: "Can I use this as an online JSON tree viewer?",
+      question: "Does the tool send my JSON to a server?",
       answer:
-        "Yes. Switch to the Viewer tab after pasting your JSON. Every object and array starts collapsed so large payloads stay manageable. You can expand only the branches you need, click any node to inspect its key, value, and type in the detail panel, and use the search bar to jump directly to a matching key or value.",
-    },
-    {
-      question: "What does Remove White Space do?",
-      answer:
-        "It minifies valid JSON by removing indentation and extra spacing while preserving the data structure. Useful when you need to compact a payload before sending it in a request body or storing it in a database field.",
-    },
-    {
-      question: "Will the viewer open all nodes automatically?",
-      answer:
-        "No. The tree starts fully collapsed to stay readable. Search navigation expands only the branches needed to reach the current match.",
+        "No. Validation, formatting, diff, repair, tree rendering, and auto-save all run entirely in your browser. Your JSON never leaves your device, so you can safely inspect payloads that contain credentials, PII, or internal API data.",
     },
   ] as JsonValidatorFormatterFaq[],
 };

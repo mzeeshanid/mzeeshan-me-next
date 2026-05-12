@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import React from "react";
 
-import { Toaster, toaster } from "@/components/ui/toaster";
+import { toaster } from "@/components/ui/toaster";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
 import {
@@ -47,7 +47,6 @@ const DriveDirectMultipleLinks: React.FC<Props> = (props: Props) => {
     >
       {({ handleChange, values, errors, handleSubmit, touched, resetForm }) => (
         <Form>
-          <Toaster />
           <Stack gap={4}>
             <Field.Root
               colorPalette={palette}

@@ -97,7 +97,7 @@ export type Base64MetaData = {
 };
 
 export const base64MetaData: Base64MetaData = {
-  title: "Base64 Encoder & Decoder — Text, Image & File | mzeeshan.me",
+  title: "Base64 Encoder & Decoder — Text, Image & File",
   description:
     "Free online Base64 encoder and decoder. Encode or decode plain text, images, and files to Base64 instantly in your browser — no upload, no tracking. Includes Base64URL mode, ready-to-use HTML/CSS snippets, and code examples.",
   url: "/tools/base64-encoder-decoder",

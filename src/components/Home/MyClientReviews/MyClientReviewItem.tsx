@@ -48,7 +48,7 @@ const MyClientReviewItem: React.FC<MyClientReviewItemProps> = ({
         scriptId={`review-${name.replace(/\s+/g, "-").toLowerCase()}`}
         author={name}
         reviewRating={{ ratingValue: rating, bestRating: 5, worstRating: 1 }}
-        itemReviewed={{ name: "Muhammad Zeeshan" }}
+        itemReviewed={{ name: "Muhammad Zeeshan", "@type": "Organization" }}
         reviewBody={text}
         url={source}
       />

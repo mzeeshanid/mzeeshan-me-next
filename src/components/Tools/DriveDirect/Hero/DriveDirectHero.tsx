@@ -1,13 +1,7 @@
+import { Toaster } from "@/components/ui/toaster";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
-import {
-  Box,
-  Center,
-  Heading,
-  Stack,
-  Tabs,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Center, Heading, Stack, Tabs, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import DriveDirectSingleLink from "./DriveDirectSingleLink";
 import DriveDirectMultipleLinks from "./DriveDirectMultipleLinks";
@@ -21,6 +15,7 @@ const DriveDirectHero: React.FC<Props> = (props: Props) => {
   const { palette } = useColorPalette();
   return (
     <Box as="section">
+      <Toaster />
       <Stack gap={12} direction={{ base: "column-reverse", md: "row" }}>
         <Stack gap={6} w={{ base: "full", md: "50%" }}>
           {/* Title */}
@@ -80,6 +75,7 @@ const DriveDirectHero: React.FC<Props> = (props: Props) => {
               height={hero.heroImage.height}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
               sizes="(max-width: 62em) 100vw, 50vw"
+              fetchPriority="high"
             />
           </Center>
         </Box>

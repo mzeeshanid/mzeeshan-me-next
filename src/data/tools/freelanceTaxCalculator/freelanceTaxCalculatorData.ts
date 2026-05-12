@@ -95,7 +95,7 @@ export type FreelanceTaxMetaData = {
 
 export const freelanceTaxMetaData: FreelanceTaxMetaData = {
   title:
-    "Pakistan Freelance Tax Calculator 2025-26 | PSEB 0.25% & FBR Section 154A | mzeeshan.me",
+    "Pakistan Freelance Tax Calculator 2025-26 | PSEB 0.25% & FBR Section 154A",
   description:
     "Calculate your Pakistan freelance income tax for FY 2025-26. PSEB-registered freelancers pay 0.25%, non-registered pay 1% on foreign income under FBR Section 154A. Instant breakdown with visual charts.",
   url: "/tools/freelance-tax-calculator",

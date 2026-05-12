@@ -28,7 +28,7 @@ const DriveDirectAPI: React.FC<Props> = () => {
       <Spacer p={{ base: 2, md: 4 }} />
       <Center>
         <VStack>
-          <Heading fontSize={{ base: "xl", md: "2xl" }}>
+          <Heading as="h3" fontSize={{ base: "xl", md: "2xl" }}>
             {"Single Link Request"}
           </Heading>
           <Text color={"fg.muted"}>
@@ -62,7 +62,7 @@ const DriveDirectAPI: React.FC<Props> = () => {
       <Spacer p={{ base: 2, md: 4 }} />
       <Center>
         <VStack>
-          <Heading fontSize={{ base: "xl", md: "2xl" }}>
+          <Heading as="h3" fontSize={{ base: "xl", md: "2xl" }}>
             {"Multiple Links Request"}
           </Heading>
           <Text color={"fg.muted"}>

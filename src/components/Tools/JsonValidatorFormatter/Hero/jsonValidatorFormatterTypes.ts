@@ -1,5 +1,8 @@
 export type JsonPrimitive = string | number | boolean | null;
-export type JsonValue = JsonPrimitive | JsonValue[] | { [key: string]: JsonValue };
+export type JsonValue =
+  | JsonPrimitive
+  | JsonValue[]
+  | { [key: string]: JsonValue };
 export type JsonTypeName =
   | "object"
   | "array"
@@ -21,35 +24,9 @@ export type ValidationState = {
   error?: ValidationErrorDetails;
 };
 
-export type SearchMatch = {
-  path: string;
-  key: string;
-  value: JsonValue;
-};
-
-export type SelectedNode = {
-  path: string;
-  key: string;
-  value: JsonValue;
-};
-
-export type SelectedNodeDetailRow = {
-  key: string;
-  value: JsonValue;
-};
-
-export type DiffType = "added" | "removed" | "changed" | "unchanged" | "nested";
-
-export interface DiffNode {
-  type: DiffType;
-  key: string;
-  oldValue: JsonValue | undefined;
-  newValue: JsonValue | undefined;
-  children?: DiffNode[];
-}
-
-export interface DiffStats {
-  added: number;
-  removed: number;
-  changed: number;
+export interface StoredDocument {
+  id: string;
+  name: string;
+  content: string;
+  updatedAt: number;
 }

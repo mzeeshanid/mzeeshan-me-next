@@ -46,7 +46,7 @@ const DriveDirectLinks: React.FC<Props> = (props: Props) => {
               pl={{ base: 4, md: 6 }}
             >
               <Text
-                as="h3"
+                as="h2"
                 fontWeight={"bold"}
                 fontSize={{ base: "lg", md: "2xl" }}
               >
@@ -67,10 +67,9 @@ const DriveDirectLinks: React.FC<Props> = (props: Props) => {
               </Clipboard.Root>
             </HStack>
             <Box w="full" pr={{ base: 4, md: 6 }} pl={{ base: 4, md: 6 }}>
-              <List.Root w="full">
-                <VStack gap={2}>
+              <List.Root w="full" gap={2} listStyleType="none">
                   {links.map((link, idx) => (
-                    <List.Item w="full" key={idx} listStyle={"none"}>
+                    <List.Item w="full" key={idx}>
                       <InputGroup
                         w="full"
                         colorPalette={palette}
@@ -81,11 +80,13 @@ const DriveDirectLinks: React.FC<Props> = (props: Props) => {
                               href={link}
                               target="_blank"
                               rel="noopener noreferrer"
+                              aria-label="Open direct link in new tab"
                             >
                               <IconButton
                                 size={"xs"}
                                 variant={"surface"}
                                 disabled={isDisabled}
+                                aria-label="Open direct link in new tab"
                               >
                                 <LuExternalLink />
                               </IconButton>
@@ -118,7 +119,6 @@ const DriveDirectLinks: React.FC<Props> = (props: Props) => {
                       </InputGroup>
                     </List.Item>
                   ))}
-                </VStack>
               </List.Root>
               <Spacer p={2} />
               <HStack gap={1} color="fg.warning">

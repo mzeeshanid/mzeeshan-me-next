@@ -14,6 +14,7 @@ import { LuMoon, LuSun } from "react-icons/lu";
 import { useColorPalette } from "../../contexts/useColorPalette";
 import navBarData from "../../data/navBar/navBarData";
 import { useColorMode } from "../ui/color-mode";
+import { useMounted } from "../../hooks/useMounted";
 import NavBarThemePopOverContent from "./NavBarThemePopOverContent";
 
 type NavBarMobileMenuContentProps = {
@@ -28,6 +29,7 @@ const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = (
   const { mainLinks } = navBarData();
   const { palette } = useColorPalette();
   const { colorMode, toggleColorMode } = useColorMode();
+  const mounted = useMounted();
 
   return (
     <Collapsible.Root open={open} onOpenChange={onToggle}>
@@ -89,7 +91,7 @@ const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = (
               size={{ base: "xs", md: "sm" }}
               onClick={toggleColorMode}
             >
-              <Icon as={colorMode === "light" ? LuSun : LuMoon} />
+              <Icon as={mounted && colorMode === "dark" ? LuMoon : LuSun} />
             </Button>
           </HStack>
         </Stack>

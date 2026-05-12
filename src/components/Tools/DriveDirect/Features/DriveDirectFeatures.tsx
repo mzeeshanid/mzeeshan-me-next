@@ -31,7 +31,7 @@ const DriveDirectFeatures: React.FC<Props> = (props: Props) => {
               <Tag.Label>{features.header.badge}</Tag.Label>
             </Tag.Root>
             <Heading
-              as="h3"
+              as="h2"
               fontWeight={"bold"}
               fontSize={{ base: "2xl", md: "4xl" }}
               lineHeight={"normal"}

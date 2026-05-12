@@ -15,6 +15,7 @@ import unixTimestampIcon from "public/assets/unix_time_stamp_icon.png";
 import base64EncoderDecoderIcon from "public/assets/base64_encoder_decoder_icon.png";
 import salaryTaxCalculatorIcon from "public/assets/salary_tax_calculator_icon.png";
 import freelanceTaxCalculatorIcon from "public/assets/freelance_tax_calculator_icon.png";
+import colorFormatConverterIcon from "public/assets/color_format_converter_icon.png";
 
 export type MyToolsData = {
   tagline: string;
@@ -244,6 +245,19 @@ export const myToolsData: MyToolsData = {
         height: 300,
       },
       url: "/tools/freelance-tax-calculator",
+    },
+    {
+      title: "Color Converter",
+      caption: "Convert It!",
+      detail:
+        "Convert HEX, RGB, HSL, and HSV color formats instantly — with live preview, WCAG contrast check, harmony swatches, and code examples in 6 languages.",
+      icon: {
+        src: colorFormatConverterIcon,
+        alt: "Color Format Converter icon",
+        width: 300,
+        height: 300,
+      },
+      url: "/tools/color-format-converter",
     },
   ],
 };
