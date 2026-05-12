@@ -1,4 +1,3 @@
-import { Toaster } from "@/components/ui/toaster";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
 import { Box, Center, Heading, Stack, Tabs, Text } from "@chakra-ui/react";
@@ -15,7 +14,6 @@ const DriveDirectHero: React.FC<Props> = (props: Props) => {
   const { palette } = useColorPalette();
   return (
     <Box as="section">
-      <Toaster />
       <Stack gap={12} direction={{ base: "column-reverse", md: "row" }}>
         <Stack gap={6} w={{ base: "full", md: "50%" }}>
           {/* Title */}
@@ -38,14 +36,14 @@ const DriveDirectHero: React.FC<Props> = (props: Props) => {
                 <Tabs.Trigger value="tab-1">{"Single"}</Tabs.Trigger>
                 <Tabs.Trigger value="tab-2">{"Multiple"}</Tabs.Trigger>
               </Tabs.List>
-              <Tabs.Content value="tab-1">
+              <Tabs.Content value="tab-1" minH="240px">
                 <DriveDirectSingleLink
                   onDirectLinkGenerated={(directLink) => {
                     props.onDirectLinkGenerated([directLink]);
                   }}
                 />
               </Tabs.Content>
-              <Tabs.Content value="tab-2">
+              <Tabs.Content value="tab-2" minH="240px">
                 <DriveDirectMultipleLinks
                   onDirectLinkGenerated={(links: string[]) => {
                     props.onDirectLinkGenerated(links);

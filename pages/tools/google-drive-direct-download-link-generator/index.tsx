@@ -15,6 +15,7 @@ import DriveDirectSeo from "@/components/Tools/DriveDirect/Seo/DriveDirectSeo";
 import DriveDirectSteps from "@/components/Tools/DriveDirect/Steps/DriveDirectSteps";
 import DriveDirectUsage from "@/components/Tools/DriveDirect/Usage/DriveDirectUsage";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
+import { Toaster } from "@/components/ui/toaster";
 import { Container, Spacer } from "@chakra-ui/react";
 import { GetStaticProps, GetStaticPropsContext } from "next";
 import React from "react";
@@ -33,6 +34,7 @@ const DriveDirectHome: React.FC<DriveDirectHomeProps> = (
 
   return (
     <>
+      <Toaster />
       <DriveDirectSeo />
       <NavBar header={header} />
       <main>
