@@ -97,7 +97,9 @@ const Base64FileTab: React.FC = () => {
       const base = decodeFilename.trim() || "file";
       const hasExtension = base.includes(".");
       const effectiveFilename =
-        !hasExtension && inferredType ? `${base}.${inferredType.extension}` : base;
+        !hasExtension && inferredType
+          ? `${base}.${inferredType.extension}`
+          : base;
       const mimeType =
         inferredType?.mimeType ?? getMimeTypeFromFilename(effectiveFilename);
       const blob = decodeBase64ToBlob(
@@ -164,8 +166,8 @@ const Base64FileTab: React.FC = () => {
                 onChange={(e) => handleFiles(e.target.files)}
               />
               <VStack gap={3}>
-                <Icon
-                  as={FaCloudArrowUp}
+                <DeferredIcon
+                  icon={FaCloudArrowUp}
                   boxSize={10}
                   color={`${palette}.fg`}
                 />
