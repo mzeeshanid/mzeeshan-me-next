@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, type ReactNode, useEffect } from "react";
-import { cva } from "styled-system/css";
 
-export type Palette =
+type Palette =
   | "gray"
   | "red"
   | "orange"
@@ -13,25 +12,6 @@ export type Palette =
   | "purple"
   | "pink"
   | string;
-
-export type PaletteCvaKey = "green" | "blue" | "orange" | "red" | "yellow" | "gray" | "teal" | "cyan" | "purple" | "pink";
-
-export const paletteCva = cva({
-  variants: {
-    palette: {
-      green:  { colorPalette: "green" },
-      blue:   { colorPalette: "blue" },
-      orange: { colorPalette: "orange" },
-      red:    { colorPalette: "red" },
-      yellow: { colorPalette: "yellow" },
-      gray:   { colorPalette: "gray" },
-      teal:   { colorPalette: "teal" },
-      cyan:   { colorPalette: "cyan" },
-      purple: { colorPalette: "purple" },
-      pink:   { colorPalette: "pink" },
-    },
-  },
-});
 
 const DEFAULT_PALETTE: Palette = "green";
 const COLOR_PALETTE_STORAGE_KEY = "mzeeshan:accent-palette";

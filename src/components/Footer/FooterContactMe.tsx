@@ -1,41 +1,25 @@
-import { cx } from "styled-system/css";
-import { vstack } from "styled-system/patterns";
-import { button } from "styled-system/recipes";
+import { Box, Button, Heading, Link, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
-import NextLink from "next/link";
 import profilePic from "public/assets/profile_pic.jpeg";
-import {
-  paletteCva,
-  useColorPalette,
-  type PaletteCvaKey,
-} from "../../contexts/useColorPalette";
+import { useColorPalette } from "../../contexts/useColorPalette";
 
-const FooterContactMe = () => {
+type FooterContactMeProps = {};
+
+const FooterContactMe = ({}: FooterContactMeProps) => {
   const { palette } = useColorPalette();
 
   return (
-    <div
-      className={vstack({
-        bg: "bg.subtle",
-        w: "full",
-        pt: "12",
-        pb: "12",
-        gap: "4",
-        rounded: "sm",
-        borderWidth: "1px",
-        textAlign: "center",
-        alignItems: "center",
-      })}
+    <VStack
+      bg={"bg.subtle"}
+      w="full"
+      pt={12}
+      pb={12}
+      gap={4}
+      rounded={"sm"}
+      borderWidth={1}
+      textAlign={"center"}
     >
-      <div
-        style={{
-          width: 80,
-          height: 80,
-          borderRadius: "50%",
-          overflow: "hidden",
-          flexShrink: 0,
-        }}
-      >
+      <Box w="80px" h="80px" flexShrink={0} borderRadius="md" rounded={"full"} overflow="hidden">
         <Image
           width={80}
           height={80}
@@ -45,23 +29,22 @@ const FooterContactMe = () => {
           placeholder="blur"
           sizes="80px"
         />
-      </div>
-      <h3 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-        {"Have any questions?"}
-      </h3>
-      <p style={{ color: "var(--colors-fg-muted)" }}>
+      </Box>
+      <Heading as={"h3"}>{"Have any questions?"}</Heading>
+      <Text>
         {"Feel free to reach out! I am happy to answer your questions."}
-      </p>
-      <NextLink
-        href="/contact"
-        className={cx(
-          paletteCva({ palette: palette as PaletteCvaKey }),
-          button({ variant: "solid", size: "lg" }),
-        )}
-      >
-        {"Contact Me"}
-      </NextLink>
-    </div>
+      </Text>
+      <Link href="/contact">
+        <Button
+          as={"span"}
+          variant={"solid"}
+          size={"lg"}
+          colorPalette={palette}
+        >
+          {"Contact Me"}
+        </Button>
+      </Link>
+    </VStack>
   );
 };
 

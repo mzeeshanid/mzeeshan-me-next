@@ -1,29 +1,36 @@
-import { grid, stack } from "styled-system/patterns";
-import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
-import myStatsData from "@/data/home/myStatsData";
+import { Box, GridItem, SimpleGrid, VStack } from "@chakra-ui/react";
 import React from "react";
 import MyStatItem from "./MyStatItem";
+import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import myStatsData from "@/data/home/myStatsData";
 
-const MyStats: React.FC = () => {
+type MyStatsProps = {};
+
+const MyStats: React.FC<MyStatsProps> = (props: MyStatsProps) => {
   const { tagline, title, detail, stats } = myStatsData();
-
   return (
-    <section>
-      <div className={grid({ columns: { base: 1, lg: 2 }, gap: "8" })}>
-        <div>
-          <div className={stack({ align: "flex-start" })}>
-            <SectionHeader tagline={tagline} headline={title} description={detail} />
-          </div>
-        </div>
-        <div>
-          <div className={grid({ columns: 2, gap: "8" })}>
+    <Box as="section">
+      <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} gap={8}>
+        <GridItem>
+          <VStack align={"flex-start"}>
+            <SectionHeader
+              tagline={tagline}
+              headline={title}
+              description={detail}
+            />
+          </VStack>
+        </GridItem>
+        <Box>
+          <SimpleGrid columns={2} gap={8}>
             {stats.map((stat, index) => (
-              <MyStatItem key={index} title={stat.title} value={stat.value} />
+              <GridItem key={index}>
+                <MyStatItem title={stat.title} value={stat.value} />
+              </GridItem>
             ))}
-          </div>
-        </div>
-      </div>
-    </section>
+          </SimpleGrid>
+        </Box>
+      </SimpleGrid>
+    </Box>
   );
 };
 

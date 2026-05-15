@@ -1,29 +1,30 @@
-import { container, grid, stack } from "styled-system/patterns";
-import { card } from "styled-system/recipes";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import myClientReviewsData from "@/data/home/myClientReviewsData";
+import { Card, Container, GridItem, SimpleGrid, VStack } from "@chakra-ui/react";
 import React from "react";
 import MyClientStatItem from "./MyClientStatItem";
 
-const MyClientStats: React.FC = () => {
-  const { stats, statsTitle } = myClientReviewsData();
-  const cardStyles = card({});
+type MyClientStatsProps = {};
 
+const MyClientStats: React.FC<MyClientStatsProps> = (props) => {
+  const { stats, statsTitle } = myClientReviewsData();
   return (
-    <div className={cardStyles.root}>
-      <div className={cardStyles.body}>
-        <div className={container({ py: "8" })}>
-          <div className={stack({ gap: "12", align: "center" })}>
+    <Card.Root>
+      <Card.Body>
+        <Container py={8}>
+          <VStack gap={12}>
             <SectionHeader textAlign="center" headline={statsTitle} />
-            <div className={grid({ columns: { base: 2, lg: 4 }, gap: "4" })}>
+            <SimpleGrid columns={{ base: 2, lg: 4 }} gap={4}>
               {stats.map((item, idx) => (
-                <MyClientStatItem key={idx} idx={idx} item={item} />
+                <GridItem key={idx}>
+                  <MyClientStatItem idx={idx} item={item} />
+                </GridItem>
               ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </SimpleGrid>
+          </VStack>
+        </Container>
+      </Card.Body>
+    </Card.Root>
   );
 };
 

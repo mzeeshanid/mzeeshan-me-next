@@ -1,25 +1,22 @@
-import { hstack } from "styled-system/patterns";
-import { button } from "styled-system/recipes";
-import NextLink from "next/link";
+import { Button, HStack, Link } from "@chakra-ui/react";
 import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import footerData from "../../data/footer/footerData";
 
-const FooterSocialLinks = () => {
+type FooterSocialLinksProps = {};
+
+const FooterSocialLinks = ({}: FooterSocialLinksProps) => {
   const { socialLinks } = footerData();
 
   return (
-    <div className={hstack({ gap: "0", justify: { base: "center", md: "flex-end" } })}>
+    <HStack gap={0} justify={{ base: "center", md: "flex-end" }}>
       {socialLinks.map(({ icon, link }, idx) => (
-        <NextLink
-          key={idx}
-          href={link}
-          aria-label={link}
-          className={button({ variant: "ghost", size: "sm" })}
-        >
-          <DeferredIcon icon={icon} size="md" />
-        </NextLink>
+        <Button key={idx} as={"span"} p={0} variant={"ghost"}>
+          <Link href={link} aria-label={link}>
+            <DeferredIcon icon={icon} size="md" />
+          </Link>
+        </Button>
       ))}
-    </div>
+    </HStack>
   );
 };
 

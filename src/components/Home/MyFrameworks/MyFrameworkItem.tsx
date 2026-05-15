@@ -1,6 +1,5 @@
-import { css, cx } from "styled-system/css";
-import { stack } from "styled-system/patterns";
-import { paletteCva, useColorPalette, type PaletteCvaKey } from "@/contexts/useColorPalette";
+import { useColorPalette } from "@/contexts/useColorPalette";
+import { Link, LinkBox, Text, VStack } from "@chakra-ui/react";
 import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { IconType } from "react-icons";
@@ -12,33 +11,30 @@ type MyFrameworkItemProps = {
   icon: IconType;
 };
 
-const MyFrameworkItem: React.FC<MyFrameworkItemProps> = ({ title, description, icon, link }) => {
+const MyFrameworkItem: React.FC<MyFrameworkItemProps> = (
+  props: MyFrameworkItemProps
+) => {
   const { palette } = useColorPalette();
-
+  const { title, description, icon, link } = props;
   return (
-    <a href={link}>
-      <div className={stack({ align: "center" })}>
-        <DeferredIcon
-          icon={icon}
-          boxSize={12}
-          color={`${palette}.fg`}
-        />
-        <p
-          className={cx(
-            paletteCva({ palette: palette as PaletteCvaKey }),
-            css({
-              fontWeight: "semibold",
-              fontSize: "lg",
-              textAlign: "center",
-              color: "colorPalette.fg",
-            }),
-          )}
-        >
-          {title}
-        </p>
-        <p className={css({ textAlign: "center", color: "fg.muted" })}>{description}</p>
-      </div>
-    </a>
+    <LinkBox>
+      <Link href={link}>
+        <VStack>
+          <DeferredIcon icon={icon} boxSize={12} color={`${palette}.fg`} />
+          <Text
+            fontWeight={"semibold"}
+            fontSize={"lg"}
+            textAlign={"center"}
+            color={`${palette}.fg`}
+          >
+            {title}
+          </Text>
+          <Text textAlign={"center"} color="fg.muted">
+            {description}
+          </Text>
+        </VStack>
+      </Link>
+    </LinkBox>
   );
 };
 

@@ -1,5 +1,4 @@
-import { css } from "styled-system/css";
-import { container, flex, vstack } from "styled-system/patterns";
+import { Box, Container, Flex, Separator, VStack } from "@chakra-ui/react";
 
 import MyIntro from "../MyIntro/MyIntro";
 import FooterContactMe from "./FooterContactMe";
@@ -7,36 +6,39 @@ import FooterMainLinks from "./FooterMainLinks";
 import FooterSocialLinks from "./FooterSocialLinks";
 import FooterTermsRights from "./FooterTermsRights";
 
-function Footer() {
+type FooterProps = {};
+
+function Footer({}: FooterProps) {
   return (
-    <footer>
-      <div className={vstack({ w: "full", gap: "4" })}>
-        <div className={container({ w: "full", maxW: "6xl", px: "4" })}>
+    <Box as="footer">
+      <VStack gap={4}>
+        <Container maxW="6xl">
           <FooterContactMe />
-        </div>
-        <div className={container({ w: "full", maxW: "8xl", px: "4" })}>
-          <div className={vstack({ gap: "4" })}>
-            <div
-              className={flex({
-                direction: { base: "column", lg: "row" },
-                justify: "space-between",
-                align: "center",
-                w: "full",
-                px: "4",
-                my: "4",
-                gap: "4",
-              })}
+        </Container>
+        <Container maxW="8xl">
+          <VStack gap={4}>
+            {/* --- Main Links --- */}
+            <Flex
+              w="full"
+              direction={{ base: "column", lg: "row" }}
+              justify="space-between"
+              align={{ base: "center", md: "center" }}
+              pl={4}
+              pr={4}
+              mt={4}
+              mb={4}
+              gap={4}
             >
               <MyIntro />
               <FooterMainLinks />
               <FooterSocialLinks />
-            </div>
-            <hr className={css({ w: "full", borderColor: "border.muted" })} />
+            </Flex>
+            <Separator w="full" />
             <FooterTermsRights />
-          </div>
-        </div>
-      </div>
-    </footer>
+          </VStack>
+        </Container>
+      </VStack>
+    </Box>
   );
 }
 

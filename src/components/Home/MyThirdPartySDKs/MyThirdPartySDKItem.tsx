@@ -1,5 +1,4 @@
-import { cx } from "styled-system/css";
-import { tag } from "styled-system/recipes";
+import { Link, Tag } from "@chakra-ui/react";
 import React from "react";
 
 type MyThirdPartySDKItemProps = {
@@ -7,15 +6,16 @@ type MyThirdPartySDKItemProps = {
   link: string;
 };
 
-const MyThirdPartySDKItem: React.FC<MyThirdPartySDKItemProps> = ({ title, link }) => {
-  const tagStyles = tag({ size: "lg", variant: "surface" });
-
+const MyThirdPartySDKItem: React.FC<MyThirdPartySDKItemProps> = (
+  props: MyThirdPartySDKItemProps
+) => {
+  const { title, link } = props;
   return (
-    <a href={link}>
-      <div className={cx(tagStyles.root)}>
-        <span className={tagStyles.label}>{title}</span>
-      </div>
-    </a>
+    <Link href={link}>
+      <Tag.Root variant={"surface"} size={{ base: "md", md: "lg", lg: "xl" }}>
+        <Tag.Label>{title}</Tag.Label>
+      </Tag.Root>
+    </Link>
   );
 };
 

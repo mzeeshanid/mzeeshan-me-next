@@ -1,6 +1,6 @@
-import { css } from "styled-system/css";
-import { container, hstack } from "styled-system/patterns";
+import { Box, Container, HStack, useDisclosure } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
+
 import { useEffect, useState } from "react";
 import MyIntro from "../MyIntro/MyIntro";
 import NavBarMobileMenu from "./NavBarMobileMenu";
@@ -13,10 +13,8 @@ type NavBarProps = {
 };
 
 const NavBar: React.FC<NavBarProps> = (props) => {
-  const [open, setOpen] = useState(false);
-  const onToggle = () => setOpen((v) => !v);
-  const [scrolled, setScrolled] = useState(false);
-
+  const { open, onToggle } = useDisclosure();
+  const [scrolled, setScrolled] = useState<boolean>(false);
   const scrolledBg = useColorModeValue(
     "rgba(250, 250, 250, 0.5)",
     "rgba(17, 17, 17, 0.5)",
@@ -28,13 +26,15 @@ const NavBar: React.FC<NavBarProps> = (props) => {
 
   useEffect(() => {
     let rafId: number | null = null;
-    const handleScroll = () => {
+
+    const handleScroll = (): void => {
       if (rafId !== null) return;
       rafId = requestAnimationFrame(() => {
         setScrolled(window.scrollY > 10);
         rafId = null;
       });
     };
+
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
@@ -43,38 +43,40 @@ const NavBar: React.FC<NavBarProps> = (props) => {
     };
   }, []);
 
+  const navBarBgColor = scrolled ? scrolledBg : "transparent";
+
   return (
-    <header
-      className={css({
-        position: "sticky",
-        top: 0,
-        zIndex: 1000,
-        px: { base: 0, md: 2 },
-        borderBottomWidth: 1,
-      })}
+    <Box
+      as="header"
+      position="sticky"
+      top={0}
+      zIndex={1000}
+      pl={{ base: 0, md: 2 }}
+      pr={{ base: 0, md: 2 }}
+      borderBottomWidth={1}
       style={{
-        background: scrolled ? scrolledBg : "transparent",
+        background: navBarBgColor,
         borderColor: scrolled ? scrolledBorderColor : "transparent",
         backdropFilter: scrolled ? "blur(16px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
         transition: "background 0.2s, backdrop-filter 0.2s, border-color 0.2s",
       }}
     >
-      <div className={container({ maxW: "8xl" })}>
-        <div className={hstack({ justify: "space-between", py: "4" })}>
+      <Container maxW={"8xl"}>
+        <HStack justify="space-between" align="center" py={4}>
           {props.header ? <NavBarHeader {...props.header} /> : <MyIntro />}
-          <div className={css({ display: { base: "block", lg: "none" } })}>
+          <Box display={{ base: "block", lg: "none" }}>
             <NavBarMobileMenu open={open} onToggle={onToggle} />
-          </div>
-          <div className={css({ display: { base: "none", lg: "block" } })}>
+          </Box>
+          <Box display={{ base: "none", lg: "block" }}>
             <NavBarNormalMenu />
-          </div>
-        </div>
-        <div className={css({ display: { base: "block", lg: "none" } })}>
+          </Box>
+        </HStack>
+        <Box display={{ base: "block", lg: "none" }}>
           <NavBarMobileMenuContent open={open} onToggle={onToggle} />
-        </div>
-      </div>
-    </header>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

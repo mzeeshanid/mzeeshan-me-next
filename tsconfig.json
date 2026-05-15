@@ -19,7 +19,6 @@
     "jsx": "react-jsx",
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "styled-system/*": ["./styled-system/*"],
       "@/*": [
         "./src/*"
       ],

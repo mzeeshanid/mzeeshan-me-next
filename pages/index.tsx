@@ -1,6 +1,4 @@
 import dynamic from "next/dynamic";
-import { css } from "styled-system/css";
-import { container } from "styled-system/patterns";
 // Above fold — eager (visible without scrolling)
 import MyHero from "@/components/Home/MyHero/MyHero";
 import MySeo from "@/components/Home/MySeo/MySeo";
@@ -15,68 +13,81 @@ const MyApps = dynamic(() => import("@/components/Home/MyApps/MyApps"));
 const MyStats = dynamic(() => import("@/components/Home/MyStats/MyStats"));
 const MyClientReviews = dynamic(() => import("@/components/Home/MyClientReviews/MyClientReviews"));
 const MyOpenSourceContribution = dynamic(() => import("@/components/Home/MyOpenSourceContribution/MyOpenSourceContribution"));
+import { Container, Spacer } from "@chakra-ui/react";
 import React from "react";
 import Footer from "../src/components/Footer/Footer";
 import NavBar from "../src/components/NavBar/NavBar";
 
-const gap8 = css({ p: "8" });
-const gap4 = css({ p: "4" });
+type HomeProps = {};
 
-const Home: React.FC = () => {
+const Home: React.FC<HomeProps> = (props: HomeProps) => {
   return (
     <>
       <MySeo />
-      <div className={css({ w: "full", maxW: "full" })}>
+      <Container p={0} maxW="full">
+        {/* --- NavBar --- */}
         <NavBar />
         <main>
-          <div className={css({ p: { base: "4", lg: "8" } })} />
-          <div className={container({ maxW: "6xl" })}>
-            <MyHero />
-          </div>
-          <div className={gap8} />
-          <div className={container({ maxW: "6xl" })}>
-            <MySkills />
-          </div>
-          <div className={gap8} />
-          <div className={container({ maxW: "6xl" })}>
-            <MyFrameworks />
-          </div>
-          <div className={gap8} />
-          <div className={container({ maxW: "6xl" })}>
-            <MyThirdPartySDKs />
-          </div>
-          <div className={gap8} />
-          <div className={container({ maxW: "6xl" })}>
-            <MyPricing />
-          </div>
-          <div className={gap8} />
-          <div className={container({ maxW: "6xl" })}>
-            <MyPerformanceStats />
-          </div>
-          <div className={gap8} />
-          <div className={container({ maxW: "6xl" })}>
-            <MyCTA />
-          </div>
-          <div className={gap8} />
-          <div className={container({ maxW: "6xl" })}>
-            <MyApps />
-          </div>
-          <div className={gap8} />
-          <div className={container({ maxW: "6xl" })}>
-            <MyStats />
-          </div>
-          <div className={gap8} />
-          <div className={container({ maxW: "6xl" })}>
-            <MyClientReviews />
-          </div>
-          <div className={gap8} />
-          <div className={container({ maxW: "6xl" })}>
-            <MyOpenSourceContribution />
-          </div>
-          <div className={gap4} />
+        <Spacer p={{ base: 4, lg: 8 }} />
+        {/* --- Hero --- */}
+        <Container maxW="6xl">
+          <MyHero />
+        </Container>
+        <Spacer p={8} />
+        {/* --- Skills --- */}
+        <Container maxW="6xl">
+          <MySkills />
+        </Container>
+        <Spacer p={8} />
+        {/* --- Frameworks --- */}
+        <Container maxW="6xl">
+          <MyFrameworks />
+        </Container>
+        <Spacer p={8} />
+        {/* --- SDKs --- */}
+        <Container maxW="6xl">
+          <MyThirdPartySDKs />
+        </Container>
+        <Spacer p={8} />
+        {/* --- Pricing --- */}
+        <Container maxW="6xl">
+          <MyPricing />
+        </Container>
+        <Spacer p={8} />
+        {/* --- Performance --- */}
+        <Container maxW="6xl">
+          <MyPerformanceStats />
+        </Container>
+        <Spacer p={8} />
+        {/* --- CTA --- */}
+        <Container maxW="6xl">
+          <MyCTA />
+        </Container>
+        <Spacer p={8} />
+        {/* --- Apps --- */}
+        <Container maxW="6xl">
+          <MyApps />
+        </Container>
+        <Spacer p={8} />
+        {/* --- Stats --- */}
+        <Container maxW="6xl">
+          <MyStats />
+        </Container>
+        <Spacer p={8} />
+        {/* --- Reviews --- */}
+        <Container maxW="6xl">
+          <MyClientReviews />
+        </Container>
+        <Spacer p={8} />
+        {/* --- OpenSource Contribution --- */}
+        <Container maxW="6xl">
+          <MyOpenSourceContribution />
+        </Container>
+        <Spacer p={4} />
+        {/* --- Footer --- */}
         </main>
         <Footer />
-      </div>
+      </Container>
     </>
   );
 };

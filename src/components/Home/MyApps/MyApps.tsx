@@ -1,27 +1,34 @@
-import { css, cx } from "styled-system/css";
-import { grid, stack } from "styled-system/patterns";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
-import { paletteCva, useColorPalette, type PaletteCvaKey } from "@/contexts/useColorPalette";
 import myAppsData from "@/data/home/myAppsData";
-import NextLink from "next/link";
+import {
+  Box,
+  Center,
+  GridItem,
+  Link,
+  SimpleGrid,
+  VStack,
+} from "@chakra-ui/react";
 import MyAppItem from "./MyAppItem";
+import { useColorPalette } from "@/contexts/useColorPalette";
 
-const MyApps = () => {
+type MyAppsProps = {};
+
+const MyApps = (props: MyAppsProps) => {
   const { tagline, title, details, apps } = myAppsData();
   const { palette } = useColorPalette();
-
   return (
-    <section>
-      <div className={stack({ gap: "8", align: "center" })}>
+    <Box as={"section"}>
+      <VStack gap={8}>
         <SectionHeader
           tagline={tagline}
           headline={title}
           description={details}
-          textAlign="center"
+          align={"center"}
+          textAlign={"center"}
         />
-        <div className={grid({ columns: { base: 1, md: 2 }, gap: { base: "4", md: "6" } })}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 4, md: 6 }}>
           {apps.map((app, idx) => (
-            <div key={idx} className={css({ w: "full", h: "full" })}>
+            <GridItem key={idx} w="full" h={"full"}>
               <MyAppItem
                 title={app.title}
                 caption={app.caption}
@@ -29,35 +36,24 @@ const MyApps = () => {
                 icon={app.icon}
                 url={app.url}
               />
-            </div>
+            </GridItem>
           ))}
-          <div className={css({ gridColumn: { base: "span 1", md: "span 2" } })}>
-            <div
-              className={css({
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                w: "full",
-                h: "44px",
-                textAlign: "center",
-                bg: "bg.subtle",
-                borderRadius: "md",
-              })}
+          <GridItem colSpan={{ base: 1, md: 2 }}>
+            <Center
+              w="full"
+              h="44px"
+              textAlign={"center"}
+              bg="bg.subtle"
+              borderRadius={"md"}
             >
-              <NextLink
-                href="/apps"
-                className={cx(
-                  paletteCva({ palette: palette as PaletteCvaKey }),
-                  css({ fontWeight: "medium", color: "colorPalette.fg" }),
-                )}
-              >
+              <Link href="/apps" fontWeight={"medium"} colorPalette={palette}>
                 {"View All Apps"}
-              </NextLink>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+              </Link>
+            </Center>
+          </GridItem>
+        </SimpleGrid>
+      </VStack>
+    </Box>
   );
 };
 

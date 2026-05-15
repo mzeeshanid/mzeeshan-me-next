@@ -1,7 +1,7 @@
-import { css } from "styled-system/css";
-import { hstack, stack } from "styled-system/patterns";
+import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import type { StaticImageData } from "next/image";
+import React from "react";
 
 export type NavBarHeaderProps = {
   title: string;
@@ -11,16 +11,19 @@ export type NavBarHeaderProps = {
   rounded?: boolean;
 };
 
-const NavBarHeader: React.FC<NavBarHeaderProps> = (props) => {
+const NavBarHeader: React.FC<NavBarHeaderProps> = (
+  props: NavBarHeaderProps,
+) => {
   return (
-    <div className={hstack({ gap: "4", justify: { base: "center", md: "flex-start" } })}>
-      <div className={css({
-        w: "60px",
-        h: "60px",
-        flexShrink: 0,
-        borderRadius: props.rounded ? "full" : "md",
-        overflow: "hidden",
-      })}>
+    <HStack gap={4} justify={{ base: "center", md: "flex-start" }}>
+      <Box
+        w="60px"
+        h="60px"
+        flexShrink={0}
+        borderRadius="md"
+        rounded={props.rounded ? "full" : undefined}
+        overflow="hidden"
+      >
         <Image
           width={60}
           height={60}
@@ -31,12 +34,14 @@ const NavBarHeader: React.FC<NavBarHeaderProps> = (props) => {
           priority
           sizes="60px"
         />
-      </div>
-      <div className={stack({ direction: "column", align: "flex-start", gap: "0" })}>
-        <p className={css({ fontWeight: "bold", fontSize: "lg" })}>{props.title}</p>
-        <p className={css({ color: "fg.muted" })}>{props.subtitle}</p>
-      </div>
-    </div>
+      </Box>
+      <VStack align={"flex-start"} gap={0}>
+        <Text fontWeight="bold" fontSize="lg">
+          {props.title}
+        </Text>
+        <Text color={"fg.muted"}>{props.subtitle}</Text>
+      </VStack>
+    </HStack>
   );
 };
 

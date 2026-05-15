@@ -1,20 +1,26 @@
-import { grid, stack } from "styled-system/patterns";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 import myContributionData from "@/data/home/myContributionData";
+import { GridItem, SimpleGrid, Spacer, Stack } from "@chakra-ui/react";
 import MyOpenSourceContributionItem from "./MyOpenSourceContributionItem";
 
-const MyOpenSourceContribution: React.FC = () => {
-  const contributions = myContributionData();
+type MyOpenSourceContributionProps = {};
 
+const MyOpenSourceContribution: React.FC<
+  MyOpenSourceContributionProps
+> = () => {
+  const contributions = myContributionData();
   return (
-    <section className={stack({ align: "center", gap: "4" })}>
+    <Stack as="section" align={"center"} gap={4}>
       <SectionHeader textAlign="center" headline="Open Source Contributions" />
-      <div className={grid({ w: "full", columns: { base: 1, lg: 2 }, gap: "4" })}>
+      <Spacer />
+      <SimpleGrid w="full" columns={{ base: 1, lg: 2 }} gap={4}>
         {contributions.map((contribution, idx) => (
-          <MyOpenSourceContributionItem key={idx} contribution={contribution} />
+          <GridItem key={idx}>
+            <MyOpenSourceContributionItem contribution={contribution} />
+          </GridItem>
         ))}
-      </div>
-    </section>
+      </SimpleGrid>
+    </Stack>
   );
 };
 

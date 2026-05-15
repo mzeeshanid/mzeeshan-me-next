@@ -1,25 +1,25 @@
-import { css } from "styled-system/css";
-import { stack } from "styled-system/patterns";
+import { Text, VStack } from "@chakra-ui/react";
 import React from "react";
 
 type MyClientStatItemProps = {
-  item: { label: string; value: string };
+  item: {
+    label: string;
+    value: string;
+  };
   idx: number;
 };
 
-const MyClientStatItem: React.FC<MyClientStatItemProps> = ({ item }) => {
+const MyClientStatItem: React.FC<MyClientStatItemProps> = (props) => {
+  const { item, idx } = props;
   return (
-    <div
-      className={stack({ gap: "2", align: "center", px: { base: "0", md: "8" } })}
-      style={{ textAlign: "center" }}
-    >
-      <p className={css({ textStyle: { base: "2xl", md: "4xl" }, fontWeight: "semibold" })}>
+    <VStack key={idx} gap={2} px={{ base: 0, md: 8 }} textAlign="center">
+      <Text textStyle={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
         {item.value}
-      </p>
-      <p className={css({ whiteSpace: "nowrap", color: "fg.muted" })}>
+      </Text>
+      <Text whiteSpace="nowrap" color="fg.muted">
         {item.label}
-      </p>
-    </div>
+      </Text>
+    </VStack>
   );
 };
 

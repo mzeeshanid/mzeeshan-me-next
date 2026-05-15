@@ -1,98 +1,78 @@
-import { Popover } from "@ark-ui/react/popover";
-import { css, cx } from "styled-system/css";
-import { flex, hstack } from "styled-system/patterns";
-import { button, popover } from "styled-system/recipes";
-import NextLink from "next/link";
-import { useState } from "react";
-import { FaWandMagicSparkles } from "react-icons/fa6";
 import {
-  paletteCva,
-  useColorPalette,
-  type PaletteCvaKey,
-} from "../../contexts/useColorPalette";
+  Button,
+  Flex,
+  HStack,
+  Icon,
+  Link,
+  Popover,
+  Portal,
+  StackSeparator,
+} from "@chakra-ui/react";
+
+import { FaWandMagicSparkles } from "react-icons/fa6";
+import { useColorPalette } from "../../contexts/useColorPalette";
+
 import navBarData from "../../data/navBar/navBarData";
 import NavBarThemePopOverContent from "./NavBarThemePopOverContent";
-import DeferredIcon from "../DeferredIcon/DeferredIcon";
 
-const popoverStyles = popover({ size: "md" });
+type NavBarNormalMenuProps = {};
 
-const NavBarNormalMenu: React.FC = () => {
+const NavBarNormalMenu: React.FC<NavBarNormalMenuProps> = (props) => {
   const { palette } = useColorPalette();
   const { mainLinks } = navBarData();
-  const [popoverOpen, setPopoverOpen] = useState(false);
 
   return (
-    <div className={flex({ align: "center", gap: "4" })}>
-      <div className={hstack({ gap: "4" })}>
+    <Flex gap={4}>
+      <HStack gap={4} aria-label="horizontal stack displaying main links">
         {mainLinks.map((linkItem, idx) => (
-          <NextLink
+          <Link
             key={idx}
             href={linkItem.url}
-            aria-label={`link for ${linkItem.label} page`}
-            className={css({
-              fontSize: "lg",
-              textDecoration: "none",
-              color: "fg",
-              _hover: { color: "colorPalette.fg" },
-            })}
+            area-label={`link for ${linkItem.label} page`}
+            fontSize={"lg"}
           >
-            <span
-              className={css({
-                display: "flex",
-                alignItems: "center",
-                gap: "2",
-              })}
-            >
-              {linkItem.icon && <linkItem.icon size={16} />}
+            <HStack gap={2}>
+              <Icon as={linkItem.icon} />
               {linkItem.label}
-            </span>
-          </NextLink>
+            </HStack>
+          </Link>
         ))}
-      </div>
-      <div className={hstack({ gap: "4" })}>
-        <hr
-          className={css({
-            borderLeft: "1px solid",
-            borderColor: "border.muted",
-            h: "6",
-            alignSelf: "center",
-          })}
-        />
-        <NextLink
-          href="/contact"
-          aria-label="link for contact me page"
-          className={cx(
-            paletteCva({ palette: palette as PaletteCvaKey }),
-            button({ variant: "solid", size: "sm" }),
-          )}
-        >
-          {"Contact Me"}
-        </NextLink>
-        <Popover.Root
-          open={popoverOpen}
-          onOpenChange={({ open }) => setPopoverOpen(open)}
-        >
+      </HStack>
+      <HStack gap={4} separator={<StackSeparator />}>
+        <Link href="/contact" area-label="link for contact me page">
+          <Button
+            as={"span"}
+            variant={"solid"}
+            size={{ base: "xs", md: "sm" }}
+            colorPalette={palette}
+          >
+            {"Contact Me"}
+          </Button>
+        </Link>
+        <Popover.Root>
           <Popover.Trigger asChild>
-            <button
-              className={cx(
-                paletteCva({ palette: palette as PaletteCvaKey }),
-                button({ variant: "subtle", size: "sm" }),
-              )}
+            <Button
+              size={{ base: "xs", md: "sm" }}
+              variant="subtle"
+              colorPalette={palette}
               aria-label="adjust global color palette for site as desired"
             >
-              <DeferredIcon icon={FaWandMagicSparkles} size={"sm"} />
-            </button>
+              <Icon as={FaWandMagicSparkles} />
+            </Button>
           </Popover.Trigger>
-          <Popover.Positioner style={{ zIndex: 1100 }}>
-            <Popover.Content className={popoverStyles.content}>
-              <div className={popoverStyles.body}>
-                {popoverOpen && <NavBarThemePopOverContent />}
-              </div>
-            </Popover.Content>
-          </Popover.Positioner>
+          <Portal>
+            <Popover.Positioner>
+              <Popover.Content>
+                <Popover.Arrow />
+                <Popover.Body>
+                  <NavBarThemePopOverContent />
+                </Popover.Body>
+              </Popover.Content>
+            </Popover.Positioner>
+          </Portal>
         </Popover.Root>
-      </div>
-    </div>
+      </HStack>
+    </Flex>
   );
 };
 
