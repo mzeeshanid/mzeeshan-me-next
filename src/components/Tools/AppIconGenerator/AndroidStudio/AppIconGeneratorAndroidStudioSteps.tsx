@@ -174,6 +174,7 @@ const AppIconGeneratorAndroidStudioSteps: React.FC = () => {
         tagline={data.header.badge}
         headline={data.header.title}
         description={data.header.desc}
+        align="center"
         textAlign="center"
       />
 
