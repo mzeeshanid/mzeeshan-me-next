@@ -52,7 +52,7 @@ const MyAppReviewItem: React.FC<Props> = (props: Props) => {
           <DeferredIcon
             icon={RiDoubleQuotesL}
             color={palette}
-            size="xl"
+            size={{ base: "lg", md: "xl", lg: "2xl" }}
           />
           <Text fontSize="md" color="fg.muted" mt={2}>
             {text}
