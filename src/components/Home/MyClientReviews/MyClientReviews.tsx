@@ -1,5 +1,7 @@
+import { css } from "styled-system/css";
+import { grid, stack } from "styled-system/patterns";
 import myClientReviewsData from "@/data/home/myClientReviewsData";
-import { Box, GridItem, SimpleGrid, Spacer, Stack } from "@chakra-ui/react";
+import React from "react";
 import MyClientReviewItem from "./MyClientReviewItem";
 import MyClientReviewsHeader from "./MyClientReviewsHeader";
 import MyClientStats from "./MyClientStats";
@@ -7,35 +9,30 @@ import MyClientStats from "./MyClientStats";
 const MyClientReviews: React.FC = () => {
   const { title, reviews } = myClientReviewsData();
 
-  // Calculate average rating
   const avgRating =
     reviews.length > 0
       ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
       : 0;
 
   return (
-    <Box as="section">
+    <section>
       <MyClientStats />
-      <Spacer p={4} />
-      <Stack direction={{ base: "column", md: "row" }} gap={4}>
+      <div className={css({ p: "4" })} />
+      <div className={stack({ direction: { base: "column", md: "row" }, gap: "4" })}>
         <MyClientReviewsHeader
           avgRating={avgRating}
           totalReviews={reviews.length}
           title={title}
         />
-        <SimpleGrid columns={{ base: 1, md: 1, lg: 2 }} gap={4}>
+        <div className={grid({ columns: { base: 1, lg: 2 }, gap: "4" })}>
           {reviews.map((review, idx) => (
-            <GridItem
-              key={idx}
-              h="full"
-              maxW={{ base: "full", md: "full", lg: "md" }}
-            >
+            <div key={idx} className={css({ h: "full", maxW: { base: "full", lg: "md" } })}>
               <MyClientReviewItem {...review} />
-            </GridItem>
+            </div>
           ))}
-        </SimpleGrid>
-      </Stack>
-    </Box>
+        </div>
+      </div>
+    </section>
   );
 };
 

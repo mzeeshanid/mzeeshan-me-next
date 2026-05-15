@@ -1,39 +1,44 @@
+import { css, cx } from "styled-system/css";
+import { stack } from "styled-system/patterns";
+import { button, tag } from "styled-system/recipes";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
-import { useColorPalette } from "@/contexts/useColorPalette";
-import { Box, Button, Link, Tag, VStack } from "@chakra-ui/react";
+import { paletteCva, useColorPalette, type PaletteCvaKey } from "@/contexts/useColorPalette";
+import NextLink from "next/link";
 import React from "react";
 
-type MyCTAProps = {};
-
-const MyCTA: React.FC<MyCTAProps> = (props: MyCTAProps) => {
+const MyCTA: React.FC = () => {
   const { palette } = useColorPalette();
+  const tagStyles = tag({ size: "lg", variant: "surface" });
+
   return (
-    <Box as={"section"}>
-      <VStack gap={6}>
-        <Tag.Root
-          px={4}
-          py={2}
-          size={"lg"}
-          rounded={"full"}
-          variant={"surface"}
-          colorPalette={palette}
+    <section>
+      <div className={stack({ gap: "6", align: "center" })}>
+        <div
+          className={cx(
+            paletteCva({ palette: palette as PaletteCvaKey }),
+            tagStyles.root,
+            css({ px: "4", py: "2", rounded: "full" }),
+          )}
         >
-          <Tag.Label>{"Sound's interesting"}</Tag.Label>
-        </Tag.Root>
+          <span className={tagStyles.label}>{"Sound's interesting"}</span>
+        </div>
         <SectionHeader
           headline={"Ready to grow your business?"}
-          description={
-            "Let's connect today to discuss how I can help you achieve your goals."
-          }
-          textAlign={"center"}
+          description={"Let's connect today to discuss how I can help you achieve your goals."}
+          textAlign="center"
         />
-        <Link href="/contact">
-          <Button variant={"solid"} colorPalette={palette} size={"lg"}>
+        <NextLink href="/contact">
+          <button
+            className={cx(
+              paletteCva({ palette: palette as PaletteCvaKey }),
+              button({ variant: "solid", size: "lg" }),
+            )}
+          >
             {"Contact Me"}
-          </Button>
-        </Link>
-      </VStack>
-    </Box>
+          </button>
+        </NextLink>
+      </div>
+    </section>
   );
 };
 

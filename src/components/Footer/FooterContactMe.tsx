@@ -1,25 +1,41 @@
-import { Box, Button, Heading, Link, Text, VStack } from "@chakra-ui/react";
+import { cx } from "styled-system/css";
+import { vstack } from "styled-system/patterns";
+import { button } from "styled-system/recipes";
 import Image from "next/image";
+import NextLink from "next/link";
 import profilePic from "public/assets/profile_pic.jpeg";
-import { useColorPalette } from "../../contexts/useColorPalette";
+import {
+  paletteCva,
+  useColorPalette,
+  type PaletteCvaKey,
+} from "../../contexts/useColorPalette";
 
-type FooterContactMeProps = {};
-
-const FooterContactMe = ({}: FooterContactMeProps) => {
+const FooterContactMe = () => {
   const { palette } = useColorPalette();
 
   return (
-    <VStack
-      bg={"bg.subtle"}
-      w="full"
-      pt={12}
-      pb={12}
-      gap={4}
-      rounded={"sm"}
-      borderWidth={1}
-      textAlign={"center"}
+    <div
+      className={vstack({
+        bg: "bg.subtle",
+        w: "full",
+        pt: "12",
+        pb: "12",
+        gap: "4",
+        rounded: "sm",
+        borderWidth: "1px",
+        textAlign: "center",
+        alignItems: "center",
+      })}
     >
-      <Box w="80px" h="80px" flexShrink={0} borderRadius="md" rounded={"full"} overflow="hidden">
+      <div
+        style={{
+          width: 80,
+          height: 80,
+          borderRadius: "50%",
+          overflow: "hidden",
+          flexShrink: 0,
+        }}
+      >
         <Image
           width={80}
           height={80}
@@ -29,22 +45,23 @@ const FooterContactMe = ({}: FooterContactMeProps) => {
           placeholder="blur"
           sizes="80px"
         />
-      </Box>
-      <Heading as={"h3"}>{"Have any questions?"}</Heading>
-      <Text>
+      </div>
+      <h3 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+        {"Have any questions?"}
+      </h3>
+      <p style={{ color: "var(--colors-fg-muted)" }}>
         {"Feel free to reach out! I am happy to answer your questions."}
-      </Text>
-      <Link href="/contact">
-        <Button
-          as={"span"}
-          variant={"solid"}
-          size={"lg"}
-          colorPalette={palette}
-        >
-          {"Contact Me"}
-        </Button>
-      </Link>
-    </VStack>
+      </p>
+      <NextLink
+        href="/contact"
+        className={cx(
+          paletteCva({ palette: palette as PaletteCvaKey }),
+          button({ variant: "solid", size: "lg" }),
+        )}
+      >
+        {"Contact Me"}
+      </NextLink>
+    </div>
   );
 };
 

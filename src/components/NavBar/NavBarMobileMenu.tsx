@@ -1,24 +1,21 @@
-import { Button, HStack, Icon, StackSeparator } from "@chakra-ui/react";
+import { button } from "styled-system/recipes";
 import { FaBars, FaXmark } from "react-icons/fa6";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 
-type NavBarNormalMenuProps = {
+type NavBarMobileMenuProps = {
   open: boolean;
   onToggle: () => void;
 };
 
-const NavBarMobileMenu: React.FC<NavBarNormalMenuProps> = (props) => {
-  const { open, onToggle } = props;
-
+const NavBarMobileMenu: React.FC<NavBarMobileMenuProps> = ({ open, onToggle }) => {
   return (
-    <HStack separator={<StackSeparator />} gap={2}>
-      <Button
-        variant="ghost"
-        onClick={onToggle}
-        aria-label="toggle main links menu"
-      >
-        {open ? <Icon as={FaXmark} /> : <Icon as={FaBars} />}
-      </Button>
-    </HStack>
+    <button
+      className={button({ variant: "ghost" })}
+      onClick={onToggle}
+      aria-label="toggle main links menu"
+    >
+      <DeferredIcon icon={open ? FaXmark : FaBars} size="md" />
+    </button>
   );
 };
 

@@ -1,27 +1,39 @@
-import { useColorPalette } from "@/contexts/useColorPalette";
+import { cx } from "styled-system/css";
+import { stack } from "styled-system/patterns";
+import { button } from "styled-system/recipes";
+import {
+  paletteCva,
+  useColorPalette,
+  type PaletteCvaKey,
+} from "@/contexts/useColorPalette";
 import myHeroData from "@/data/home/myHeroData";
-import { Button, Link, Stack } from "@chakra-ui/react";
 import React from "react";
 
-type MyHeroActionsProps = {};
-
-const MyHeroActions: React.FC<MyHeroActionsProps> = ({}) => {
+const MyHeroActions: React.FC = () => {
   const { actions } = myHeroData();
   const { palette } = useColorPalette();
+
   return (
-    <Stack gap={4} direction={{ base: "column", md: "row" }} w="full">
+    <div
+      className={stack({
+        gap: "4",
+        direction: { base: "column", md: "row" },
+        w: "full",
+      })}
+    >
       {actions.map((action, idx) => (
-        <Link key={idx} href={action.link}>
-          <Button
-            variant={action.variant}
-            colorPalette={palette}
-            size={{ base: "lg", md: "xl" }}
+        <a key={idx} href={action.link}>
+          <button
+            className={cx(
+              paletteCva({ palette: palette as PaletteCvaKey }),
+              button({ variant: action.variant, size: "xl" }),
+            )}
           >
             {action.buttonText}
-          </Button>
-        </Link>
+          </button>
+        </a>
       ))}
-    </Stack>
+    </div>
   );
 };
 

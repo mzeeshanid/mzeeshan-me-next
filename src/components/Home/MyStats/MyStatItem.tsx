@@ -1,4 +1,6 @@
-import { Separator, Text, VStack } from "@chakra-ui/react";
+import { css, cx } from "styled-system/css";
+import { stack } from "styled-system/patterns";
+import { separator } from "styled-system/recipes";
 import React from "react";
 
 type MyStatItemProps = {
@@ -6,20 +8,19 @@ type MyStatItemProps = {
   value: string;
 };
 
-const MyStatItem: React.FC<MyStatItemProps> = (props: MyStatItemProps) => {
-  const { title, value } = props;
+const MyStatItem: React.FC<MyStatItemProps> = ({ title, value }) => {
   return (
-    <VStack align={"flex-start"} gap={4}>
-      <VStack align={"flex-start"} gap={0}>
-        <Text textStyle={{ base: "xl", md: "2xl" }} fontWeight="semibold">
+    <div className={stack({ align: "flex-start", gap: "4" })}>
+      <div className={stack({ align: "flex-start", gap: "0" })}>
+        <p className={css({ textStyle: { base: "xl", md: "2xl" }, fontWeight: "semibold" })}>
           {value}
-        </Text>
-        <Text whiteSpace="nowrap" color={"fg.muted"}>
+        </p>
+        <p className={css({ whiteSpace: "nowrap", color: "fg.muted" })}>
           {title}
-        </Text>
-      </VStack>
-      <Separator w={"full"} />
-    </VStack>
+        </p>
+      </div>
+      <hr className={cx(separator({}), css({ w: "full" }))} />
+    </div>
   );
 };
 

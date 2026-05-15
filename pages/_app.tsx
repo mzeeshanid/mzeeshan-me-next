@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, createContext } from "react";
 
 import * as ga from "../lib/ga";
+import "../styles/panda.css";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Provider } from "../styles/provider";

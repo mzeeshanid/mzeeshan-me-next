@@ -1,42 +1,34 @@
-import {
-  HStack,
-  Link,
-  Stack,
-  StackSeparator,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { css } from "styled-system/css";
+import { hstack, stack } from "styled-system/patterns";
+import NextLink from "next/link";
 import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
-
 import footerData from "../../data/footer/footerData";
 
-type FooterMainLinksProps = {};
-
-const FooterMainLinks = (props: FooterMainLinksProps) => {
+const FooterMainLinks = () => {
   const { mainLinks } = footerData();
-  const showSeparator = useBreakpointValue({ base: true, lg: false });
 
   return (
-    <Stack
-      direction={{ base: "column", lg: "row" }}
-      gap={{ base: 2, md: 4, lg: 6 }}
-      justify={"center"}
-      flexWrap="wrap"
-      separator={showSeparator ? <StackSeparator /> : undefined}
-    >
+    <div className={stack({
+      direction: { base: "column", lg: "row" },
+      gap: { base: "2", md: "4", lg: "6" },
+      justify: "center",
+      align: "center",
+      flexWrap: "wrap",
+    })}>
       {mainLinks.map((linkItem, idx) => (
-        <Link
+        <NextLink
           key={idx}
           href={linkItem.url}
           aria-label={`bottom bar link ${linkItem.label}`}
-          fontSize={"lg"}
+          className={css({ fontSize: "lg", textDecoration: "none", color: "fg", _hover: { color: "colorPalette.fg" } })}
         >
-          <HStack gap={2}>
+          <div className={hstack({ gap: "2" })}>
             {linkItem.icon && <DeferredIcon icon={linkItem.icon} />}
             {linkItem.label}
-          </HStack>
-        </Link>
+          </div>
+        </NextLink>
       ))}
-    </Stack>
+    </div>
   );
 };
 

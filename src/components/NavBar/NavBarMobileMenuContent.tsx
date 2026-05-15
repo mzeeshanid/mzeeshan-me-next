@@ -1,17 +1,18 @@
-import {
-  Button,
-  Collapsible,
-  HStack,
-  Icon,
-  Link,
-  Popover,
-  Portal,
-  Stack,
-  StackSeparator,
-} from "@chakra-ui/react";
+import { Collapsible } from "@ark-ui/react/collapsible";
+import { Popover } from "@ark-ui/react/popover";
+import { css, cx } from "styled-system/css";
+import { hstack, stack } from "styled-system/patterns";
+import { button, popover } from "styled-system/recipes";
+import NextLink from "next/link";
+import { useState } from "react";
 import { FaWandMagicSparkles } from "react-icons/fa6";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { LuMoon, LuSun } from "react-icons/lu";
-import { useColorPalette } from "../../contexts/useColorPalette";
+import {
+  paletteCva,
+  useColorPalette,
+  type PaletteCvaKey,
+} from "../../contexts/useColorPalette";
 import navBarData from "../../data/navBar/navBarData";
 import { useColorMode } from "../ui/color-mode";
 import { useMounted } from "../../hooks/useMounted";
@@ -22,79 +23,99 @@ type NavBarMobileMenuContentProps = {
   onToggle: () => void;
 };
 
-const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = (
-  props
-) => {
-  const { open, onToggle } = props;
+const popoverStyles = popover({ size: "md" });
+
+const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = ({
+  open,
+}) => {
   const { mainLinks } = navBarData();
   const { palette } = useColorPalette();
   const { colorMode, toggleColorMode } = useColorMode();
   const mounted = useMounted();
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   return (
-    <Collapsible.Root open={open} onOpenChange={onToggle}>
+    <Collapsible.Root open={open}>
       <Collapsible.Content>
-        <Stack pl={4} pr={4} pb={4} gap={4} separator={<StackSeparator />}>
+        <div className={stack({ gap: "4", px: "4", pb: "4" })}>
           {mainLinks.map((linkItem, idx) => (
-            <HStack key={idx} pl={4} pr={4}>
-              <Icon as={linkItem.icon} />
-              <Link
-                href={linkItem.url}
-                area-label={`link for ${linkItem.label} page`}
-                fontSize={"lg"}
-              >
-                {linkItem.label}
-              </Link>
-            </HStack>
+            <div key={idx}>
+              <div className={hstack({ px: "4" })}>
+                {linkItem.icon && <linkItem.icon size={16} />}
+                <NextLink
+                  href={linkItem.url}
+                  aria-label={`link for ${linkItem.label} page`}
+                  className={css({
+                    fontSize: "lg",
+                    textDecoration: "none",
+                    color: "fg",
+                    _hover: { color: "colorPalette.fg" },
+                  })}
+                >
+                  {linkItem.label}
+                </NextLink>
+              </div>
+              {idx < mainLinks.length - 1 && (
+                <hr
+                  className={css({
+                    borderColor: "border.muted",
+                    w: "full",
+                    mt: "4",
+                  })}
+                />
+              )}
+            </div>
           ))}
-          <HStack gap={2} pl={4} pr={4} separator={<StackSeparator />}>
-            <Link
-              w="full"
-              href="/contact"
-              area-label="link for contact me page"
-            >
-              <Button
-                w="full"
-                as={"span"}
-                variant={"solid"}
-                size={{ base: "xs", md: "sm" }}
-                colorPalette={palette}
+          <hr className={css({ borderColor: "border.muted", w: "full" })} />
+          <div className={hstack({ gap: "2", px: "4" })}>
+            <NextLink href="/contact" className={css({ flex: "1" })}>
+              <button
+                className={cx(
+                  paletteCva({ palette: palette as PaletteCvaKey }),
+                  button({ variant: "solid", size: "sm" }),
+                  css({ w: "full" }),
+                )}
               >
                 {"Contact Me"}
-              </Button>
-            </Link>
-            <Popover.Root>
+              </button>
+            </NextLink>
+            <Popover.Root
+              open={popoverOpen}
+              onOpenChange={({ open }) => setPopoverOpen(open)}
+            >
               <Popover.Trigger asChild>
-                <Button
-                  size={{ base: "xs", md: "sm" }}
-                  variant="subtle"
-                  colorPalette={palette}
+                <button
+                  className={cx(
+                    paletteCva({ palette: palette as PaletteCvaKey }),
+                    button({ variant: "subtle", size: "sm" }),
+                  )}
                   aria-label="adjust global color palette for site as desired"
                 >
-                  <Icon as={FaWandMagicSparkles} />
-                </Button>
+                  <DeferredIcon icon={FaWandMagicSparkles} size={"sm"} />
+                </button>
               </Popover.Trigger>
-              <Portal>
-                <Popover.Positioner>
-                  <Popover.Content>
-                    <Popover.Arrow />
-                    <Popover.Body>
-                      <NavBarThemePopOverContent />
-                    </Popover.Body>
-                  </Popover.Content>
-                </Popover.Positioner>
-              </Portal>
+              <Popover.Positioner style={{ zIndex: 1100 }}>
+                <Popover.Content className={popoverStyles.content}>
+                  <div className={popoverStyles.body}>
+                    {popoverOpen && <NavBarThemePopOverContent />}
+                  </div>
+                </Popover.Content>
+              </Popover.Positioner>
             </Popover.Root>
-            <Button
-              variant="subtle"
+            <button
+              className={button({ variant: "subtle", size: "sm" })}
               aria-label="toggle dark light theme"
-              size={{ base: "xs", md: "sm" }}
               onClick={toggleColorMode}
             >
-              <Icon as={mounted && colorMode === "dark" ? LuMoon : LuSun} />
-            </Button>
-          </HStack>
-        </Stack>
+              {mounted &&
+                (colorMode === "dark" ? (
+                  <DeferredIcon icon={LuMoon} size={"sm"} />
+                ) : (
+                  <DeferredIcon icon={LuSun} size={"sm"} />
+                ))}
+            </button>
+          </div>
+        </div>
       </Collapsible.Content>
     </Collapsible.Root>
   );

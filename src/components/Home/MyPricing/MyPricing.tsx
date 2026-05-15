@@ -1,109 +1,105 @@
-import { useColorPalette } from "@/contexts/useColorPalette";
+import { css, cx } from "styled-system/css";
+import { grid, hstack, stack } from "styled-system/patterns";
+import { button } from "styled-system/recipes";
+import { paletteCva, useColorPalette, type PaletteCvaKey } from "@/contexts/useColorPalette";
 import myPricingData from "@/data/home/myPricingData";
-import {
-  Box,
-  Button,
-  GridItem,
-  Heading,
-  HStack,
-  Link,
-  SimpleGrid,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
 import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
+import NextLink from "next/link";
 import React from "react";
 import { FiCheckCircle } from "react-icons/fi";
 
-type MyPricingProps = {};
-
-const MyPricing: React.FC<MyPricingProps> = (props: MyPricingProps) => {
+const MyPricing: React.FC = () => {
   const { palette } = useColorPalette();
-  const {
-    tagline,
-    highlitedTitle,
-    normalTitle,
-    detail,
-    featureTitle,
-    features,
-  } = myPricingData();
+  const { tagline, highlitedTitle, normalTitle, detail, featureTitle, features } = myPricingData();
 
   return (
-    <SimpleGrid gap={{ base: 4, md: 8 }} columns={{ base: 1, md: 2 }}>
-      <GridItem flex={0.5} pt={4} pb={4}>
-        <Stack gap={{ base: 2, md: 4 }} align={"flex-start"}>
-          <Text
-            textStyle={{ base: "sm", md: "md" }}
-            fontWeight="medium"
-            color={`${palette}.solid`}
+    <div className={grid({ gap: { base: "4", md: "8" }, columns: { base: 1, md: 2 } })}>
+      <div style={{ flex: "0.5" }} className={css({ py: "4" })}>
+        <div className={stack({ gap: { base: "2", md: "4" }, align: "flex-start" })}>
+          <p
+            className={cx(
+              paletteCva({ palette: palette as PaletteCvaKey }),
+              css({
+                textStyle: { base: "sm", md: "md" },
+                fontWeight: "medium",
+                color: "colorPalette.solid",
+              }),
+            )}
           >
             {tagline}
-          </Text>
-          <Heading as="h2">
-            <Heading
-              as="span"
-              textStyle={{ base: "3xl", md: "5xl" }}
-              color={`${palette}.fg`}
-              fontWeight={"extrabold"}
+          </p>
+          <h2>
+            <span
+              className={cx(
+                paletteCva({ palette: palette as PaletteCvaKey }),
+                css({
+                  textStyle: { base: "3xl", md: "5xl" },
+                  color: "colorPalette.fg",
+                  fontWeight: "extrabold",
+                }),
+              )}
             >
               {highlitedTitle}
-            </Heading>
-            <Heading as="span" textStyle={{ base: "lg", md: "xl" }}>
+            </span>
+            <span className={css({ textStyle: { base: "lg", md: "xl" } })}>
               {normalTitle}
-            </Heading>
-          </Heading>
-          <Text
-            color="fg.muted"
-            textStyle={{ base: "md", md: "lg" }}
-            maxW="3xl"
-          >
+            </span>
+          </h2>
+          <p className={css({ color: "fg.muted", textStyle: { base: "md", md: "lg" }, maxW: "3xl" })}>
             {detail}
-          </Text>
-        </Stack>
-      </GridItem>
-      <GridItem flex={0.5}>
-        <Box
-          w={"full"}
-          h={"full"}
-          bg={`bg.muted`}
-          rounded={{ base: "xl", md: "2xl" }}
-          p={8}
+          </p>
+        </div>
+      </div>
+      <div style={{ flex: "0.5" }}>
+        <div
+          className={css({
+            w: "full",
+            h: "full",
+            bg: "bg.muted",
+            rounded: { base: "xl", md: "2xl" },
+            p: "8",
+          })}
         >
-          <Stack>
-            <Text
-              as="h3"
-              color={`${palette}.fg`}
-              textStyle={{ base: "xl", md: "2xl" }}
-              fontWeight={"bold"}
+          <div className={stack({})}>
+            <h3
+              className={cx(
+                paletteCva({ palette: palette as PaletteCvaKey }),
+                css({
+                  color: "colorPalette.fg",
+                  textStyle: { base: "xl", md: "2xl" },
+                  fontWeight: "bold",
+                }),
+              )}
             >
               {featureTitle}
-            </Text>
-            <Box as="ul">
+            </h3>
+            <ul>
               {features.map((feature, idx) => (
-                <Box as="li" key={idx} mb={2}>
-                  <HStack>
+                <li key={idx} className={css({ mb: "2" })}>
+                  <div className={hstack({})}>
                     <DeferredIcon icon={FiCheckCircle} color={"fg.muted"} />
-                    <Text color="fg.muted" textStyle={{ base: "md", md: "lg" }}>
+                    <span className={css({ color: "fg.muted", textStyle: { base: "md", md: "lg" } })}>
                       {feature}
-                    </Text>
-                  </HStack>
-                </Box>
+                    </span>
+                  </div>
+                </li>
               ))}
-            </Box>
-            <Link href="/contact" w="full">
-              <Button
-                colorPalette={palette}
-                variant={"solid"}
-                size={"lg"}
-                w="full"
+            </ul>
+            <NextLink href="/contact" className={css({ w: "full", display: "block" })}>
+              <button
+                className={cx(
+                  paletteCva({ palette: palette as PaletteCvaKey }),
+                  button({ variant: "solid", size: "lg" }),
+                  css({ w: "full" }),
+                )}
               >
                 {"Contact Me"}
-              </Button>
-            </Link>
-          </Stack>
-        </Box>
-      </GridItem>
-    </SimpleGrid>
+              </button>
+            </NextLink>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

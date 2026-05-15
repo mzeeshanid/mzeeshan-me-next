@@ -1,18 +1,10 @@
+import { css, cx } from "styled-system/css";
+import { hstack, stack } from "styled-system/patterns";
+import { tag } from "styled-system/recipes";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
-import { useColorPalette } from "@/contexts/useColorPalette";
+import { paletteCva, useColorPalette, type PaletteCvaKey } from "@/contexts/useColorPalette";
 import { MySkillData } from "@/data/home/mySkillsData";
 import { FiCheckCircle } from "react-icons/fi";
-
-import {
-  Center,
-  GridItem,
-  HStack,
-  SimpleGrid,
-  Tag,
-  Text,
-  useBreakpointValue,
-  VStack,
-} from "@chakra-ui/react";
 import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import Image from "next/image";
 import React from "react";
@@ -22,63 +14,58 @@ type MySkillItemProps = {
   skill: MySkillData;
 };
 
-const MySkillItem: React.FC<MySkillItemProps> = (props: MySkillItemProps) => {
+const MySkillItem: React.FC<MySkillItemProps> = ({ idx, skill }) => {
   const { palette } = useColorPalette();
-  const { idx, skill } = props;
-  const featureIconSize = useBreakpointValue({ base: 150, md: 180 }) ?? 150;
-
+  const tagStyles = tag({ size: "lg", variant: "surface" });
   const isEven = (idx + 1) % 2 === 0;
-  const flexDirection = useBreakpointValue({
-    base: isEven ? "column-reverse" : "column",
-    md: isEven ? "row-reverse" : "row",
-  }) ?? (isEven ? "column-reverse" : "column");
+
+  const flexClass = isEven
+    ? css({ display: "flex", flexDirection: { base: "column-reverse", md: "row-reverse" }, gap: "8" })
+    : css({ display: "flex", flexDirection: { base: "column", md: "row" }, gap: "8" });
 
   return (
-    <SimpleGrid
-      key={idx}
-      gap={8}
-      display={"flex"}
-      flexDirection={flexDirection}
-    >
-      <GridItem flex={0.5}>
-        <VStack align={"flex-start"} gap={4} h="full">
-          <Tag.Root size="lg" colorPalette={palette} variant={"surface"}>
-            <Tag.Label>{skill.tag}</Tag.Label>
-          </Tag.Root>
-          <SectionHeader
-            headline={skill.title}
-            description={skill.description}
-          />
-          <VStack align={"flex-start"} gap={2} px={{ base: 2, md: 4 }}>
+    <div className={flexClass}>
+      <div style={{ flex: "0.5" }}>
+        <div className={stack({ align: "flex-start", gap: "4", h: "full" })}>
+          <div className={cx(paletteCva({ palette: palette as PaletteCvaKey }), tagStyles.root)}>
+            <span className={tagStyles.label}>{skill.tag}</span>
+          </div>
+          <SectionHeader headline={skill.title} description={skill.description} />
+          <div className={stack({ align: "flex-start", gap: "2", px: { base: "2", md: "4" } })}>
             {skill.features.map((feature, index) => (
-              <HStack key={index}>
+              <div key={index} className={hstack({})}>
                 <DeferredIcon icon={FiCheckCircle} color={"fg.muted"} />
-                <Text color={"fg.muted"}>{feature}</Text>
-              </HStack>
+                <span className={css({ color: "fg.muted" })}>{feature}</span>
+              </div>
             ))}
-          </VStack>
-        </VStack>
-      </GridItem>
-      <GridItem flex={0.5}>
-        <Center
-          w={"full"}
-          h={"full"}
-          bg={"bg.muted"}
-          rounded={{ base: "xl", md: "2xl" }}
-          p={4}
-          minHeight={featureIconSize * 2}
+          </div>
+        </div>
+      </div>
+      <div style={{ flex: "0.5" }}>
+        <div
+          className={css({
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            w: "full",
+            h: "full",
+            bg: "bg.muted",
+            rounded: { base: "xl", md: "2xl" },
+            p: "4",
+            minHeight: { base: "300px", md: "360px" },
+          })}
         >
           <Image
-            width={featureIconSize}
-            height={featureIconSize}
+            width={180}
+            height={180}
             src={skill.featureIcon}
             alt={skill.featureIconAlt}
             placeholder="blur"
             sizes="(max-width: 48em) 150px, 180px"
           />
-        </Center>
-      </GridItem>
-    </SimpleGrid>
+        </div>
+      </div>
+    </div>
   );
 };
 

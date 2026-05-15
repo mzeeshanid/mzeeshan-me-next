@@ -1,5 +1,7 @@
+import { css, cx } from "styled-system/css";
+import { stack } from "styled-system/patterns";
+import { card } from "styled-system/recipes";
 import { BasicImageDataModel } from "@/data/basicImage/basicImageDataModel";
-import { Box, Card, HStack, Link, LinkBox, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 
 type MyAppItemProps = {
@@ -10,35 +12,43 @@ type MyAppItemProps = {
   icon: BasicImageDataModel;
 };
 
-const MyAppItem = (props: MyAppItemProps) => {
-  const { title, caption, icon, url } = props;
+const MyAppItem = ({ title, caption, icon, url }: MyAppItemProps) => {
+  const cardStyles = card({});
+
   return (
-    <Card.Root bg="bg.subtle" borderWidth={0}>
-      <Card.Body>
-        <LinkBox>
-          <Link href={url}>
-            <HStack align={"flex-start"} gap={4}>
-              <Box w="64px" h="64px" flexShrink={0} bg="bg.muted" rounded="xl" overflow="hidden">
-                <Image
-                  alt={icon.alt}
-                  src={icon.src}
-                  placeholder="blur"
-                  width={64}
-                  height={64}
-                  sizes="64px"
-                />
-              </Box>
-              <VStack align={"flex-start"} gap={0}>
-                <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight={"bold"}>
-                  {title}
-                </Text>
-                <Text color={"fg.muted"}>{caption}</Text>
-              </VStack>
-            </HStack>
-          </Link>
-        </LinkBox>
-      </Card.Body>
-    </Card.Root>
+    <div className={cx(cardStyles.root, css({ bg: "bg.subtle", borderWidth: 0 }))}>
+      <div className={cardStyles.body}>
+        <a href={url}>
+          <div className={css({ display: "flex", alignItems: "flex-start", gap: "4" })}>
+            <div
+              className={css({
+                w: "64px",
+                h: "64px",
+                flexShrink: 0,
+                bg: "bg.muted",
+                rounded: "xl",
+                overflow: "hidden",
+              })}
+            >
+              <Image
+                alt={icon.alt}
+                src={icon.src}
+                placeholder="blur"
+                width={64}
+                height={64}
+                sizes="64px"
+              />
+            </div>
+            <div className={stack({ align: "flex-start", gap: "0" })}>
+              <p className={css({ fontSize: { base: "xl", md: "2xl" }, fontWeight: "bold" })}>
+                {title}
+              </p>
+              <p className={css({ color: "fg.muted" })}>{caption}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
   );
 };
 

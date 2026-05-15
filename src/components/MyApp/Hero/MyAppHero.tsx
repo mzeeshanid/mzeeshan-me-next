@@ -1,5 +1,6 @@
 import { TypewriterHighlight } from "@/components/TypewriterHighlight/TypewriterHighlight";
-import { useColorPalette } from "@/contexts/useColorPalette";
+import { css, cx } from "styled-system/css";
+import { paletteCva, useColorPalette, type PaletteCvaKey } from "@/contexts/useColorPalette";
 import { MyAppMetaDataModel } from "@/data/myApps/myAppMetaData";
 import {
   Box,
@@ -37,13 +38,10 @@ const MyAppHero: React.FC<Props> = (props: Props) => {
           {meta.typeWriterPre}
           <TypewriterHighlight
             words={meta.typeWriterWords}
-            highlightStyles={{
-              px: "0.5",
-              bg: `${palette}.subtle`,
-              color: `${palette}.fg`,
-              fontWeight: "bold",
-              fontSize: { base: "2xl", md: "3xl", lg: "5xl" },
-            }}
+            highlightClassName={cx(
+              paletteCva({ palette: palette as PaletteCvaKey }),
+              css({ px: "0.5", bg: "colorPalette.subtle", color: "colorPalette.fg", fontWeight: "bold", fontSize: { base: "2xl", md: "3xl", lg: "5xl" } }),
+            )}
           />
           {meta.typeWriterPost}
         </Container>

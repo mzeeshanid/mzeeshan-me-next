@@ -1,68 +1,70 @@
-import { useColorPalette } from "@/contexts/useColorPalette";
+import { css, cx } from "styled-system/css";
+import { grid, stack } from "styled-system/patterns";
+import { paletteCva, useColorPalette, type PaletteCvaKey } from "@/contexts/useColorPalette";
 import myFrameworks from "@/data/home/myFrameworksData";
-import { Box, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { TypewriterHighlight } from "@/components/TypewriterHighlight/TypewriterHighlight";
 import React from "react";
 import MyFrameworkItem from "./MyFrameworkItem";
-import { TypewriterHighlight } from "@/components/TypewriterHighlight/TypewriterHighlight";
 
-type MyFrameworksProps = {};
-
-const MyFrameworks: React.FC<MyFrameworksProps> = (
-  props: MyFrameworksProps,
-) => {
+const MyFrameworks: React.FC = () => {
   const { palette } = useColorPalette();
-  const {
-    tagline,
-    typeWriterPre,
-    typeWriterWords,
-    typeWriterPost,
-    detail,
-    frameworks,
-  } = myFrameworks();
+  const { tagline, typeWriterPre, typeWriterWords, typeWriterPost, detail, frameworks } = myFrameworks();
+
   return (
-    <Box as={"section"}>
-      <Stack gap={{ base: 6, md: 8 }} align={"center"}>
-        <Stack gap={{ base: 4, md: 5 }}>
-          <Stack gap={{ base: 2, md: 3 }}>
-            <Text
-              textStyle={{ base: "sm", md: "md" }}
-              fontWeight="medium"
-              color={`${palette}.solid`}
-              textAlign={"center"}
+    <section>
+      <div className={stack({ gap: { base: "6", md: "8" }, align: "center" })}>
+        <div className={stack({ gap: { base: "4", md: "5" } })}>
+          <div className={stack({ gap: { base: "2", md: "3" } })}>
+            <p
+              className={cx(
+                paletteCva({ palette: palette as PaletteCvaKey }),
+                css({
+                  textStyle: { base: "sm", md: "md" },
+                  fontWeight: "medium",
+                  color: "colorPalette.solid",
+                  textAlign: "center",
+                }),
+              )}
             >
               {tagline}
-            </Text>
-            <Heading
-              as="h2"
-              fontWeight={"medium"}
-              fontSize={{ base: "2xl", md: "3xl", lg: "5xl" }}
-              textAlign={"center"}
-              lineHeight={"shorter"}
+            </p>
+            <h2
+              className={css({
+                fontWeight: "medium",
+                fontSize: { base: "2xl", md: "3xl", lg: "5xl" },
+                textAlign: "center",
+                lineHeight: "shorter",
+              })}
             >
               {typeWriterPre}
               <TypewriterHighlight
                 words={typeWriterWords}
-                highlightStyles={{
-                  px: "0.5",
-                  bg: `${palette}.subtle`,
-                  color: `${palette}.fg`,
-                  fontWeight: "bold",
-                  fontSize: { base: "2xl", md: "3xl", lg: "5xl" },
-                }}
+                highlightClassName={cx(
+                  paletteCva({ palette: palette as PaletteCvaKey }),
+                  css({
+                    px: "0.5",
+                    bg: "colorPalette.subtle",
+                    color: "colorPalette.fg",
+                    fontWeight: "bold",
+                    fontSize: { base: "2xl", md: "3xl", lg: "5xl" },
+                  }),
+                )}
               />
               {typeWriterPost}
-            </Heading>
-          </Stack>
-          <Text
-            color="fg.muted"
-            textStyle={{ base: "md", md: "lg" }}
-            maxW="3xl"
-            textAlign={"center"}
+            </h2>
+          </div>
+          <p
+            className={css({
+              color: "fg.muted",
+              textStyle: { base: "md", md: "lg" },
+              maxW: "3xl",
+              textAlign: "center",
+            })}
           >
             {detail}
-          </Text>
-        </Stack>
-        <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
+          </p>
+        </div>
+        <div className={grid({ columns: { base: 1, md: 2 }, gap: "6" })}>
           {frameworks.map((framework, idx) => (
             <MyFrameworkItem
               key={idx}
@@ -72,9 +74,9 @@ const MyFrameworks: React.FC<MyFrameworksProps> = (
               link={framework.link}
             />
           ))}
-        </SimpleGrid>
-      </Stack>
-    </Box>
+        </div>
+      </div>
+    </section>
   );
 };
 

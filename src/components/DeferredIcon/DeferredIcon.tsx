@@ -1,13 +1,8 @@
-import { Box, Icon, Skeleton } from "@chakra-ui/react";
+import { css } from "styled-system/css";
+import { skeleton } from "styled-system/recipes";
 import React, { useEffect, useRef, useState } from "react";
 import { IconType } from "react-icons";
 import { useIsInteractive } from "@/hooks/useIsInteractive";
-
-type IconProps = React.ComponentPropsWithoutRef<typeof Icon>;
-
-export type DeferredIconProps = Omit<IconProps, "as"> & {
-  icon: IconType;
-};
 
 const SIZE_PX: Record<string, string> = {
   xs: "12px",
@@ -26,17 +21,39 @@ function resolveSize(size?: unknown): string {
   return SIZE_PX[s] ?? s;
 }
 
-const DeferredIcon: React.FC<DeferredIconProps> = ({ icon, size, ...rest }) => {
+function tokenToVar(token: string): string {
+  return `var(--colors-${token.replace(/\./g, "-")})`;
+}
+
+export type DeferredIconProps = {
+  icon: IconType;
+  size?: string | number;
+  color?: string;
+  colorPalette?: string;
+  boxSize?: number | string | { base?: number; md?: number; lg?: number };
+  className?: string;
+  flexShrink?: number;
+  mt?: number;
+};
+
+const DeferredIcon: React.FC<DeferredIconProps> = ({
+  icon: IconComponent,
+  size,
+  color,
+  colorPalette,
+  boxSize,
+  className,
+  flexShrink,
+  mt,
+}) => {
   const ref = useRef<HTMLSpanElement>(null);
   const [ready, setReady] = useState(false);
   const isInteractive = useIsInteractive();
 
   useEffect(() => {
     if (!isInteractive) return;
-
     const el = ref.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -46,31 +63,49 @@ const DeferredIcon: React.FC<DeferredIconProps> = ({ icon, size, ...rest }) => {
       },
       { rootMargin: "200px 0px", threshold: 0 },
     );
-
     observer.observe(el);
     return () => observer.disconnect();
   }, [isInteractive]);
 
-  const px = resolveSize(size as string | undefined);
+  const resolvedBoxSize = boxSize && typeof boxSize === "object"
+    ? (boxSize.md ?? boxSize.base ?? 5)
+    : boxSize;
+  const effectiveSize = resolvedBoxSize
+    ? `${Number(resolvedBoxSize) * 4}px`
+    : resolveSize(size);
+
+  const colorStyle: React.CSSProperties = colorPalette
+    ? { color: "var(--colors-color-palette-fg)" }
+    : color
+    ? { color: tokenToVar(color) }
+    : {};
+
+  const extraStyle: React.CSSProperties = {
+    ...(flexShrink !== undefined ? { flexShrink } : {}),
+    ...(mt !== undefined ? { marginTop: `${mt * 0.25}rem` } : {}),
+  };
 
   if (!ready) {
     return (
-      <Box
-        as="span"
+      <span
         ref={ref}
-        display="inline-flex"
-        alignItems="center"
-        justifyContent="center"
-        flexShrink={0}
-        w={px}
-        h={px}
+        className={css({ display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 })}
+        style={{ width: effectiveSize, height: effectiveSize }}
       >
-        <Skeleton w={px} h={px} borderRadius="sm" />
-      </Box>
+        <span
+          className={skeleton()}
+          style={{ width: effectiveSize, height: effectiveSize }}
+        />
+      </span>
     );
   }
 
-  return <Icon as={icon} size={size} {...rest} />;
+  return (
+    <IconComponent
+      style={{ width: effectiveSize, height: effectiveSize, flexShrink: 0, ...colorStyle, ...extraStyle }}
+      className={className}
+    />
+  );
 };
 
 export default DeferredIcon;

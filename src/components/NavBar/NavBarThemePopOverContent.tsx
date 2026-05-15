@@ -1,60 +1,78 @@
-import {
-  Button,
-  Circle,
-  Grid,
-  HStack,
-  Icon,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { css } from "styled-system/css";
+import { grid, hstack, stack } from "styled-system/patterns";
+import { button } from "styled-system/recipes";
 import { LuMoon, LuSun } from "react-icons/lu";
 import { useColorPalette } from "../../contexts/useColorPalette";
 import navBarData from "../../data/navBar/navBarData";
 import { useColorMode } from "../ui/color-mode";
 import { useMounted } from "@/hooks/useMounted";
+import DeferredIcon from "../DeferredIcon/DeferredIcon";
 
-type NavBarThemePopOverContentProps = {};
-
-const NavBarThemePopOverContent: React.FC<NavBarThemePopOverContentProps> = (
-  props
-) => {
+const NavBarThemePopOverContent: React.FC = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { themeColors } = navBarData();
   const { palette, setPalette } = useColorPalette();
   const mounted = useMounted();
 
   return (
-    <Stack>
-      <HStack justify="space-between">
-        <Text>Theme Panel</Text>
-        <Button
-          variant="ghost"
+    <div className={stack({ gap: "3" })}>
+      <div className={hstack({ justify: "space-between" })}>
+        <p className={css({ fontWeight: "medium" })}>{"Theme Panel"}</p>
+        <button
+          className={button({ variant: "ghost", size: "sm" })}
           aria-label="toggle dark light theme"
           onClick={toggleColorMode}
         >
-          {mounted && <Icon as={colorMode === "light" ? LuSun : LuMoon} />}
-        </Button>
-      </HStack>
-      <Stack>
-        <Text>{"Accent Color"}</Text>
-        <Grid templateColumns="repeat(3, 1fr)" gap={2}>
+          {mounted &&
+            (colorMode === "light" ? (
+              <DeferredIcon icon={LuSun} size={"sm"} />
+            ) : (
+              <DeferredIcon icon={LuMoon} size={"sm"} />
+            ))}
+        </button>
+      </div>
+      <div className={stack({ gap: "2" })}>
+        <p className={css({ fontSize: "sm", color: "fg.muted" })}>
+          {"Accent Color"}
+        </p>
+        <div className={grid({ columns: 3, gap: "2" })}>
           {themeColors.map((color, idx) => (
-            <HStack
+            <button
               key={idx}
               aria-label={`set theme color to ${color.name}`}
-              borderWidth={1}
-              borderRadius={"md"}
-              p={2}
-              borderColor={palette === color.key ? palette : undefined}
+              className={css({
+                display: "flex",
+                alignItems: "center",
+                gap: "1.5",
+                border: "1px solid",
+                borderRadius: "md",
+                p: "2",
+                bg: "transparent",
+                cursor: "pointer",
+                transition: "border-color 0.15s",
+              })}
+              style={{
+                borderColor:
+                  palette === color.key
+                    ? `var(--colors-${color.key}-solid)`
+                    : "var(--colors-border-muted)",
+              }}
               onClick={() => setPalette(color.key)}
             >
-              <Circle size={4} bg={`${color.key}.solid`} />
-              <Text>{color.name}</Text>
-            </HStack>
+              <span
+                className={css({ borderRadius: "full", flexShrink: 0 })}
+                style={{
+                  width: 16,
+                  height: 16,
+                  background: `var(--colors-${color.key}-solid)`,
+                }}
+              />
+              <span className={css({ fontSize: "xs" })}>{color.name}</span>
+            </button>
           ))}
-        </Grid>
-      </Stack>
-    </Stack>
+        </div>
+      </div>
+    </div>
   );
 };
 

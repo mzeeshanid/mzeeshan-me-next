@@ -1,21 +1,15 @@
-import {
-  Avatar,
-  Card,
-  HStack,
-  RatingGroup,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { css, cx } from "styled-system/css";
+import { flex, hstack, stack } from "styled-system/patterns";
+import { avatar, card } from "styled-system/recipes";
+import { paletteCva, useColorPalette, type PaletteCvaKey } from "@/contexts/useColorPalette";
+import { Avatar } from "@ark-ui/react/avatar";
 import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
-
+import { FaStar, FaRegStar } from "react-icons/fa";
 import { FiCheckCircle } from "react-icons/fi";
 import { RiDoubleQuotesL } from "react-icons/ri";
-
-import { useColorPalette } from "@/contexts/useColorPalette";
+import { ReviewJsonLd } from "next-seo";
 import React from "react";
 import { IconType } from "react-icons";
-import { ReviewJsonLd } from "next-seo";
 
 type MyClientReviewItemProps = {
   name: string;
@@ -42,6 +36,10 @@ const MyClientReviewItem: React.FC<MyClientReviewItemProps> = ({
   source,
 }) => {
   const { palette } = useColorPalette();
+  const cardStyles = card({});
+  const avatarStyles = avatar({});
+  const initials = name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
+
   return (
     <>
       <ReviewJsonLd
@@ -52,62 +50,68 @@ const MyClientReviewItem: React.FC<MyClientReviewItemProps> = ({
         reviewBody={text}
         url={source}
       />
-      <Card.Root h="full">
-      <Card.Header>
-        <HStack justify="space-between">
-          <RatingGroup.Root
-            count={5}
-            defaultValue={rating}
-            size="md"
-            readOnly
-            colorPalette={palette}
-            aria-label={`${name}'s rating ${rating} out of 5 stars`}
-          >
-            <RatingGroup.HiddenInput />
-            <RatingGroup.Control />
-          </RatingGroup.Root>
-          <HStack>
-            <Text fontSize="sm" color="fg.muted">
-              {date}
-            </Text>
-            {isVerified && (
-              <DeferredIcon icon={FiCheckCircle} color={palette} size={"md"} />
-            )}
-          </HStack>
-        </HStack>
-      </Card.Header>
-      <Card.Body>
-        <HStack align="start">
-          <DeferredIcon
-            icon={RiDoubleQuotesL}
-            color={palette}
-            size={{ base: "lg", md: "xl", lg: "2xl" }}
-          />
-          <Text fontSize="md" color="fg.muted" mt={2}>
-            {text}
-          </Text>
-        </HStack>
-      </Card.Body>
-      <Card.Footer>
-        <Stack gap={4} w="full">
-          <HStack gap={4} justify={"space-between"}>
-            <HStack>
-              <Avatar.Root colorPalette={palette}>
-                <Avatar.Fallback name={name} />
-              </Avatar.Root>
-              <VStack align="start" gap={0}>
-                <Text fontWeight="bold">{name}</Text>
-                <Text fontSize="sm" color="fg.subtle">
-                  {country} • {platform}
-                </Text>
-              </VStack>
-            </HStack>
-
-            <DeferredIcon icon={icon} size={"md"} color={"fg.muted"} />
-          </HStack>
-        </Stack>
-      </Card.Footer>
-    </Card.Root>
+      <div className={cx(cardStyles.root, css({ h: "full" }))}>
+        <div className={cardStyles.header}>
+          <div className={hstack({ justify: "space-between" })}>
+            <div
+              className={cx(
+                paletteCva({ palette: palette as PaletteCvaKey }),
+                hstack({ gap: "1" }),
+              )}
+              aria-label={`${name}'s rating ${rating} out of 5 stars`}
+            >
+              {Array.from({ length: 5 }).map((_, i) =>
+                i < rating ? (
+                  <FaStar key={i} style={{ color: "var(--colors-color-palette-solid)" }} />
+                ) : (
+                  <FaRegStar key={i} style={{ color: "var(--colors-color-palette-solid)" }} />
+                ),
+              )}
+            </div>
+            <div className={hstack({})}>
+              <span className={css({ fontSize: "sm", color: "fg.muted" })}>{date}</span>
+              {isVerified && (
+                <DeferredIcon icon={FiCheckCircle} color={palette} size="md" />
+              )}
+            </div>
+          </div>
+        </div>
+        <div className={cardStyles.body}>
+          <div className={flex({ align: "start", gap: "2" })}>
+            <DeferredIcon
+              icon={RiDoubleQuotesL}
+              color={palette}
+              size="lg"
+            />
+            <p className={css({ fontSize: "md", color: "fg.muted", mt: "2" })}>{text}</p>
+          </div>
+        </div>
+        <div className={cardStyles.footer}>
+          <div className={stack({ gap: "4", w: "full" })}>
+            <div className={hstack({ gap: "4", justify: "space-between" })}>
+              <div className={hstack({})}>
+                <Avatar.Root
+                  className={cx(
+                    paletteCva({ palette: palette as PaletteCvaKey }),
+                    avatarStyles.root,
+                  )}
+                >
+                  <Avatar.Fallback className={avatarStyles.fallback}>
+                    {initials}
+                  </Avatar.Fallback>
+                </Avatar.Root>
+                <div className={stack({ align: "start", gap: "0" })}>
+                  <p className={css({ fontWeight: "bold" })}>{name}</p>
+                  <p className={css({ fontSize: "sm", color: "fg.subtle" })}>
+                    {country} • {platform}
+                  </p>
+                </div>
+              </div>
+              <DeferredIcon icon={icon} size="md" color="fg.muted" />
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

@@ -1,27 +1,18 @@
+import { css, cx } from "styled-system/css";
+import { hstack } from "styled-system/patterns";
+import { button, spinner } from "styled-system/recipes";
+import { paletteCva, useColorPalette, type PaletteCvaKey } from "@/contexts/useColorPalette";
 import { toaster } from "@/components/ui/toaster";
-import { useColorPalette } from "@/contexts/useColorPalette";
 import useGoToLink from "@/hooks/useGoToLink";
-import {
-  Box,
-  Button,
-  ButtonProps,
-  HStack,
-  Icon,
-  Spinner,
-  Text,
-} from "@chakra-ui/react";
 import { create } from "apisauce";
 import { useEffect, useState } from "react";
 import { FaCodeBranch, FaDownload, FaStar } from "react-icons/fa6";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 
-/**
- * Props for the SectionHeader component.
- * @extends ButtonProps from Chakra UI
- */
-export interface GithubInfoButtonProps extends ButtonProps {
+export interface GithubInfoButtonProps {
   repoUrl: string;
   infoType: "stars" | "forks" | "download";
-  children?: React.ReactNode;
+  className?: string;
 }
 
 type GithubApiResponse = {
@@ -42,12 +33,12 @@ function getRepoInfoFromUrl(repoUrl: string) {
 export const GithubInfoButton: React.FC<GithubInfoButtonProps> = ({
   repoUrl,
   infoType,
-  ...rootProps
+  className,
 }) => {
   const { palette } = useColorPalette();
   const [count, setCount] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(
-    infoType === "stars" || infoType === "forks"
+    infoType === "stars" || infoType === "forks",
   );
 
   useEffect(() => {
@@ -65,7 +56,7 @@ export const GithubInfoButton: React.FC<GithubInfoButtonProps> = ({
         setCount(
           infoType === "stars"
             ? (response.data.stargazers_count ?? 0)
-            : (response.data.forks_count ?? 0)
+            : (response.data.forks_count ?? 0),
         );
       } else {
         setCount(0);
@@ -81,7 +72,6 @@ export const GithubInfoButton: React.FC<GithubInfoButtonProps> = ({
     });
   }, [repoUrl, infoType]);
 
-  // Download repo zip
   const handleDownload = () => {
     const { owner, repo } = getRepoInfoFromUrl(repoUrl);
     if (!owner || !repo) {
@@ -94,82 +84,83 @@ export const GithubInfoButton: React.FC<GithubInfoButtonProps> = ({
       });
       return;
     }
-    window.open(
-      `https://github.com/${owner}/${repo}/archive/master.zip`,
-      "_blank"
-    );
+    window.open(`https://github.com/${owner}/${repo}/archive/master.zip`, "_blank");
   };
-
-  if (infoType === "download") {
-    return (
-      <Button
-        variant="surface"
-        colorPalette={palette}
-        onClick={handleDownload}
-        {...rootProps}
-      >
-        <HStack>
-          <Icon as={FaDownload} />
-          <Text>{"Download"}</Text>
-        </HStack>
-      </Button>
-    );
-  }
-
-  // For stars and forks
-  const icon = infoType === "stars" ? FaStar : FaCodeBranch;
-  const label = infoType === "stars" ? "Stars" : "Forks";
 
   const gotolink = useGoToLink();
 
-  const handleRepoClick = () => {
-    gotolink(repoUrl);
-  };
+  const baseButtonClass = cx(
+    paletteCva({ palette: palette as PaletteCvaKey }),
+    button({ variant: "surface" }),
+    css({ p: "0", overflow: "clip" }),
+    className,
+  );
+
+  if (infoType === "download") {
+    return (
+      <button className={baseButtonClass} onClick={handleDownload}>
+        <div className={hstack({ px: "4", py: "2" })}>
+          <DeferredIcon icon={FaDownload} size="sm" />
+          <span>{"Download"}</span>
+        </div>
+      </button>
+    );
+  }
+
+  const icon = infoType === "stars" ? FaStar : FaCodeBranch;
+  const label = infoType === "stars" ? "Stars" : "Forks";
 
   return (
-    <Button
-      variant={"surface"}
-      colorPalette={palette}
-      p={0}
-      onClick={handleRepoClick}
-      {...rootProps}
+    <button
+      className={baseButtonClass}
+      onClick={() => gotolink(repoUrl)}
     >
-      <HStack w="full" h="full" gap={0} overflow="clip">
-        <Box
-          flex="1"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          py={4}
-          pl={4}
-          pr={4}
-          borderRight={"1px solid"}
-          borderColor={`${palette}.emphasized`}
+      <div className={hstack({ w: "full", h: "full", gap: "0", overflow: "clip" })}>
+        <div
+          className={cx(
+            paletteCva({ palette: palette as PaletteCvaKey }),
+            css({
+              flex: "1",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              py: "4",
+              px: "4",
+              borderRight: "1px solid",
+              borderColor: "colorPalette.emphasized",
+            }),
+          )}
         >
-          <Icon as={icon} mr={2} color={`${palette}.fg`} />
-          <Text fontWeight="bold" fontSize="sm" color={`${palette}.fg`}>
+          <DeferredIcon icon={icon} size="sm" color={`${palette}.fg`} />
+          <span className={css({ fontWeight: "bold", fontSize: "sm", color: "colorPalette.fg", ml: "2" })}>
             {label}
-          </Text>
-        </Box>
-        <Box
-          flex="1"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          py={2}
-          pl={4}
-          pr={4}
-          minW={"64px"}
+          </span>
+        </div>
+        <div
+          className={css({
+            flex: "1",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            py: "2",
+            px: "4",
+            minW: "64px",
+          })}
         >
           {loading ? (
-            <Spinner size="sm" colorPalette={palette} />
+            <span
+              className={cx(
+                paletteCva({ palette: palette as PaletteCvaKey }),
+                spinner({ size: "sm" }),
+              )}
+            />
           ) : (
-            <Text fontWeight="bold" fontSize="md">
+            <span className={css({ fontWeight: "bold", fontSize: "md" })}>
               {count ?? 0}
-            </Text>
+            </span>
           )}
-        </Box>
-      </HStack>
-    </Button>
+        </div>
+      </div>
+    </button>
   );
 };
