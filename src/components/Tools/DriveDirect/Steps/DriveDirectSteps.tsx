@@ -42,7 +42,6 @@ const DriveDirectSteps: React.FC<Props> = (props: Props) => {
         tagline={steps.header.badge}
         headline={steps.header.title}
         description={steps.header.desc}
-        align={"center"}
         textAlign={"center"}
       />
       <Spacer p={4} />
