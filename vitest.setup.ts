@@ -8,6 +8,16 @@ vi.mock("next/image", () => ({
 }));
 
 if (typeof window !== "undefined") {
+  global.IntersectionObserver = class IntersectionObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+    takeRecords() { return []; }
+    readonly root = null;
+    readonly rootMargin = "";
+    readonly thresholds = [];
+  };
+
   global.ResizeObserver = class ResizeObserver {
     observe() {}
     unobserve() {}
