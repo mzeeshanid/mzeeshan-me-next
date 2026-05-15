@@ -1,5 +1,6 @@
-import { Button, HStack, Icon, StackSeparator } from "@chakra-ui/react";
+import { Button, HStack, StackSeparator } from "@chakra-ui/react";
 import { FaBars, FaXmark } from "react-icons/fa6";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 
 type NavBarNormalMenuProps = {
   open: boolean;
@@ -16,7 +17,7 @@ const NavBarMobileMenu: React.FC<NavBarNormalMenuProps> = (props) => {
         onClick={onToggle}
         aria-label="toggle main links menu"
       >
-        {open ? <Icon as={FaXmark} /> : <Icon as={FaBars} />}
+        {open ? <DeferredIcon icon={FaXmark} /> : <DeferredIcon icon={FaBars} />}
       </Button>
     </HStack>
   );

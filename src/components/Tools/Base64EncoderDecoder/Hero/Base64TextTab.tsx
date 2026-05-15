@@ -13,7 +13,6 @@ import {
   Clipboard,
   Field,
   HStack,
-  Icon,
   IconButton,
   SegmentGroup,
   SimpleGrid,
@@ -22,6 +21,7 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { Tooltip } from "@/components/ui/tooltip";
 import { FaCircleInfo } from "react-icons/fa6";
 
@@ -137,7 +137,7 @@ const Base64TextTab: React.FC = () => {
               aria-label="About Base64URL"
               colorPalette={palette}
             >
-              <Icon as={FaCircleInfo} />
+              <DeferredIcon icon={FaCircleInfo} />
             </IconButton>
           </Tooltip>
         </HStack>

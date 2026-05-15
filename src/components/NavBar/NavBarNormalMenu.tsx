@@ -2,7 +2,6 @@ import {
   Button,
   Flex,
   HStack,
-  Icon,
   Link,
   Popover,
   Portal,
@@ -10,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 
 import { FaWandMagicSparkles } from "react-icons/fa6";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { useColorPalette } from "../../contexts/useColorPalette";
 
 import navBarData from "../../data/navBar/navBarData";
@@ -32,7 +32,7 @@ const NavBarNormalMenu: React.FC<NavBarNormalMenuProps> = (props) => {
             fontSize={"lg"}
           >
             <HStack gap={2}>
-              <Icon as={linkItem.icon} />
+              {linkItem.icon && <DeferredIcon icon={linkItem.icon} />}
               {linkItem.label}
             </HStack>
           </Link>
@@ -49,7 +49,7 @@ const NavBarNormalMenu: React.FC<NavBarNormalMenuProps> = (props) => {
             {"Contact Me"}
           </Button>
         </Link>
-        <Popover.Root>
+        <Popover.Root lazyMount unmountOnExit>
           <Popover.Trigger asChild>
             <Button
               size={{ base: "xs", md: "sm" }}
@@ -57,7 +57,7 @@ const NavBarNormalMenu: React.FC<NavBarNormalMenuProps> = (props) => {
               colorPalette={palette}
               aria-label="adjust global color palette for site as desired"
             >
-              <Icon as={FaWandMagicSparkles} />
+              <DeferredIcon icon={FaWandMagicSparkles} />
             </Button>
           </Popover.Trigger>
           <Portal>

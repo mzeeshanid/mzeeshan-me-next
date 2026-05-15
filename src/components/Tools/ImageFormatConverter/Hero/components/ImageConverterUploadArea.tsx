@@ -3,11 +3,11 @@ import {
   Box,
   Button,
   HStack,
-  Icon,
   Input,
   Text,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import {
   FaArrowRotateLeft,
@@ -106,11 +106,11 @@ export const ImageConverterUploadArea: React.FC<ImageConverterUploadAreaProps> =
         {fileCount === 0 ? (
           <VStack h="full" justify="center" gap={4} textAlign="center">
             <Box p={5} borderRadius="full" bg="bg.panel">
-              <Icon as={FaCloudArrowUp} boxSize={20} color="fg.muted" />
+              <DeferredIcon icon={FaCloudArrowUp} boxSize={20} color="fg.muted" />
             </Box>
             <VStack gap={1}>
               <HStack justify="center" gap={2}>
-                <Icon as={FaImage} color="fg.muted" />
+                <DeferredIcon icon={FaImage} color="fg.muted" />
                 <Text fontWeight="bold" fontSize={{ base: "lg", md: "xl" }}>
                   {"Click or Drag and drop images"}
                 </Text>
@@ -127,7 +127,7 @@ export const ImageConverterUploadArea: React.FC<ImageConverterUploadAreaProps> =
         ) : (
           <VStack h="full" justify="center" gap={4} textAlign="center">
             <Box p={5} borderRadius="full" bg="bg.panel">
-              <Icon as={FaImage} boxSize={20} color="fg.muted" />
+              <DeferredIcon icon={FaImage} boxSize={20} color="fg.muted" />
             </Box>
             <VStack gap={1}>
               <Text fontWeight="bold" fontSize={{ base: "lg", md: "xl" }}>
@@ -166,7 +166,7 @@ export const ImageConverterUploadArea: React.FC<ImageConverterUploadAreaProps> =
 
       {error && (
         <HStack color="fg.error" align="flex-start">
-          <Icon as={FaTriangleExclamation} mt="1" />
+          <DeferredIcon icon={FaTriangleExclamation} mt="1" />
           <Text>{error}</Text>
         </HStack>
       )}

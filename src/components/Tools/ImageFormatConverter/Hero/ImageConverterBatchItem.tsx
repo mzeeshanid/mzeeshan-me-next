@@ -5,7 +5,6 @@ import {
   Button,
   Checkbox,
   HStack,
-  Icon,
   IconButton,
   ProgressCircle,
   Skeleton,
@@ -13,6 +12,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import {
   FaDownload,
@@ -157,7 +157,7 @@ const ImageConverterBatchItem: React.FC<Props> = ({
 
         {item.error && (
           <HStack color="fg.error" align="start">
-            <Icon as={FaTriangleExclamation} mt="1" />
+            <DeferredIcon icon={FaTriangleExclamation} mt="1" />
             <Text fontSize="sm">{item.error}</Text>
           </HStack>
         )}

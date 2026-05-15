@@ -6,10 +6,10 @@ import {
   Button,
   ButtonProps,
   HStack,
-  Icon,
   Spinner,
   Text,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { create } from "apisauce";
 import { useEffect, useState } from "react";
 import { FaCodeBranch, FaDownload, FaStar } from "react-icons/fa6";
@@ -109,7 +109,7 @@ export const GithubInfoButton: React.FC<GithubInfoButtonProps> = ({
         {...rootProps}
       >
         <HStack>
-          <Icon as={FaDownload} />
+          <DeferredIcon icon={FaDownload} />
           <Text>{"Download"}</Text>
         </HStack>
       </Button>
@@ -146,7 +146,7 @@ export const GithubInfoButton: React.FC<GithubInfoButtonProps> = ({
           borderRight={"1px solid"}
           borderColor={`${palette}.emphasized`}
         >
-          <Icon as={icon} mr={2} color={`${palette}.fg`} />
+          <DeferredIcon icon={icon} mr={2} color={`${palette}.fg`} />
           <Text fontWeight="bold" fontSize="sm" color={`${palette}.fg`}>
             {label}
           </Text>

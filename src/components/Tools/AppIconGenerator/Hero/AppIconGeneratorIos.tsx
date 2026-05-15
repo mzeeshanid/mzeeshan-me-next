@@ -10,13 +10,13 @@ import {
   Button,
   GridItem,
   HStack,
-  Icon,
   SimpleGrid,
   Switch,
   Tabs,
   Text,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { FaApple, FaArrowRotateLeft } from "react-icons/fa6";
 import AppIconGenerateButton from "./AppIconGeneratorGenerateButton";
@@ -219,7 +219,7 @@ const AppIconGeneratorIos: React.FC<Props> = ({ onIconPreviewChange }) => {
       {/* ── Header ──────────────────────────────────────────────────────────── */}
       <HStack justify="space-between" mb={6}>
         <HStack gap={2}>
-          <Icon as={FaApple} />
+          <DeferredIcon icon={FaApple} />
           <Text fontWeight="bold" fontSize="md">
             {"iOS and macOS"}
           </Text>
@@ -231,7 +231,7 @@ const AppIconGeneratorIos: React.FC<Props> = ({ onIconPreviewChange }) => {
           onClick={handleReset}
           aria-label="Reset"
         >
-          <Icon as={FaArrowRotateLeft} />
+          <DeferredIcon icon={FaArrowRotateLeft} />
           {"Reset"}
         </Button>
       </HStack>

@@ -2,13 +2,13 @@ import {
   Button,
   Collapsible,
   HStack,
-  Icon,
   Link,
   Popover,
   Portal,
   Stack,
   StackSeparator,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { LuMoon, LuSun } from "react-icons/lu";
 import { useColorPalette } from "../../contexts/useColorPalette";
@@ -37,7 +37,7 @@ const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = (
         <Stack pl={4} pr={4} pb={4} gap={4} separator={<StackSeparator />}>
           {mainLinks.map((linkItem, idx) => (
             <HStack key={idx} pl={4} pr={4}>
-              <Icon as={linkItem.icon} />
+              {linkItem.icon && <DeferredIcon icon={linkItem.icon} />}
               <Link
                 href={linkItem.url}
                 area-label={`link for ${linkItem.label} page`}
@@ -63,7 +63,7 @@ const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = (
                 {"Contact Me"}
               </Button>
             </Link>
-            <Popover.Root>
+            <Popover.Root lazyMount unmountOnExit>
               <Popover.Trigger asChild>
                 <Button
                   size={{ base: "xs", md: "sm" }}
@@ -71,7 +71,7 @@ const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = (
                   colorPalette={palette}
                   aria-label="adjust global color palette for site as desired"
                 >
-                  <Icon as={FaWandMagicSparkles} />
+                  <DeferredIcon icon={FaWandMagicSparkles} />
                 </Button>
               </Popover.Trigger>
               <Portal>
@@ -91,7 +91,7 @@ const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = (
               size={{ base: "xs", md: "sm" }}
               onClick={toggleColorMode}
             >
-              <Icon as={mounted && colorMode === "dark" ? LuMoon : LuSun} />
+              <DeferredIcon icon={mounted && colorMode === "dark" ? LuMoon : LuSun} />
             </Button>
           </HStack>
         </Stack>

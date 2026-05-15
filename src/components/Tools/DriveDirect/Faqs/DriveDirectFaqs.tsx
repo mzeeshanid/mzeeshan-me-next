@@ -6,7 +6,6 @@ import {
   GridItem,
   Heading,
   HStack,
-  Icon,
   SimpleGrid,
   Spacer,
   StackSeparator,
@@ -15,6 +14,7 @@ import {
   useCollapsibleContext,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { FAQJsonLd } from "next-seo";
 import React from "react";
 import { IconType } from "react-icons";
@@ -84,7 +84,7 @@ const DriveDirectFaqs: React.FC<Props> = (props: Props) => {
 export const CollapsibleStatus: React.FC = () => {
   const collapsible = useCollapsibleContext();
   const icon: IconType = collapsible.open ? FaChevronUp : FaChevronDown;
-  return <Icon as={icon} />;
+  return <DeferredIcon icon={icon} />;
 };
 
 export default DriveDirectFaqs;

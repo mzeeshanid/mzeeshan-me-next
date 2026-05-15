@@ -5,11 +5,11 @@ import {
   Box,
   Button,
   HStack,
-  Icon,
   Input,
   Text,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import Image from "next/image";
 import React from "react";
 import {
@@ -151,11 +151,11 @@ const AppIconGeneratorImageUpload: React.FC<Props> = ({
         {!image ? (
           <VStack h="full" justify="center" gap={4} textAlign="center">
             <Box p={5} borderRadius="full" bg="bg.panel">
-              <Icon as={FaCloudArrowUp} boxSize={20} color="fg.muted" />
+              <DeferredIcon icon={FaCloudArrowUp} boxSize={20} color="fg.muted" />
             </Box>
             <VStack gap={1}>
               <HStack justify="center" gap={2}>
-                <Icon as={FaImage} color="fg.muted" />
+                <DeferredIcon icon={FaImage} color="fg.muted" />
                 <Text fontWeight="bold" fontSize={{ base: "lg", md: "xl" }}>
                   {"Click or Drag and drop image"}
                 </Text>
@@ -208,13 +208,13 @@ const AppIconGeneratorImageUpload: React.FC<Props> = ({
 
       {error && (
         <HStack color="fg.error" align="flex-start">
-          <Icon as={FaTriangleExclamation} mt="1" />
+          <DeferredIcon icon={FaTriangleExclamation} mt="1" />
           <Text>{error}</Text>
         </HStack>
       )}
       {warning && (
         <HStack color="fg.warning" align="flex-start">
-          <Icon as={FaTriangleExclamation} mt="1" />
+          <DeferredIcon icon={FaTriangleExclamation} mt="1" />
           <Text>{warning}</Text>
         </HStack>
       )}

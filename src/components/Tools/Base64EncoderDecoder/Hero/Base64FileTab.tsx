@@ -18,7 +18,6 @@ import {
   Clipboard,
   Field,
   HStack,
-  Icon,
   Input,
   SegmentGroup,
   Spinner,
@@ -26,6 +25,7 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import {
   FaArrowRotateLeft,
   FaCloudArrowUp,
@@ -203,7 +203,7 @@ const Base64FileTab: React.FC = () => {
               borderLeftColor="red.focusRing"
             >
               <HStack gap={2}>
-                <Icon as={FaTriangleExclamation} color="red.fg" />
+                <DeferredIcon icon={FaTriangleExclamation} color="red.fg" />
                 <Text color="red.fg" fontSize="sm">
                   {error}
                 </Text>
@@ -215,7 +215,7 @@ const Base64FileTab: React.FC = () => {
             <VStack align="stretch" gap={3}>
               <HStack justify="space-between" flexWrap="wrap" gap={2}>
                 <HStack gap={2}>
-                  <Icon as={FaFile} color={`${palette}.fg`} />
+                  <DeferredIcon icon={FaFile} color={`${palette}.fg`} />
                   <Text fontWeight="semibold" fontSize="sm">
                     {encodeFile_.name}
                   </Text>
@@ -232,7 +232,7 @@ const Base64FileTab: React.FC = () => {
                     setError(null);
                   }}
                 >
-                  <Icon as={FaArrowRotateLeft} />
+                  <DeferredIcon icon={FaArrowRotateLeft} />
                   Change file
                 </Button>
               </HStack>
@@ -265,7 +265,7 @@ const Base64FileTab: React.FC = () => {
                           downloadBlob(blob, `${encodeFile_.name}.b64.txt`);
                         }}
                       >
-                        <Icon as={FaDownload} />
+                        <DeferredIcon icon={FaDownload} />
                         Download .txt
                       </Button>
                     </HStack>
@@ -343,7 +343,7 @@ const Base64FileTab: React.FC = () => {
               borderLeftColor="red.focusRing"
             >
               <HStack gap={2}>
-                <Icon as={FaTriangleExclamation} color="red.fg" />
+                <DeferredIcon icon={FaTriangleExclamation} color="red.fg" />
                 <Text color="red.fg" fontSize="sm">
                   {decodeError}
                 </Text>
@@ -356,7 +356,7 @@ const Base64FileTab: React.FC = () => {
             onClick={handleDecode}
             alignSelf="flex-start"
           >
-            <Icon as={FaDownload} />
+            <DeferredIcon icon={FaDownload} />
             Decode & Download
           </Button>
         </VStack>

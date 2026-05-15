@@ -3,10 +3,10 @@ import {
   Circle,
   Grid,
   HStack,
-  Icon,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { LuMoon, LuSun } from "react-icons/lu";
 import { useColorPalette } from "../../contexts/useColorPalette";
 import navBarData from "../../data/navBar/navBarData";
@@ -32,7 +32,7 @@ const NavBarThemePopOverContent: React.FC<NavBarThemePopOverContentProps> = (
           aria-label="toggle dark light theme"
           onClick={toggleColorMode}
         >
-          {mounted && <Icon as={colorMode === "light" ? LuSun : LuMoon} />}
+          {mounted && <DeferredIcon icon={colorMode === "light" ? LuSun : LuMoon} />}
         </Button>
       </HStack>
       <Stack>

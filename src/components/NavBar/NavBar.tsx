@@ -1,4 +1,4 @@
-import { Box, Container, HStack, useDisclosure } from "@chakra-ui/react";
+import { Box, Container, HStack, useDisclosure, useBreakpointValue } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
 import { useEffect, useState } from "react";
@@ -14,6 +14,7 @@ type NavBarProps = {
 
 const NavBar: React.FC<NavBarProps> = (props) => {
   const { open, onToggle } = useDisclosure();
+  const isMobile = useBreakpointValue({ base: true, lg: false });
   const [scrolled, setScrolled] = useState<boolean>(false);
   const scrolledBg = useColorModeValue(
     "rgba(250, 250, 250, 0.5)",
@@ -65,16 +66,14 @@ const NavBar: React.FC<NavBarProps> = (props) => {
       <Container maxW={"8xl"}>
         <HStack justify="space-between" align="center" py={4}>
           {props.header ? <NavBarHeader {...props.header} /> : <MyIntro />}
-          <Box display={{ base: "block", lg: "none" }}>
+          {isMobile !== false && (
             <NavBarMobileMenu open={open} onToggle={onToggle} />
-          </Box>
-          <Box display={{ base: "none", lg: "block" }}>
-            <NavBarNormalMenu />
-          </Box>
+          )}
+          {isMobile === false && <NavBarNormalMenu />}
         </HStack>
-        <Box display={{ base: "block", lg: "none" }}>
+        {isMobile !== false && (
           <NavBarMobileMenuContent open={open} onToggle={onToggle} />
-        </Box>
+        )}
       </Container>
     </Box>
   );

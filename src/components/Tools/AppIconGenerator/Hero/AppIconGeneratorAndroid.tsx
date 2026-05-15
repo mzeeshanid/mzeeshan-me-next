@@ -6,7 +6,6 @@ import {
   Button,
   GridItem,
   HStack,
-  Icon,
   Input,
   NativeSelect,
   SimpleGrid,
@@ -16,6 +15,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import React from "react";
 import { FaAndroid, FaArrowRotateLeft } from "react-icons/fa6";
 import { DEFAULT_ANDROID_CONFIG } from "./android/AppIconGeneratorAndroidTypes";
@@ -124,7 +124,7 @@ const AppIconGeneratorAndroid: React.FC<Props> = ({ onIconPreviewChange }) => {
         {/* ── Heading ─────────────────────────────────────────────────────── */}
         <HStack justify="space-between" mb={6}>
           <HStack gap={2}>
-            <Icon as={FaAndroid} />
+            <DeferredIcon icon={FaAndroid} />
             <Text fontWeight="bold" fontSize="md">{"Android"}</Text>
           </HStack>
           <Button
@@ -134,7 +134,7 @@ const AppIconGeneratorAndroid: React.FC<Props> = ({ onIconPreviewChange }) => {
             onClick={handleReset}
             aria-label="Reset to defaults"
           >
-            <Icon as={FaArrowRotateLeft} />
+            <DeferredIcon icon={FaArrowRotateLeft} />
             {"Reset"}
           </Button>
         </HStack>

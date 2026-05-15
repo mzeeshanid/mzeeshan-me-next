@@ -13,7 +13,6 @@ import {
   Card,
   Clipboard,
   HStack,
-  Icon,
   Input,
   NativeSelect,
   Spinner,
@@ -22,6 +21,7 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import {
   FaCloudArrowUp,
   FaImage,
@@ -135,7 +135,7 @@ const Base64ImageTab: React.FC = () => {
             onChange={(e) => handleFiles(e.target.files)}
           />
           <VStack gap={3}>
-            <Icon as={FaCloudArrowUp} boxSize={10} color={`${palette}.fg`} />
+            <DeferredIcon icon={FaCloudArrowUp} boxSize={10} color={`${palette}.fg`} />
             <Text fontWeight="semibold">
               Drop an image here or click to upload
             </Text>
@@ -170,7 +170,7 @@ const Base64ImageTab: React.FC = () => {
           borderLeftColor="red.focusRing"
         >
           <HStack gap={2}>
-            <Icon as={FaTriangleExclamation} color="red.fg" />
+            <DeferredIcon icon={FaTriangleExclamation} color="red.fg" />
             <Text color="red.fg" fontSize="sm">
               {error}
             </Text>
@@ -182,7 +182,7 @@ const Base64ImageTab: React.FC = () => {
         <VStack align="stretch" gap={4}>
           <HStack justify="space-between" flexWrap="wrap" gap={2}>
             <HStack gap={2} flexWrap="wrap">
-              <Icon as={FaImage} color={`${palette}.fg`} />
+              <DeferredIcon icon={FaImage} color={`${palette}.fg`} />
               <Text fontWeight="semibold" fontSize="sm" wordBreak="break-all">
                 {result.name}
               </Text>
@@ -191,7 +191,7 @@ const Base64ImageTab: React.FC = () => {
               </Badge>
             </HStack>
             <Button size="sm" variant="ghost" onClick={reset}>
-              <Icon as={FaArrowRotateLeft} />
+              <DeferredIcon icon={FaArrowRotateLeft} />
               Change image
             </Button>
           </HStack>

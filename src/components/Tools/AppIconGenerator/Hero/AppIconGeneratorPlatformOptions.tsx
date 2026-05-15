@@ -10,13 +10,14 @@ import {
   Box,
   Checkbox,
   HStack,
-  Icon,
   Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
 import { FaCircleInfo } from "react-icons/fa6";
+import { IconType } from "react-icons";
+import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 
 type Props = {
   selection: AppIconPlatformSelection;
@@ -27,7 +28,7 @@ type OptionRowProps = {
   checked: boolean;
   count: number;
   description: string;
-  icon: React.ElementType;
+  icon: IconType;
   label: string;
   sizeGuide?: string;
   testId: string;
@@ -65,7 +66,7 @@ const OptionRow: React.FC<OptionRowProps> = ({
         cursor="pointer"
       >
         <HStack align="flex-start" gap={3}>
-          <Icon as={icon} mt="1" />
+          <DeferredIcon icon={icon} mt="1" />
           <Checkbox.HiddenInput />
           <Checkbox.Control mt="1" />
           <VStack align="flex-start" gap={0}>
@@ -87,7 +88,7 @@ const OptionRow: React.FC<OptionRowProps> = ({
                     aria-label={`${label} size guide`}
                     onClick={(event) => event.stopPropagation()}
                   >
-                    <Icon as={FaCircleInfo} boxSize={3.5} />
+                    <DeferredIcon icon={FaCircleInfo} boxSize={3.5} />
                   </Box>
                 </Tooltip>
               ) : null}
