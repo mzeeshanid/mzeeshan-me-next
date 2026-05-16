@@ -8,7 +8,7 @@ type MyHeroSkillsProps = {};
 const MyHeroSkills: React.FC<MyHeroSkillsProps> = (
   props: MyHeroSkillsProps
 ) => {
-  const { heroSkillsImages } = myHeroData();
+  const { heroSkillsImages } = myHeroData;
 
   return (
     <SimpleGrid columns={3} gap={4} w="full">

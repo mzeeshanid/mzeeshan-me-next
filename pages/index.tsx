@@ -2,18 +2,30 @@ import dynamic from "next/dynamic";
 // Above fold — eager (visible without scrolling)
 import MyHero from "@/components/Home/MyHero/MyHero";
 import MySeo from "@/components/Home/MySeo/MySeo";
-// Below fold — lazy chunks loaded in parallel after initial paint
-const MySkills = dynamic(() => import("@/components/Home/MySkills/MySkills"));
-const MyFrameworks = dynamic(() => import("@/components/Home/MyFrameworks/MyFrameworks"));
-const MyThirdPartySDKs = dynamic(() => import("@/components/Home/MyThirdPartySDKs/MyThirdPartySDKs"));
-const MyPricing = dynamic(() => import("@/components/Home/MyPricing/MyPricing"));
-const MyPerformanceStats = dynamic(() => import("@/components/Home/MyPerformanceStats/MyPerformanceStats"));
-const MyCTA = dynamic(() => import("@/components/Home/MyCTA/MyCTA"));
-const MyApps = dynamic(() => import("@/components/Home/MyApps/MyApps"));
-const MyStats = dynamic(() => import("@/components/Home/MyStats/MyStats"));
-const MyClientReviews = dynamic(() => import("@/components/Home/MyClientReviews/MyClientReviews"));
-const MyOpenSourceContribution = dynamic(() => import("@/components/Home/MyOpenSourceContribution/MyOpenSourceContribution"));
-import { Container, Spacer } from "@chakra-ui/react";
+import {
+  MySkillsSkeleton,
+  MyFrameworksSkeleton,
+  MyThirdPartySDKsSkeleton,
+  MyPricingSkeleton,
+  MyPerformanceStatsSkeleton,
+  MyCTASkeleton,
+  MyAppsSkeleton,
+  MyStatsSkeleton,
+  MyClientReviewsSkeleton,
+  MyOpenSourceContributionSkeleton,
+} from "@/components/Home/HomeSkeletons";
+// Below fold — lazy chunks; skeletons hold layout while each chunk downloads
+const MySkills = dynamic(() => import("@/components/Home/MySkills/MySkills"), { loading: () => <MySkillsSkeleton /> });
+const MyFrameworks = dynamic(() => import("@/components/Home/MyFrameworks/MyFrameworks"), { loading: () => <MyFrameworksSkeleton /> });
+const MyThirdPartySDKs = dynamic(() => import("@/components/Home/MyThirdPartySDKs/MyThirdPartySDKs"), { loading: () => <MyThirdPartySDKsSkeleton /> });
+const MyPricing = dynamic(() => import("@/components/Home/MyPricing/MyPricing"), { loading: () => <MyPricingSkeleton /> });
+const MyPerformanceStats = dynamic(() => import("@/components/Home/MyPerformanceStats/MyPerformanceStats"), { loading: () => <MyPerformanceStatsSkeleton /> });
+const MyCTA = dynamic(() => import("@/components/Home/MyCTA/MyCTA"), { loading: () => <MyCTASkeleton /> });
+const MyApps = dynamic(() => import("@/components/Home/MyApps/MyApps"), { loading: () => <MyAppsSkeleton /> });
+const MyStats = dynamic(() => import("@/components/Home/MyStats/MyStats"), { loading: () => <MyStatsSkeleton /> });
+const MyClientReviews = dynamic(() => import("@/components/Home/MyClientReviews/MyClientReviews"), { loading: () => <MyClientReviewsSkeleton /> });
+const MyOpenSourceContribution = dynamic(() => import("@/components/Home/MyOpenSourceContribution/MyOpenSourceContribution"), { loading: () => <MyOpenSourceContributionSkeleton /> });
+import { Container } from "@chakra-ui/react";
 import React from "react";
 import Footer from "../src/components/Footer/Footer";
 import NavBar from "../src/components/NavBar/NavBar";
@@ -28,62 +40,50 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         {/* --- NavBar --- */}
         <NavBar />
         <main>
-        <Spacer p={{ base: 4, lg: 8 }} />
         {/* --- Hero --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mt={{ base: 4, lg: 8 }} mb={8}>
           <MyHero />
         </Container>
-        <Spacer p={8} />
         {/* --- Skills --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mb={8}>
           <MySkills />
         </Container>
-        <Spacer p={8} />
         {/* --- Frameworks --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mb={8}>
           <MyFrameworks />
         </Container>
-        <Spacer p={8} />
         {/* --- SDKs --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mb={8}>
           <MyThirdPartySDKs />
         </Container>
-        <Spacer p={8} />
         {/* --- Pricing --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mb={8}>
           <MyPricing />
         </Container>
-        <Spacer p={8} />
         {/* --- Performance --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mb={8}>
           <MyPerformanceStats />
         </Container>
-        <Spacer p={8} />
         {/* --- CTA --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mb={8}>
           <MyCTA />
         </Container>
-        <Spacer p={8} />
         {/* --- Apps --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mb={8}>
           <MyApps />
         </Container>
-        <Spacer p={8} />
         {/* --- Stats --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mb={8}>
           <MyStats />
         </Container>
-        <Spacer p={8} />
         {/* --- Reviews --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mb={8}>
           <MyClientReviews />
         </Container>
-        <Spacer p={8} />
         {/* --- OpenSource Contribution --- */}
-        <Container maxW="6xl">
+        <Container maxW="6xl" mb={4}>
           <MyOpenSourceContribution />
         </Container>
-        <Spacer p={4} />
         {/* --- Footer --- */}
         </main>
         <Footer />

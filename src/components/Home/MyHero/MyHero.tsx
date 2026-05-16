@@ -20,7 +20,7 @@ type MyHeroProps = {};
 
 const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
   const { palette } = useColorPalette();
-  const { tagline, title, details, heroImage } = myHeroData();
+  const { tagline, title, details, heroImage } = myHeroData;
 
   return (
     <Box as={"section"}>
@@ -73,7 +73,8 @@ const MyHero: React.FC<MyHeroProps> = (props: MyHeroProps) => {
                   placeholder="blur"
                   fetchPriority="high"
                   loading="eager"
-                  sizes="(max-width: 62em) 100vw, 50vw"
+                  sizes="(max-width: 62em) 100vw, (max-width: 80em) 50vw, 540px"
+                  quality={90}
                 />
               </Box>
               <Box w="full">

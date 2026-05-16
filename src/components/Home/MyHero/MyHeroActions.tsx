@@ -6,7 +6,7 @@ import React from "react";
 type MyHeroActionsProps = {};
 
 const MyHeroActions: React.FC<MyHeroActionsProps> = ({}) => {
-  const { actions } = myHeroData();
+  const { actions } = myHeroData;
   const { palette } = useColorPalette();
   return (
     <Stack gap={4} direction={{ base: "column", md: "row" }} w="full">
