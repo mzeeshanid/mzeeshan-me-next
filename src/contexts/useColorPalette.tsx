@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, type ReactNode, useEffect } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 
-type Palette =
+export type Palette =
   | "gray"
   | "red"
   | "orange"
@@ -13,9 +13,9 @@ type Palette =
   | "pink"
   | string;
 
-const DEFAULT_PALETTE: Palette = "green";
-const COLOR_PALETTE_STORAGE_KEY = "mzeeshan:accent-palette";
-const ALLOWED_PALETTES: Palette[] = [
+export const DEFAULT_PALETTE: Palette = "green";
+export const PALETTE_COOKIE = "accent-color";
+export const ALLOWED_PALETTES: Palette[] = [
   "gray",
   "red",
   "orange",
@@ -28,9 +28,21 @@ const ALLOWED_PALETTES: Palette[] = [
   "pink",
 ];
 
-const isPalette = (value: string): value is Palette => {
-  return ALLOWED_PALETTES.includes(value);
-};
+export const isPalette = (value: string): value is Palette =>
+  ALLOWED_PALETTES.includes(value);
+
+export function parsePaletteCookie(cookieHeader: string): Palette {
+  const match = cookieHeader.match(
+    new RegExp(`(?:^|;\\s*)${PALETTE_COOKIE}=([^;]+)`)
+  );
+  const value = match?.[1];
+  return value && ALLOWED_PALETTES.includes(value)
+    ? (value as Palette)
+    : DEFAULT_PALETTE;
+}
+
+// 1 year — same session length Chakra Pro uses
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 interface ColorPaletteContextType {
   palette: Palette;
@@ -41,34 +53,26 @@ const ColorPaletteContext = createContext<ColorPaletteContextType | undefined>(
   undefined,
 );
 
-export function ColorPaletteProvider({ children }: { children: ReactNode }) {
-  const [palette, setPaletteState] = useState<Palette>(DEFAULT_PALETTE);
+interface ColorPaletteProviderProps {
+  children: ReactNode;
+  initialPalette?: Palette;
+}
+
+export function ColorPaletteProvider({
+  children,
+  initialPalette = DEFAULT_PALETTE,
+}: ColorPaletteProviderProps) {
+  // initialPalette comes from the server-read cookie — no client correction needed.
+  // useState only reads its argument on the very first mount, so client-side
+  // navigations (where initialPalette is undefined) leave the existing state alone.
+  const [palette, setPaletteState] = useState<Palette>(initialPalette);
 
   const setPalette = (newPalette: Palette) => {
-    if (!isPalette(newPalette)) {
-      return;
-    }
+    if (!isPalette(newPalette)) return;
+    // Write cookie so the server renders the correct color on the next request.
+    document.cookie = `${PALETTE_COOKIE}=${newPalette}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`;
     setPaletteState(newPalette);
   };
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const savedPalette = window.localStorage.getItem(COLOR_PALETTE_STORAGE_KEY);
-    if (savedPalette && isPalette(savedPalette)) {
-      setPaletteState(savedPalette);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    window.localStorage.setItem(COLOR_PALETTE_STORAGE_KEY, palette);
-  }, [palette]);
 
   return (
     <ColorPaletteContext.Provider value={{ palette, setPalette }}>
