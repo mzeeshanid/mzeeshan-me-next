@@ -53,9 +53,11 @@ const MyThirdPartySDKs: React.FC<MyThirdPartySDKsProps> = (
             width={heroImage.width}
             height={heroImage.height}
             placeholder="blur"
-            style={{ width: `${heroImage.width}px`, height: "auto" }}
-            sizes="300px"
             quality={85}
+            style={{
+              width: `${heroImage.width}px`,
+              height: `${heroImage.height}px`,
+            }}
           />
         </Center>
       </GridItem>
