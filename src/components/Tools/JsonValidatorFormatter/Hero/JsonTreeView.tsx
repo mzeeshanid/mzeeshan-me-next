@@ -1494,6 +1494,37 @@ const JsonTreeView: React.FC<JsonTreeViewProps> = ({
   const trimmedQuery = searchQuery.trim();
   const isInternalRef = React.useRef(false);
 
+  // ── sidebar resize ────────────────────────────────────────────────────────
+  const sidebarRef = React.useRef<HTMLDivElement>(null);
+  const [sidebarWidth, setSidebarWidth] = React.useState(450);
+
+  const handleResizeStart = React.useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      const startX = e.clientX;
+      const startWidth = sidebarRef.current?.offsetWidth ?? sidebarWidth;
+
+      const onMove = (ev: PointerEvent) => {
+        const newWidth = Math.max(200, Math.min(800, startWidth + (startX - ev.clientX)));
+        if (sidebarRef.current) {
+          sidebarRef.current.style.width = `${newWidth}px`;
+          sidebarRef.current.style.minWidth = `${newWidth}px`;
+        }
+      };
+
+      const onUp = (ev: PointerEvent) => {
+        const newWidth = Math.max(200, Math.min(800, startWidth + (startX - ev.clientX)));
+        setSidebarWidth(newWidth);
+        document.removeEventListener("pointermove", onMove);
+        document.removeEventListener("pointerup", onUp);
+      };
+
+      document.addEventListener("pointermove", onMove);
+      document.addEventListener("pointerup", onUp);
+    },
+    [sidebarWidth],
+  );
+
   // ── parse ──────────────────────────────────────────────────────────────────
 
   const parsed = React.useMemo(() => {
@@ -2315,9 +2346,18 @@ const JsonTreeView: React.FC<JsonTreeViewProps> = ({
         }
       `}</style>
 
-      <Box display="flex" h="100%" overflow="hidden">
+      <Box
+        display="flex"
+        flexDirection={{ base: "column", md: "row" }}
+        h={{ base: "auto", md: "100%" }}
+        overflow={{ base: "visible", md: "hidden" }}
+      >
         {/* ── Tree (with optional gutter) ── */}
-        <Box flex="1" overflow="auto" minW="0">
+        <Box
+          flex={{ base: "none", md: "1" }}
+          overflow={{ base: "visible", md: "auto" }}
+          minW="0"
+        >
           <Box display="flex" alignItems="flex-start" minW="min-content">
             {/* ── Line-number gutter ── */}
             {showLineNumbers && (
@@ -2383,21 +2423,35 @@ const JsonTreeView: React.FC<JsonTreeViewProps> = ({
           </Box>
         </Box>
 
-        {/* ── Right panel ── */}
+        {/* ── Resize handle — desktop only ── */}
         <Box
-          w="320px"
+          display={{ base: "none", md: "block" }}
+          w="5px"
           flexShrink={0}
+          cursor="col-resize"
           borderLeftWidth="1px"
+          borderColor="border"
+          userSelect="none"
+          onPointerDown={handleResizeStart}
+          _hover={{ bg: "bg.emphasized" }}
+          transition="background 0.15s"
+        />
+
+        {/* ── Sidebar ── */}
+        <Box
+          ref={sidebarRef}
+          w={{ base: "full", md: `${sidebarWidth}px` }}
+          minW={{ md: `${sidebarWidth}px` }}
+          minH="450px"
+          flexShrink={0}
+          borderTopWidth={{ base: "1px", md: "0" }}
           overflow="auto"
           display="flex"
           flexDirection="column"
           gap={3}
           p={3}
-          position="relative"
         >
-          <Box position="sticky" top={0} zIndex={1} bg="bg">
-            <TypeLegend />
-          </Box>
+          <TypeLegend />
           {selectedNode && <SelectedNodeDetails node={selectedNode} />}
         </Box>
       </Box>

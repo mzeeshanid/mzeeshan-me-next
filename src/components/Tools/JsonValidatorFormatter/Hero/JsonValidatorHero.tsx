@@ -43,7 +43,6 @@ import {
   Switch,
   Tabs,
   Text,
-  Textarea,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
@@ -63,7 +62,6 @@ import {
   LuSave,
   LuSearch,
   LuSettings,
-  LuTerminal,
   LuTrash2,
   LuUndo2,
   LuWand,
@@ -497,290 +495,6 @@ const LoadUrlDialog: React.FC<{
   );
 };
 
-// ── cURL parser ───────────────────────────────────────────────────────────────
-
-function tokenizeCurl(input: string): string[] {
-  const tokens: string[] = [];
-  let i = 0;
-  while (i < input.length) {
-    while (i < input.length && /\s/.test(input[i])) i++;
-    if (i >= input.length) break;
-    if (input[i] === '"' || input[i] === "'") {
-      const quote = input[i++];
-      let token = "";
-      while (i < input.length && input[i] !== quote) {
-        if (input[i] === "\\" && i + 1 < input.length) token += input[++i];
-        else token += input[i];
-        i++;
-      }
-      i++;
-      tokens.push(token);
-    } else {
-      let token = "";
-      while (i < input.length && !/\s/.test(input[i])) token += input[i++];
-      tokens.push(token);
-    }
-  }
-  return tokens;
-}
-
-// Flags that consume no value argument.
-const CURL_BOOL_FLAGS = new Set([
-  "-s",
-  "--silent",
-  "-S",
-  "--show-error",
-  "-v",
-  "--verbose",
-  "-i",
-  "--include",
-  "-L",
-  "--location",
-  "-k",
-  "--insecure",
-  "-g",
-  "--globoff",
-  "--compressed",
-  "--no-keepalive",
-  "-I",
-  "--head",
-  "-f",
-  "--fail",
-  "--http1.1",
-  "--http2",
-  "--no-progress-meter",
-  "--progress-bar",
-  "#",
-]);
-
-// Flags that consume exactly one following value (skipped — not needed for fetch).
-const CURL_SKIP_VALUE_FLAGS = new Set([
-  "-o",
-  "--output",
-  "-m",
-  "--max-time",
-  "--connect-timeout",
-  "--keepalive-time",
-  "-A",
-  "--user-agent",
-  "-x",
-  "--proxy",
-  "--proxy-user",
-  "--proxy-header",
-  "--noproxy",
-  "-b",
-  "--cookie",
-  "-c",
-  "--cookie-jar",
-  "-e",
-  "--referer",
-  "-F",
-  "--form",
-  "--form-string",
-  "--cacert",
-  "--capath",
-  "--cert",
-  "--key",
-  "--pass",
-  "--max-redirs",
-  "--retry",
-  "--retry-delay",
-  "--retry-max-time",
-  "--limit-rate",
-  "--interface",
-  "--resolve",
-  "--dns-servers",
-  "--local-port",
-  "-r",
-  "--range",
-  "-T",
-  "--upload-file",
-  "-K",
-  "--config",
-  "-w",
-  "--write-out",
-  "--output-dir",
-  "--unix-socket",
-  "--abstract-unix-socket",
-]);
-
-function stripShellPipe(input: string): string {
-  let inQuote: string | null = null;
-  for (let i = 0; i < input.length; i++) {
-    const c = input[i];
-    if (inQuote) {
-      if (c === inQuote) inQuote = null;
-    } else if (c === '"' || c === "'") {
-      inQuote = c;
-    } else if (c === "|") {
-      return input.slice(0, i).trim();
-    }
-  }
-  return input;
-}
-
-function parseCurlCommand(cmd: string): { url: string; init: RequestInit } {
-  // Normalise: strip shell pipes, collapse line continuations, collapse whitespace.
-  const normalised = stripShellPipe(
-    cmd
-      .trim()
-      .replace(/\\\r?\n\s*/g, " ") // backslash-newline → space
-      .replace(/\r?\n/g, " "), // bare newlines (curl on its own line) → space
-  );
-
-  if (!/^curl\b/i.test(normalised))
-    throw new Error("Command must start with 'curl'");
-
-  const tokens = tokenizeCurl(normalised.replace(/^curl\s*/i, ""));
-  const headers: Record<string, string> = {};
-  let method = "GET";
-  let body: string | undefined;
-  let url = "";
-
-  for (let i = 0; i < tokens.length; i++) {
-    const t = tokens[i];
-
-    if (CURL_BOOL_FLAGS.has(t)) {
-      continue;
-    } else if (t === "-H" || t === "--header") {
-      const h = tokens[++i] ?? "";
-      const colon = h.indexOf(":");
-      if (colon > -1)
-        headers[h.slice(0, colon).trim()] = h.slice(colon + 1).trim();
-    } else if (t === "-X" || t === "--request") {
-      method = (tokens[++i] ?? "GET").toUpperCase();
-    } else if (
-      t === "-d" ||
-      t === "--data" ||
-      t === "--data-raw" ||
-      t === "--data-binary" ||
-      t === "--data-urlencode" ||
-      t === "--data-ascii"
-    ) {
-      body = tokens[++i] ?? "";
-      if (method === "GET") method = "POST";
-    } else if (t === "-u" || t === "--user") {
-      headers["Authorization"] = "Basic " + btoa(tokens[++i] ?? "");
-    } else if (CURL_SKIP_VALUE_FLAGS.has(t)) {
-      i++; // consume the value but ignore it
-    } else if (t.startsWith("--")) {
-      // Unknown long flag — peek ahead: if the next token looks like a value
-      // (doesn't start with -) consume it so it can't be mistaken for the URL.
-      if (i + 1 < tokens.length && !tokens[i + 1].startsWith("-")) i++;
-    } else if (t.startsWith("-") && t.length > 1) {
-      // Unknown short flag — skip it (no value consumed).
-      continue;
-    } else if (!t.startsWith("-")) {
-      // First positional argument that is a valid-looking URL wins.
-      try {
-        new URL(t);
-        url = t;
-      } catch {
-        /* not a URL, ignore */
-      }
-    }
-  }
-
-  if (!url) throw new Error("No URL found in the curl command");
-
-  const init: RequestInit = { method, headers };
-  if (body !== undefined) init.body = body;
-  return { url, init };
-}
-
-// ── cURL dialog ───────────────────────────────────────────────────────────────
-
-const CurlDialog: React.FC<{
-  open: boolean;
-  onClose: () => void;
-  onLoad: (content: string) => void;
-  palette: string;
-}> = ({ open, onClose, onLoad, palette }) => {
-  const [curlCmd, setCurlCmd] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState("");
-
-  const handleLoad = async () => {
-    setError("");
-    let parsed: ReturnType<typeof parseCurlCommand>;
-    try {
-      parsed = parseCurlCommand(curlCmd);
-    } catch (e) {
-      setError((e as Error).message);
-      return;
-    }
-    setLoading(true);
-    try {
-      const res = await fetch(parsed.url, parsed.init);
-      const text = await res.text();
-      onLoad(text);
-      setCurlCmd("");
-      onClose();
-    } catch {
-      setError("Request failed. Check the URL or CORS policy.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <Dialog.Root
-      open={open}
-      onOpenChange={(d) => {
-        if (!d.open) {
-          setError("");
-          onClose();
-        }
-      }}
-      placement="center"
-    >
-      <Portal>
-        <Dialog.Backdrop />
-        <Dialog.Positioner>
-          <Dialog.Content maxW="lg">
-            <Dialog.Header>
-              <Dialog.Title>{"Load from cURL"}</Dialog.Title>
-            </Dialog.Header>
-            <Dialog.Body>
-              <Field.Root invalid={!!error}>
-                <Field.Label>{"cURL command"}</Field.Label>
-                <Textarea
-                  value={curlCmd}
-                  onChange={(e) => {
-                    setCurlCmd(e.target.value);
-                    setError("");
-                  }}
-                  placeholder={`curl https://api.example.com/data.json \\\n  -H "Authorization: Bearer token"`}
-                  rows={5}
-                  fontFamily="mono"
-                  fontSize="sm"
-                  resize="vertical"
-                />
-                {error && <Field.ErrorText>{error}</Field.ErrorText>}
-              </Field.Root>
-            </Dialog.Body>
-            <Dialog.Footer>
-              <Dialog.ActionTrigger asChild>
-                <Button variant="outline" onClick={onClose}>
-                  {"Cancel"}
-                </Button>
-              </Dialog.ActionTrigger>
-              <Button
-                colorPalette={palette}
-                onClick={handleLoad}
-                loading={loading}
-                disabled={!curlCmd.trim()}
-              >
-                {"Run"}
-              </Button>
-            </Dialog.Footer>
-          </Dialog.Content>
-        </Dialog.Positioner>
-      </Portal>
-    </Dialog.Root>
-  );
-};
-
 // ── Settings popover ──────────────────────────────────────────────────────────
 
 const SettingsPopover: React.FC<{
@@ -1063,7 +777,6 @@ const JsonValidatorHero: React.FC = () => {
   const [diffMode, setDiffMode] = React.useState<"split" | "unified">("split");
   const [saveDialogOpen, setSaveDialogOpen] = React.useState(false);
   const [urlDialogOpen, setUrlDialogOpen] = React.useState(false);
-  const [curlDialogOpen, setCurlDialogOpen] = React.useState(false);
   const [historyOpen, setHistoryOpen] = React.useState(false);
   // docId and docName must start with stable defaults (matching SSR) and be
   // updated after mount so hydration sees identical HTML on server and client.
@@ -1153,12 +866,6 @@ const JsonValidatorHero: React.FC = () => {
       <LoadUrlDialog
         open={urlDialogOpen}
         onClose={() => setUrlDialogOpen(false)}
-        onLoad={setValidatorValue}
-        palette={palette}
-      />
-      <CurlDialog
-        open={curlDialogOpen}
-        onClose={() => setCurlDialogOpen(false)}
         onLoad={setValidatorValue}
         palette={palette}
       />
@@ -1465,18 +1172,6 @@ const JsonValidatorHero: React.FC = () => {
                   onClick={() => setUrlDialogOpen(true)}
                 >
                   <LuLink />
-                </IconButton>
-              </Tooltip>
-
-              <Tooltip content="Load from cURL" openDelay={300}>
-                <IconButton
-                  variant="ghost"
-                  size="sm"
-                  colorPalette={palette}
-                  aria-label="Load from cURL"
-                  onClick={() => setCurlDialogOpen(true)}
-                >
-                  <LuTerminal />
                 </IconButton>
               </Tooltip>
 
