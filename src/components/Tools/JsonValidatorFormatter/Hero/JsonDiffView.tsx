@@ -89,6 +89,8 @@ export const JsonSideBySideDiff: React.FC<JsonDiffViewProps> = ({
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const viewRef = React.useRef<MergeView | null>(null);
+  const [aCursorPos, setACursorPos] = React.useState({ line: 1, col: 1 });
+  const [bCursorPos, setBCursorPos] = React.useState({ line: 1, col: 1 });
 
   const aComps = React.useRef({
     theme: new Compartment(),
@@ -117,6 +119,7 @@ export const JsonSideBySideDiff: React.FC<JsonDiffViewProps> = ({
     const editorExts = (
       comps: typeof aComps,
       onChange: (v: string) => void,
+      setCursor: (pos: { line: number; col: number }) => void,
     ) => [
       basicSetup,
       mergeUiTheme,
@@ -138,17 +141,22 @@ export const JsonSideBySideDiff: React.FC<JsonDiffViewProps> = ({
       keymap.of([...defaultKeymap, ...historyKeymap]),
       EditorView.updateListener.of((u) => {
         if (u.docChanged) onChange(u.state.doc.toString());
+        if (u.docChanged || u.selectionSet) {
+          const head = u.state.selection.main.head;
+          const line = u.state.doc.lineAt(head);
+          setCursor({ line: line.number, col: head - line.from + 1 });
+        }
       }),
     ];
 
     const mv = new MergeView({
       a: {
         doc: original,
-        extensions: editorExts(aComps, (v) => onOrigRef.current?.(v)),
+        extensions: editorExts(aComps, (v) => onOrigRef.current?.(v), setACursorPos),
       },
       b: {
         doc: modified,
-        extensions: editorExts(bComps, (v) => onModRef.current?.(v)),
+        extensions: editorExts(bComps, (v) => onModRef.current?.(v), setBCursorPos),
       },
       parent: containerRef.current,
       highlightChanges: true,
@@ -233,11 +241,30 @@ export const JsonSideBySideDiff: React.FC<JsonDiffViewProps> = ({
     mv.b.dispatch({ effects: bComps.font.reconfigure(ext) });
   }, [fontSize]);
 
+  const isDark = colorMode === "dark";
+  const statusBarStyle: React.CSSProperties = {
+    fontSize: "12px",
+    padding: "2px 10px",
+    userSelect: "none",
+    borderTop: `1px solid ${isDark ? "#3a3a3a" : "#e2e8f0"}`,
+    backgroundColor: isDark ? "#1e1e1e" : "#f8fafc",
+    color: isDark ? "#9ca3af" : "#64748b",
+    fontFamily: "monospace",
+    flex: "0 0 auto",
+  };
+
   return (
-    <div
-      ref={containerRef}
-      style={{ width: "100%", height: "100%", overflow: "auto" }}
-    />
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
+      <div ref={containerRef} style={{ flex: 1, overflow: "auto" }} />
+      <div style={{ display: "flex" }}>
+        <div style={{ ...statusBarStyle, flex: 1 }}>
+          {`Original — Line: ${aCursorPos.line}  Column: ${aCursorPos.col}`}
+        </div>
+        <div style={{ ...statusBarStyle, flex: 1, borderLeft: `1px solid ${isDark ? "#3a3a3a" : "#e2e8f0"}` }}>
+          {`Modified — Line: ${bCursorPos.line}  Column: ${bCursorPos.col}`}
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -255,6 +282,7 @@ export const JsonUnifiedDiff: React.FC<JsonDiffViewProps> = ({
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const viewRef = React.useRef<EditorView | null>(null);
+  const [cursorPos, setCursorPos] = React.useState({ line: 1, col: 1 });
 
   const comps = React.useRef({
     theme: new Compartment(),
@@ -300,6 +328,11 @@ export const JsonUnifiedDiff: React.FC<JsonDiffViewProps> = ({
           }),
           EditorView.updateListener.of((u) => {
             if (u.docChanged) onModRef.current?.(u.state.doc.toString());
+            if (u.docChanged || u.selectionSet) {
+              const head = u.state.selection.main.head;
+              const line = u.state.doc.lineAt(head);
+              setCursorPos({ line: line.number, col: head - line.from + 1 });
+            }
           }),
         ],
       }),
@@ -380,10 +413,24 @@ export const JsonUnifiedDiff: React.FC<JsonDiffViewProps> = ({
     });
   }, [fontSize]);
 
+  const isDark = colorMode === "dark";
+
   return (
-    <div
-      ref={containerRef}
-      style={{ width: "100%", height: "100%", overflow: "auto" }}
-    />
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
+      <div ref={containerRef} style={{ flex: 1, overflow: "auto" }} />
+      <div
+        style={{
+          fontSize: "12px",
+          padding: "2px 10px",
+          userSelect: "none",
+          borderTop: `1px solid ${isDark ? "#3a3a3a" : "#e2e8f0"}`,
+          backgroundColor: isDark ? "#1e1e1e" : "#f8fafc",
+          color: isDark ? "#9ca3af" : "#64748b",
+          fontFamily: "monospace",
+        }}
+      >
+        {`Line: ${cursorPos.line}  Column: ${cursorPos.col}`}
+      </div>
+    </div>
   );
 };

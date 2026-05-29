@@ -127,6 +127,7 @@ const JsonCodeMirrorEditor: React.FC<JsonCodeMirrorEditorProps> = ({
 }) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const viewRef = React.useRef<EditorView | null>(null);
+  const [cursorPos, setCursorPos] = React.useState({ line: 1, col: 1 });
 
   React.useImperativeHandle(editorRef, () => ({
     toggleSearch: () => {
@@ -240,6 +241,11 @@ const JsonCodeMirrorEditor: React.FC<JsonCodeMirrorEditorProps> = ({
         if (update.docChanged) {
           onChangeRef.current?.(update.state.doc.toString());
         }
+        if (update.docChanged || update.selectionSet) {
+          const head = update.state.selection.main.head;
+          const line = update.state.doc.lineAt(head);
+          setCursorPos({ line: line.number, col: head - line.from + 1 });
+        }
       }),
       ...(placeholder ? [cmPlaceholder(placeholder)] : []),
     ];
@@ -317,11 +323,25 @@ const JsonCodeMirrorEditor: React.FC<JsonCodeMirrorEditorProps> = ({
     }
   }, [value]);
 
+  const isDark = colorMode === "dark";
+
   return (
-    <div
-      ref={containerRef}
-      style={{ minHeight, width: "100%", height: "100%" }}
-    />
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
+      <div ref={containerRef} style={{ minHeight, width: "100%", flex: 1 }} />
+      <div
+        style={{
+          fontSize: "12px",
+          padding: "2px 10px",
+          userSelect: "none",
+          borderTop: `1px solid ${isDark ? "#3a3a3a" : "#e2e8f0"}`,
+          backgroundColor: isDark ? "#1e1e1e" : "#f8fafc",
+          color: isDark ? "#9ca3af" : "#64748b",
+          fontFamily: "monospace",
+        }}
+      >
+        {`Line: ${cursorPos.line}  Column: ${cursorPos.col}`}
+      </div>
+    </div>
   );
 };
 
