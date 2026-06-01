@@ -11,12 +11,12 @@ import AppleOfferSignatureSeo from "@/components/Tools/AppleOfferSignature/Seo/A
 import AppleOfferSignatureUsage from "@/components/Tools/AppleOfferSignature/Usage/AppleOfferSignatureUsage";
 import { appleOfferSignatureHeaderData } from "@/data/tools/appleOfferSignature/appleOfferSignatureHeaderData";
 import { appleOfferSignatureMetaData } from "@/data/tools/appleOfferSignature/appleOfferSignatureMetaData";
-import { Container, Spacer } from "@chakra-ui/react";
-import { GetStaticProps, GetStaticPropsContext } from "next";
+import { Box, Container, Spacer } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
 import React from "react";
 
 type Props = {
-  article: ArticleModel;
+  article?: ArticleModel;
 };
 
 const AppleInAppOfferSignatureHome: React.FC<Props> = (props: Props) => {
@@ -59,17 +59,21 @@ const AppleInAppOfferSignatureHome: React.FC<Props> = (props: Props) => {
         <AppleOfferSignatureUsage />
       </Container>
 
-      <Spacer p={4} />
-      <Container maxW="6xl">
-        <ToolRelatedArticle
-          article={props.article}
-          header={{
-            badge: "Learn More",
-            title: "More Information",
-            desc: "See Apple promotional offer signature generator in action and learn how it works.",
-          }}
-        />
-      </Container>
+      {props.article && (
+        <Box>
+          <Spacer p={4} />
+          <Container maxW="6xl">
+            <ToolRelatedArticle
+              article={props.article}
+              header={{
+                badge: "Learn More",
+                title: "More Information",
+                desc: "See Apple promotional offer signature generator in action and learn how it works.",
+              }}
+            />
+          </Container>
+        </Box>
+      )}
 
       <Spacer p={4} />
       </main>
@@ -77,16 +81,13 @@ const AppleInAppOfferSignatureHome: React.FC<Props> = (props: Props) => {
     </>
   );
 };
-export const getStaticProps: GetStaticProps<Props> = (async (
-  context: GetStaticPropsContext,
-) => {
-  const slug = "apple-promotional-offer-signature-generator";
-  const [article] = await Promise.all([fetchArticleBySlugStrapi(slug)]);
-
-  return {
-    props: { article },
-    revalidate: 60,
-  };
-}) satisfies GetStaticProps<Props>;
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  try {
+    const article = await fetchArticleBySlugStrapi("apple-promotional-offer-signature-generator");
+    return { props: { article }, revalidate: 3600 };
+  } catch {
+    return { props: {}, revalidate: 60 };
+  }
+};
 
 export default AppleInAppOfferSignatureHome;

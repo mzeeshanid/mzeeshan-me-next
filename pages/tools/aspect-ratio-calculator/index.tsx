@@ -15,12 +15,12 @@ import AspectRatioSeo from "@/components/Tools/AspectRatio/Seo/AspectRatioSeo";
 import { aspectRatioHeaderData } from "@/data/tools/aspectRatio/aspectRatioHeaderData";
 import { aspectRatioWorkingData } from "@/data/tools/aspectRatio/aspectRatioLearnMoreData";
 import { aspectRatioMetaData } from "@/data/tools/aspectRatio/aspectRatioMetaData";
-import { Container, Spacer } from "@chakra-ui/react";
-import { GetStaticProps, GetStaticPropsContext } from "next";
+import { Box, Container, Spacer } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
 import React from "react";
 
 type Props = {
-  article: ArticleModel;
+  article?: ArticleModel;
 };
 
 const AspectRatioCalculatorHome: React.FC<Props> = (props: Props) => {
@@ -69,10 +69,14 @@ const AspectRatioCalculatorHome: React.FC<Props> = (props: Props) => {
         <AspectRatioCommon />
       </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ToolRelatedArticle article={article} header={aspectRatioWorkingData.header} />
-      </Container>
+      {article && (
+        <Box>
+          <Spacer p={8} />
+          <Container maxW="6xl">
+            <ToolRelatedArticle article={article} header={aspectRatioWorkingData.header} />
+          </Container>
+        </Box>
+      )}
 
       <Spacer p={8} />
       <Container maxW="6xl">
@@ -91,16 +95,13 @@ const AspectRatioCalculatorHome: React.FC<Props> = (props: Props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = (async (
-  context: GetStaticPropsContext,
-) => {
-  const slug = "aspect-ratio-calculator";
-  const [article] = await Promise.all([fetchArticleBySlugStrapi(slug)]);
-
-  return {
-    props: { article },
-    revalidate: 60,
-  };
-}) satisfies GetStaticProps<Props>;
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  try {
+    const article = await fetchArticleBySlugStrapi("aspect-ratio-calculator");
+    return { props: { article }, revalidate: 3600 };
+  } catch {
+    return { props: {}, revalidate: 60 };
+  }
+};
 
 export default AspectRatioCalculatorHome;

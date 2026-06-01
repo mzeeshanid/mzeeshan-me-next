@@ -1,6 +1,6 @@
-import type { GetStaticProps, GetStaticPropsContext } from "next";
+import type { GetStaticProps } from "next";
 import React from "react";
-import { Container, Spacer } from "@chakra-ui/react";
+import { Box, Container, Spacer } from "@chakra-ui/react";
 
 import { fetchArticleBySlugStrapi } from "@/apis/articles/articleDetail";
 import type { ArticleModel } from "@/apis/articles/articles";
@@ -19,7 +19,7 @@ import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArt
 import { imageFormatConverterIndexData } from "@/data/tools/imageFormatConverter/imageFormatConverterData";
 
 type Props = {
-  article: ArticleModel;
+  article?: ArticleModel;
 };
 
 const ImageFormatConverterIndexPage: React.FC<Props> = ({ article }) => {
@@ -91,10 +91,14 @@ const ImageFormatConverterIndexPage: React.FC<Props> = ({ article }) => {
           />
         </Container>
 
-        <Spacer p={8} />
-        <Container maxW="6xl">
-          <ToolRelatedArticle article={article} header={data.relatedArticle} />
-        </Container>
+        {article && (
+          <Box>
+            <Spacer p={8} />
+            <Container maxW="6xl">
+              <ToolRelatedArticle article={article} header={data.relatedArticle} />
+            </Container>
+          </Box>
+        )}
 
         <Spacer p={8} />
         <Container maxW="6xl">
@@ -111,15 +115,13 @@ const ImageFormatConverterIndexPage: React.FC<Props> = ({ article }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = (async (
-  context: GetStaticPropsContext,
-) => {
-  const article = await fetchArticleBySlugStrapi("image-format-converter");
-
-  return {
-    props: { article },
-    revalidate: 3600,
-  };
-}) satisfies GetStaticProps<Props>;
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  try {
+    const article = await fetchArticleBySlugStrapi("image-format-converter");
+    return { props: { article }, revalidate: 3600 };
+  } catch {
+    return { props: {}, revalidate: 60 };
+  }
+};
 
 export default ImageFormatConverterIndexPage;

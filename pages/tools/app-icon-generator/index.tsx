@@ -13,12 +13,12 @@ import AppIconGeneratorAndroidStudioSteps from "@/components/Tools/AppIconGenera
 import AppIconGeneratorValueProps from "@/components/Tools/AppIconGenerator/ValueProps/AppIconGeneratorValueProps";
 import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
 import { appIconGeneratorHeaderData } from "@/data/tools/appIconGenerator/appIconGeneratorData";
-import { Container, Spacer } from "@chakra-ui/react";
-import { GetStaticProps, GetStaticPropsContext } from "next";
+import { Box, Container, Spacer } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
 import React from "react";
 
 type Props = {
-  article: ArticleModel;
+  article?: ArticleModel;
 };
 
 const AppIconGeneratorPage: React.FC<Props> = ({ article }) => {
@@ -70,17 +70,21 @@ const AppIconGeneratorPage: React.FC<Props> = ({ article }) => {
         <AppIconGeneratorComparison />
       </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ToolRelatedArticle
-          article={article}
-          header={{
-            badge: "Learn More",
-            title: "Related Article",
-            desc: "Read a related article while the dedicated app icon guide is being prepared.",
-          }}
-        />
-      </Container>
+      {article && (
+        <Box>
+          <Spacer p={8} />
+          <Container maxW="6xl">
+            <ToolRelatedArticle
+              article={article}
+              header={{
+                badge: "Learn More",
+                title: "Related Article",
+                desc: "Read a related article while the dedicated app icon guide is being prepared.",
+              }}
+            />
+          </Container>
+        </Box>
+      )}
 
       <Spacer p={8} />
       <Container maxW="6xl">
@@ -94,16 +98,13 @@ const AppIconGeneratorPage: React.FC<Props> = ({ article }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = (async (
-  context: GetStaticPropsContext,
-) => {
-  const slug = "app-icon-generator";
-  const [article] = await Promise.all([fetchArticleBySlugStrapi(slug)]);
-
-  return {
-    props: { article },
-    revalidate: 3600,
-  };
-}) satisfies GetStaticProps<Props>;
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  try {
+    const article = await fetchArticleBySlugStrapi("app-icon-generator");
+    return { props: { article }, revalidate: 3600 };
+  } catch {
+    return { props: {}, revalidate: 60 };
+  }
+};
 
 export default AppIconGeneratorPage;

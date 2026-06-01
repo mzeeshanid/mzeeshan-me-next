@@ -16,12 +16,12 @@ import DriveDirectSteps from "@/components/Tools/DriveDirect/Steps/DriveDirectSt
 import DriveDirectUsage from "@/components/Tools/DriveDirect/Usage/DriveDirectUsage";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
 import { Toaster } from "@/components/ui/toaster";
-import { Container, Spacer } from "@chakra-ui/react";
-import { GetStaticProps, GetStaticPropsContext } from "next";
+import { Box, Container, Spacer } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
 import React from "react";
 
 type DriveDirectHomeProps = {
-  article: ArticleModel;
+  article?: ArticleModel;
 };
 
 const DriveDirectHome: React.FC<DriveDirectHomeProps> = (
@@ -90,10 +90,14 @@ const DriveDirectHome: React.FC<DriveDirectHomeProps> = (
         <DriveDirectAPI />
       </Container>
 
-      <Spacer p={4} />
-      <Container maxW="6xl">
-        <ToolRelatedArticle article={article} header={driveDirectData().working.header} />
-      </Container>
+      {article && (
+        <Box>
+          <Spacer p={4} />
+          <Container maxW="6xl">
+            <ToolRelatedArticle article={article} header={driveDirectData().working.header} />
+          </Container>
+        </Box>
+      )}
 
       <Spacer p={4} />
       <Container maxW="6xl">
@@ -112,16 +116,13 @@ const DriveDirectHome: React.FC<DriveDirectHomeProps> = (
   );
 };
 
-export const getStaticProps: GetStaticProps<DriveDirectHomeProps> = (async (
-  context: GetStaticPropsContext,
-) => {
-  const slug = "getting-google-drive-direct-link";
-  const [article] = await Promise.all([fetchArticleBySlugStrapi(slug)]);
-
-  return {
-    props: { article },
-    revalidate: 60,
-  };
-}) satisfies GetStaticProps<DriveDirectHomeProps>;
+export const getStaticProps: GetStaticProps<DriveDirectHomeProps> = async () => {
+  try {
+    const article = await fetchArticleBySlugStrapi("getting-google-drive-direct-link");
+    return { props: { article }, revalidate: 3600 };
+  } catch {
+    return { props: {}, revalidate: 60 };
+  }
+};
 
 export default DriveDirectHome;

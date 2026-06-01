@@ -1,7 +1,10 @@
+import { fetchArticleBySlugStrapi } from "@/apis/articles/articleDetail";
+import { ArticleModel } from "@/apis/articles/articles";
 import React from "react";
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
 import Base64EncoderDecoderHero from "@/components/Tools/Base64EncoderDecoder/Hero/Base64EncoderDecoderHero";
 import Base64Features from "@/components/Tools/Base64EncoderDecoder/Features/Base64Features";
 import Base64UseCases from "@/components/Tools/Base64EncoderDecoder/UseCases/Base64UseCases";
@@ -11,9 +14,14 @@ import Base64Comparison from "@/components/Tools/Base64EncoderDecoder/Comparison
 import Base64Faqs from "@/components/Tools/Base64EncoderDecoder/Faqs/Base64Faqs";
 import Base64Seo from "@/components/Tools/Base64EncoderDecoder/Seo/Base64Seo";
 import { base64HeaderData } from "@/data/tools/base64EncoderDecoder/base64EncoderDecoderFeatures";
-import { Container, Spacer } from "@chakra-ui/react";
+import { Box, Container, Spacer } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
 
-const Base64EncoderDecoderHome: React.FC = () => {
+type Props = {
+  article?: ArticleModel;
+};
+
+const Base64EncoderDecoderHome: React.FC<Props> = (props: Props) => {
   const { title, subtitle, icon, alt } = base64HeaderData;
 
   return (
@@ -67,6 +75,22 @@ const Base64EncoderDecoderHome: React.FC = () => {
           <Base64Troubleshooting />
         </Container>
 
+        {props.article && (
+          <Box>
+            <Spacer p={8} />
+            <Container maxW="6xl">
+              <ToolRelatedArticle
+                article={props.article}
+                header={{
+                  badge: "Article",
+                  title: "Learn More About Base64",
+                  desc: "Dive deeper into Base64 encoding, use cases, and best practices.",
+                }}
+              />
+            </Container>
+          </Box>
+        )}
+
         <Spacer p={8} />
         <Container maxW="6xl">
           <Base64Comparison />
@@ -82,6 +106,15 @@ const Base64EncoderDecoderHome: React.FC = () => {
       <Footer />
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  try {
+    const article = await fetchArticleBySlugStrapi("base64-encoder-decoder");
+    return { props: { article }, revalidate: 3600 };
+  } catch {
+    return { props: {}, revalidate: 60 };
+  }
 };
 
 export default Base64EncoderDecoderHome;

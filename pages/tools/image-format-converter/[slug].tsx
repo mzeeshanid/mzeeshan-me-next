@@ -4,7 +4,7 @@ import type {
   GetStaticPropsContext,
 } from "next";
 import React from "react";
-import { Container, Spacer } from "@chakra-ui/react";
+import { Box, Container, Spacer } from "@chakra-ui/react";
 
 import { fetchArticleBySlugStrapi } from "@/apis/articles/articleDetail";
 import type { ArticleModel } from "@/apis/articles/articles";
@@ -27,7 +27,7 @@ import {
 } from "@/data/tools/imageFormatConverter/imageConversionRoutes";
 
 type Props = {
-  article: ArticleModel;
+  article?: ArticleModel;
   slug: string;
 };
 
@@ -111,10 +111,14 @@ const ImageFormatConverterDetailPage: React.FC<Props> = ({ article, slug }) => {
         />
       </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ToolRelatedArticle article={article} header={data.relatedArticle} />
-      </Container>
+      {article && (
+        <Box>
+          <Spacer p={8} />
+          <Container maxW="6xl">
+            <ToolRelatedArticle article={article} header={data.relatedArticle} />
+          </Container>
+        </Box>
+      )}
 
       <Spacer p={8} />
       <Container maxW="6xl">
@@ -137,7 +141,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<Props> = (async (
+export const getStaticProps: GetStaticProps<Props> = async (
   context: GetStaticPropsContext,
 ) => {
   const slug = context.params?.slug;
@@ -152,12 +156,12 @@ export const getStaticProps: GetStaticProps<Props> = (async (
     return { notFound: true };
   }
 
-  const article = await fetchArticleBySlugStrapi("image-format-converter");
-
-  return {
-    props: { article, slug },
-    revalidate: 3600,
-  };
-}) satisfies GetStaticProps<Props>;
+  try {
+    const article = await fetchArticleBySlugStrapi("image-format-converter");
+    return { props: { article, slug }, revalidate: 3600 };
+  } catch {
+    return { props: { slug }, revalidate: 60 };
+  }
+};
 
 export default ImageFormatConverterDetailPage;
