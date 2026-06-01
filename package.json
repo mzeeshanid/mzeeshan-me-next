@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "postbuild": "NODE_OPTIONS=--experimental-strip-types next-sitemap --config next-sitemap.ts",
+    "postbuild": "next-sitemap --config next-sitemap.config.js",
     "chakra": "chakra",
     "test": "vitest run",
     "test:watch": "vitest"
