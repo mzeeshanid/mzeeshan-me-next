@@ -3,6 +3,8 @@ import myStatsData from "@/data/home/myStatsData";
 import { GridItem, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 
+//My Hero
+
 type MyHeroStatsProps = {};
 
 const MyHeroStats: React.FC<MyHeroStatsProps> = (props: MyHeroStatsProps) => {
