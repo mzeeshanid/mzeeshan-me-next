@@ -162,41 +162,28 @@ node -e "require('$ECOSYSTEM_FILE')" || {
   exit 1
 }
 
-# ── 7. Start / reload PM2 ────────────────────────────────────────────────────
-echo "==> Configuring PM2"
+# ── 7. Start PM2 with correct config ─────────────────────────────────────────
+# Always delete and restart so we guarantee the right script + cwd.
+# pm2 reload by name reuses whatever config was stored — which may be wrong
+# (e.g. from a previous setup that ran the ecosystem file as a script).
+# Once yarn start is stored as the script, future runs could use pm2 reload,
+# but delete+start is safe and idempotent.
+echo "==> Starting PM2"
+pm2 delete "$PM2_APP_NAME" 2>/dev/null || true
 
-# Check if the currently stored cwd matches our symlink.
-# If it doesn't (e.g. PM2 was started with wrong config), delete and recreate.
-STORED_SCRIPT=$(pm2 describe "$PM2_APP_NAME" 2>/dev/null \
-  | grep "script path" | awk -F'|' '{print $3}' | xargs 2>/dev/null || echo "")
-
-if echo "$STORED_SCRIPT" | grep -q "ecosystem"; then
-  echo "  PM2 is incorrectly running the ecosystem file as a script — fixing"
-  pm2 delete "$PM2_APP_NAME" 2>/dev/null || true
+if ! pm2 start yarn \
+     --name "$PM2_APP_NAME" \
+     --cwd "$CURRENT_LINK" \
+     -- start; then
+  rollback
+  exit 1
 fi
 
-if pm2 describe "$PM2_APP_NAME" >/dev/null 2>&1; then
-  # Process exists with correct script — graceful reload
-  echo "  Reloading existing process"
-  if ! pm2 reload "$PM2_APP_NAME" --update-env; then
-    rollback
-    exit 1
-  fi
-else
-  # First start or after delete — start fresh with explicit flags
-  echo "  Starting process (cwd: $CURRENT_LINK)"
-  if ! pm2 start yarn \
-       --name "$PM2_APP_NAME" \
-       --cwd "$CURRENT_LINK" \
-       -- start; then
-    rollback
-    exit 1
-  fi
-fi
+pm2 save
 
 echo "==> PM2 process config:"
 pm2 describe "$PM2_APP_NAME" 2>/dev/null \
-  | grep -E "status|script path|exec cwd|exec mode" || true
+  | grep -E "status|script|cwd|mode" || true
 
 # ── 8. Health check ──────────────────────────────────────────────────────────
 echo "==> Running health check (waiting for Next.js to boot)"
@@ -205,8 +192,8 @@ echo "  cwd: $CURRENT_LINK -> $(readlink -f "$CURRENT_LINK" 2>/dev/null || echo 
 HEALTH_URL="http://localhost:$PORT/"
 HEALTHY=false
 
-# Give the process time to bind before the first probe
-sleep 15
+# yarn start + Next.js production boot takes ~15-30s on a cold start
+sleep 20
 
 for i in 1 2 3 4 5 6 7 8; do
   HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" --max-time 5 "$HEALTH_URL" || echo "000")
