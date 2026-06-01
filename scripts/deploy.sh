@@ -144,11 +144,15 @@ ECOSYSTEM
 # ── 7. Reload PM2 (rolling — no downtime) ────────────────────────────────────
 echo "==> Reloading PM2"
 if pm2 describe "$PM2_APP_NAME" >/dev/null 2>&1; then
-  if ! pm2 startOrReload "$APP_DIR/ecosystem.deploy.js" --env production --update-env; then
+  # App is running — graceful rolling reload by name.
+  # cwd stored in PM2 points to $CURRENT_LINK (the symlink), so new workers
+  # resolve it to the release we just activated.
+  if ! pm2 reload "$PM2_APP_NAME" --update-env; then
     rollback
     exit 1
   fi
 else
+  # First start — use the generated ecosystem file.
   if ! pm2 start "$APP_DIR/ecosystem.deploy.js" --env production; then
     rollback
     exit 1
