@@ -67,8 +67,9 @@ const ArticlesHero: React.FC<ArticlesHeroProps> = (
               endElement={
                 <HStack gap={1} display={{ base: "none", md: "flex" }}>
                   <Kbd variant={"subtle"}>
-                    {navigator.userAgent.toUpperCase().includes("MAC") ||
-                    navigator.platform.toUpperCase().includes("MAC")
+                    {typeof window !== "undefined" &&
+                    (navigator.userAgent.toUpperCase().includes("MAC") ||
+                      navigator.platform.toUpperCase().includes("MAC"))
                       ? "⌘"
                       : "Ctrl"}
                   </Kbd>
