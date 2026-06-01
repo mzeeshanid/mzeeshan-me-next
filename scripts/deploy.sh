@@ -129,7 +129,11 @@ ln -sfn "$RELEASE_DIR" "$CURRENT_LINK"
 echo "  current -> $RELEASE_DIR"
 
 # ── 6. Generate ecosystem file with correct cwd ───────────────────────────────
-cat > "$APP_DIR/ecosystem.deploy.js" << ECOSYSTEM
+mkdir -p "$APP_DIR/logs"
+
+ECOSYSTEM_FILE="$APP_DIR/ecosystem.deploy.js"
+
+cat > "$ECOSYSTEM_FILE" << ECOSYSTEM
 module.exports = {
   apps: [{
     name: "$PM2_APP_NAME",
@@ -149,28 +153,43 @@ module.exports = {
 };
 ECOSYSTEM
 
-mkdir -p "$APP_DIR/logs"
+# Validate the generated file is valid JS before passing it to PM2
+echo "==> Validating ecosystem file"
+node -e "require('$ECOSYSTEM_FILE')" || {
+  echo "Error: ecosystem.deploy.js is invalid — aborting" >&2
+  cat "$ECOSYSTEM_FILE" >&2
+  rollback
+  exit 1
+}
 
-# ── 7. Reload PM2 (rolling — no downtime) ────────────────────────────────────
+# ── 7. Reload PM2 with new config ────────────────────────────────────────────
+# Pass the ecosystem FILE (not just the app name) so PM2 picks up the new
+# cwd, instances, and exec_mode — not the stale stored config.
 echo "==> Reloading PM2"
 if pm2 describe "$PM2_APP_NAME" >/dev/null 2>&1; then
-  # App is running — graceful rolling reload by name.
-  # cwd stored in PM2 points to $CURRENT_LINK (the symlink), so new workers
-  # resolve it to the release we just activated.
-  if ! pm2 reload "$PM2_APP_NAME" --update-env; then
-    rollback
-    exit 1
+  if ! pm2 reload "$ECOSYSTEM_FILE" --update-env; then
+    echo "==> pm2 reload failed — falling back to delete+start" >&2
+    pm2 delete "$PM2_APP_NAME" 2>/dev/null || true
+    if ! pm2 start "$ECOSYSTEM_FILE" --env production; then
+      rollback
+      exit 1
+    fi
   fi
 else
-  # First start — use the generated ecosystem file.
-  if ! pm2 start "$APP_DIR/ecosystem.deploy.js" --env production; then
+  if ! pm2 start "$ECOSYSTEM_FILE" --env production; then
     rollback
     exit 1
   fi
 fi
 
+# Diagnostics: confirm what cwd PM2 is actually using
+echo "==> PM2 process config after reload:"
+pm2 describe "$PM2_APP_NAME" 2>/dev/null | grep -E "cwd|script|exec mode|instances|status" || true
+
 # ── 8. Health check ──────────────────────────────────────────────────────────
 echo "==> Running health check (waiting for Next.js to boot)"
+echo "  URL: http://localhost:$PORT/"
+echo "  cwd: $CURRENT_LINK -> $(readlink -f "$CURRENT_LINK" 2>/dev/null || echo unknown)"
 HEALTH_URL="http://localhost:$PORT/"
 HEALTHY=false
 
