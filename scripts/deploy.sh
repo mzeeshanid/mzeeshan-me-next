@@ -162,29 +162,41 @@ node -e "require('$ECOSYSTEM_FILE')" || {
   exit 1
 }
 
-# ── 7. Reload PM2 with new config ────────────────────────────────────────────
-# Pass the ecosystem FILE (not just the app name) so PM2 picks up the new
-# cwd, instances, and exec_mode — not the stale stored config.
-echo "==> Reloading PM2"
+# ── 7. Start / reload PM2 ────────────────────────────────────────────────────
+echo "==> Configuring PM2"
+
+# Check if the currently stored cwd matches our symlink.
+# If it doesn't (e.g. PM2 was started with wrong config), delete and recreate.
+STORED_SCRIPT=$(pm2 describe "$PM2_APP_NAME" 2>/dev/null \
+  | grep "script path" | awk -F'|' '{print $3}' | xargs 2>/dev/null || echo "")
+
+if echo "$STORED_SCRIPT" | grep -q "ecosystem"; then
+  echo "  PM2 is incorrectly running the ecosystem file as a script — fixing"
+  pm2 delete "$PM2_APP_NAME" 2>/dev/null || true
+fi
+
 if pm2 describe "$PM2_APP_NAME" >/dev/null 2>&1; then
-  if ! pm2 reload "$ECOSYSTEM_FILE" --update-env; then
-    echo "==> pm2 reload failed — falling back to delete+start" >&2
-    pm2 delete "$PM2_APP_NAME" 2>/dev/null || true
-    if ! pm2 start "$ECOSYSTEM_FILE" --env production; then
-      rollback
-      exit 1
-    fi
+  # Process exists with correct script — graceful reload
+  echo "  Reloading existing process"
+  if ! pm2 reload "$PM2_APP_NAME" --update-env; then
+    rollback
+    exit 1
   fi
 else
-  if ! pm2 start "$ECOSYSTEM_FILE" --env production; then
+  # First start or after delete — start fresh with explicit flags
+  echo "  Starting process (cwd: $CURRENT_LINK)"
+  if ! pm2 start yarn \
+       --name "$PM2_APP_NAME" \
+       --cwd "$CURRENT_LINK" \
+       -- start; then
     rollback
     exit 1
   fi
 fi
 
-# Diagnostics: confirm what cwd PM2 is actually using
-echo "==> PM2 process config after reload:"
-pm2 describe "$PM2_APP_NAME" 2>/dev/null | grep -E "cwd|script|exec mode|instances|status" || true
+echo "==> PM2 process config:"
+pm2 describe "$PM2_APP_NAME" 2>/dev/null \
+  | grep -E "status|script path|exec cwd|exec mode" || true
 
 # ── 8. Health check ──────────────────────────────────────────────────────────
 echo "==> Running health check (waiting for Next.js to boot)"
