@@ -56,9 +56,6 @@
     "yarn": "^1.22.22",
     "yup": "^1.7.1"
   },
-  "resolutions": {
-    "@swc/helpers": "0.5.15"
-  },
   "devDependencies": {
     "@chakra-ui/panda-preset": "^3.35.0",
     "@pandacss/dev": "^1.11.1",
