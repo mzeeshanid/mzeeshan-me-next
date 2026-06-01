@@ -55,3 +55,16 @@ jobs:
           ssh -p "${DEPLOY_PORT:-22}" "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "APP_DIR='${DEPLOY_PATH}' BRANCH='${DEPLOY_BRANCH}' PM2_APP_NAME='${PM2_APP_NAME}' bash -s" \
             < scripts/deploy.sh
+
+      - name: Post-deploy health check
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+        run: |
+          echo "Checking $SITE_URL"
+          for i in 1 2 3 4 5; do
+            STATUS=$(curl -o /dev/null -s -w "%{http_code}" "$SITE_URL")
+            echo "Attempt $i: HTTP $STATUS"
+            [ "$STATUS" = "200" ] && exit 0
+            sleep 5
+          done
+          echo "Health check failed after 5 attempts" && exit 1
