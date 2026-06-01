@@ -79,6 +79,12 @@ rollback() {
   else
     echo "  No previous release found to roll back to."
   fi
+  # Show app logs — check both explicit log file and pm2 fallback
+  ERROR_LOG="$APP_DIR/logs/$PM2_APP_NAME-error.log"
+  if [ -f "$ERROR_LOG" ]; then
+    echo "==> Last 50 lines of $ERROR_LOG:"
+    tail -n 50 "$ERROR_LOG" || true
+  fi
   pm2 logs "$PM2_APP_NAME" --lines 50 --nostream || true
 }
 
@@ -133,6 +139,8 @@ module.exports = {
     instances: 2,
     exec_mode: "cluster",
     max_memory_restart: "512M",
+    out_file: "$APP_DIR/logs/$PM2_APP_NAME-out.log",
+    error_file: "$APP_DIR/logs/$PM2_APP_NAME-error.log",
     env_production: {
       NODE_ENV: "production",
       PORT: $PORT
@@ -140,6 +148,8 @@ module.exports = {
   }]
 };
 ECOSYSTEM
+
+mkdir -p "$APP_DIR/logs"
 
 # ── 7. Reload PM2 (rolling — no downtime) ────────────────────────────────────
 echo "==> Reloading PM2"
@@ -160,22 +170,26 @@ else
 fi
 
 # ── 8. Health check ──────────────────────────────────────────────────────────
-echo "==> Running health check"
+echo "==> Running health check (waiting for Next.js to boot)"
 HEALTH_URL="http://localhost:$PORT/"
 HEALTHY=false
 
-for i in 1 2 3 4 5; do
-  sleep 3
-  HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" "$HEALTH_URL" || echo "000")
+# Give the process time to bind before the first probe
+sleep 15
+
+for i in 1 2 3 4 5 6 7 8; do
+  HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" --max-time 5 "$HEALTH_URL" || echo "000")
   echo "  Attempt $i: HTTP $HTTP_STATUS"
   if [ "$HTTP_STATUS" = "200" ]; then
     HEALTHY=true
     break
   fi
+  [ "$i" -lt 8 ] && sleep 10
 done
 
 if [ "$HEALTHY" != "true" ]; then
-  echo "Error: Health check failed after 5 attempts." >&2
+  echo "Error: Health check failed after 8 attempts." >&2
+  pm2 logs "$PM2_APP_NAME" --lines 80 --nostream || true
   rollback
   exit 1
 fi

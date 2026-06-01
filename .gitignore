@@ -43,3 +43,4 @@ yarn-error.log*
 /shared
 /repo
 /ecosystem.deploy.js
+/logs
