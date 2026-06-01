@@ -30,78 +30,81 @@ const ImageFormatConverterIndexPage: React.FC<Props> = ({ article }) => {
       <ImageConverterSeo meta={data.meta} />
       <NavBar header={data.header} />
       <main>
-      <Spacer p={4} />
+        <Spacer p={4} />
 
-      <Container maxW="6xl">
-        <PageHeader
-          title={data.header.title}
-          breadcrumbItems={[
-            { label: "Home", href: "/" },
-            { label: "Tools", href: "/tools" },
-            { label: data.header.title },
-          ]}
-        />
-      </Container>
+        <Container maxW="6xl">
+          <PageHeader
+            title={data.header.title}
+            breadcrumbItems={[
+              { label: "Home", href: "/" },
+              { label: "Tools", href: "/tools" },
+              { label: data.header.title },
+            ]}
+          />
+        </Container>
 
-      <Spacer p={4} />
-      <Container maxW="6xl">
-        <ImageConverterHero content={data.hero} />
-      </Container>
+        <Spacer p={4} />
+        <Container maxW="6xl">
+          <ImageConverterHero content={data.hero} />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ImageConverterSupported header={data.supported.header} />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <ImageConverterSupported header={data.supported.header} />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ImageConverterBrowserSupport header={data.browserSupport.header} />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <ImageConverterBrowserSupport header={data.browserSupport.header} />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ImageConverterTextCards
-          header={data.intro.header}
-          cards={data.intro.cards}
-        />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <ImageConverterTextCards
+            header={data.intro.header}
+            cards={data.intro.cards}
+          />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ImageConverterTextCards
-          header={data.benefits.header}
-          cards={data.benefits.cards}
-        />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <ImageConverterTextCards
+            header={data.benefits.header}
+            cards={data.benefits.cards}
+          />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ImageConverterFeatureCards
-          header={data.features.header}
-          items={data.features.items}
-        />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <ImageConverterFeatureCards
+            header={data.features.header}
+            items={data.features.items}
+          />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ImageConverterComparison
-          header={data.comparison.header}
-          columns={data.comparison.columns}
-          rows={data.comparison.rows}
-        />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <ImageConverterComparison
+            header={data.comparison.header}
+            columns={data.comparison.columns}
+            rows={data.comparison.rows}
+          />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ToolRelatedArticle article={article} header={data.relatedArticle} />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <ToolRelatedArticle article={article} header={data.relatedArticle} />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <ImageConverterFaqs header={data.faqs.header} items={data.faqs.items} />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <ImageConverterFaqs
+            header={data.faqs.header}
+            items={data.faqs.items}
+          />
+        </Container>
 
-      <Spacer p={8} />
+        <Spacer p={8} />
       </main>
       <Footer />
     </>
