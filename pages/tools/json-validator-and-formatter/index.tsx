@@ -17,7 +17,7 @@ import {
   jsonValidatorFormatterMetaData,
   jsonConverterRelatedArticleDataByTab,
 } from "@/data/tools/jsonValidatorFormatter/jsonValidatorFormatterData";
-import { Container, Spacer } from "@chakra-ui/react";
+import { AspectRatio, Container, Spacer } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
 import React from "react";
 
@@ -48,6 +48,17 @@ const JsonValidatorAndFormatterHome: React.FC<Props> = ({ article }) => (
       <Spacer p={4} />
       <Container maxW="6xl">
         <JsonValidatorHero />
+      </Container>
+
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <AspectRatio ratio={16 / 9}>
+          <iframe
+            src="https://www.youtube.com/embed/ng1ylJVhjQc?start=3"
+            title="JSON Validator and Formatter Tutorial"
+            allowFullScreen
+          />
+        </AspectRatio>
       </Container>
 
       <Spacer p={8} />

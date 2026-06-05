@@ -53,6 +53,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/tools/salary-tax-calculator",
+        destination: "/tools/salary-tax-calculator-2026-2027-pakistan",
+        permanent: true,
+      },
+      {
         source:
           "/apple-inapp-promotional-offer-signature-generator-for-testing",
         destination:

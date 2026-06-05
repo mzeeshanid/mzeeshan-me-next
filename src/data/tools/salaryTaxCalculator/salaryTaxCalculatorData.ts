@@ -3,6 +3,7 @@ import { IconType } from "react-icons";
 import { FaBolt, FaChartPie, FaLayerGroup, FaShieldAlt } from "react-icons/fa";
 import { FaCalendarDays, FaTableCells } from "react-icons/fa6";
 import salaryTaxIcon from "public/assets/salary_tax_calculator_icon.png";
+import { taxYears } from "./salaryTaxSlabsData";
 
 export type SalaryTaxFeature = {
   icon: IconType;
@@ -55,7 +56,7 @@ export const salaryTaxFeaturesData: SalaryTaxFeaturesData = {
       icon: FaCalendarDays,
       title: "Multi-Year Support",
       description:
-        "Switch between FY 2025-26, 2024-25, and 2023-24 to compare how tax rates have changed year over year.",
+        "Switch between FY 2026-27, 2025-26, 2024-25, and 2023-24 to compare how tax rates have changed year over year.",
     },
     {
       icon: FaShieldAlt,
@@ -94,10 +95,10 @@ export type SalaryTaxMetaData = {
 };
 
 export const salaryTaxMetaData: SalaryTaxMetaData = {
-  title: "Pakistan Salary Tax Calculator 2025-26 | FBR Net Take-Home Pay",
+  title: "Pakistan Salary Tax Calculator 2026-27 | FBR Net Take-Home Pay",
   description:
-    "Calculate your exact net take-home salary for FY 2025-26. See monthly tax deductions, annual tax, and effective rate based on the latest FBR income tax slabs for salaried individuals in Pakistan. Supports 2025-26, 2024-25, and 2023-24.",
-  url: "/tools/salary-tax-calculator",
+    "Calculate your exact net take-home salary for FY 2026-27. See monthly tax deductions, annual tax, and effective rate based on the latest FBR income tax slabs for salaried individuals in Pakistan. Supports 2026-27, 2025-26, 2024-25, and 2023-24.",
+  url: "/tools/salary-tax-calculator-2026-2027-pakistan",
   image: {
     src: "/assets/salary_tax_calculator_icon.png",
     alt: "Pakistan Salary Tax Calculator",
@@ -105,4 +106,29 @@ export const salaryTaxMetaData: SalaryTaxMetaData = {
     height: 300,
     type: "image/png",
   },
+};
+
+export const getSalaryTaxMetaForYear = (year: string): SalaryTaxMetaData => {
+  const yearData = taxYears.find((y) => y.year === year);
+  const slug = yearData?.urlSlug ?? "salary-tax-calculator";
+  const isUpcoming = yearData?.isUpcoming ?? false;
+  const fullYear = year.replace("-", "-20"); // "2026-27" → "2026-2027"
+
+  const title = `Pakistan Salary Tax Calculator ${fullYear} | FBR Net Take-Home Pay`;
+  const description = isUpcoming
+    ? `Calculate your estimated net take-home salary for FY ${year} using the latest available FBR income tax slabs. Official rates will be announced on June 10, 2026 — calculations will be updated after the budget.`
+    : `Calculate your exact net take-home salary for FY ${year}. See monthly tax deductions, annual tax, and effective rate based on official FBR income tax slabs for salaried individuals in Pakistan.`;
+
+  return {
+    title,
+    description,
+    url: `/tools/${slug}`,
+    image: {
+      src: "/assets/salary_tax_calculator_icon.png",
+      alt: `Pakistan Salary Tax Calculator ${fullYear}`,
+      width: 300,
+      height: 300,
+      type: "image/png",
+    },
+  };
 };

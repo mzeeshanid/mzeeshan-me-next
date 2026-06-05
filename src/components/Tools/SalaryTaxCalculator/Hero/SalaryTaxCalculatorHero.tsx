@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { calculateResults, formatPKR, TaxCalculationResult } from "@/services/salaryTaxService";
-import { taxYears, CURRENT_TAX_YEAR } from "@/data/tools/salaryTaxCalculator";
+import { taxYears, CURRENT_TAX_YEAR, UPCOMING_BUDGET_ANNOUNCEMENT } from "@/data/tools/salaryTaxCalculator";
 import {
+  Alert,
   Box,
-  GridItem,
   Heading,
   HStack,
   Input,
@@ -69,15 +69,17 @@ const ResultCard: React.FC<ResultCardProps> = ({ icon, label, value, sub, palett
 interface SalaryTaxCalculatorHeroProps {
   onResultChange?: (result: TaxCalculationResult | null) => void;
   onYearChange?: (year: string) => void;
+  initialYear?: string;
 }
 
 const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
   onResultChange,
   onYearChange,
+  initialYear,
 }) => {
   const { palette } = useColorPalette();
   const [monthlyIncome, setMonthlyIncome] = useState<string>("");
-  const [selectedYear, setSelectedYear] = useState<string>(CURRENT_TAX_YEAR);
+  const [selectedYear, setSelectedYear] = useState<string>(initialYear ?? CURRENT_TAX_YEAR);
   const [result, setResult] = useState<TaxCalculationResult | null>(null);
 
   const compute = useCallback(
@@ -105,6 +107,7 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
   };
 
   const selectedYearData = taxYears.find((y) => y.year === selectedYear);
+  const isUpcomingYear = selectedYearData?.isUpcoming ?? false;
 
   return (
     <Box as="section">
@@ -167,6 +170,21 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
             )}
           </Box>
         </SimpleGrid>
+
+        {isUpcomingYear && (
+          <Alert.Root status="warning" borderRadius="xl" maxW="2xl">
+            <Alert.Indicator />
+            <Alert.Content>
+              <Alert.Title>Estimated Calculations — Budget Not Announced Yet</Alert.Title>
+              <Alert.Description>
+                The official FY 2026-27 tax slabs will be announced on{" "}
+                <strong>{UPCOMING_BUDGET_ANNOUNCEMENT}</strong>. These calculations use FY 2025-26
+                rates as a placeholder. Actual rates may change — check back after the budget
+                announcement for updated calculations.
+              </Alert.Description>
+            </Alert.Content>
+          </Alert.Root>
+        )}
 
         {result ? (
           <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={4}>
