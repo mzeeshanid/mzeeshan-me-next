@@ -152,6 +152,7 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
               value={monthlyIncome}
               onChange={(e) => setMonthlyIncome(e.target.value)}
               size="lg"
+              h="12"
               min={0}
               colorPalette={palette}
             />
@@ -172,8 +173,8 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
               colorPalette={palette}
             >
               <Select.HiddenSelect />
-              <Select.Control>
-                <Select.Trigger>
+              <Select.Control h="12">
+                <Select.Trigger h="full">
                   <Select.ValueText />
                 </Select.Trigger>
                 <Select.IndicatorGroup>
