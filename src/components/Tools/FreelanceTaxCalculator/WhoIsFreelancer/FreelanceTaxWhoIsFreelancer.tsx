@@ -142,7 +142,7 @@ const FreelanceTaxWhoIsFreelancer: React.FC = () => {
                       income.
                     </Text>
                     <Link
-                      href="/tools/salary-tax-calculator"
+                      href="/tools/salary-tax-calculator-2026-2027-pakistan"
                       color={`${palette}.fg`}
                       fontWeight="semibold"
                       fontSize="sm"

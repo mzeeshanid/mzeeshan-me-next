@@ -1,14 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { calculateResults, formatPKR, TaxCalculationResult } from "@/services/salaryTaxService";
 import { taxYears, CURRENT_TAX_YEAR, UPCOMING_BUDGET_ANNOUNCEMENT } from "@/data/tools/salaryTaxCalculator";
 import {
   Alert,
   Box,
+  createListCollection,
   Heading,
   HStack,
   Input,
-  NativeSelect,
+  Portal,
+  Select,
   SimpleGrid,
   Spacer,
   Tag,
@@ -82,6 +84,14 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
   const [selectedYear, setSelectedYear] = useState<string>(initialYear ?? CURRENT_TAX_YEAR);
   const [result, setResult] = useState<TaxCalculationResult | null>(null);
 
+  const taxYearCollection = useMemo(
+    () =>
+      createListCollection({
+        items: taxYears.map((y) => ({ value: y.year, label: y.label })),
+      }),
+    []
+  );
+
   const compute = useCallback(
     (income: string, year: string) => {
       const parsed = parseFloat(income.replace(/,/g, ""));
@@ -101,9 +111,9 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
     compute(monthlyIncome, selectedYear);
   }, [monthlyIncome, selectedYear, compute]);
 
-  const handleYearChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedYear(e.target.value);
-    onYearChange?.(e.target.value);
+  const handleYearChange = (value: string) => {
+    setSelectedYear(value);
+    onYearChange?.(value);
   };
 
   const selectedYearData = taxYears.find((y) => y.year === selectedYear);
@@ -143,6 +153,7 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
               onChange={(e) => setMonthlyIncome(e.target.value)}
               size="lg"
               min={0}
+              colorPalette={palette}
             />
             <Text fontSize="xs" color="fg.muted" mt={1}>
               Enter your monthly salary before any deductions
@@ -153,16 +164,35 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
             <Text fontWeight="semibold" mb={2} fontSize="sm">
               Tax Year
             </Text>
-            <NativeSelect.Root size="lg">
-              <NativeSelect.Field value={selectedYear} onChange={handleYearChange}>
-                {taxYears.map((y) => (
-                  <option key={y.year} value={y.year}>
-                    {y.label}
-                  </option>
-                ))}
-              </NativeSelect.Field>
-              <NativeSelect.Indicator />
-            </NativeSelect.Root>
+            <Select.Root
+              collection={taxYearCollection}
+              value={[selectedYear]}
+              onValueChange={(e) => handleYearChange(e.value[0])}
+              size="lg"
+              colorPalette={palette}
+            >
+              <Select.HiddenSelect />
+              <Select.Control>
+                <Select.Trigger>
+                  <Select.ValueText />
+                </Select.Trigger>
+                <Select.IndicatorGroup>
+                  <Select.Indicator />
+                </Select.IndicatorGroup>
+              </Select.Control>
+              <Portal>
+                <Select.Positioner>
+                  <Select.Content>
+                    {taxYearCollection.items.map((item) => (
+                      <Select.Item key={item.value} item={item}>
+                        {item.label}
+                        <Select.ItemIndicator />
+                      </Select.Item>
+                    ))}
+                  </Select.Content>
+                </Select.Positioner>
+              </Portal>
+            </Select.Root>
             {selectedYearData && (
               <Text fontSize="xs" color="fg.muted" mt={1}>
                 {selectedYearData.effectiveFrom} – {selectedYearData.effectiveTo}

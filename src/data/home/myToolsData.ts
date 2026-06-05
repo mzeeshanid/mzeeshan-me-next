@@ -231,7 +231,7 @@ export const myToolsData: MyToolsData = {
         width: 300,
         height: 300,
       },
-      url: "/tools/salary-tax-calculator",
+      url: "/tools/salary-tax-calculator-2026-2027-pakistan",
     },
     {
       title: "Freelance Tax Calculator",

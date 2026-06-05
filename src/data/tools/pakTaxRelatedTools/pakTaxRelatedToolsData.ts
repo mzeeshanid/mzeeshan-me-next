@@ -11,9 +11,9 @@ export const pakTaxRelatedToolsData: PakTaxRelatedTool[] = [
   {
     id: "salary",
     label: "Salary Tax Calculator",
-    path: "/tools/salary-tax-calculator",
+    path: "/tools/salary-tax-calculator-2026-2027-pakistan",
     description:
-      "Calculate your net take-home salary for FY 2025-26 based on FBR salaried income tax slabs — with visual charts and step-by-step breakdown.",
+      "Calculate your net take-home salary for FY 2026-27 based on FBR salaried income tax slabs — with visual charts and step-by-step breakdown.",
   },
   {
     id: "freelance",
