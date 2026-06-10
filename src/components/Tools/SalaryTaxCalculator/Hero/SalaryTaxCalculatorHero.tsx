@@ -9,6 +9,7 @@ import {
   Heading,
   HStack,
   Input,
+  Link,
   Portal,
   Select,
   SimpleGrid,
@@ -206,12 +207,56 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
           <Alert.Root status="warning" borderRadius="xl" maxW="2xl">
             <Alert.Indicator />
             <Alert.Content>
-              <Alert.Title>Estimated Calculations — Budget Not Announced Yet</Alert.Title>
+              <Alert.Title>
+                Estimated Calculations — Budget Postponed to {UPCOMING_BUDGET_ANNOUNCEMENT}
+              </Alert.Title>
               <Alert.Description>
-                The official FY 2026-27 tax slabs will be announced on{" "}
-                <strong>{UPCOMING_BUDGET_ANNOUNCEMENT}</strong>. These calculations use FY 2025-26
-                rates as a placeholder. Actual rates may change — check back after the budget
-                announcement for updated calculations.
+                <VStack align="start" gap={2} mt={1}>
+                  <Text fontSize="sm">
+                    The government has postponed the FY 2026-27 budget. The official announcement is
+                    now expected on <strong>{UPCOMING_BUDGET_ANNOUNCEMENT}</strong>. These
+                    calculations currently use FY 2025-26 rates as a placeholder and will be updated
+                    after the budget is announced.
+                  </Text>
+                  <VStack align="start" gap={1}>
+                    <Text fontSize="sm" fontWeight="semibold">
+                      What&apos;s expected in the new budget:
+                    </Text>
+                    <Box as="ul" pl={4} fontSize="sm">
+                      <Box as="li">
+                        Tax slabs may expand from the current <strong>6 to 8</strong>.
+                      </Box>
+                      <Box as="li">
+                        Annual income of <strong>Rs 1.2 million</strong> — rate proposed at{" "}
+                        <strong>3%</strong>.
+                      </Box>
+                      <Box as="li">
+                        Annual income of <strong>Rs 2.2 million</strong> — rate proposed at{" "}
+                        <strong>5%</strong>.
+                      </Box>
+                      <Box as="li">
+                        Annual income of <strong>Rs 3.2 million</strong> — rate proposed at{" "}
+                        <strong>10%</strong>.
+                      </Box>
+                      <Box as="li">
+                        Individuals earning above <strong>PKR 1 crore/month</strong> may see a
+                        reduction in the top marginal rate.
+                      </Box>
+                    </Box>
+                    <Text fontSize="xs" color="fg.muted">
+                      Provisional reports — subject to change.{" "}
+                      <Link
+                        href="https://arynews.tv/budget-2026-27-salaried-class-likely-to-get-relief-10-june-2026"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        color={`${palette}.fg`}
+                        textDecoration="underline"
+                      >
+                        Source: ARY News
+                      </Link>
+                    </Text>
+                  </VStack>
+                </VStack>
               </Alert.Description>
             </Alert.Content>
           </Alert.Root>

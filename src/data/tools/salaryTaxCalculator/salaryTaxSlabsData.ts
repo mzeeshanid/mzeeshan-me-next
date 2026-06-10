@@ -17,7 +17,7 @@ export type TaxYearData = {
 };
 
 export const CURRENT_TAX_YEAR = "2026-27";
-export const UPCOMING_BUDGET_ANNOUNCEMENT = "June 10, 2026";
+export const UPCOMING_BUDGET_ANNOUNCEMENT = "June 12, 2026";
 
 // To add a new fiscal year: prepend a new object to this array and update CURRENT_TAX_YEAR.
 export const taxYears: TaxYearData[] = [

@@ -29,6 +29,14 @@ const ArticlesHero: React.FC<ArticlesHeroProps> = (
   const { palette } = useColorPalette();
 
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const [isMac, setIsMac] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMac(
+      navigator.userAgent.toUpperCase().includes("MAC") ||
+        navigator.platform.toUpperCase().includes("MAC"),
+    );
+  }, []);
 
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -66,13 +74,7 @@ const ArticlesHero: React.FC<ArticlesHeroProps> = (
             <InputGroup
               endElement={
                 <HStack gap={1} display={{ base: "none", md: "flex" }}>
-                  <Kbd variant={"subtle"}>
-                    {typeof window !== "undefined" &&
-                    (navigator.userAgent.toUpperCase().includes("MAC") ||
-                      navigator.platform.toUpperCase().includes("MAC"))
-                      ? "⌘"
-                      : "Ctrl"}
-                  </Kbd>
+                  <Kbd variant={"subtle"}>{isMac ? "⌘" : "Ctrl"}</Kbd>
                   <Kbd variant={"subtle"}>k</Kbd>
                 </HStack>
               }
