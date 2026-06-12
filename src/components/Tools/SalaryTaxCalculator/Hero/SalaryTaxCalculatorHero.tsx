@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { calculateResults, formatPKR, TaxCalculationResult } from "@/services/salaryTaxService";
 import { taxYears, CURRENT_TAX_YEAR, UPCOMING_BUDGET_ANNOUNCEMENT } from "@/data/tools/salaryTaxCalculator";
+import SalaryTaxComparison from "../Comparison/SalaryTaxComparison";
 import {
   Alert,
   Box,
@@ -119,6 +120,9 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
 
   const selectedYearData = taxYears.find((y) => y.year === selectedYear);
   const isUpcomingYear = selectedYearData?.isUpcoming ?? false;
+
+  const selectedYearIndex = taxYears.findIndex((y) => y.year === selectedYear);
+  const previousYearData = selectedYearIndex < taxYears.length - 1 ? taxYears[selectedYearIndex + 1] : null;
 
   return (
     <Box as="section">
@@ -307,6 +311,14 @@ const SalaryTaxCalculatorHero: React.FC<SalaryTaxCalculatorHeroProps> = ({
               Enter your monthly salary above to see your tax breakdown.
             </Text>
           </Box>
+        )}
+
+        {result && selectedYearData && previousYearData && (
+          <SalaryTaxComparison
+            currentResult={result}
+            currentYearData={selectedYearData}
+            previousYearData={previousYearData}
+          />
         )}
 
         <Spacer p={1} />

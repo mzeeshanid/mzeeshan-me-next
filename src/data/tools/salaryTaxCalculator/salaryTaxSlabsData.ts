@@ -27,15 +27,15 @@ export const taxYears: TaxYearData[] = [
     urlSlug: "salary-tax-calculator-2026-2027-pakistan",
     effectiveFrom: "July 1, 2026",
     effectiveTo: "June 30, 2027",
-    isUpcoming: true,
-    // Budget not announced yet — using FY 2025-26 slabs as placeholder
     slabs: [
       { min: 0,         max: 600000,   fixedTax: 0,         rate: 0.00, excessOver: 0 },
       { min: 600000,    max: 1200000,  fixedTax: 0,         rate: 0.01, excessOver: 600000 },
       { min: 1200000,   max: 2200000,  fixedTax: 6000,      rate: 0.11, excessOver: 1200000 },
-      { min: 2200000,   max: 3200000,  fixedTax: 116000,    rate: 0.23, excessOver: 2200000 },
-      { min: 3200000,   max: 4100000,  fixedTax: 346000,    rate: 0.30, excessOver: 3200000 },
-      { min: 4100000,   max: null,     fixedTax: 616000,    rate: 0.35, excessOver: 4100000 },
+      { min: 2200000,   max: 3200000,  fixedTax: 116000,    rate: 0.20, excessOver: 2200000 },
+      { min: 3200000,   max: 4100000,  fixedTax: 316000,    rate: 0.25, excessOver: 3200000 },
+      { min: 4100000,   max: 5600000,  fixedTax: 541000,    rate: 0.29, excessOver: 4100000 },
+      { min: 5600000,   max: 7000000,  fixedTax: 976000,    rate: 0.32, excessOver: 5600000 },
+      { min: 7000000,   max: null,     fixedTax: 1424000,   rate: 0.35, excessOver: 7000000 },
     ],
   },
   {

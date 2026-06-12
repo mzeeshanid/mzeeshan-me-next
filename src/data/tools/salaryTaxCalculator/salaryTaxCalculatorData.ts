@@ -97,7 +97,7 @@ export type SalaryTaxMetaData = {
 export const salaryTaxMetaData: SalaryTaxMetaData = {
   title: "Pakistan Salary Tax Calculator 2026-27 | FBR Net Take-Home Pay",
   description:
-    "Calculate your exact net take-home salary for FY 2026-27. See monthly tax deductions, annual tax, and effective rate based on the latest FBR income tax slabs for salaried individuals in Pakistan. Supports 2026-27, 2025-26, 2024-25, and 2023-24.",
+    "Calculate your exact net take-home salary for FY 2026-27 using the officially announced FBR tax slabs. New 8-slab structure with reduced rates at key thresholds. Supports 2026-27, 2025-26, 2024-25, and 2023-24.",
   url: "/tools/salary-tax-calculator-2026-2027-pakistan",
   image: {
     src: "/assets/salary_tax_calculator_icon.png",
@@ -115,9 +115,7 @@ export const getSalaryTaxMetaForYear = (year: string): SalaryTaxMetaData => {
   const fullYear = year.replace("-", "-20"); // "2026-27" → "2026-2027"
 
   const title = `Pakistan Salary Tax Calculator ${fullYear} | FBR Net Take-Home Pay`;
-  const description = isUpcoming
-    ? `Calculate your estimated net take-home salary for FY ${year} using the latest available FBR income tax slabs. Official rates will be announced on June 12, 2026 — calculations will be updated after the budget.`
-    : `Calculate your exact net take-home salary for FY ${year}. See monthly tax deductions, annual tax, and effective rate based on official FBR income tax slabs for salaried individuals in Pakistan.`;
+  const description = `Calculate your exact net take-home salary for FY ${year}. See monthly tax deductions, annual tax, and effective rate based on official FBR income tax slabs for salaried individuals in Pakistan.`;
 
   return {
     title,
