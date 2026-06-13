@@ -8,19 +8,36 @@ type MyHeroActionsProps = {};
 const MyHeroActions: React.FC<MyHeroActionsProps> = ({}) => {
   const { actions } = myHeroData;
   const { palette } = useColorPalette();
+  const primaryActions = actions.slice(0, 2);
+  const linkedInAction = actions[2];
   return (
-    <Stack gap={4} direction={{ base: "column", md: "row" }} w="full">
-      {actions.map((action, idx) => (
-        <Link key={idx} href={action.link}>
+    <Stack gap={4} direction="column" w="full">
+      <Stack gap={4} direction={{ base: "column", md: "row" }} w="full">
+        {primaryActions.map((action, idx) => (
+          <Link key={idx} href={action.link} flex={1}>
+            <Button
+              variant={action.variant}
+              colorPalette={palette}
+              size={{ base: "lg", md: "xl" }}
+              w="full"
+            >
+              {action.buttonText}
+            </Button>
+          </Link>
+        ))}
+      </Stack>
+      {linkedInAction && (
+        <Link href={linkedInAction.link} w="full" target="_blank" rel="noopener noreferrer">
           <Button
-            variant={action.variant}
+            variant={linkedInAction.variant}
             colorPalette={palette}
             size={{ base: "lg", md: "xl" }}
+            w="full"
           >
-            {action.buttonText}
+            {linkedInAction.buttonText}
           </Button>
         </Link>
-      ))}
+      )}
     </Stack>
   );
 };
