@@ -11,9 +11,6 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "engines": {
-    "node": "22.13.0"
-  },
   "dependencies": {
     "@chakra-ui/charts": "^3.35.0",
     "@chakra-ui/cli": "^3.35.0",
