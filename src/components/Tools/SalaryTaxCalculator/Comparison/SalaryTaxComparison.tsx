@@ -58,6 +58,8 @@ const SalaryTaxComparison: React.FC<SalaryTaxComparisonProps> = ({
   const prevSlab = previousYearData.slabs[prevResult.slabIndex];
   const currSlab = currentYearData.slabs[currentResult.slabIndex];
 
+  if (!prevSlab || !currSlab) return null;
+
   return (
     <Box borderRadius="xl" borderWidth="1px" borderColor="border" maxW="2xl">
       <Box overflowX="auto" borderTopRadius="xl">
