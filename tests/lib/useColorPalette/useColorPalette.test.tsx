@@ -10,11 +10,12 @@ import {
   useColorPalette,
 } from "@/contexts/useColorPalette";
 
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  // Reset DOM attribute between tests
+  delete document.documentElement.dataset.colorPalette;
+});
 
-// ---------------------------------------------------------------------------
-// Render-count helper — increments on every render of the consumer component
-// ---------------------------------------------------------------------------
 let renderCount = 0;
 
 function PaletteConsumer() {
@@ -53,27 +54,22 @@ describe("parsePaletteCookie", () => {
 });
 
 // ---------------------------------------------------------------------------
-// ColorPaletteProvider — single render guarantee
+// ColorPaletteProvider
 // ---------------------------------------------------------------------------
 describe("ColorPaletteProvider", () => {
-  it("renders the consumer exactly once — no re-render after mount", async () => {
-    renderCount = 0;
-
+  it("starts with DEFAULT_PALETTE when no DOM attribute is present", async () => {
     await act(async () => {
       render(
-        <ColorPaletteProvider initialPalette="blue">
+        <ColorPaletteProvider>
           <PaletteConsumer />
         </ColorPaletteProvider>
       );
     });
 
-    // act() flushes all pending state updates and effects.
-    // If any useEffect called setState, renderCount would be > 1.
-    expect(renderCount).toBe(1);
-    expect(screen.getByTestId("palette").textContent).toBe("blue");
+    expect(screen.getByTestId("palette").textContent).toBe(DEFAULT_PALETTE);
   });
 
-  it("initialises with DEFAULT_PALETTE when no initialPalette is provided", async () => {
+  it("does not re-render when DOM attribute is absent", async () => {
     renderCount = 0;
 
     await act(async () => {
@@ -85,15 +81,33 @@ describe("ColorPaletteProvider", () => {
     });
 
     expect(renderCount).toBe(1);
-    expect(screen.getByTestId("palette").textContent).toBe(DEFAULT_PALETTE);
   });
 
-  it("exposes the correct palette value to consumers", () => {
-    render(
-      <ColorPaletteProvider initialPalette="purple">
-        <PaletteConsumer />
-      </ColorPaletteProvider>
-    );
-    expect(screen.getByTestId("palette").textContent).toBe("purple");
+  it("reads palette from DOM attribute after mount", async () => {
+    document.documentElement.dataset.colorPalette = "blue";
+
+    await act(async () => {
+      render(
+        <ColorPaletteProvider>
+          <PaletteConsumer />
+        </ColorPaletteProvider>
+      );
+    });
+
+    expect(screen.getByTestId("palette").textContent).toBe("blue");
+  });
+
+  it("ignores an invalid DOM attribute value", async () => {
+    document.documentElement.dataset.colorPalette = "rainbow";
+
+    await act(async () => {
+      render(
+        <ColorPaletteProvider>
+          <PaletteConsumer />
+        </ColorPaletteProvider>
+      );
+    });
+
+    expect(screen.getByTestId("palette").textContent).toBe(DEFAULT_PALETTE);
   });
 });

@@ -28,11 +28,16 @@ import { LuChevronDown, LuChevronRight, LuSearch, LuX } from "react-icons/lu";
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 const SECTION_ORDER = [
+  { key: "basic", label: "Basic" },
   { key: "size_duration", label: "Size & Duration" },
+  { key: "size_resolution", label: "Size & Resolution" },
   { key: "audio_quality", label: "Audio Quality" },
+  { key: "bit_depth", label: "Bit Depth" },
   { key: "block_size", label: "Block Size" },
   { key: "channels", label: "Channels" },
+  { key: "compression", label: "Compression" },
   { key: "content_type", label: "Content Type" },
+  { key: "edge_cases", label: "Edge Cases" },
   { key: "encoding_variants", label: "Encoding Variants" },
   { key: "metadata", label: "Metadata" },
   { key: "sample_rate_bit_depth", label: "Sample Rate & Bit Depth" },
@@ -232,7 +237,7 @@ const VariantRow: React.FC<VariantRowProps> = ({
 
         {/* Name + shortInfo */}
         <VStack gap={0.5} align="start" flex={1} minW={0}>
-          <Text fontSize="sm" fontWeight="medium" lineClamp={1}>
+          <Text fontSize="sm" fontWeight="medium" lineClamp={2}>
             {searchQuery ? (
               <Highlight
                 query={searchQuery}
@@ -251,7 +256,7 @@ const VariantRow: React.FC<VariantRowProps> = ({
             )}
           </Text>
           {variant.shortInfo && (
-            <Text fontSize="xs" color="fg.muted" lineClamp={1}>
+            <Text fontSize="xs" color="fg.muted" lineClamp={2}>
               {variant.shortInfo}
             </Text>
           )}
@@ -301,7 +306,6 @@ const VariantRow: React.FC<VariantRowProps> = ({
 
 interface SectionBlockProps {
   label: string;
-  sectionKey: string;
   items: SampleFileVariantModel[];
   defaultOpen: boolean;
   palette: string;
@@ -313,7 +317,6 @@ interface SectionBlockProps {
 
 const SectionBlock: React.FC<SectionBlockProps> = ({
   label,
-  sectionKey,
   items,
   defaultOpen,
   palette,
@@ -701,7 +704,6 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
           {visibleGroups.map((g, index) => (
             <SectionBlock
               key={g.key}
-              sectionKey={g.key}
               label={g.label}
               items={g.items}
               defaultOpen={index < 3}

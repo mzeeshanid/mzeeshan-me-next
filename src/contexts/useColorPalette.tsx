@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 
 export type Palette =
   | "gray"
@@ -55,22 +55,25 @@ const ColorPaletteContext = createContext<ColorPaletteContextType | undefined>(
 
 interface ColorPaletteProviderProps {
   children: ReactNode;
-  initialPalette?: Palette;
 }
 
-export function ColorPaletteProvider({
-  children,
-  initialPalette = DEFAULT_PALETTE,
-}: ColorPaletteProviderProps) {
-  // initialPalette comes from the server-read cookie — no client correction needed.
-  // useState only reads its argument on the very first mount, so client-side
-  // navigations (where initialPalette is undefined) leave the existing state alone.
-  const [palette, setPaletteState] = useState<Palette>(initialPalette);
+export function ColorPaletteProvider({ children }: ColorPaletteProviderProps) {
+  // SSR always uses the default — HTML is byte-identical for every visitor.
+  // After mount, read the value the blocking script stamped on <html> from the
+  // cookie, so React state matches the CSS that's already on screen.
+  const [palette, setPaletteState] = useState<Palette>(DEFAULT_PALETTE);
+
+  useEffect(() => {
+    const stored = document.documentElement.dataset.colorPalette;
+    if (stored && isPalette(stored)) {
+      setPaletteState(stored as Palette);
+    }
+  }, []);
 
   const setPalette = (newPalette: Palette) => {
     if (!isPalette(newPalette)) return;
-    // Write cookie so the server renders the correct color on the next request.
     document.cookie = `${PALETTE_COOKIE}=${newPalette}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`;
+    document.documentElement.dataset.colorPalette = newPalette;
     setPaletteState(newPalette);
   };
 
