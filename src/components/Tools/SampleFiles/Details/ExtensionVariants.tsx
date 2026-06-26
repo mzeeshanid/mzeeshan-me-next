@@ -29,6 +29,7 @@ import { LuChevronDown, LuChevronRight, LuSearch, LuX } from "react-icons/lu";
 
 const SECTION_ORDER = [
   { key: "basic", label: "Basic" },
+  { key: "aspect_ratio", label: "Aspect Ratio" },
   { key: "size_duration", label: "Size & Duration" },
   { key: "size_resolution", label: "Size & Resolution" },
   { key: "audio_quality", label: "Audio Quality" },

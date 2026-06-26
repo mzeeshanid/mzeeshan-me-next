@@ -16,7 +16,7 @@ import DriveDirectSteps from "@/components/Tools/DriveDirect/Steps/DriveDirectSt
 import DriveDirectUsage from "@/components/Tools/DriveDirect/Usage/DriveDirectUsage";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
 import { Toaster } from "@/components/ui/toaster";
-import { Box, Container, Spacer } from "@chakra-ui/react";
+import { AspectRatio, Box, Container, Spacer } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
 import React from "react";
 
@@ -63,6 +63,17 @@ const DriveDirectHome: React.FC<DriveDirectHomeProps> = (
       <Spacer p={4} />
       <Container maxW="6xl">
         <DriveDirectLinks links={links} />
+      </Container>
+
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <AspectRatio ratio={16 / 9}>
+          <iframe
+            src="https://www.youtube.com/embed/0sGxcQeC3XM"
+            title="Google Drive Direct Download Link Generator Tutorial"
+            allowFullScreen
+          />
+        </AspectRatio>
       </Container>
 
       <Spacer p={4} />
