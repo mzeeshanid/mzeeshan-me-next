@@ -61,6 +61,27 @@ function trimPrefix(name: string): string {
   return name.replace(/^[A-Za-z0-9+]+ - /i, "");
 }
 
+function isGoogleDriveUrl(url: string): boolean {
+  try {
+    return new URL(url).hostname.includes("drive.google.com");
+  } catch {
+    return false;
+  }
+}
+
+// CDN responses are served with a Content-Disposition header set by a
+// CloudFront function that triggers when this query param is present.
+function withDownloadParam(url: string): string {
+  if (isGoogleDriveUrl(url)) return url;
+  try {
+    const parsed = new URL(url);
+    parsed.searchParams.set("download", "1");
+    return parsed.toString();
+  } catch {
+    return url;
+  }
+}
+
 function sectionLabel(key: string): string {
   return SECTION_ORDER.find((s) => s.key === key)?.label ?? key;
 }
@@ -282,7 +303,10 @@ const VariantRow: React.FC<VariantRowProps> = ({
         </VStack>
 
         {/* Download */}
-        <Link href={downloadUrl} flexShrink={0}>
+        <Link
+          href={downloadUrl ? withDownloadParam(downloadUrl) : downloadUrl}
+          flexShrink={0}
+        >
           <Button
             variant="surface"
             loading={downloadingId === variant.documentId}
