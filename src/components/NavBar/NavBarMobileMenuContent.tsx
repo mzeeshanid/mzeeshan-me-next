@@ -23,7 +23,7 @@ type NavBarMobileMenuContentProps = {
 };
 
 const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = (
-  props
+  props,
 ) => {
   const { open, onToggle } = props;
   const { mainLinks } = navBarData();
@@ -42,6 +42,7 @@ const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = (
                 href={linkItem.url}
                 area-label={`link for ${linkItem.label} page`}
                 fontSize={"lg"}
+                color={"fg"}
               >
                 {linkItem.label}
               </Link>
@@ -91,7 +92,9 @@ const NavBarMobileMenuContent: React.FC<NavBarMobileMenuContentProps> = (
               size={{ base: "xs", md: "sm" }}
               onClick={toggleColorMode}
             >
-              <DeferredIcon icon={mounted && colorMode === "dark" ? LuMoon : LuSun} />
+              <DeferredIcon
+                icon={mounted && colorMode === "dark" ? LuMoon : LuSun}
+              />
             </Button>
           </HStack>
         </Stack>

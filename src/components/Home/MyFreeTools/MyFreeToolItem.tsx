@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 
-type MyAppItemProps = {
+type MyFreeToolItemProps = {
   title: string;
   caption: string;
   detail: string;
@@ -18,7 +18,7 @@ type MyAppItemProps = {
   icon: BasicImageDataModel;
 };
 
-const MyAppItem = (props: MyAppItemProps) => {
+const MyFreeToolItem = (props: MyFreeToolItemProps) => {
   const { title, caption, detail, icon, url } = props;
   return (
     <Card.Root bg="bg.subtle" borderWidth={0} h="full">
@@ -64,4 +64,4 @@ const MyAppItem = (props: MyAppItemProps) => {
   );
 };
 
-export default MyAppItem;
+export default MyFreeToolItem;

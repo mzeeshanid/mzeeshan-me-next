@@ -24,16 +24,18 @@ const PrivacyPolicyHome: React.FC<Props> = (props: Props) => {
   const details =
     "Learn about our privacy practices and how we collect, use, and protect your personal information.";
   const heroImage = "/assets/mzeeshan_me_hero.jpeg";
+  const pageUrl = absoluteUrl("/privacy");
   return (
     <>
       <Head>
         {generateNextSeo({
           title: title,
           description: details,
+          canonical: pageUrl,
           openGraph: {
             title: title,
             description: details,
-            url: absoluteUrl(heroImage),
+            url: pageUrl,
             images: [
               {
                 url: absoluteUrl(heroImage),
@@ -76,8 +78,8 @@ const PrivacyPolicyHome: React.FC<Props> = (props: Props) => {
           any personal information we may collect about you, including across
           our website,{" "}
           <Text as="span" fontWeight={"bold"}>
-            <Link href={"https://www.mzeeshan.me/"} variant={"underline"}>
-              https://www.mzeeshan.me/
+            <Link href={"https://mzeeshan.me/"} variant={"underline"}>
+              https://mzeeshan.me/
             </Link>
             , and other sites we own and operate.{" "}
           </Text>

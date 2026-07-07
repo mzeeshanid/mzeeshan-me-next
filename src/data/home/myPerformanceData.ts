@@ -23,7 +23,7 @@ type MyPerformanceStatItem = {
 
 const myPerformanceData = () : MyPerformanceData => {
     return {
-        tagline: "Carrier Achievements",
+        tagline: "Career Achievements",
         title: "Performance Metrics",
         detail: "During my career, I have focused on delivering enterprise-grade performance and reliability, helping businesses scale with confidence and achieve measurable results. Due to NDA I am unable to share apps here but below are some metrics that reflect my commitment to excellence.",
         stats: [

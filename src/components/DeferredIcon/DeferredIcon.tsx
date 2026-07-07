@@ -26,7 +26,7 @@ function resolveSize(size?: unknown): string {
   return SIZE_PX[s] ?? s;
 }
 
-const DeferredIcon: React.FC<DeferredIconProps> = ({ icon, size, ...rest }) => {
+const DeferredIcon: React.FC<DeferredIconProps> = ({ icon, size, boxSize, ...rest }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const [ready, setReady] = useState(false);
   const isInteractive = useIsInteractive();
@@ -51,26 +51,22 @@ const DeferredIcon: React.FC<DeferredIconProps> = ({ icon, size, ...rest }) => {
     return () => observer.disconnect();
   }, [isInteractive]);
 
-  const px = resolveSize(size as string | undefined);
+  const px = boxSize ?? resolveSize(size as string | undefined);
 
-  if (!ready) {
-    return (
-      <Box
-        as="span"
-        ref={ref}
-        display="inline-flex"
-        alignItems="center"
-        justifyContent="center"
-        flexShrink={0}
-        w={px}
-        h={px}
-      >
-        <Skeleton w={px} h={px} borderRadius="sm" />
-      </Box>
-    );
-  }
-
-  return <Icon as={icon} size={size} {...rest} />;
+  return (
+    <Box
+      as="span"
+      ref={ref}
+      display="inline-flex"
+      alignItems="center"
+      justifyContent="center"
+      flexShrink={0}
+      boxSize={px}
+      {...(rest as React.ComponentProps<typeof Box>)}
+    >
+      {ready ? <Icon as={icon} boxSize="100%" /> : <Skeleton boxSize="100%" borderRadius="sm" />}
+    </Box>
+  );
 };
 
 export default DeferredIcon;

@@ -36,7 +36,6 @@ const SampleFilesSeo: React.FC = () => {
             ],
           },
         })}
-        <link rel="canonical" href={canonicalUrl} />
         <meta name="robots" content="index,follow" />
         <meta name="googlebot" content="index,follow" />
         <meta

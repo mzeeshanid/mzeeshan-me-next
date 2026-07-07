@@ -1,3 +1,4 @@
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { base64FeaturesData } from "@/data/tools/base64EncoderDecoder";
 import {
@@ -60,6 +61,7 @@ const Base64Features: React.FC = () => {
               {data.header.title}
             </Heading>
             <Text color="fg.muted">{data.header.description}</Text>
+            <ToolByline />
           </VStack>
         </GridItem>
         <GridItem colSpan={2}>

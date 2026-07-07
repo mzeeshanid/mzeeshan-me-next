@@ -1,3 +1,4 @@
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { aspectRatioBlockQuoteData } from "@/data/tools/aspectRatio/aspectRatioBlockquoteData";
 import { Blockquote } from "@chakra-ui/react";
 import React from "react";
@@ -9,7 +10,9 @@ const AspectRatioBlockquote: React.FC<Props> = (props: Props) => {
   return (
     <Blockquote.Root>
       <Blockquote.Content>{quote.quote}</Blockquote.Content>
-      <Blockquote.Caption>{quote.caption}</Blockquote.Caption>
+      <Blockquote.Caption>
+        <ToolByline />
+      </Blockquote.Caption>
     </Blockquote.Root>
   );
 };

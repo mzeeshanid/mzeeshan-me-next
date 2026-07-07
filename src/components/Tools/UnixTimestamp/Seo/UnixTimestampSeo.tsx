@@ -35,7 +35,6 @@ const UnixTimestampSeo: React.FC<Props> = () => {
             ],
           },
         })}
-        <link rel="canonical" href={canonicalUrl} />
         <meta
           name="keywords"
           content="unix timestamp to human readable date, epoch converter online, convert unix timestamp to date and time, milliseconds to date converter, date to unix timestamp online, unix epoch converter, epoch time converter, timestamp to date, unix timestamp converter, epoch timestamp, seconds to date converter, unix time converter"

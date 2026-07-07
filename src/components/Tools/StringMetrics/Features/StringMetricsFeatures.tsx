@@ -1,3 +1,4 @@
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { stringMetricsFeaturesData } from "@/data/tools/stringMetrics";
 import {
@@ -71,6 +72,7 @@ const StringMetricsFeatures: React.FC<Props> = (props: Props) => {
               {featuresData.header.title}
             </Heading>
             <Text color={"fg.muted"}>{featuresData.header.description}</Text>
+            <ToolByline />
           </VStack>
         </GridItem>
         <GridItem colSpan={2}>

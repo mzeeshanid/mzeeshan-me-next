@@ -7,12 +7,21 @@ export type FreelanceTaxYearData = {
   nonPsebRate: number;
 };
 
-export const CURRENT_FREELANCE_TAX_YEAR = "2025-26";
+export const CURRENT_FREELANCE_TAX_YEAR = "2026-27";
 
+// To add a new fiscal year: prepend a new object to this array and update CURRENT_FREELANCE_TAX_YEAR.
 export const freelanceTaxYears: FreelanceTaxYearData[] = [
   {
+    year: "2026-27",
+    label: "FY 2026-27 (Current)",
+    effectiveFrom: "July 1, 2026",
+    effectiveTo: "June 30, 2027",
+    psebRate: 0.0025,
+    nonPsebRate: 0.01,
+  },
+  {
     year: "2025-26",
-    label: "FY 2025-26 (Current)",
+    label: "FY 2025-26",
     effectiveFrom: "July 1, 2025",
     effectiveTo: "June 30, 2026",
     psebRate: 0.0025,

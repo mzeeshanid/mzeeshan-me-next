@@ -38,7 +38,12 @@ export const ImageConverterControls: React.FC<ImageConverterControlsProps> = ({
   sameFormatMessage,
 }) => {
   const { palette } = useColorPalette();
-  const browserSupportsTarget = checkBrowserSupportsFormat(targetFormat as any);
+  const [browserSupportsTarget, setBrowserSupportsTarget] = React.useState(true);
+
+  React.useEffect(() => {
+    setBrowserSupportsTarget(checkBrowserSupportsFormat(targetFormat as any));
+  }, [targetFormat]);
+
   const showBrowserWarning = targetFormat && !browserSupportsTarget;
 
   return (

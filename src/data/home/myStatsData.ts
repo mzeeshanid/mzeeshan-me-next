@@ -37,10 +37,6 @@ const myStatsData = (): MyStatData => {
         title: "Satisfaction Rate",
         value: "100%",
       },
-      {
-        title: "Trust Level",
-        value: "100%",
-      },
     ],
   };
 };

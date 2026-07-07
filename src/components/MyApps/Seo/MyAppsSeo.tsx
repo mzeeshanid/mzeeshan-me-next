@@ -10,16 +10,18 @@ const MyAppsSeo: React.FC<Props> = (props: Props) => {
   const details =
     "Explore a collection of thoughtfully designed native applications focused on performance, usability, and elegant user experiences.";
   const heroImage = "/assets/mzfilemanage/mzfilemanage_hero.png";
+  const canonicalUrl = absoluteUrl("/apps");
 
   return (
     <Head>
       {generateNextSeo({
         title: title,
         description: details,
+        canonical: canonicalUrl,
         openGraph: {
           title: title,
           description: details,
-          url: absoluteUrl(heroImage),
+          url: canonicalUrl,
           images: [
             {
               url: absoluteUrl(heroImage),

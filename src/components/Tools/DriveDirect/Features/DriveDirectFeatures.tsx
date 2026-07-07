@@ -1,3 +1,4 @@
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
 import {
@@ -39,6 +40,7 @@ const DriveDirectFeatures: React.FC<Props> = (props: Props) => {
               {features.header.title}
             </Heading>
             <Text color={"fg.muted"}>{features.header.desc}</Text>
+            <ToolByline />
           </VStack>
         </GridItem>
         <GridItem colSpan={2}>

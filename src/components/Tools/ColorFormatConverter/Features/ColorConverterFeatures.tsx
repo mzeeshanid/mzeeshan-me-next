@@ -1,3 +1,4 @@
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { colorConverterFeaturesData } from "@/data/tools/colorFormatConverter";
 import {
@@ -51,6 +52,7 @@ const ColorConverterFeatures: React.FC = () => {
               {data.header.title}
             </Heading>
             <Text color="fg.muted">{data.header.description}</Text>
+            <ToolByline />
           </VStack>
         </GridItem>
         <GridItem colSpan={2}>

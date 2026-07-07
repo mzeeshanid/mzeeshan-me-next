@@ -24,8 +24,8 @@ const mySEOData = (): MySEOData => {
     username: "mzeeshanid",
     gender: "male",
     type: "profile",
-    url: "https://www.mzeeshan.me/",
-    title: "Muhammad Zeeshan | Senior iOS Developer | Swift Enthusiast",
+    url: "https://mzeeshan.me/",
+    title: "Muhammad Zeeshan | Lead iOS Developer | Swift Enthusiast",
     desc: "Experienced iOS developer specializing in building high-quality and scalable mobile applications using Swift, SwiftUI, and Objective-C.",
     logo: {
       src: "/assets/profile_pic.jpeg",

@@ -1,16 +1,34 @@
+import { absoluteUrl } from "@/baseUrl/absoluteUrl";
 import ContactForm from "@/components/Contact/ContactForm";
 import Footer from "@/components/Footer/Footer";
-import MySeo from "@/components/Home/MySeo/MySeo";
 import NavBar from "@/components/NavBar/NavBar";
 import { Container, Spacer } from "@chakra-ui/react";
+import { generateNextSeo } from "next-seo/pages";
+import Head from "next/head";
 import React from "react";
 
 type Props = {};
 
 const ContactHome: React.FC<Props> = (props: Props) => {
+  const title = "Contact Muhammad Zeeshan";
+  const details =
+    "Get in touch with Muhammad Zeeshan for iOS development, consulting, or collaboration inquiries.";
+  const canonicalUrl = absoluteUrl("/contact");
+
   return (
     <>
-      <MySeo />
+      <Head>
+        {generateNextSeo({
+          title: title,
+          description: details,
+          canonical: canonicalUrl,
+          openGraph: {
+            title: title,
+            description: details,
+            url: canonicalUrl,
+          },
+        })}
+      </Head>
       <Container p={0} maxW="full">
         {/* --- NavBar --- */}
         <NavBar />

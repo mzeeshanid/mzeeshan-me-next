@@ -10,6 +10,7 @@ import {
   MyPerformanceStatsSkeleton,
   MyCTASkeleton,
   MyAppsSkeleton,
+  MyFreeToolsSkeleton,
   MyStatsSkeleton,
   MyClientReviewsSkeleton,
   MyOpenSourceContributionSkeleton,
@@ -22,6 +23,7 @@ const MyPricing = dynamic(() => import("@/components/Home/MyPricing/MyPricing"),
 const MyPerformanceStats = dynamic(() => import("@/components/Home/MyPerformanceStats/MyPerformanceStats"), { loading: () => <MyPerformanceStatsSkeleton /> });
 const MyCTA = dynamic(() => import("@/components/Home/MyCTA/MyCTA"), { loading: () => <MyCTASkeleton /> });
 const MyApps = dynamic(() => import("@/components/Home/MyApps/MyApps"), { loading: () => <MyAppsSkeleton /> });
+const MyFreeTools = dynamic(() => import("@/components/Home/MyFreeTools/MyFreeTools"), { loading: () => <MyFreeToolsSkeleton /> });
 const MyStats = dynamic(() => import("@/components/Home/MyStats/MyStats"), { loading: () => <MyStatsSkeleton /> });
 const MyClientReviews = dynamic(() => import("@/components/Home/MyClientReviews/MyClientReviews"), { loading: () => <MyClientReviewsSkeleton /> });
 const MyOpenSourceContribution = dynamic(() => import("@/components/Home/MyOpenSourceContribution/MyOpenSourceContribution"), { loading: () => <MyOpenSourceContributionSkeleton /> });
@@ -71,6 +73,10 @@ const Home: React.FC<HomeProps> = (props: HomeProps) => {
         {/* --- Apps --- */}
         <Container maxW="6xl" mb={8}>
           <MyApps />
+        </Container>
+        {/* --- Free Tools --- */}
+        <Container maxW="6xl" mb={8}>
+          <MyFreeTools />
         </Container>
         {/* --- Stats --- */}
         <Container maxW="6xl" mb={8}>

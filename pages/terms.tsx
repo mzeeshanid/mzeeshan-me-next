@@ -24,16 +24,18 @@ const TermsAndConditionsHome: React.FC<Props> = (props: Props) => {
   const details =
     "Please read these terms and conditions carefully before using Our Service.";
   const heroImage = "/assets/mzeeshan_me_hero.jpeg";
+  const pageUrl = absoluteUrl("/terms");
   return (
     <>
       <Head>
         {generateNextSeo({
           title: title,
           description: details,
+          canonical: pageUrl,
           openGraph: {
             title: title,
             description: details,
-            url: absoluteUrl(heroImage),
+            url: pageUrl,
             images: [
               {
                 url: absoluteUrl(heroImage),
@@ -163,8 +165,8 @@ const TermsAndConditionsHome: React.FC<Props> = (props: Props) => {
                 Website
               </Text>{" "}
               refers to Muhammad Zeeshan, accessible from{" "}
-              <Link href="https://www.mzeeshan.me" variant="underline">
-                https://www.mzeeshan.me
+              <Link href="https://mzeeshan.me" variant="underline">
+                https://mzeeshan.me
               </Link>
               .
             </Text>

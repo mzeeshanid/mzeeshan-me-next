@@ -1,4 +1,5 @@
 import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
+import ToolByline from "@/components/ToolByline/ToolByline";
 import React from "react";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
@@ -54,6 +55,7 @@ const FreelanceTaxWhoIsFreelancer: React.FC = () => {
             remittances — not general business income tax. Make sure you fall in
             the right category before calculating.
           </Text>
+          <ToolByline />
         </VStack>
 
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>

@@ -36,6 +36,12 @@ const FooterTermsRights = ({}: FooterTermsRightsProps) => {
       separator={<StackSeparator />}
     >
       <Text textAlign="center">{rightsReserved}</Text>
+      <HStack gap={1}>
+        <Text>{"Made by"}</Text>
+        <Link href="/about" variant="underline" fontWeight="medium">
+          {"Muhammad Zeeshan"}
+        </Link>
+      </HStack>
       <HStack gap={4} flexWrap="wrap" justify="center">
         {bottomLinks.map((link, idx) => (
           <Link key={idx} href={link.url} variant={"underline"}>

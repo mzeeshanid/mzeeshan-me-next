@@ -53,7 +53,7 @@ const myFrameworks = (): MyFrameWorkData => {
             },
             {
                 title: "StoreKit",
-                detail: "Need a fix for fradulent transactions with In app purchases or subscriptions? Need to utilize AppStore's built-in offer mechanism for increasing converstion rate? I got you covered with StoreKit.",
+                detail: "Need a fix for fraudulent transactions with In app purchases or subscriptions? Need to utilize AppStore's built-in offer mechanism for increasing conversion rate? I got you covered with StoreKit.",
                 link: "https://developer.apple.com/documentation/storekit/",
                 icon: RiShoppingCart2Line,
             },

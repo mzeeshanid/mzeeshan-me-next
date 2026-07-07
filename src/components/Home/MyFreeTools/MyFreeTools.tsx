@@ -1,5 +1,5 @@
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
-import myAppsData from "@/data/home/myAppsData";
+import myFreeToolsData from "@/data/home/myFreeToolsData";
 import {
   Box,
   Center,
@@ -8,13 +8,13 @@ import {
   SimpleGrid,
   VStack,
 } from "@chakra-ui/react";
-import MyAppItem from "./MyAppItem";
+import MyFreeToolItem from "./MyFreeToolItem";
 import { useColorPalette } from "@/contexts/useColorPalette";
 
-type MyAppsProps = {};
+type MyFreeToolsProps = {};
 
-const MyApps = (props: MyAppsProps) => {
-  const { tagline, title, details, apps } = myAppsData();
+const MyFreeTools = (props: MyFreeToolsProps) => {
+  const { tagline, title, details, tools } = myFreeToolsData();
   const { palette } = useColorPalette();
   return (
     <Box as={"section"}>
@@ -27,14 +27,14 @@ const MyApps = (props: MyAppsProps) => {
           textAlign={"center"}
         />
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 4, md: 6 }} w="full">
-          {apps.map((app, idx) => (
+          {tools.map((tool, idx) => (
             <GridItem key={idx} w="full" h={"full"}>
-              <MyAppItem
-                title={app.title}
-                caption={app.caption}
-                detail={app.detail}
-                icon={app.icon}
-                url={app.url}
+              <MyFreeToolItem
+                title={tool.title}
+                caption={tool.caption}
+                detail={tool.detail}
+                icon={tool.icon}
+                url={tool.url}
               />
             </GridItem>
           ))}
@@ -46,8 +46,8 @@ const MyApps = (props: MyAppsProps) => {
               bg="bg.subtle"
               borderRadius={"md"}
             >
-              <Link href="/apps" fontWeight={"medium"} colorPalette={palette}>
-                {"View All Apps"}
+              <Link href="/tools" fontWeight={"medium"} colorPalette={palette}>
+                {"View All Tools"}
               </Link>
             </Center>
           </GridItem>
@@ -57,4 +57,4 @@ const MyApps = (props: MyAppsProps) => {
   );
 };
 
-export default MyApps;
+export default MyFreeTools;

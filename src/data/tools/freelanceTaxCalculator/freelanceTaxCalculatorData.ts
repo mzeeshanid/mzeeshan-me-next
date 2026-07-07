@@ -55,7 +55,7 @@ export const freelanceTaxFeaturesData: FreelanceTaxFeaturesData = {
       icon: FaCalendarDays,
       title: "Multi-Year Support",
       description:
-        "Switch between FY 2025-26 and 2024-25 to compare how freelance tax rates have applied year over year.",
+        "Switch between FY 2026-27, 2025-26, and 2024-25 to compare how freelance tax rates have applied year over year.",
     },
     {
       icon: FaShieldAlt,
@@ -95,9 +95,9 @@ export type FreelanceTaxMetaData = {
 
 export const freelanceTaxMetaData: FreelanceTaxMetaData = {
   title:
-    "Pakistan Freelance Tax Calculator 2025-26 | PSEB 0.25% & FBR Section 154A",
+    "Pakistan Freelance Tax Calculator 2026-27 | PSEB 0.25% & FBR Section 154A",
   description:
-    "Calculate your Pakistan freelance income tax for FY 2025-26. PSEB-registered freelancers pay 0.25%, non-registered pay 1% on foreign income under FBR Section 154A. Instant breakdown with visual charts.",
+    "Calculate your Pakistan freelance income tax for FY 2026-27. PSEB-registered freelancers pay 0.25%, non-registered pay 1% on foreign income under FBR Section 154A — extended through Tax Year 2029. Instant breakdown with visual charts.",
   url: "/tools/freelance-tax-calculator",
   image: {
     src: "/assets/freelance_tax_calculator_icon.png",

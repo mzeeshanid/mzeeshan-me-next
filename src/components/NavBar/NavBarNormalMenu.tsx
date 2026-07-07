@@ -30,6 +30,7 @@ const NavBarNormalMenu: React.FC<NavBarNormalMenuProps> = (props) => {
             href={linkItem.url}
             area-label={`link for ${linkItem.label} page`}
             fontSize={"lg"}
+            color={"fg"}
           >
             <HStack gap={2}>
               {linkItem.icon && <DeferredIcon icon={linkItem.icon} />}

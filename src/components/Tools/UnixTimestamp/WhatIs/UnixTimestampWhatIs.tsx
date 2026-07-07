@@ -1,3 +1,4 @@
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
   Box,
@@ -42,6 +43,7 @@ const UnixTimestampWhatIs: React.FC<Props> = () => {
             Unix time is timezone-agnostic and universally consistent across all computing systems, making it the
             lingua franca for timestamps in APIs, databases, logs, and distributed systems.
           </Text>
+          <ToolByline />
         </VStack>
 
         <Box w="full">

@@ -30,7 +30,6 @@ const AppIconGeneratorSeo: React.FC = () => {
             ],
           },
         })}
-        <link rel="canonical" href={canonicalUrl} />
       </Head>
       <SoftwareApplicationJsonLd
         type="WebApplication"

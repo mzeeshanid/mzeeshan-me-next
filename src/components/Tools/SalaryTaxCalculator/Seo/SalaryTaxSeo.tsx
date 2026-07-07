@@ -39,7 +39,6 @@ const SalaryTaxSeo: React.FC<SalaryTaxSeoProps> = ({ taxYear = CURRENT_TAX_YEAR 
           name="keywords"
           content={`salary tax calculator Pakistan ${fullYear}, Pakistan income tax calculator ${taxYear}, FBR tax calculator, net take home salary Pakistan, income tax slab Pakistan, salaried person tax Pakistan, monthly tax deduction Pakistan, how to calculate income tax Pakistan, Pakistan salary after tax, FBR salaried income tax`}
         />
-        <link rel="canonical" href={canonicalUrl} />
       </Head>
       <SoftwareApplicationJsonLd
         type="WebApplication"

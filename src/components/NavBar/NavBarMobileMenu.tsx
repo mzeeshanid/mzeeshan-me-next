@@ -16,8 +16,13 @@ const NavBarMobileMenu: React.FC<NavBarNormalMenuProps> = (props) => {
         variant="ghost"
         onClick={onToggle}
         aria-label="toggle main links menu"
+        color="fg"
       >
-        {open ? <DeferredIcon icon={FaXmark} /> : <DeferredIcon icon={FaBars} />}
+        {open ? (
+          <DeferredIcon icon={FaXmark} />
+        ) : (
+          <DeferredIcon icon={FaBars} />
+        )}
       </Button>
     </HStack>
   );

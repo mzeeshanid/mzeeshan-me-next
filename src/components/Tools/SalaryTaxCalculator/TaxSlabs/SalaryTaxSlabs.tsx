@@ -1,4 +1,5 @@
 import React from "react";
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { taxYears } from "@/data/tools/salaryTaxCalculator";
 import { formatPKR } from "@/services/salaryTaxService";
@@ -49,6 +50,7 @@ const SalaryTaxSlabs: React.FC<SalaryTaxSlabsProps> = ({ selectedYear, activeSla
             within each bracket is taxed at that bracket&apos;s rate. Enter your salary above to
             see your applicable slab highlighted below.
           </Text>
+          <ToolByline />
         </VStack>
 
         <Box overflowX="auto" borderRadius="xl" borderWidth="1px" borderColor="border">

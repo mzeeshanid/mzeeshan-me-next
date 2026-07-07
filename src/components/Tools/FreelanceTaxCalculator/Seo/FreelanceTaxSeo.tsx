@@ -31,9 +31,8 @@ const FreelanceTaxSeo: React.FC = () => {
         })}
         <meta
           name="keywords"
-          content="freelance tax calculator Pakistan, Pakistan freelancer income tax 2025-26, PSEB tax rate 0.25, Section 154A Pakistan, Pakistan freelancer income tax, Upwork Fiverr tax Pakistan, foreign income tax Pakistan freelancer, PSEB registered freelancer tax, freelance income tax Pakistan, how much tax freelancers pay Pakistan"
+          content="freelance tax calculator Pakistan, Pakistan freelancer income tax 2026-27, PSEB tax rate 0.25, Section 154A Pakistan, Pakistan freelancer income tax, Upwork Fiverr tax Pakistan, foreign income tax Pakistan freelancer, PSEB registered freelancer tax, freelance income tax Pakistan, how much tax freelancers pay Pakistan"
         />
-        <link rel="canonical" href={canonicalUrl} />
       </Head>
       <SoftwareApplicationJsonLd
         type="WebApplication"
@@ -45,7 +44,7 @@ const FreelanceTaxSeo: React.FC = () => {
         screenshot={[
           {
             url: absoluteUrl(meta.image.src),
-            caption: "Pakistan Freelance Tax Calculator — PSEB 0.25% & Section 154A 2025-26",
+            caption: "Pakistan Freelance Tax Calculator — PSEB 0.25% & Section 154A 2026-27",
           },
         ]}
         offers={[

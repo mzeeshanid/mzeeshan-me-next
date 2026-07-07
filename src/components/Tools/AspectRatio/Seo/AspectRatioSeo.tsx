@@ -30,7 +30,6 @@ const AspectRatioSeo: React.FC<Props> = () => {
             ],
           },
         })}
-        <link rel="canonical" href={absoluteUrl(meta.url)} />
         <meta
           name="keywords"
           content="aspect ratio calculator, aspect ratio calculator 16:9, calculate aspect ratio from width and height, video aspect ratio calculator, aspect ratio calculator for youtube, resize image without distortion, find aspect ratio of image, aspect ratio 4:3 to 16:9, 16:9 aspect ratio pixels, responsive design aspect ratio, aspect ratio converter"

@@ -1,5 +1,6 @@
 import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { appIconGeneratorValuePropsData } from "@/data/tools/appIconGenerator/appIconGeneratorData";
 import { Box, Icon, SimpleGrid, Text, VStack } from "@chakra-ui/react";
@@ -15,7 +16,9 @@ const AppIconGeneratorValueProps: React.FC = () => {
         tagline={data.header.badge}
         headline={data.header.title}
         description={data.header.desc}
-      />
+      >
+        <ToolByline />
+      </SectionHeader>
       <Box h={6} />
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={4}>
         {data.items.map((item) => (

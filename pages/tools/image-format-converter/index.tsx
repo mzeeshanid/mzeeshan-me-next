@@ -16,6 +16,7 @@ import ImageConverterTextCards from "@/components/Tools/ImageFormatConverter/Sec
 import ImageConverterSupported from "@/components/Tools/ImageFormatConverter/Supported/ImageConverterSupported";
 import ImageConverterBrowserSupport from "@/components/Tools/ImageFormatConverter/Supported/ImageConverterBrowserSupport";
 import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { imageFormatConverterIndexData } from "@/data/tools/imageFormatConverter/imageFormatConverterData";
 
 type Props = {
@@ -63,7 +64,9 @@ const ImageFormatConverterIndexPage: React.FC<Props> = ({ article }) => {
           <ImageConverterTextCards
             header={data.intro.header}
             cards={data.intro.cards}
-          />
+          >
+            <ToolByline />
+          </ImageConverterTextCards>
         </Container>
 
         <Spacer p={8} />

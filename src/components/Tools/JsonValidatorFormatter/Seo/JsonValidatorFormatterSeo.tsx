@@ -38,7 +38,6 @@ const JsonValidatorFormatterSeo: React.FC<Props> = ({ meta: metaProp }) => {
             ],
           },
         })}
-        <link rel="canonical" href={canonicalUrl} />
         <meta
           name="keywords"
           content={

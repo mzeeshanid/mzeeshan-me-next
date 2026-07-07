@@ -18,7 +18,7 @@ const MyCTA: React.FC<MyCTAProps> = (props: MyCTAProps) => {
           variant={"surface"}
           colorPalette={palette}
         >
-          <Tag.Label>{"Sound's interesting"}</Tag.Label>
+          <Tag.Label>{"Sounds interesting"}</Tag.Label>
         </Tag.Root>
         <SectionHeader
           headline={"Ready to grow your business?"}

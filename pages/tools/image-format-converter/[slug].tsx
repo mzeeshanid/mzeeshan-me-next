@@ -20,6 +20,7 @@ import ImageConverterFeatureCards from "@/components/Tools/ImageFormatConverter/
 import ImageConverterTextCards from "@/components/Tools/ImageFormatConverter/Sections/ImageConverterTextCards";
 import ImageConverterUseCaseCards from "@/components/Tools/ImageFormatConverter/Sections/ImageConverterUseCaseCards";
 import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { imageFormatConverterDetailDataBySlug } from "@/data/tools/imageFormatConverter/imageFormatConverterData";
 import {
   getImageConversionRouteBySlug,
@@ -67,7 +68,9 @@ const ImageFormatConverterDetailPage: React.FC<Props> = ({ article, slug }) => {
         <ImageConverterTextCards
           header={data.intro.header}
           cards={data.intro.cards}
-        />
+        >
+          <ToolByline />
+        </ImageConverterTextCards>
       </Container>
 
       <Spacer p={8} />

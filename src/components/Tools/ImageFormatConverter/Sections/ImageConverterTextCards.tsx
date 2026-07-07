@@ -7,16 +7,19 @@ import type { SectionHeaderData, TextCardItem } from "@/data/tools/imageFormatCo
 type Props = {
   header: SectionHeaderData;
   cards: TextCardItem[];
+  children?: React.ReactNode;
 };
 
-const ImageConverterTextCards: React.FC<Props> = ({ header, cards }) => {
+const ImageConverterTextCards: React.FC<Props> = ({ header, cards, children }) => {
   return (
     <Box as="section">
       <SectionHeader
         tagline={header.badge}
         headline={header.title}
         description={header.description}
-      />
+      >
+        {children}
+      </SectionHeader>
       <SimpleGrid mt={8} minChildWidth="xs" gap={4}>
         {cards.map((card) => (
           <GridItem key={card.title}>

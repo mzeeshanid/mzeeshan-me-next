@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import ToolByline from "@/components/ToolByline/ToolByline";
 
 interface Props {
   data: ExtensionTechnicalDetailsData;
@@ -27,7 +28,9 @@ const ExtensionTechnicalDetails: React.FC<Props> = (props) => {
               description={
                 "Here are some technical details about this extension"
               }
-            />
+            >
+              <ToolByline />
+            </SectionHeader>
           </VStack>
         </GridItem>
         <Box>

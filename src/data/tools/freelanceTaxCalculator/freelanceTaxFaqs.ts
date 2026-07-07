@@ -10,9 +10,14 @@ export const freelanceTaxFaqs: FreelanceTaxFaq[] = [
       "For FBR purposes, a freelancer is an individual who provides IT, software development, digital marketing, or other export-oriented services to foreign clients and receives payment in foreign currency via a bank channel (such as Payoneer, Wise, or wire transfer). If you work on platforms like Upwork, Fiverr, or Toptal and your clients are outside Pakistan, you qualify. Local freelancers serving Pakistani clients in PKR are subject to different tax rules and should use the Salary Tax Calculator instead.",
   },
   {
-    question: "What is the income tax rate for freelancers in Pakistan 2025-26?",
+    question: "What is the income tax rate for freelancers in Pakistan 2026-27?",
     answer:
-      "For FY 2025-26, Pakistan freelancers exporting services to foreign clients pay tax under Section 154A of the Income Tax Ordinance. PSEB-registered freelancers pay 0.25% of their gross foreign income as a final withholding tax. Non-registered freelancers pay 1% of their gross foreign income. Both rates are applied on the full gross amount — there are no deductions or progressive slabs.",
+      "For FY 2026-27, Pakistan freelancers exporting services to foreign clients continue to pay tax under Section 154A of the Income Tax Ordinance. PSEB-registered freelancers pay 0.25% of their gross foreign income as a final withholding tax. Non-registered freelancers pay 1% of their gross foreign income. Both rates are applied on the full gross amount — there are no deductions or progressive slabs. The Finance Act 2026 kept both rates unchanged from FY 2025-26.",
+  },
+  {
+    question: "Did freelance tax rates change in Pakistan's 2026-27 budget?",
+    answer:
+      "No — the Finance Act 2026 (Budget 2026-27) kept the freelance withholding tax rates unchanged: 0.25% for PSEB-registered freelancers and 1% for non-registered freelancers under Section 154A. The only change is that the sunset date for the concessionary 0.25% rate, which was due to expire on June 30, 2026, has been extended by three years to June 30, 2029 — giving IT exporters and freelancers policy certainty through Tax Year 2029.",
   },
   {
     question: "What is PSEB and how does registering reduce my tax?",

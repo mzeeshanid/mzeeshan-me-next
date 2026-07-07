@@ -1,5 +1,6 @@
 import { SampleFilesExtensionModel } from "@/apis/sampleFiles/sampleFilesExtension";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { Box, SimpleGrid, Spacer, VStack } from "@chakra-ui/react";
 import React from "react";
 import SampleFilesExtensionCard from "./SampleFilesExtensionCard";
@@ -20,7 +21,9 @@ const SampleFilesFeatured: React.FC<Props> = (props: Props) => {
         description={
           "Discover the handpicked featured and commonly used sample file formats."
         }
-      />
+      >
+        <ToolByline />
+      </SectionHeader>
       <Spacer p={4} />
       <VStack gap={8} alignItems="center">
         {extensions.length > 0 ? (

@@ -1,4 +1,5 @@
 import ArticleContent from "@/components/Blog/ArticleContent/ArticleContent";
+import ToolByline from "@/components/ToolByline/ToolByline";
 import { Blockquote } from "@chakra-ui/react";
 import React from "react";
 
@@ -11,6 +12,9 @@ const AppleOfferSignatureBlockQuote: React.FC<Props> = (props: Props) => {
       <Blockquote.Content>
         <ArticleContent content={content} />
       </Blockquote.Content>
+      <Blockquote.Caption>
+        <ToolByline />
+      </Blockquote.Caption>
     </Blockquote.Root>
   );
 };

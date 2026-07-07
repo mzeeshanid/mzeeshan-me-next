@@ -33,7 +33,6 @@ const Base64Seo: React.FC = () => {
           name="keywords"
           content="base64 encode, base64 decode, base64 encoder decoder, base64 converter, image to base64, base64 to image, base64 url encode, base64 file encoder, base64url decode, pdf to base64, base64 encode online free, base64 decode online free"
         />
-        <link rel="canonical" href={canonicalUrl} />
       </Head>
       <SoftwareApplicationJsonLd
         type="WebApplication"

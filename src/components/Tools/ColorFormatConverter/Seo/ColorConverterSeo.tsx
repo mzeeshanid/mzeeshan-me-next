@@ -34,7 +34,6 @@ const ColorConverterSeo: React.FC = () => {
           name="keywords"
           content="hex to rgb, rgb to hex, hsl to hex, hsv converter, css color converter, hex to rgb converter online, rgb to hsl converter, hex to rgba with opacity, hsl to hex online, color format converter, convert hex color code, rgb to hsv online, hsv to rgb converter, web color codes converter, html color converter, css color codes, color picker converter"
         />
-        <link rel="canonical" href={canonicalUrl} />
       </Head>
       <SoftwareApplicationJsonLd
         type="WebApplication"

@@ -35,7 +35,6 @@ const ImageConverterSeo: React.FC<Props> = ({ meta }) => {
             ],
           },
         })}
-        <link rel="canonical" href={canonicalUrl} />
         {meta.keywords && (
           <meta name="keywords" content={meta.keywords} />
         )}

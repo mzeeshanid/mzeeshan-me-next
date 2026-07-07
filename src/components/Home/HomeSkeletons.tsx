@@ -134,6 +134,21 @@ export const MyAppsSkeleton = () => (
   </Stack>
 );
 
+// Section header + 2×2 tool cards + view-all strip
+export const MyFreeToolsSkeleton = () => (
+  <Stack gap={8}>
+    <VStack gap={4}>
+      <SectionHeaderSkeleton centered />
+    </VStack>
+    <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 4, md: 6 }}>
+      {Array.from({ length: 4 }).map((_, i) => (
+        <Skeleton key={i} height="160px" rounded="xl" />
+      ))}
+    </SimpleGrid>
+    <Skeleton height="44px" rounded="md" />
+  </Stack>
+);
+
 // Two-column: text header on left, 2×2 number grid on right
 export const MyStatsSkeleton = () => (
   <SimpleGrid columns={{ base: 1, lg: 2 }} gap={8}>

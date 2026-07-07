@@ -29,6 +29,7 @@ const FooterMainLinks = (props: FooterMainLinksProps) => {
           href={linkItem.url}
           aria-label={`bottom bar link ${linkItem.label}`}
           fontSize={"lg"}
+          color={"fg"}
         >
           <HStack gap={2}>
             {linkItem.icon && <DeferredIcon icon={linkItem.icon} />}
