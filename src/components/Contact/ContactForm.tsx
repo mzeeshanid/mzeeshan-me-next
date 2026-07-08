@@ -100,6 +100,7 @@ const ContactForm: React.FC<Props> = (props: Props) => {
             <SectionHeader
               tagline={"Get in Touch"}
               headline={"Let's Start a Conversation"}
+              headingAs="h1"
               description={
                 "Have questions or want to work together? Fill out the form below!"
               }
@@ -125,6 +126,7 @@ const ContactForm: React.FC<Props> = (props: Props) => {
           <SectionHeader
             tagline={"Get in Touch"}
             headline={"Let's Start a Conversation"}
+            headingAs="h1"
             description={
               "Have questions or want to work together? Fill out the form below!"
             }

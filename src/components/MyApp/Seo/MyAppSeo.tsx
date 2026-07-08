@@ -25,6 +25,7 @@ const MyAppSeo: React.FC<Props> = (props: Props) => {
             title: meta.appName,
             description: meta.description,
             url: canonicalUrl,
+            type: "website",
             images: [
               {
                 url: absoluteUrl(meta.heroImage.src.src),

@@ -19,6 +19,7 @@ const AppleOfferSignatureSeo: React.FC<Props> = (props: Props) => {
             title: meta.title,
             description: meta.desc,
             url: absoluteUrl(meta.url),
+            type: "website",
             images: [
               {
                 url: absoluteUrl(meta.image.src),

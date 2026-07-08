@@ -22,6 +22,7 @@ const MyToolsSeo: React.FC<Props> = (props: Props) => {
           title: title,
           description: details,
           url: canonicalUrl,
+          type: "website",
           images: [
             {
               url: absoluteUrl(heroImage),

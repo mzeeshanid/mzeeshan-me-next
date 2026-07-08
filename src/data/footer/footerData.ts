@@ -42,7 +42,7 @@ const footerData = (): FooterData => {
       },
       {
         icon: FaLinkedin,
-        link: "https://www.linkedin.com/in/muhammad-zeeshan-04b8585b/",
+        link: "https://www.linkedin.com/in/mzeeshanid/",
       },
       {
         icon: FaMedium,

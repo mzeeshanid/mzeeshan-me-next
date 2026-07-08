@@ -149,7 +149,7 @@ const AboutHome: React.FC<Props> = (props: Props) => {
     sameAs: [
       "https://github.com/mzeeshanid",
       "https://stackoverflow.com/users/1796092/muhammad-zeeshan",
-      "https://www.linkedin.com/in/muhammad-zeeshan-04b8585b/",
+      "https://www.linkedin.com/in/mzeeshanid/",
       "https://medium.com/@mzeeshanid",
       "https://www.youtube.com/@RandomWithZee",
     ],
@@ -165,6 +165,7 @@ const AboutHome: React.FC<Props> = (props: Props) => {
             title: title,
             description: details,
             url: pageUrl,
+            type: "website",
             images: [
               {
                 url: absoluteUrl(heroImage),

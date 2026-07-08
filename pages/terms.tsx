@@ -36,6 +36,7 @@ const TermsAndConditionsHome: React.FC<Props> = (props: Props) => {
             title: title,
             description: details,
             url: pageUrl,
+            type: "website",
             images: [
               {
                 url: absoluteUrl(heroImage),

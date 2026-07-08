@@ -13,6 +13,7 @@ const ContactHome: React.FC<Props> = (props: Props) => {
   const title = "Contact Muhammad Zeeshan";
   const details =
     "Get in touch with Muhammad Zeeshan for iOS development, consulting, or collaboration inquiries.";
+  const heroImage = "/assets/mzeeshan_me_hero.jpeg";
   const canonicalUrl = absoluteUrl("/contact");
 
   return (
@@ -26,6 +27,13 @@ const ContactHome: React.FC<Props> = (props: Props) => {
             title: title,
             description: details,
             url: canonicalUrl,
+            type: "website",
+            images: [
+              {
+                url: absoluteUrl(heroImage),
+                type: "image/jpg",
+              },
+            ],
           },
         })}
       </Head>

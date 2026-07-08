@@ -44,7 +44,8 @@ const mySEOData = (): MySEOData => {
       "https://x.com/mzeeshanid",
       "https://fiverr.com/s/w52zEo",
       "https://stackoverflow.com/users/1796092/muhammad-zeeshan",
-      "https://www.linkedin.com/in/muhammad-zeeshan-04b8585b/"
+      "https://www.linkedin.com/in/mzeeshanid/",
+      "https://www.youtube.com/@RandomWithZee"
     ],
     reviewsData: myClientReviewsData()
   };

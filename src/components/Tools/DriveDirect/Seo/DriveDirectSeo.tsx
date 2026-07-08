@@ -21,6 +21,7 @@ const DriveDirectSeo: React.FC<Props> = (props: Props) => {
             title: meta.title,
             description: meta.desc,
             url: canonicalUrl,
+            type: "website",
             images: [
               {
                 url: absoluteUrl(meta.image.src),
