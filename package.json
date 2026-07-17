@@ -30,6 +30,7 @@
     "@uiw/codemirror-theme-xcode": "^4.25.9",
     "add": "^2.0.6",
     "apisauce": "^3.2.1",
+    "client-only": "0.0.1",
     "codemirror": "^6.0.2",
     "ec-key": "^0.0.6",
     "formik": "^2.4.9",
