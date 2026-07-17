@@ -14,15 +14,16 @@ type Props = {
 const MyAppSeo: React.FC<Props> = (props: Props) => {
   const { meta, screenshotsData } = props;
   const canonicalUrl = absoluteUrl(meta.siteUrl);
+  const title = `${meta.appName} - ${meta.tagline}`;
   return (
     <>
       <Head>
         {generateNextSeo({
-          title: meta.appName,
+          title,
           description: meta.description,
           canonical: canonicalUrl,
           openGraph: {
-            title: meta.appName,
+            title,
             description: meta.description,
             url: canonicalUrl,
             type: "website",

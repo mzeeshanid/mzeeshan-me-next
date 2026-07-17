@@ -8,8 +8,8 @@ export type UnixTimestampMetaData = {
 };
 
 export const unixTimestampMetaData: UnixTimestampMetaData = {
-  title: "Unix Timestamp / Epoch Converter — Seconds & Milliseconds",
-  desc: "Free epoch converter. Convert Unix timestamps to human-readable dates or any date to a Unix timestamp — seconds, milliseconds, and timezone support.",
+  title: "Unix Timestamp Converter — Epoch, POSIX & Discord Time",
+  desc: "Free Unix/POSIX epoch converter with a live clock, Discord timestamp generator, Excel & Google Sheets formulas, bulk conversion, and 17+ language snippets.",
   image: {
     alt: "Unix timestamp epoch converter hero image",
     width: 333,

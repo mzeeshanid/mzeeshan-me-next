@@ -45,7 +45,7 @@ const ROWS: ComparisonRow[] = [
   },
   {
     feature: "Microseconds / Nanoseconds",
-    ours: false,
+    ours: true,
     unixtimestamp: true,
     epochconverter: true,
   },
@@ -63,13 +63,13 @@ const ROWS: ComparisonRow[] = [
   },
   {
     feature: "Code Snippets",
-    ours: "14 languages",
+    ours: "17 languages",
     unixtimestamp: false,
     epochconverter: "20+ languages",
   },
   {
     feature: "Batch Converter",
-    ours: false,
+    ours: true,
     unixtimestamp: false,
     epochconverter: true,
   },
@@ -214,7 +214,7 @@ const UnixTimestampComparison: React.FC<Props> = () => {
         </Table.ScrollArea>
 
         <Text fontSize="xs" color="fg.subtle">
-          Comparison based on publicly available features as of 2025. Feature availability may change over time.
+          Comparison based on publicly available features as of 2026. Feature availability may change over time.
         </Text>
       </VStack>
     </Box>

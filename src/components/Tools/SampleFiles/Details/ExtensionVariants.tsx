@@ -17,13 +17,20 @@ import {
   IconButton,
   Input,
   Link,
+  Popover,
   Portal,
   Spacer,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import { LuChevronDown, LuChevronRight, LuSearch, LuX } from "react-icons/lu";
+import {
+  LuChevronDown,
+  LuChevronRight,
+  LuInfo,
+  LuSearch,
+  LuX,
+} from "react-icons/lu";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -31,10 +38,13 @@ const SECTION_ORDER = [
   { key: "basic", label: "Basic" },
   { key: "aspect_ratio", label: "Aspect Ratio" },
   { key: "resolution", label: "Resolution" },
+  { key: "dpi", label: "DPI" },
+  { key: "orientation", label: "Orientation" },
   { key: "frame_rate", label: "Frame Rate" },
   { key: "codec", label: "Codec" },
   { key: "bitrate", label: "Bitrate" },
   { key: "color_profile", label: "Color Profile" },
+  { key: "header_container", label: "Header & Container" },
   { key: "size_duration", label: "Size & Duration" },
   { key: "size_resolution", label: "Size & Resolution" },
   { key: "audio", label: "Audio" },
@@ -104,6 +114,52 @@ function groupVariants(variants: SampleFileVariantModel[]) {
       return ai - bi;
     })
     .map((key) => ({ key, label: sectionLabel(key), items: map.get(key)! }));
+}
+
+interface NoteDedupResult {
+  sharedNote: string | null;
+  perVariantNote: Map<string, string>;
+}
+
+const NOTE_DEDUP_THRESHOLD = 2;
+
+// When 2+ variants in a group share identical note text, collapse them into
+// one shared banner instead of repeating the same tooltip on every row.
+function computeNoteDedup(
+  items: SampleFileVariantModel[],
+  threshold = NOTE_DEDUP_THRESHOLD,
+): NoteDedupResult {
+  const counts = new Map<string, { count: number; original: string }>();
+  for (const v of items) {
+    const raw = v.notes?.trim();
+    if (!raw) continue;
+    const key = raw.toLowerCase();
+    const existing = counts.get(key);
+    if (existing) existing.count++;
+    else counts.set(key, { count: 1, original: raw });
+  }
+
+  let sharedKey: string | null = null;
+  let sharedCount = 0;
+  for (const [key, entry] of counts) {
+    if (entry.count >= threshold && entry.count > sharedCount) {
+      sharedKey = key;
+      sharedCount = entry.count;
+    }
+  }
+
+  const perVariantNote = new Map<string, string>();
+  for (const v of items) {
+    const raw = v.notes?.trim();
+    if (!raw) continue;
+    if (sharedKey && raw.toLowerCase() === sharedKey) continue;
+    perVariantNote.set(v.documentId, raw);
+  }
+
+  return {
+    sharedNote: sharedKey ? counts.get(sharedKey)!.original : null,
+    perVariantNote,
+  };
 }
 
 // ── iOS 26 card style ─────────────────────────────────────────────────────────
@@ -227,6 +283,7 @@ interface VariantRowProps {
   onDownload: (v: SampleFileVariantModel) => void;
   downloadingId: string | null;
   isAudio: boolean;
+  inlineNote?: string;
 }
 
 const VariantRow: React.FC<VariantRowProps> = ({
@@ -238,6 +295,7 @@ const VariantRow: React.FC<VariantRowProps> = ({
   onDownload,
   downloadingId,
   isAudio,
+  inlineNote,
 }) => {
   const displayName = trimPrefix(variant.name);
   const downloadUrl = getVariantDownloadUrl(variant);
@@ -265,24 +323,52 @@ const VariantRow: React.FC<VariantRowProps> = ({
 
         {/* Name + shortInfo */}
         <VStack gap={0.5} align="start" flex={1} minW={0}>
-          <Text fontSize="sm" fontWeight="medium" lineClamp={2}>
-            {searchQuery ? (
-              <Highlight
-                query={searchQuery}
-                styles={{
-                  px: "0.5",
-                  bg: "yellow.subtle",
-                  color: "yellow.fg",
-                  borderRadius: "sm",
-                }}
-                ignoreCase
-              >
-                {displayName}
-              </Highlight>
-            ) : (
-              displayName
+          <HStack gap={0.5} align="center" w="full">
+            <Text fontSize="sm" fontWeight="medium" lineClamp={2} minW={0}>
+              {searchQuery ? (
+                <Highlight
+                  query={searchQuery}
+                  styles={{
+                    px: "0.5",
+                    bg: "yellow.subtle",
+                    color: "yellow.fg",
+                    borderRadius: "sm",
+                  }}
+                  ignoreCase
+                >
+                  {displayName}
+                </Highlight>
+              ) : (
+                displayName
+              )}
+            </Text>
+            {inlineNote && (
+              <Popover.Root positioning={{ placement: "top" }}>
+                <Popover.Trigger asChild>
+                  <IconButton
+                    aria-label={`Note about ${displayName}`}
+                    variant="ghost"
+                    size="xs"
+                    borderRadius="full"
+                    flexShrink={0}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <LuInfo size={12} />
+                  </IconButton>
+                </Popover.Trigger>
+                <Portal>
+                  <Popover.Positioner>
+                    <Popover.Content maxW="260px" p={2}>
+                      <Popover.Arrow />
+                      <Text fontSize="xs" color="fg.muted">
+                        {inlineNote}
+                      </Text>
+                    </Popover.Content>
+                  </Popover.Positioner>
+                </Portal>
+              </Popover.Root>
             )}
-          </Text>
+          </HStack>
           {variant.shortInfo && (
             <Text fontSize="xs" color="fg.muted" lineClamp={2}>
               {variant.shortInfo}
@@ -344,6 +430,7 @@ interface SectionBlockProps {
   onDownload: (v: SampleFileVariantModel) => void;
   downloadingId: string | null;
   isAudio: boolean;
+  noteDedup: NoteDedupResult;
 }
 
 const SectionBlock: React.FC<SectionBlockProps> = ({
@@ -355,6 +442,7 @@ const SectionBlock: React.FC<SectionBlockProps> = ({
   onDownload,
   downloadingId,
   isAudio,
+  noteDedup,
 }) => {
   const [open, setOpen] = React.useState(defaultOpen);
 
@@ -401,6 +489,23 @@ const SectionBlock: React.FC<SectionBlockProps> = ({
 
         {/* iOS 26 card */}
         <Collapsible.Content>
+          {noteDedup.sharedNote && (
+            <Box
+              mb={1.5}
+              px={3}
+              py={2}
+              borderRadius="lg"
+              bg={`${palette}.subtle`}
+              display="flex"
+              gap={2}
+              alignItems="flex-start"
+            >
+              <LuInfo size={14} style={{ marginTop: 2, flexShrink: 0 }} />
+              <Text fontSize="xs" color="fg.muted">
+                {noteDedup.sharedNote}
+              </Text>
+            </Box>
+          )}
           <Box {...cardStyle}>
             {items.map((v, i) => (
               <VariantRow
@@ -413,6 +518,7 @@ const SectionBlock: React.FC<SectionBlockProps> = ({
                 onDownload={onDownload}
                 downloadingId={downloadingId}
                 isAudio={isAudio}
+                inlineNote={noteDedup.perVariantNote.get(v.documentId)}
               />
             ))}
           </Box>
@@ -527,6 +633,17 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
     if (selectedSections.size === 0) return groups;
     return groups.filter((g) => selectedSections.has(g.key));
   }, [groups, selectedSections]);
+
+  // Note dedup is computed against full group/variant membership — never
+  // against filtered/search subsets, which would flicker as filters change.
+  const sectionNoteDedup = React.useMemo(
+    () => new Map(groups.map((g) => [g.key, computeNoteDedup(g.items)])),
+    [groups],
+  );
+  const flatNoteDedup = React.useMemo(
+    () => computeNoteDedup(variants),
+    [variants],
+  );
 
   // Async debounced search — cancel previous timer before scheduling next
   const handleInput = React.useCallback((value: string) => {
@@ -717,6 +834,7 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
                     onDownload={handleDownload}
                     downloadingId={downloadingId}
                     isAudio={isAudio}
+                    inlineNote={v.notes?.trim() || undefined}
                   />
                 ))}
               </Box>
@@ -743,6 +861,12 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
               onDownload={handleDownload}
               downloadingId={downloadingId}
               isAudio={isAudio}
+              noteDedup={
+                sectionNoteDedup.get(g.key) ?? {
+                  sharedNote: null,
+                  perVariantNote: new Map(),
+                }
+              }
             />
           ))}
         </Box>
@@ -760,6 +884,7 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
               onDownload={handleDownload}
               downloadingId={downloadingId}
               isAudio={isAudio}
+              inlineNote={flatNoteDedup.perVariantNote.get(v.documentId)}
             />
           ))}
         </Box>

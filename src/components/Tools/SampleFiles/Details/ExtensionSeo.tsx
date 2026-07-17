@@ -90,6 +90,7 @@ const ExtensionSeo: React.FC<Props> = ({ extension }) => {
           contentUrl: v.asset?.url ?? v.url ?? "",
           encodingFormat: extension.name.toLowerCase(),
           contentSize: v.size,
+          description: v.notes?.trim() || undefined,
         }))}
       />
     </>

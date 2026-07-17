@@ -873,7 +873,7 @@ const JsonValidatorHero: React.FC = () => {
         tagline={heroData.badge}
         headline={heroData.title}
         description={heroData.description}
-        headingAs="h1"
+        headingAs="h2"
       />
       <Spacer p={4} />
       <Box

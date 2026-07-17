@@ -226,6 +226,43 @@ final date = DateTime.fromMillisecondsSinceEpoch(
 // Date → timestamp
 final ts = DateTime.utc(2024, 1, 1).millisecondsSinceEpoch ~/ 1000;`,
   },
+  excel: {
+    label: "Excel",
+    lang: "excel",
+    code: `' Current Unix timestamp (approximate "now", no live epoch formula in Excel)
+=(NOW()-DATE(1970,1,1))*86400
+
+' Timestamp → Date (put timestamp in A1, format cell as Date/Time)
+=(A1/86400)+DATE(1970,1,1)
+
+' Date → timestamp (put date in A1)
+=(A1-DATE(1970,1,1))*86400`,
+  },
+  sheets: {
+    label: "Google Sheets",
+    lang: "excel",
+    code: `' Current Unix timestamp (approximate "now")
+=(NOW()-DATE(1970,1,1))*86400
+
+' Timestamp → Date (put timestamp in A1)
+' Format > Number > Date time after entering this formula
+=(A1/86400)+DATE(1970,1,1)
+
+' Date → timestamp (put date in A1)
+=(A1-DATE(1970,1,1))*86400`,
+  },
+  powershell: {
+    label: "PowerShell",
+    lang: "powershell",
+    code: `# Current Unix timestamp (seconds)
+$nowSec = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
+
+# Timestamp → Date (UTC)
+$date = [DateTimeOffset]::FromUnixTimeSeconds($timestamp).UtcDateTime
+
+# Date → timestamp
+$ts = [DateTimeOffset]::Parse("2024-01-01T00:00:00Z").ToUnixTimeSeconds()`,
+  },
 };
 
 type Props = {};

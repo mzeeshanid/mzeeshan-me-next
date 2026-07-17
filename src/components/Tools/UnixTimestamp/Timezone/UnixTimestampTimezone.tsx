@@ -1,4 +1,5 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
+import { toMs, UNIT_LABELS, UnixTimestampUnit } from "@/utils/unixTimestamp";
 import {
   Box,
   Button,
@@ -14,6 +15,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
+
+const UNIT_ITEMS = (Object.keys(UNIT_LABELS) as UnixTimestampUnit[]).map((value) => ({
+  label: UNIT_LABELS[value],
+  value,
+}));
 
 const TIMEZONES = [
   { label: "UTC", tz: "UTC", offset: "+00:00" },
@@ -52,7 +58,7 @@ type Props = {};
 const UnixTimestampTimezone: React.FC<Props> = () => {
   const { palette } = useColorPalette();
   const [ts, setTs] = React.useState("");
-  const [unit, setUnit] = React.useState<"s" | "ms">("s");
+  const [unit, setUnit] = React.useState<UnixTimestampUnit>("s");
   const [useLive, setUseLive] = React.useState(false);
 
   React.useEffect(() => {
@@ -63,7 +69,7 @@ const UnixTimestampTimezone: React.FC<Props> = () => {
   }, [useLive]);
 
   const n = Number(ts);
-  const ms = ts && !isNaN(n) ? (unit === "ms" ? n : n * 1000) : null;
+  const ms = ts && !isNaN(n) ? toMs(n, unit) : null;
 
   return (
     <Box as="section">
@@ -89,7 +95,7 @@ const UnixTimestampTimezone: React.FC<Props> = () => {
                   value={ts}
                   onChange={(e) => { setTs(e.target.value); setUseLive(false); }}
                   fontFamily="mono"
-                  placeholder={unit === "s" ? "e.g. 1700000000" : "e.g. 1700000000000"}
+                  placeholder="e.g. 1700000000"
                   size="lg"
                 />
               </Field.Root>
@@ -97,16 +103,11 @@ const UnixTimestampTimezone: React.FC<Props> = () => {
               <SegmentGroup.Root
                 colorPalette={palette}
                 value={unit}
-                onValueChange={(details) => setUnit(details.value as "s" | "ms")}
+                onValueChange={(details) => setUnit(details.value as UnixTimestampUnit)}
                 width="fit-content"
               >
                 <SegmentGroup.Indicator />
-                <SegmentGroup.Items
-                  items={[
-                    { label: "Seconds", value: "s" },
-                    { label: "Milliseconds", value: "ms" },
-                  ]}
-                />
+                <SegmentGroup.Items items={UNIT_ITEMS} />
               </SegmentGroup.Root>
 
               <Button
@@ -116,7 +117,10 @@ const UnixTimestampTimezone: React.FC<Props> = () => {
                 alignSelf="flex-start"
                 onClick={() => {
                   setUseLive((v) => !v);
-                  if (!useLive) setTs(String(Math.floor(Date.now() / 1000)));
+                  if (!useLive) {
+                    setUnit("s");
+                    setTs(String(Math.floor(Date.now() / 1000)));
+                  }
                 }}
               >
                 {useLive ? "● Live" : "▶ Go Live"}

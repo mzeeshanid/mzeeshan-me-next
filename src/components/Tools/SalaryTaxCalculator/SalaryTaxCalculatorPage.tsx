@@ -12,6 +12,7 @@ import SalaryTaxFeatures from "@/components/Tools/SalaryTaxCalculator/Features/S
 import SalaryTaxFaqs from "@/components/Tools/SalaryTaxCalculator/Faqs/SalaryTaxFaqs";
 import SalaryTaxSeo from "@/components/Tools/SalaryTaxCalculator/Seo/SalaryTaxSeo";
 import SalaryTaxChartsSkeleton from "@/components/Tools/SalaryTaxCalculator/Charts/SalaryTaxChartsSkeleton";
+import SalaryTaxRelatedYears from "@/components/Tools/SalaryTaxCalculator/RelatedYears/SalaryTaxRelatedYears";
 import PakTaxRelatedTools from "@/components/Tools/PakTaxRelatedTools/PakTaxRelatedTools";
 import { salaryTaxHeaderData } from "@/data/tools/salaryTaxCalculator";
 import { TaxCalculationResult } from "@/services/salaryTaxService";
@@ -109,6 +110,11 @@ const SalaryTaxCalculatorPage: React.FC<SalaryTaxCalculatorPageProps> = ({ taxYe
         <Spacer p={8} />
         <Container maxW="6xl">
           <SalaryTaxFaqs />
+        </Container>
+
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <SalaryTaxRelatedYears currentYear={taxYear} />
         </Container>
 
         <Spacer p={8} />

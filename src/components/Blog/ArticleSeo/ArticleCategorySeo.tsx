@@ -16,7 +16,7 @@ export const ArticleCategorySeo: React.FC<ArticleCategorySeoProps> = ({
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
   const url = `${siteUrl}/blog/category/${category.slug}`;
 
-  const title = `${category.name} Articles`;
+  const title = `${category.name} Articles - Tutorials, Guides & Insights`;
   const metaDescription =
     category.description ??
     `Read the latest articles about ${category.name}. Tutorials, guides, and insights curated for you.`;

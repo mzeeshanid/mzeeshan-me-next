@@ -1,9 +1,12 @@
 import Footer from "@/components/Footer/Footer";
 import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import UnixTimestampBulkConvert from "@/components/Tools/UnixTimestamp/BulkConvert/UnixTimestampBulkConvert";
 import UnixTimestampDevTools from "@/components/Tools/UnixTimestamp/DevTools/UnixTimestampDevTools";
 import UnixTimestampComparison from "@/components/Tools/UnixTimestamp/Comparison/UnixTimestampComparison";
+import UnixTimestampDiscord from "@/components/Tools/UnixTimestamp/Discord/UnixTimestampDiscord";
 import UnixTimestampFaqs from "@/components/Tools/UnixTimestamp/Faqs/UnixTimestampFaqs";
+import UnixTimestampFeatures from "@/components/Tools/UnixTimestamp/Features/UnixTimestampFeatures";
 import UnixTimestampHero from "@/components/Tools/UnixTimestamp/Hero/UnixTimestampHero";
 import UnixTimestampSeo from "@/components/Tools/UnixTimestamp/Seo/UnixTimestampSeo";
 import UnixTimestampTimezone from "@/components/Tools/UnixTimestamp/Timezone/UnixTimestampTimezone";
@@ -41,6 +44,30 @@ const UnixTimestampConverterHome: React.FC = () => {
         <UnixTimestampHero />
       </Container>
 
+      {/* Features strip */}
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <UnixTimestampFeatures />
+      </Container>
+
+      {/* Discord Timestamp Generator */}
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <UnixTimestampDiscord />
+      </Container>
+
+      {/* Developer Snippets (incl. Excel/Sheets/PowerShell) */}
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <UnixTimestampDevTools />
+      </Container>
+
+      {/* Bulk / Batch Converter */}
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <UnixTimestampBulkConvert />
+      </Container>
+
       {/* What is Unix Time */}
       <Spacer p={8} />
       <Container maxW="6xl">
@@ -57,12 +84,6 @@ const UnixTimestampConverterHome: React.FC = () => {
       <Spacer p={8} />
       <Container maxW="6xl">
         <UnixTimestampY2038 />
-      </Container>
-
-      {/* Developer Snippets */}
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <UnixTimestampDevTools />
       </Container>
 
       {/* Use Cases */}

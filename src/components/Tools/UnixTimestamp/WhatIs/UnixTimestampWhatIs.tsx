@@ -47,6 +47,19 @@ const UnixTimestampWhatIs: React.FC<Props> = () => {
         </VStack>
 
         <Box w="full">
+          <Heading as="h3" fontSize="lg" fontWeight="semibold" mb={3}>
+            Is Unix Time the Same as POSIX Time?
+          </Heading>
+          <Text color="fg.muted" lineHeight="tall">
+            Yes — <Text as="strong" color="fg">Unix time and POSIX time are the same thing</Text>. &quot;POSIX
+            time&quot; is the formal name from the POSIX standard, which defines time as the number of seconds
+            since the epoch under the assumption that every day is exactly 86,400 seconds. &quot;Unix time&quot;
+            and &quot;epoch time&quot; are the informal names for the same value — the three terms are used
+            interchangeably in documentation, APIs, and code.
+          </Text>
+        </Box>
+
+        <Box w="full">
           <Heading as="h3" fontSize="lg" fontWeight="semibold" mb={4}>
             Notable Timestamps
           </Heading>

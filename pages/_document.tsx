@@ -240,6 +240,11 @@ export default class MyDocument extends Document {
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7172772388497840"
             crossOrigin="anonymous"
           />
+          <script
+            src="https://analytics.ahrefs.com/analytics.js"
+            data-key="1zs9QMzDCPMDOE5p17fv1g"
+            async
+          />
         </Head>
         <body>
           <Main />

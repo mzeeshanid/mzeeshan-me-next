@@ -24,6 +24,7 @@ export interface SampleFileVariantModel extends API.Document {
     section?: string;
     duration?: string;
     shortInfo?: string;
+    notes?: string;
 }
 
 export const getVariantDownloadUrl = (variant: SampleFileVariantModel): string | undefined =>

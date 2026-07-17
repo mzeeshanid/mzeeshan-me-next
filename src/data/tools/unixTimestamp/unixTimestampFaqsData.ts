@@ -57,5 +57,30 @@ export const unixTimestampFaqsData: UnixTimestampFaqsData = {
       answer:
         "The Unix epoch is the reference point: January 1, 1970, 00:00:00 UTC. Its timestamp is 0. Every other Unix timestamp is measured as the number of seconds (or milliseconds) elapsed from this moment.",
     },
+    {
+      question: "Is Unix timestamp the same as POSIX time?",
+      answer:
+        "Yes. POSIX time is the formal name from the POSIX standard for the same seconds-since-epoch value that's colloquially called Unix time or epoch time. All three terms refer to the identical number.",
+    },
+    {
+      question: "How do I convert a Unix timestamp in Excel or Google Sheets?",
+      answer:
+        "Both use the same date-serial math: =(A1/86400)+DATE(1970,1,1) converts a timestamp in cell A1 to a date (format the cell as date/time), and =(A1-DATE(1970,1,1))*86400 converts a date back to a timestamp. See the Excel and Google Sheets entries in the code snippets section below for the full formulas.",
+    },
+    {
+      question: "How do I add a Discord timestamp to a message?",
+      answer:
+        "Type <t:TIMESTAMP:FORMAT> in any Discord message, where TIMESTAMP is a Unix timestamp in seconds and FORMAT is one of t, T, d, D, f, F, or R. Discord renders it in each viewer's own timezone and locale. Use the Discord Timestamp Generator above to get the exact codes for any date.",
+    },
+    {
+      question: "How many digits does a Unix timestamp have?",
+      answer:
+        "A seconds-precision timestamp has 10 digits today (e.g., 1700000000). Milliseconds have 13 digits, microseconds have 16, and nanoseconds have 19. This converter auto-detects which precision you've pasted based on digit count.",
+    },
+    {
+      question: "Can I convert multiple Unix timestamps at once?",
+      answer:
+        "Yes. Use the bulk converter in the developer utilities section — paste any number of timestamps or dates (one per line, or comma-separated) and copy the results back out as CSV or JSON.",
+    },
   ],
 };

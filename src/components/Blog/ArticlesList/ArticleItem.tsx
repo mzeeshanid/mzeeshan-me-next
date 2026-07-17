@@ -33,6 +33,7 @@ const ArticleItem: React.FC<ArticlesItemProps> = (props: ArticlesItemProps) => {
           <ArticleTitleDetail
             title={article.title}
             subtitle={article.description}
+            headingAs="h3"
           />
         </Link>
         <ArticleCategoryTags categories={[article.category]} />

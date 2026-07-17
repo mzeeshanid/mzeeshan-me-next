@@ -20,7 +20,7 @@ import React from "react";
 type Props = {};
 
 const PrivacyPolicyHome: React.FC<Props> = (props: Props) => {
-  const title = "Privacy Policy";
+  const title = "Privacy Policy - How We Collect & Protect Your Data";
   const details =
     "Learn about our privacy practices and how we collect, use, and protect your personal information.";
   const heroImage = "/assets/mzeeshan_me_hero.jpeg";

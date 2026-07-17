@@ -81,24 +81,24 @@ export type JsonValidatorFormatterComparisonRow = {
 
 export const jsonValidatorFormatterHeaderData: JsonValidatorFormatterHeaderData =
   {
-    title: "JSON Editor & Validator",
-    subtitle: "Edit, format, diff, and repair JSON — all in your browser.",
+    title: "JSON Validator & Formatter",
+    subtitle: "Validate, format, diff, and repair JSON — all in your browser.",
     icon: jsonValidatorIcon,
-    alt: "JSON Editor and Validator icon",
+    alt: "JSON Validator and Formatter icon",
     rounded: false,
   };
 
 export const jsonValidatorFormatterMetaData: JsonValidatorFormatterMetaData = {
-  title: "JSON Editor Online — Validate, Format, Diff & Repair | Free",
+  title: "JSON Validator & Formatter — Free Online Editor with Diff & Repair",
   description:
-    "Free online JSON editor with real-time validation, one-click auto-repair, split and unified diff, and interactive tree editing. Format, minify, sort, compare and fix JSON — everything runs in your browser, nothing uploaded.",
+    "Free online JSON validator and formatter with real-time error checking, one-click auto-repair, split and unified diff, and interactive tree editing. Format, minify, sort, compare and fix JSON — everything runs in your browser, nothing uploaded.",
   url: "/tools/json-validator-and-formatter",
   image: {
     src: "/assets/json_validator_formatter_icon.png",
     type: "image/svg+xml",
   },
   keywords:
-    "json editor online, online json editor, json formatter online free, json validator online, json diff tool, json diff online, compare json online, json diff viewer, json compare two json, json repair online, fix broken json online, auto fix json, json fixer, repair invalid json, json tree editor online, json tree viewer online, json visual editor, json editor with syntax highlighting, json editor with tree view, json validator show error line, json validator line number, json search and replace, json search online, json formatter no upload, json beautifier online, format json online, json prettify online, json minify online, json editor autosave, json load from url, json from curl, json editor free, json codemirror"
+    "json validator, json formatter, json editor online, online json editor, json formatter online free, json validator online, json diff tool, json diff online, compare json online, json diff viewer, json compare two json, json repair online, fix broken json online, auto fix json, json fixer, repair invalid json, json tree editor online, json tree viewer online, json visual editor, json editor with syntax highlighting, json editor with tree view, json validator show error line, json validator line number, json search and replace, json search online, json formatter no upload, json beautifier online, format json online, json prettify online, json minify online, json editor autosave, json load from url, json from curl, json editor free, json codemirror"
 };
 
 export const jsonValidatorFormatterDefaultJson = `{
@@ -124,10 +124,10 @@ export const jsonValidatorFormatterDefaultJson = `{
 }`;
 
 export const jsonValidatorFormatterHeroData = {
-  badge: "JSON Editor",
-  title: "JSON Editor with Live Validation, Auto-Repair & Diff",
+  badge: "JSON Validator & Formatter",
+  title: "JSON Validator & Formatter with Live Diff and Auto-Repair",
   description:
-    "A full-featured JSON editor powered by CodeMirror. Validate as you type with exact error lines, auto-repair broken JSON in one click, compare payloads in split or unified diff, and inspect or edit your data in an interactive visual tree.",
+    "A full-featured JSON validator and formatter powered by CodeMirror. Validate as you type with exact error lines, auto-repair broken JSON in one click, compare payloads in split or unified diff, and inspect or edit your data in an interactive visual tree.",
   textInputLabel: "JSON Input",
   textInputHint:
     "Switch to Tree to browse the structure, inspect nodes, and edit visually. Switch to Diff to compare two JSON payloads.",

@@ -37,8 +37,8 @@ export const unixTimestampFeaturesData: UnixTimestampFeaturesData = {
     },
     {
       icon: FaBolt,
-      title: "Auto-Detect Seconds vs ms",
-      desc: "Paste any timestamp and the converter automatically figures out whether it is in seconds or milliseconds.",
+      title: "Auto-Detects Precision",
+      desc: "Paste any timestamp and the converter automatically figures out whether it's in seconds, milliseconds, microseconds, or nanoseconds.",
     },
     {
       icon: FaMobile,

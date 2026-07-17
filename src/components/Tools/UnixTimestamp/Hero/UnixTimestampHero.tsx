@@ -1,6 +1,15 @@
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { unixTimestampMetaData } from "@/data/tools/unixTimestamp/unixTimestampMetaData";
 import {
+  detectUnit,
+  durationBetween,
+  fromMs,
+  relativeTime,
+  toMs,
+  UNIT_LABELS,
+  UnixTimestampUnit,
+} from "@/utils/unixTimestamp";
+import {
   Badge,
   Box,
   Button,
@@ -11,23 +20,13 @@ import {
   HStack,
   Input,
   SegmentGroup,
+  SimpleGrid,
   Stack,
   Tabs,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-
-const relativeTime = (ms: number): string => {
-  const diffSec = Math.floor((Date.now() - ms) / 1000);
-  const abs = Math.abs(diffSec);
-  const future = diffSec < 0;
-  if (abs < 5) return "just now";
-  if (abs < 60) return `${abs}s ${future ? "from now" : "ago"}`;
-  if (abs < 3600) return `${Math.floor(abs / 60)}m ${future ? "from now" : "ago"}`;
-  if (abs < 86400) return `${Math.floor(abs / 3600)}h ${future ? "from now" : "ago"}`;
-  return `${Math.floor(abs / 86400)}d ${future ? "from now" : "ago"}`;
-};
 
 type ResultRowProps = {
   label: string;
@@ -58,6 +57,11 @@ const ResultRow: React.FC<ResultRowProps> = ({ label, value, accent }) => {
   );
 };
 
+const UNIT_ITEMS = (Object.keys(UNIT_LABELS) as UnixTimestampUnit[]).map((value) => ({
+  label: UNIT_LABELS[value],
+  value,
+}));
+
 const UnixTimestampHero: React.FC = () => {
   const { palette } = useColorPalette();
   const meta = unixTimestampMetaData;
@@ -65,13 +69,17 @@ const UnixTimestampHero: React.FC = () => {
   const [now, setNow] = React.useState<number>(0);
 
   const [tsInput, setTsInput] = React.useState("");
-  const [tsUnit, setTsUnit] = React.useState<"s" | "ms">("s");
+  const [tsUnit, setTsUnit] = React.useState<UnixTimestampUnit>("s");
+  const [tsManualUnit, setTsManualUnit] = React.useState(false);
   const [tsError, setTsError] = React.useState("");
   const [tsResult, setTsResult] = React.useState<{ ms: number; d: Date } | null>(null);
 
   const [dateInput, setDateInput] = React.useState("");
   const [dateError, setDateError] = React.useState("");
   const [dateResult, setDateResult] = React.useState<{ ms: number; s: number; d: Date } | null>(null);
+
+  const [diffA, setDiffA] = React.useState("");
+  const [diffB, setDiffB] = React.useState("");
 
   React.useEffect(() => {
     setNow(Date.now());
@@ -81,14 +89,25 @@ const UnixTimestampHero: React.FC = () => {
 
   React.useEffect(() => {
     if (!tsInput.trim()) { setTsResult(null); setTsError(""); return; }
-    const n = Number(tsInput.trim());
+    const trimmed = tsInput.trim();
+    const n = Number(trimmed);
     if (isNaN(n)) { setTsError("Invalid timestamp"); setTsResult(null); return; }
     setTsError("");
-    const ms = tsUnit === "ms" ? n : n * 1000;
+
+    let unit = tsUnit;
+    if (!tsManualUnit) {
+      const detected = detectUnit(trimmed);
+      if (detected) {
+        unit = detected;
+        if (detected !== tsUnit) setTsUnit(detected);
+      }
+    }
+
+    const ms = toMs(n, unit);
     const d = new Date(ms);
     if (isNaN(d.getTime())) { setTsError("Out of range"); setTsResult(null); return; }
     setTsResult({ ms, d });
-  }, [tsInput, tsUnit]);
+  }, [tsInput, tsUnit, tsManualUnit]);
 
   React.useEffect(() => {
     if (!dateInput) { setDateResult(null); setDateError(""); return; }
@@ -103,7 +122,11 @@ const UnixTimestampHero: React.FC = () => {
   const nowMsDisplay = now > 0 ? now.toLocaleString() : "—";
   const nowUtc = now > 0 ? new Date(now).toUTCString() : "—";
 
-  const useCurrentTs = () => setTsInput(String(nowS));
+  const useCurrentTs = () => {
+    if (!now) return;
+    setTsManualUnit(true);
+    setTsInput(String(fromMs(now, tsUnit)));
+  };
 
   const useCurrentDate = () => {
     if (!now) return;
@@ -111,6 +134,17 @@ const UnixTimestampHero: React.FC = () => {
     const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
     setDateInput(local.toISOString().slice(0, 19));
   };
+
+  const toLocalInputValue = (ms: number) => {
+    const d = new Date(ms);
+    const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+    return local.toISOString().slice(0, 19);
+  };
+
+  const msA = diffA ? new Date(diffA).getTime() : NaN;
+  const msB = diffB ? new Date(diffB).getTime() : NaN;
+  const diffValid = diffA && diffB && !isNaN(msA) && !isNaN(msB);
+  const breakdown = diffValid ? durationBetween(msA, msB) : null;
 
   return (
     <Box as="section">
@@ -150,6 +184,7 @@ const UnixTimestampHero: React.FC = () => {
         <Tabs.List>
           <Tabs.Trigger value="toDate">Timestamp → Date</Tabs.Trigger>
           <Tabs.Trigger value="toTimestamp">Date → Timestamp</Tabs.Trigger>
+          <Tabs.Trigger value="difference">Difference</Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content value="toDate">
@@ -159,30 +194,29 @@ const UnixTimestampHero: React.FC = () => {
                 <Field.Root invalid={!!tsError}>
                   <Field.Label textTransform="uppercase" fontSize="xs" letterSpacing="wider">Unix Timestamp</Field.Label>
                   <Input
-                    placeholder={tsUnit === "s"
-                      ? (now > 0 ? String(nowS) : "e.g. 1700000000")
-                      : (now > 0 ? String(now) : "e.g. 1700000000000")}
+                    placeholder={now > 0 ? String(fromMs(now, tsUnit)) : "e.g. 1700000000"}
                     value={tsInput}
-                    onChange={(e) => setTsInput(e.target.value)}
+                    onChange={(e) => { setTsInput(e.target.value); setTsManualUnit(false); }}
                     fontFamily="mono"
                     size="lg"
                   />
                   {tsError && <Field.ErrorText>{tsError}</Field.ErrorText>}
+                  <Field.HelperText>
+                    Paste a timestamp of any length — seconds, milliseconds, microseconds, or nanoseconds are auto-detected.
+                  </Field.HelperText>
                 </Field.Root>
 
                 <SegmentGroup.Root
                   colorPalette={palette}
                   value={tsUnit}
-                  onValueChange={(details) => setTsUnit(details.value as "s" | "ms")}
+                  onValueChange={(details) => {
+                    setTsManualUnit(true);
+                    setTsUnit(details.value as UnixTimestampUnit);
+                  }}
                   width="fit-content"
                 >
                   <SegmentGroup.Indicator />
-                  <SegmentGroup.Items
-                    items={[
-                      { label: "Seconds", value: "s" },
-                      { label: "Milliseconds", value: "ms" },
-                    ]}
-                  />
+                  <SegmentGroup.Items items={UNIT_ITEMS} />
                 </SegmentGroup.Root>
 
                 {tsResult ? (
@@ -250,6 +284,74 @@ const UnixTimestampHero: React.FC = () => {
                 <Button size="sm" variant="ghost" colorPalette={palette} onClick={useCurrentDate} alignSelf="flex-start">
                   Use current time
                 </Button>
+              </Stack>
+            </Card.Body>
+          </Card.Root>
+        </Tabs.Content>
+
+        <Tabs.Content value="difference">
+          <Card.Root>
+            <Card.Body>
+              <Stack gap={4}>
+                <SimpleGrid columns={{ base: 1, sm: 2 }} gap={4}>
+                  <Field.Root>
+                    <Field.Label textTransform="uppercase" fontSize="xs" letterSpacing="wider">From</Field.Label>
+                    <Input
+                      type="datetime-local"
+                      value={diffA}
+                      onChange={(e) => setDiffA(e.target.value)}
+                      step="1"
+                      fontFamily="mono"
+                      colorPalette={palette}
+                    />
+                    <Button size="xs" variant="ghost" colorPalette={palette} mt={1} onClick={() => now && setDiffA(toLocalInputValue(now))}>
+                      Use current time
+                    </Button>
+                  </Field.Root>
+                  <Field.Root>
+                    <Field.Label textTransform="uppercase" fontSize="xs" letterSpacing="wider">To</Field.Label>
+                    <Input
+                      type="datetime-local"
+                      value={diffB}
+                      onChange={(e) => setDiffB(e.target.value)}
+                      step="1"
+                      fontFamily="mono"
+                      colorPalette={palette}
+                    />
+                    <Button size="xs" variant="ghost" colorPalette={palette} mt={1} onClick={() => now && setDiffB(toLocalInputValue(now))}>
+                      Use current time
+                    </Button>
+                  </Field.Root>
+                </SimpleGrid>
+
+                {breakdown ? (
+                  <Stack gap={3}>
+                    <Text fontSize="sm" color="fg.muted">
+                      {breakdown.future ? "“To” is later than “From” by:" : "“To” is earlier than “From” by:"}
+                    </Text>
+                    <SimpleGrid columns={{ base: 2, sm: 4 }} gap={3}>
+                      {[
+                        { n: breakdown.days, l: "Days" },
+                        { n: breakdown.hours, l: "Hours" },
+                        { n: breakdown.minutes, l: "Minutes" },
+                        { n: breakdown.seconds, l: "Seconds" },
+                      ].map((unit) => (
+                        <Box key={unit.l} borderWidth="1px" borderRadius="xl" py={4} px={3} textAlign="center" bg="bg.subtle">
+                          <Text fontFamily="mono" fontSize={{ base: "xl", md: "2xl" }} fontWeight="medium" color={`${palette}.fg`} lineHeight={1}>
+                            {String(unit.n).padStart(2, "0")}
+                          </Text>
+                          <Text fontSize="xs" color="fg.subtle" mt={1} textTransform="uppercase" letterSpacing="wider">
+                            {unit.l}
+                          </Text>
+                        </Box>
+                      ))}
+                    </SimpleGrid>
+                  </Stack>
+                ) : (
+                  <Box borderWidth="1px" borderRadius="md" px={4} py={3}>
+                    <Text color="fg.muted" fontSize="sm">Pick two dates above to see the difference between them</Text>
+                  </Box>
+                )}
               </Stack>
             </Card.Body>
           </Card.Root>
