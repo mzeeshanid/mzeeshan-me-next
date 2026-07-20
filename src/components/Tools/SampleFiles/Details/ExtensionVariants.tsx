@@ -36,6 +36,9 @@ import {
 
 const SECTION_ORDER = [
   { key: "basic", label: "Basic" },
+  { key: "size_duration", label: "Size & Duration" },
+  { key: "size_resolution", label: "Size & Resolution" },
+  { key: "general", label: "General" },
   { key: "aspect_ratio", label: "Aspect Ratio" },
   { key: "resolution", label: "Resolution" },
   { key: "dpi", label: "DPI" },
@@ -45,8 +48,6 @@ const SECTION_ORDER = [
   { key: "bitrate", label: "Bitrate" },
   { key: "color_profile", label: "Color Profile" },
   { key: "header_container", label: "Header & Container" },
-  { key: "size_duration", label: "Size & Duration" },
-  { key: "size_resolution", label: "Size & Resolution" },
   { key: "audio", label: "Audio" },
   { key: "audio_quality", label: "Audio Quality" },
   { key: "bit_depth", label: "Bit Depth" },
@@ -59,7 +60,6 @@ const SECTION_ORDER = [
   { key: "metadata", label: "Metadata" },
   { key: "sample_rate_bit_depth", label: "Sample Rate & Bit Depth" },
   { key: "waveform_signal", label: "Waveform & Signal Type" },
-  { key: "general", label: "General" },
   { key: "misc", label: "Misc" },
 ];
 
@@ -684,7 +684,10 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
       if (!getVariantDownloadUrl(variant)) return;
       try {
         setDownloadingId(variant.documentId);
-        await incrementVariantDownloadCount(variant.documentId, extension.documentId);
+        await incrementVariantDownloadCount(
+          variant.documentId,
+          extension.documentId,
+        );
       } catch {
         // silent
       } finally {
