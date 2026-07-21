@@ -57,6 +57,8 @@ const SECTION_ORDER = [
   { key: "content_type", label: "Content Type" },
   { key: "edge_cases", label: "Edge Cases" },
   { key: "encoding_variants", label: "Encoding Variants" },
+  { key: "character_encoding", label: "Character Encoding" },
+  { key: "line_endings", label: "Line Endings" },
   { key: "metadata", label: "Metadata" },
   { key: "sample_rate_bit_depth", label: "Sample Rate & Bit Depth" },
   { key: "waveform_signal", label: "Waveform & Signal Type" },
