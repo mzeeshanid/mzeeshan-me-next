@@ -14,6 +14,7 @@ import DriveDirectLinks from "@/components/Tools/DriveDirect/Output/DriveDirectL
 import DriveDirectSeo from "@/components/Tools/DriveDirect/Seo/DriveDirectSeo";
 import DriveDirectSteps from "@/components/Tools/DriveDirect/Steps/DriveDirectSteps";
 import DriveDirectUsage from "@/components/Tools/DriveDirect/Usage/DriveDirectUsage";
+import DriveDirectUseCases from "@/components/Tools/DriveDirect/UseCases/DriveDirectUseCases";
 import { driveDirectData } from "@/data/tools/driveDirect/driveDirectData";
 import { Toaster } from "@/components/ui/toaster";
 import { AspectRatio, Box, Container, Spacer } from "@chakra-ui/react";
@@ -94,6 +95,11 @@ const DriveDirectHome: React.FC<DriveDirectHomeProps> = (
       <Spacer p={4} />
       <Container maxW="6xl">
         <DriveDirectUsage />
+      </Container>
+
+      <Spacer p={4} />
+      <Container maxW="6xl">
+        <DriveDirectUseCases />
       </Container>
 
       <Spacer p={4} />

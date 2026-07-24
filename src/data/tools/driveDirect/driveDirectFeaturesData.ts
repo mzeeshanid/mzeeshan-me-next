@@ -23,7 +23,7 @@ export const driveDirectFeaturesData: DriveDirectFeaturesData = {
     header: {
         badge: "Free & Secure",
         title: "Google Drive Shareable to Direct Download Links",
-        desc: "Drive Direct offers several advantages that make it the best choice for generating direct download links from Google Drive."
+        desc: "Drive Direct converts Google Drive shareable links into direct download links, and offers several advantages that make it the best choice for the job."
     },
     features: [
         {

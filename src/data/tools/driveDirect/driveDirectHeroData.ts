@@ -13,7 +13,7 @@ export type DriveDirectHeroData = {
 
 export const driveDirectHeroData: DriveDirectHeroData = {
     heroTitle: "Google Drive Direct Download Link Generator",
-    heroDesc: "Paste your Google Drive share link — get a direct download URL for embedding, sharing & automation.",
+    heroDesc: "Paste your Google Drive share link to convert it into a direct download URL for embedding, sharing & automation.",
     heroImage: {
         alt: "drive direct hero image",
         width: 400,

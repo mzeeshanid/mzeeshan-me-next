@@ -14,7 +14,7 @@ export type DriveDirectMetaMetaData = {
 
 export const driveDirectMetaData: DriveDirectMetaMetaData = {
     title: "Google Drive Direct Download Link Generator",
-    desc: "Generate direct download links from Google Drive share links instantly. No login, free to use, and no uploads required.",
+    desc: "Convert Google Drive share links into direct download links instantly. No login, free to use, and no uploads required.",
     image: {
         alt: "drive direct hero image",
         width: 400,

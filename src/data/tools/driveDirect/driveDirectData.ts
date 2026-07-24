@@ -9,6 +9,7 @@ import { driveDirectLimitationData, DriveDirectLimitationData } from './driveDir
 import { driveDirectMetaData, DriveDirectMetaMetaData } from './driveDirectMetaData';
 import { DriveDirectShareLinkStepsData, driveDirectStepsData } from './driveDirectStepsData';
 import { driveDirectUsageData, DriveDirectUsageData } from './driveDirectUsageData';
+import { driveDirectUseCasesData, DriveDirectUseCasesData } from './driveDirectUseCasesData';
 import { driveDirectWorkingData, DriveDirectWorkingData } from './driveDirectWorkingData';
 
 /* Generic */
@@ -29,6 +30,7 @@ export type DriveDirectDataModel = {
     limitation: DriveDirectLimitationData,
     blockQuote: DriveDirectBlockQuoteData, 
     usage: DriveDirectUsageData,
+    useCases: DriveDirectUseCasesData,
     working: DriveDirectWorkingData,
     comparison: DriveDirectComparisonData
 }
@@ -44,6 +46,7 @@ export const driveDirectData = (): DriveDirectDataModel => {
         limitation: driveDirectLimitationData,
         blockQuote: driveDirectBlockQuoteData,
         usage: driveDirectUsageData,
+        useCases: driveDirectUseCasesData,
         working: driveDirectWorkingData,
         comparison: driveDirectComparisonData
     }

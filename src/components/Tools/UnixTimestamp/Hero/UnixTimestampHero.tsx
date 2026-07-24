@@ -151,7 +151,7 @@ const UnixTimestampHero: React.FC = () => {
       <Card.Root mb={6}>
         <Card.Header>
           <VStack align="start" gap={1}>
-            <Heading size="3xl" as="h1">{meta.title}</Heading>
+            <Heading size="3xl" as="h2">{meta.title}</Heading>
             <Text color="fg.muted">{meta.desc}</Text>
           </VStack>
         </Card.Header>

@@ -32,7 +32,7 @@ const DriveDirectSeo: React.FC<Props> = (props: Props) => {
         })}
         <meta
           name="keywords"
-          content="Google Drive, Direct Link, Download Link, Link Generator, Free Tool, No Login, Secure, Private, Instant Links, Shareable Links"
+          content="Google Drive, Direct Link, Download Link, Link Generator, Link Converter, Free Tool, No Login, Secure, Private, Instant Links, Shareable Links"
         />
       </Head>
       <SoftwareApplicationJsonLd

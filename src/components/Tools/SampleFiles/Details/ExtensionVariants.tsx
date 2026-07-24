@@ -62,6 +62,9 @@ const SECTION_ORDER = [
   { key: "metadata", label: "Metadata" },
   { key: "sample_rate_bit_depth", label: "Sample Rate & Bit Depth" },
   { key: "waveform_signal", label: "Waveform & Signal Type" },
+  { key: "document_structure", label: "Document Structure" },
+  { key: "spec_version", label: "Specification Version" },
+  { key: "text_formatting", label: "Text Formatting" },
   { key: "misc", label: "Misc" },
 ];
 
