@@ -49,6 +49,48 @@ export type JsonValidatorFormatterFaq = {
   answer: string;
 };
 
+export type JsonValidatorFormatterFaqGroup = {
+  title: string;
+  faqs: JsonValidatorFormatterFaq[];
+};
+
+export type JsonValidatorFormatterFaqsData = {
+  header: {
+    badge: string;
+    title: string;
+    desc: string;
+  };
+  faqs: JsonValidatorFormatterFaq[];
+  groups?: JsonValidatorFormatterFaqGroup[];
+};
+
+export type JsonValidatorFormatterTroubleshootItem = {
+  error: string;
+  description: string;
+  fix: string;
+};
+
+export type JsonValidatorFormatterGuideStep = {
+  title: string;
+  description: string;
+};
+
+export type JsonValidatorFormatterCheatSheetRule = {
+  rule: string;
+  valid: string;
+  invalid: string;
+};
+
+export type JsonValidatorFormatterCheatSheetFact = {
+  label: string;
+  value: string;
+};
+
+export type JsonValidatorFormatterUseCase = {
+  title: string;
+  description: string;
+};
+
 type SectionHeaderData = {
   badge: string;
   title: string;
@@ -205,8 +247,7 @@ export const jsonValidatorFormatterBenefitsData: {
 export const jsonValidatorFormatterRelatedArticleData = {
   badge: "Related",
   title: "Read more",
-  description:
-    "This is a placeholder related article for now. We can swap it with the dedicated JSON article as soon as that write-up is ready.",
+  description: "Helpful articles about validating and formatting JSON.",
 };
 
 export const jsonValidatorFormatterSearchData = {
@@ -285,6 +326,170 @@ export const jsonValidatorFormatterFeaturesData = {
         "Changes are saved to local storage automatically every second. Name your documents, manage multiple payloads, and restore any previous version from the history panel — without creating an account.",
     },
   ] as JsonValidatorFormatterFeature[],
+};
+
+export const jsonValidatorFormatterTroubleshootingData = {
+  header: {
+    badge: "Troubleshooting",
+    title: "Landed here because of a JSON error? Fix these first",
+    description:
+      "These are the JSON errors developers hit most in browser consoles, build logs, and APIs. Paste your JSON above — the validator will point to the exact line and the repair button fixes most of these automatically.",
+  },
+  items: [
+    {
+      error: "Unexpected token < in JSON at position 0",
+      description:
+        "Your code tried to parse something that isn't JSON — usually an HTML error page returned by a server instead of a JSON response.",
+      fix: "log the raw response body before parsing and confirm the endpoint actually returns JSON.",
+    },
+    {
+      error: "Unexpected end of JSON input",
+      description:
+        "The JSON was cut off mid-structure — often a missing closing } or ], or an empty response body.",
+      fix: "paste it into the validator above; it flags exactly where the structure is unterminated.",
+    },
+    {
+      error: "Expected double-quoted property name in JSON",
+      description:
+        "A key isn't wrapped in double quotes, or is single-quoted or unquoted. JSON requires \"key\", never 'key' or bare key.",
+      fix: "the one-click repair adds the missing quotes automatically.",
+    },
+    {
+      error: "Unexpected non-whitespace character after JSON",
+      description:
+        "There's extra content after a complete, valid JSON value — commonly two JSON objects concatenated together, or trailing text.",
+      fix: "check for a second payload appended after the first closing brace.",
+    },
+    {
+      error: "Unexpected token , in JSON (trailing comma)",
+      description:
+        "Standard JSON does not allow a comma after the last item in an object or array — unlike JavaScript.",
+      fix: "remove the comma, or click Repair to strip trailing commas automatically.",
+    },
+    {
+      error: "Unexpected token u in JSON (parsing 'undefined')",
+      description:
+        "Something tried to JSON.parse(undefined) — usually a variable that was never set before parsing.",
+      fix: "guard against empty responses before calling parse.",
+    },
+  ] as JsonValidatorFormatterTroubleshootItem[],
+};
+
+export const jsonValidatorFormatterGuideData = {
+  header: {
+    badge: "Guide",
+    title: "How to format and validate JSON online",
+  },
+  steps: [
+    {
+      title: "Paste your JSON",
+      description:
+        "Drop raw JSON into the editor above — from an API response, a config file, or a log line. Large payloads are fine; the editor won't lag.",
+    },
+    {
+      title: "Read the error, if any",
+      description:
+        "Invalid JSON is underlined with the exact line and column of the problem, plus a plain-English reason instead of a raw parser message.",
+    },
+    {
+      title: "Click Repair or fix manually",
+      description:
+        "Common issues — missing quotes, trailing commas, unescaped characters — are fixed with one click. For anything else, edit inline with full syntax highlighting.",
+    },
+    {
+      title: "Format, minify, or export",
+      description:
+        "Pretty-print with 2 or 4-space indentation for readability, minify to a single line for production, or switch to Tree view to browse and edit the structure visually.",
+    },
+  ] as JsonValidatorFormatterGuideStep[],
+  video: {
+    badge: "Video Guide",
+    title: "Watch: Format, Repair & Diff JSON Visually",
+    description:
+      "A walkthrough of this tool — editing, validating, repairing and diffing JSON step by step.",
+    youtubeId: "ng1ylJVhjQc",
+    youtubeStart: 3,
+    iframeTitle: "JSON Validator and Formatter Tutorial",
+  },
+};
+
+export const jsonValidatorFormatterCheatSheetData = {
+  header: {
+    badge: "Reference",
+    title: "JSON syntax cheat sheet",
+    description:
+      "The rules that trip people up most — bookmark this if you write JSON by hand.",
+  },
+  rules: [
+    {
+      rule: "Keys must be double-quoted",
+      valid: '"id": 1',
+      invalid: "id: 1  /  'id': 1",
+    },
+    {
+      rule: "Strings use double quotes only",
+      valid: '"name": "Jo"',
+      invalid: "'name': 'Jo'",
+    },
+    {
+      rule: "No trailing commas",
+      valid: "[1, 2, 3]",
+      invalid: "[1, 2, 3,]",
+    },
+    {
+      rule: "No comments",
+      valid: "— none allowed —",
+      invalid: "// comment",
+    },
+    {
+      rule: "No undefined / functions",
+      valid: "null",
+      invalid: "undefined",
+    },
+    {
+      rule: "Numbers can't have leading zero",
+      valid: "0.5",
+      invalid: "05",
+    },
+  ] as JsonValidatorFormatterCheatSheetRule[],
+  facts: [
+    {
+      label: "Data Types",
+      value: "string · number · object · array · boolean · null",
+    },
+    {
+      label: "File Extension",
+      value: ".json",
+    },
+    {
+      label: "Mime Type",
+      value: "application/json",
+    },
+  ] as JsonValidatorFormatterCheatSheetFact[],
+};
+
+export const jsonValidatorFormatterUseCasesData = {
+  header: {
+    badge: "Use Cases",
+    title: "Validate JSON for any workflow",
+  },
+  cases: [
+    {
+      title: "API responses",
+      description:
+        "Paste a raw fetch or Postman response to catch malformed JSON before it breaks your frontend, and diff it against a previous version.",
+    },
+    {
+      title: "Config files",
+      description:
+        "Validate `package.json`, `tsconfig.json`, or any app config for syntax errors before a broken build.",
+    },
+    {
+      title: "Logs and debugging",
+      description:
+        "Copy a JSON blob straight out of a log line — the formatter handles escaped strings and minified output equally well.",
+    },
+  ] as JsonValidatorFormatterUseCase[],
 };
 
 export const jsonValidatorFormatterComparisonData = {
@@ -387,49 +592,82 @@ export const jsonValidatorFormatterComparisonData = {
   ] as JsonValidatorFormatterComparisonRow[],
 };
 
-export const jsonValidatorFormatterFaqsData = {
+const jsonValidatorEditorFaqs: JsonValidatorFormatterFaq[] = [
+  {
+    question: "Can I compare two JSON payloads online?",
+    answer:
+      "Yes. Click the **Diff** tab, paste your original JSON in the left panel and the modified version in the right panel, then choose between *Split* (side-by-side) and *Unified* view. Changes are highlighted at the character level. In Unified mode you can accept or reject individual diff chunks without leaving the editor.",
+  },
+  {
+    question: "Can the tool automatically fix broken JSON?",
+    answer:
+      "Yes. When the editor detects a syntax error, a **Repair JSON** button appears inline next to the error marker. Click it and the tool uses the [`jsonrepair`](https://github.com/josdejong/jsonrepair) library to fix the most common issues — missing quotes around keys, trailing commas, unclosed brackets and braces, unescaped characters, and invalid number formats — in one click. The repair result appears in the diff view so you can review exactly what changed before accepting it.",
+  },
+  {
+    question: "Can I edit JSON in a visual tree instead of raw text?",
+    answer:
+      "Yes. Switch to the **Tree** tab. Every object and array starts collapsed so large payloads stay manageable. Click any node to expand it, click a value to edit it inline, and use the action buttons on each node to add a key, delete a field, or copy the full path. Type badges (*String*, *Int*, *Float*, *Boolean*, *Null*, *Array*, *Object*) show the type of every value at a glance.",
+  },
+  {
+    question: "Does the tool save my work automatically?",
+    answer:
+      "Yes. Every change is written to your browser's `localStorage` within one second. You can also name documents, manage multiple payloads in the **history** panel, and restore any previously saved version — without creating an account. *Nothing is stored on a server.*",
+  },
+  {
+    question: "How do I format an escaped JSON string copied from a log?",
+    answer:
+      "Paste the escaped string into the **Text** tab and click **Remove Escape Characters**. The tool strips surrounding quotes and unescapes backslashes, turning a raw log line like `{\\\"key\\\":\\\"value\\\"}` into readable JSON that the formatter and tree view can process normally.",
+  },
+];
+
+const jsonValidatorErrorsFaqs: JsonValidatorFormatterFaq[] = [
+  {
+    question: "Does the validator show which line the error is on?",
+    answer:
+      "Yes. When JSON fails to parse, an inline error marker highlights the **exact line and column** where parsing broke down. The error message also appears below the toolbar. This is much faster than tools that only say *\"parsing failed\"* without pointing to the location.",
+  },
+  {
+    question: "Is a trailing comma allowed in JSON?",
+    answer:
+      "No. Standard JSON does not allow a comma after the last item in an object or array, unlike *JavaScript* object literals. Most parsers will throw a syntax error — the [JSON specification](https://www.json.org/json-en.html) makes no exception for trailing commas, and the one-click repair strips them automatically.",
+  },
+  {
+    question: "Can JSON have comments?",
+    answer:
+      "No — the JSON specification has no comment syntax. If you need comments, use a superset like [JSON5](https://json5.org/) or [JSONC](https://code.visualstudio.com/docs/languages/json#_json-with-comments), or strip comments before parsing as strict JSON.",
+  },
+  {
+    question:
+      "What's the difference between JSON and a JavaScript object literal?",
+    answer:
+      "JSON requires **double-quoted keys and string values**, and disallows trailing commas, comments, functions, and `undefined`. A JavaScript object literal allows all of these — *JSON is a strict subset* of JavaScript's object syntax.",
+  },
+];
+
+const jsonValidatorPrivacyFaqs: JsonValidatorFormatterFaq[] = [
+  {
+    question: "Does the tool send my JSON to a server?",
+    answer:
+      "No. Validation, formatting, diff, repair, tree rendering, and auto-save all run **entirely in your browser**. Your JSON never leaves your device, so you can safely inspect payloads that contain credentials, PII, or internal API data.",
+  },
+];
+
+export const jsonValidatorFormatterFaqsData: JsonValidatorFormatterFaqsData = {
   header: {
     badge: "FAQs",
     title: "Questions developers usually ask",
     desc: "A few quick answers before you paste in production payloads, logs, or test fixtures.",
   },
+  groups: [
+    { title: "Using the editor", faqs: jsonValidatorEditorFaqs },
+    { title: "Errors & validation", faqs: jsonValidatorErrorsFaqs },
+    { title: "Privacy & data", faqs: jsonValidatorPrivacyFaqs },
+  ],
   faqs: [
-    {
-      question: "Can I compare two JSON payloads online?",
-      answer:
-        "Yes. Click the Diff tab, paste your original JSON in the left panel and the modified version in the right panel, then choose between Split (side-by-side) and Unified view. Changes are highlighted at the character level. In Unified mode you can accept or reject individual diff chunks without leaving the editor.",
-    },
-    {
-      question: "Can the tool automatically fix broken JSON?",
-      answer:
-        "Yes. When the editor detects a syntax error, a Repair JSON button appears inline next to the error marker. Click it and the tool uses the jsonrepair library to fix the most common issues — missing quotes around keys, trailing commas, unclosed brackets and braces, unescaped characters, and invalid number formats — in one click. The repair result appears in the diff view so you can review exactly what changed before accepting it.",
-    },
-    {
-      question: "Can I edit JSON in a visual tree instead of raw text?",
-      answer:
-        "Yes. Switch to the Tree tab. Every object and array starts collapsed so large payloads stay manageable. Click any node to expand it, click a value to edit it inline, and use the action buttons on each node to add a key, delete a field, or copy the full path. Type badges (String, Int, Float, Boolean, Null, Array, Object) show the type of every value at a glance.",
-    },
-    {
-      question: "Does the tool save my work automatically?",
-      answer:
-        "Yes. Every change is written to your browser's localStorage within one second. You can also name documents, manage multiple payloads in the history panel, and restore any previously saved version — without creating an account. Nothing is stored on a server.",
-    },
-    {
-      question: "Does the validator show which line the error is on?",
-      answer:
-        "Yes. When JSON fails to parse, an inline error marker highlights the exact line and column where parsing broke down. The error message also appears below the toolbar. This is much faster than tools that only say \"parsing failed\" without pointing to the location.",
-    },
-    {
-      question: "How do I format an escaped JSON string copied from a log?",
-      answer:
-        "Paste the escaped string into the Text tab and click Remove Escape Characters. The tool strips surrounding quotes and unescapes backslashes, turning a raw log line like \"{\\\"key\\\":\\\"value\\\"}\" into readable JSON that the formatter and tree view can process normally.",
-    },
-    {
-      question: "Does the tool send my JSON to a server?",
-      answer:
-        "No. Validation, formatting, diff, repair, tree rendering, and auto-save all run entirely in your browser. Your JSON never leaves your device, so you can safely inspect payloads that contain credentials, PII, or internal API data.",
-    },
-  ] as JsonValidatorFormatterFaq[],
+    ...jsonValidatorEditorFaqs,
+    ...jsonValidatorErrorsFaqs,
+    ...jsonValidatorPrivacyFaqs,
+  ],
 };
 
 // ─── JSON tool registry ───────────────────────────────────────────────────────

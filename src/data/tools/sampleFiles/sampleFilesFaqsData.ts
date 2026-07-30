@@ -3,87 +3,91 @@ export type SampleFilesFAQItem = {
     answer: string;
 };
 
+export type SampleFilesFAQGroup = {
+    title: string;
+    faqs: SampleFilesFAQItem[];
+};
+
 export type SampleFilesFaqsData = {
     badge: string;
     title: string;
     subtitle: string;
     faqs: SampleFilesFAQItem[];
+    groups?: SampleFilesFAQGroup[];
 };
+
+const usageFaqs: SampleFilesFAQItem[] = [
+    {
+        question: "What file types are available for download?",
+        answer:
+            "We offer **55+ file types** across audio, video, image, document, and data categories, including:\n\n" +
+            "- Audio: MP3, WAV, FLAC\n" +
+            "- Video: MP4, MKV\n" +
+            "- Documents: PDF, DOCX\n" +
+            "- Images: PNG, JPEG\n" +
+            "- Data: CSV, JSON, XML\n\n" +
+            "Every format has multiple variants so you can test the exact scenario your app needs to handle.",
+    },
+    {
+        question: "How do I find the right file variant for my test case?",
+        answer:
+            "Use the search bar in the hero to jump straight to an extension by name, or browse by category — Video, Audio, Documents, Images, Archives, and more. On each extension's page, variants are grouped into labeled sections such as **Codec**, **Resolution**, or **Channels**, with a short description of the exact scenario each one covers, so you can pick the right file without guessing.",
+    },
+    {
+        question: "What if the specific file variant I need isn't available?",
+        answer:
+            "If a variant you need — the kind QA engineers and developers ask for most — isn't available yet, submit a request using the **file request form** on this page. New variants are added regularly based on real requests.",
+    },
+];
+
+const technicalFaqs: SampleFilesFAQItem[] = [
+    {
+        question: "How is this different from other sites of sample files?",
+        answer:
+            "Most sample file sites — including [file-examples.com](https://file-examples.com/) and [filesamples.com](https://filesamples.com/) — only offer variants by generic size (small, medium, large). That tells you almost nothing about real-world behavior.\n\n" +
+            "This library is organized around actual testing scenarios instead. Need an MP4 encoded specifically in **H.264**, **AV1**, **HEVC**, or **VP9**? You won't find that level of detail on general-purpose sample file sites — every variant here maps to a concrete developer or QA use case, not just a file size.",
+    },
+    {
+        question: "Are these AI generated files?",
+        answer:
+            "No — these are not AI generated files. Every sample is produced with the actual software or command-line tool that creates that format. For example, `ffmpeg` is used to generate the codec-specific video and audio variants, and Apple's Preview app is used to export TIFF images.\n\n" +
+            "AI assistance is only used during research — to help identify the most common, real-world use cases and variant types developers and QA engineers actually need for each file extension.",
+    },
+    {
+        question: "Are there sample files for testing error handling — like corrupt or zero-byte files?",
+        answer:
+            "Yes. We include intentionally malformed files, zero-byte (empty) files, truncated files, and files with invalid headers across several formats — specifically designed to help you verify that your app **fails gracefully** instead of crashing or hanging.",
+    },
+];
+
+const privacyFaqs: SampleFilesFAQItem[] = [
+    {
+        question: "Are the sample files free to download without registration?",
+        answer:
+            "Yes — **100% free**, no account required, no sign-up, no email address. Every file is available for immediate download, with no hidden paywalls, download rate limits, or premium tiers.",
+    },
+    {
+        question: "Do you track or store any personal data when I download a file?",
+        answer:
+            "No personally identifiable data is collected or stored. Downloads are anonymous, and no account or login is required to download a file.\n\n" +
+            "To help prioritize which variants to add next, we track aggregate download counts per file type — but this is never tied to any personally identifiable information.",
+    },
+    {
+        question: "Can I use these sample files in commercial projects or share them with my team?",
+        answer:
+            "Yes. Feel free to use all files from the Sample Files app for personal and commercial testing and development purposes. You can share direct download URLs with teammates or include them in internal test fixtures.\n\n" +
+            "The one restriction: redistribution of the files as standalone products is not licensed.",
+    },
+];
 
 export const sampleFilesFAQData: SampleFilesFaqsData = {
     badge: "FAQs",
     title: "Got Questions?",
     subtitle: "Answers to common questions from developers and testers",
-    faqs: [
-        {
-            question: "What file types are available for download?",
-            answer:
-                "We offer 55+ file types across audio, video, image, document, and data categories — including MP3, WAV, FLAC, MP4, MKV, PDF, DOCX, PNG, JPEG, CSV, JSON, XML, and many more. Every format has multiple variants so you can test exactly the scenario your app needs to handle.",
-        },
-        {
-            question: "Are the sample files free to download without registration?",
-            answer:
-                "Yes — 100% free, no account required, no sign-up, no email address. Every file is available for immediate download. There are no hidden paywalls, rate limits on downloads, or premium tiers.",
-        },
-        {
-            question: "Can I use these files in automated tests or CI/CD pipelines?",
-            answer:
-                "Absolutely. Every file has a permanent, direct download URL with no redirects, no CAPTCHAs, and no rate limiting. You can reference the URLs directly in your test suites, GitHub Actions workflows, Jenkinsfiles, or shell scripts for fully automated file-upload and processing tests.",
-        },
-        {
-            question: "What audio variants are available for testing?",
-            answer:
-                "Audio files are available in mono, stereo, 5.1 surround, and 7.1 surround channel configurations across multiple sample rates (44.1 kHz, 48 kHz, 96 kHz) and bit depths. Formats include MP3, WAV, FLAC, AAC, OGG, and AIFF — covering the full range of scenarios needed for media player, streaming app, and audio pipeline testing.",
-        },
-        {
-            question: "Do you have video test files in different codecs like H.264, H.265, or VP9?",
-            answer:
-                "Yes. Video sample files are available encoded in H.264 (AVC), H.265 (HEVC), and VP9, with container formats including MP4, MKV, MOV, and WebM. Both portrait and landscape orientations are provided. This lets you catch codec-specific playback or transcoding failures before your users do.",
-        },
-        {
-            question: "Are there sample files for testing error handling — like corrupt or zero-byte files?",
-            answer:
-                "Yes. We include intentionally malformed files, zero-byte (empty) files, truncated files, and files with invalid headers across several formats. These are specifically designed to help you verify that your app fails gracefully — showing the right error message instead of crashing or hanging.",
-        },
-        {
-            question: "What image variants are available for testing?",
-            answer:
-                "Image test files include variants with transparency (alpha channel), CMYK color space (for print pipeline testing), high-DPI / Retina-resolution files, grayscale, and different bit depths. Formats include PNG, JPEG, WebP, TIFF, SVG, BMP, and HEIC.",
-        },
-        {
-            question: "How do I download a sample file programmatically or via a direct URL?",
-            answer:
-                "Each variant has a stable, permanent URL shown on its detail page. You can use curl, wget, fetch(), axios, or any HTTP client to download it directly. Example: curl -O https://samplefiles.io/files/audio/mp3/sample-3s.mp3. No authentication headers or cookies are required.",
-        },
-        {
-            question: "Do you have large sample files for upload and bandwidth testing?",
-            answer:
-                "Yes. Many formats offer large file variants — from a few KB up to several hundred MB — specifically for stress-testing file upload endpoints, validating multipart form handling, or measuring throughput under load. File sizes are clearly labeled on each variant so you can pick the right one for your scenario.",
-        },
-        {
-            question: "Can I get sample CSV, JSON, or XML files for data parsing tests?",
-            answer:
-                "Yes. Structured data sample files include CSV with various delimiters, quoted fields, and Unicode content; JSON with nested objects, arrays, and edge-case values; and XML with namespaces and schema variations. Variants also include malformed versions to test how your parser handles bad input.",
-        },
-        {
-            question: "How is this different from sites that only offer files by size (small, medium, large)?",
-            answer:
-                "Size-only variants tell you almost nothing about real-world behaviour. This library organises files by testing scenario — so instead of \"large MP3\", you get \"mono 96 kHz FLAC\" or \"5.1 surround AAC\". Every variant maps to a specific developer or QA use case, so you can write tests against the exact condition your app needs to handle.",
-        },
-        {
-            question: "What if the specific file variant I need isn't available?",
-            answer:
-                "Use the file request form on the page to describe the format, codec, channel configuration, or edge case you need. Requests from developers and QA engineers drive what gets added next — new variants are published regularly based on community feedback.",
-        },
-        {
-            question: "Do you track or store any personal data when I download a file?",
-            answer:
-                "No personal data is collected or stored. Downloads are anonymous — we do not log IP addresses tied to individuals, require login, or use tracking pixels. Aggregate download counts per file type are tracked to prioritise new variants, but nothing that identifies you.",
-        },
-        {
-            question: "Can I use these sample files in commercial projects or share them with my team?",
-            answer:
-                "Yes. All sample files are free to use for personal and commercial testing and development purposes. You can share direct download URLs with teammates or include them in internal test fixtures. The files are not licensed for redistribution as standalone products.",
-        },
+    groups: [
+        { title: "Usage", faqs: usageFaqs },
+        { title: "Technical & Testing", faqs: technicalFaqs },
+        { title: "Privacy & Legal", faqs: privacyFaqs },
     ],
+    faqs: [...usageFaqs, ...technicalFaqs, ...privacyFaqs],
 };

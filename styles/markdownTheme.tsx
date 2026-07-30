@@ -105,12 +105,10 @@ export const getMarkdownTheme = (): Components => {
 
 export const markdownComponents = {
   gist: ({ node, ...props }: any) => <Gist {...props} />,
-  code: ({ inline, children }: any) => {
-    if (!inline) {
-      // Let <pre> handle block code
-      return null;
-    }
-
+  code: ({ children }: any) => {
+    // The custom `pre` renderer below reads the nested <code> element's
+    // props directly without ever rendering it, so this component only
+    // actually runs for inline code — block code never reaches it.
     return (
       <Box
         as="code"

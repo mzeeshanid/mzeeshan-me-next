@@ -6,14 +6,19 @@ import {
   SimpleGrid,
   Spacer,
 } from "@chakra-ui/react";
-import { sampleFilesStatsData } from "@/data/tools/sampleFiles/statsData";
+import {
+  sampleFilesStatsData,
+  SampleFilesStatsData,
+} from "@/data/tools/sampleFiles/statsData";
 import SampleFilesFeatureItem from "./SampleFilesFeatureItem";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
 
-type Props = {};
+type Props = {
+  data?: SampleFilesStatsData;
+};
 
-const SampleFilesFeatures: React.FC<Props> = () => {
-  const data = sampleFilesStatsData;
+const SampleFilesFeatures: React.FC<Props> = (props) => {
+  const data = props.data ?? sampleFilesStatsData;
 
   return (
     <Box as={"section"}>

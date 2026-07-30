@@ -14,24 +14,39 @@ import {
   fetchSampleFilesCategoriesStrapi,
   SampleFilesCategoryModel,
 } from "@/apis/sampleFiles/sampleFilesCategories";
-import SampleFilesCategories from "@/components/Tools/SampleFiles/Categories/SampleFilesCategories";
+import {
+  fetchSampleFilesChangelogStrapi,
+  SampleFilesChangelogEntry,
+} from "@/apis/sampleFiles/sampleFilesVariant";
+import SampleFilesChangelog from "@/components/Tools/SampleFiles/Changelog/SampleFilesChangelog";
 import SampleFilesStats from "@/components/Tools/SampleFiles/Stats/SampleFilesStats";
 import SampleFilesCTA from "@/components/Tools/SampleFiles/CTA/SampleFilesCTA";
 import SampleFilesFeatures from "@/components/Tools/SampleFiles/Features/SampleFilesFeatures";
 import SampleFilesRequestFile from "@/components/Tools/SampleFiles/RequestFile/SampleFilesRequestFile";
 import SampleFilesFaqs from "@/components/Tools/SampleFiles/Faq/SampleFilesFaqs";
+import SampleFilesWhyUse from "@/components/Tools/SampleFiles/WhyUse/SampleFilesWhyUse";
 import SampleFilesHero from "@/components/Tools/SampleFiles/Hero/SampleFilesHero";
+import SampleFilesStickyCategoryBar from "@/components/Tools/SampleFiles/Hero/SampleFilesStickyCategoryBar";
 import { sampleFilesFAQData } from "@/data/tools/sampleFiles/sampleFilesFaqsData";
+import { sampleFilesCategoryFaqsData } from "@/data/tools/sampleFiles/sampleFilesCategoryFaqsData";
+import { sampleFilesStatsData } from "@/data/tools/sampleFiles/statsData";
+import { sampleFilesCategoryFeaturesData } from "@/data/tools/sampleFiles/sampleFilesCategoryFeaturesData";
 import SampleFilesCategorySeo from "@/components/Tools/SampleFiles/Categories/SampleFilesCategorySeo";
+import SampleFilesOtherCategories from "@/components/Tools/SampleFiles/OtherCategories/SampleFilesOtherCategories";
 
 type Props = {
   category: SampleFilesCategoryModel;
   extensions: SampleFilesExtensionModel[];
   allExtensions: SampleFilesExtensionModel[];
+  changelog: SampleFilesChangelogEntry[];
 };
 
 const SampleFilesCategoryPage: React.FC<Props> = (props: Props) => {
   const header = sampleFilesHeaderData;
+  const categoryFaqsData =
+    sampleFilesCategoryFaqsData[props.category.slug] ?? sampleFilesFAQData;
+  const categoryFeaturesData =
+    sampleFilesCategoryFeaturesData[props.category.slug] ?? sampleFilesStatsData;
 
   return (
     <>
@@ -59,47 +74,64 @@ const SampleFilesCategoryPage: React.FC<Props> = (props: Props) => {
         </Box>
       </Container>
 
-      <Spacer p={4} />
-      <Container maxW="6xl">
-        <SampleFilesExtensions
-          extensions={props.extensions}
-          headerProps={{
-            badge: "Extensions",
-            title: `${props.category.name} Extensions`,
-            detail: `Browse all available ${props.category.name.toLowerCase()} extensions.`,
-          }}
-        />
-      </Container>
+      <Box position="relative">
+        <SampleFilesStickyCategoryBar />
 
-      <Spacer p={4} />
-      <Container maxW="6xl">
-        <SampleFilesCategories />
-      </Container>
+        <Spacer p={4} />
+        <Container maxW="6xl">
+          <SampleFilesStats />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <SampleFilesStats />
-      </Container>
+        <Spacer p={4} />
+        <Container maxW="6xl">
+          <SampleFilesChangelog entries={props.changelog} />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <SampleFilesCTA />
-      </Container>
+        <Spacer p={4} />
+        <Container maxW="6xl">
+          <SampleFilesExtensions
+            extensions={props.extensions}
+            headerProps={{
+              badge: "Extensions",
+              title: `${props.category.name} Extensions`,
+              detail: `Browse all available ${props.category.name.toLowerCase()} extensions.`,
+            }}
+          />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <SampleFilesFeatures />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <SampleFilesOtherCategories
+            currentSlug={props.category.slug}
+            allExtensions={props.allExtensions}
+          />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <SampleFilesRequestFile />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <SampleFilesCTA />
+        </Container>
 
-      <Spacer p={8} />
-      <Container maxW="6xl">
-        <SampleFilesFaqs faqsData={sampleFilesFAQData} />
-      </Container>
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <SampleFilesFeatures data={categoryFeaturesData} />
+        </Container>
+
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <SampleFilesRequestFile />
+        </Container>
+
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <SampleFilesWhyUse categoryName={props.category.name} />
+        </Container>
+
+        <Spacer p={8} />
+        <Container maxW="6xl">
+          <SampleFilesFaqs faqsData={categoryFaqsData} />
+        </Container>
+      </Box>
 
       <Spacer p={4} />
       </main>
@@ -149,9 +181,12 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
       };
     }
 
-    const [extensionsResponse, allExtensionsResponse] = await Promise.all([
-      fetchSampleFilesExtensionsStrapi(undefined, 200, 1, slug),
+    const [extensionsResponse, allExtensionsResponse, changelog] = await Promise.all([
+      fetchSampleFilesExtensionsStrapi(
+        undefined, 200, 1, slug, undefined, undefined, true,
+      ),
       fetchSampleFilesExtensionsStrapi(undefined, 200, 1),
+      fetchSampleFilesChangelogStrapi(slug).catch(() => []),
     ]);
 
     return {
@@ -159,6 +194,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
         category,
         extensions: extensionsResponse.data || [],
         allExtensions: allExtensionsResponse.data || [],
+        changelog,
       },
       revalidate: 3600,
     };

@@ -1,9 +1,10 @@
 import { SampleFilesExtensionModel } from "@/apis/sampleFiles/sampleFilesExtension";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import { ExtensionCard } from "@/components/Tools/SampleFiles/Shared/ExtensionCard";
 import ToolByline from "@/components/ToolByline/ToolByline";
+import { useColorPalette } from "@/contexts/useColorPalette";
 import { Box, SimpleGrid, Spacer, VStack } from "@chakra-ui/react";
 import React from "react";
-import SampleFilesExtensionCard from "./SampleFilesExtensionCard";
 
 type Props = {
   featured: SampleFilesExtensionModel[];
@@ -11,7 +12,7 @@ type Props = {
 
 const SampleFilesFeatured: React.FC<Props> = (props: Props) => {
   const extensions = props.featured || [];
-  const isLoading = false;
+  const { palette } = useColorPalette();
 
   return (
     <Box as="section">
@@ -27,9 +28,13 @@ const SampleFilesFeatured: React.FC<Props> = (props: Props) => {
       <Spacer p={4} />
       <VStack gap={8} alignItems="center">
         {extensions.length > 0 ? (
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6} w="full">
-            {extensions.map((extension, index) => (
-              <SampleFilesExtensionCard key={index} extension={extension} />
+          <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={4} w="full">
+            {extensions.map((extension) => (
+              <ExtensionCard
+                key={extension.documentId}
+                extension={extension}
+                palette={palette}
+              />
             ))}
           </SimpleGrid>
         ) : null}

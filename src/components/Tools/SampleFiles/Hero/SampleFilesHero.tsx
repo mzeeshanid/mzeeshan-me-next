@@ -1,8 +1,7 @@
 import { SampleFilesExtensionModel } from "@/apis/sampleFiles/sampleFilesExtension";
 import React from "react";
-import { Box, Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 import SampleFilesSearchBar from "./SampleFilesSearchBar";
-import SampleFilesCategoryTags from "./SampleFilesCategoryTags";
 
 type Props = {
   initialValue?: string;
@@ -27,15 +26,6 @@ const SampleFilesHero: React.FC<Props> = ({ initialValue = "", extensions }) => 
         </VStack>
 
         <SampleFilesSearchBar initialValue={initialValue} extensions={extensions} />
-
-        <Stack
-          direction={{ base: "column", md: "row" }}
-          gap={4}
-          alignItems="center"
-        >
-          <Text fontSize={"sm"}>{"Categories: "}</Text>
-          <SampleFilesCategoryTags />
-        </Stack>
       </VStack>
     </Box>
   );

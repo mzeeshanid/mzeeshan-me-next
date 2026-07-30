@@ -13,6 +13,7 @@ export interface SampleFilesExtensionModel extends API.Document {
   isFeatured: boolean;
   downloads?: number;
   type?: { id: number; documentId: string; name: string; slug: string };
+  variants?: { id: number; documentId: string }[];
 }
 
 export type SampleFilesExtensionResponseCollection = API.DocumentResponseCollection<SampleFilesExtensionModel>;
@@ -23,7 +24,8 @@ export const fetchSampleFilesExtensionsStrapi = async (
   page: number = 1,
   categorySlug?: string,
   isFeatured?: boolean,
-  sort?: { field: string; order: 'asc' | 'desc' }
+  sort?: { field: string; order: 'asc' | 'desc' },
+  withVariantsCount?: boolean
 ): Promise<SampleFilesExtensionResponseCollection> => {
   try {
     const filters: any = {};
@@ -52,7 +54,9 @@ export const fetchSampleFilesExtensionsStrapi = async (
       fields: ["id", "name", "slug", "info", "isFeatured", "downloads"],
       pagination: { page, pageSize: limit },
       filters,
-      populate: ["type"],
+      populate: withVariantsCount
+        ? { type: true, variants: { fields: ["id"] } }
+        : ["type"],
       ...(sort ? { sort: [`${sort.field}:${sort.order}`] } : {}),
     });
 

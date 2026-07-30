@@ -1,5 +1,9 @@
 import DeferredIcon from "@/components/DeferredIcon/DeferredIcon";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import {
+  jsonValidatorCardHover,
+  jsonValidatorCardStyle,
+} from "@/components/Tools/JsonValidatorFormatter/Shared/jsonValidatorCardStyle";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
   JsonConverterTabId,
@@ -43,12 +47,11 @@ const JsonRelatedTools: React.FC<Props> = ({ currentToolId }) => {
             <Link asChild _hover={{ textDecoration: "none" }}>
               <NextLink href={tool.path}>
                 <Box
-                  borderWidth="1px"
-                  borderRadius="xl"
-                  p={5}
+                  {...jsonValidatorCardStyle}
+                  p={4}
                   h="full"
-                  _hover={{ borderColor: `${palette}.emphasized`, bg: "bg.subtle" }}
-                  transition="border-color 0.15s, background 0.15s"
+                  transition="all 0.15s ease"
+                  _hover={jsonValidatorCardHover(palette)}
                 >
                   <VStack align="start" gap={3}>
                     <Text fontWeight="bold" fontSize="sm">

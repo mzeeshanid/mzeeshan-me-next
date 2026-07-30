@@ -15,7 +15,12 @@ const SampleFilesCTA: React.FC<Props> = (props: Props) => {
 
   return (
     <Box as="section">
-      <Box borderRadius="lg" p={{ base: 6, md: 12 }} textAlign="center">
+      <Box
+        bg="bg.subtle"
+        borderRadius="lg"
+        p={{ base: 6, md: 12 }}
+        textAlign="center"
+      >
         <VStack gap={4}>
           <Heading as="h2" size={{ base: "2xl", md: "4xl" }}>
             {"Trusted by developers from all over the world"}

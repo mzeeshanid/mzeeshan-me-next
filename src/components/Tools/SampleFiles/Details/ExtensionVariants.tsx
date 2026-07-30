@@ -3,78 +3,43 @@ import {
   SampleFileVariantModel,
   getVariantDownloadUrl,
 } from "@/apis/sampleFiles/sampleFilesExtensionDetails";
-import { incrementVariantDownloadCount } from "@/apis/sampleFiles/sampleFilesVariant";
+import {
+  incrementVariantDownloadCount,
+  trimVariantNamePrefix,
+} from "@/apis/sampleFiles/sampleFilesVariant";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import SharedNoteBanner from "@/components/Tools/SampleFiles/Details/SharedNoteBanner";
+import VariantCard from "@/components/Tools/SampleFiles/Details/VariantCard";
+import VariantSectionCard from "@/components/Tools/SampleFiles/Details/VariantSectionCard";
+import SectionPills from "@/components/Tools/SampleFiles/Shared/SectionPills";
+import SectionSidebar, {
+  SectionItem,
+} from "@/components/Tools/SampleFiles/Shared/SectionSidebar";
+import { groupVariants } from "@/components/Tools/SampleFiles/Shared/variantSections";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
-  Badge,
   Box,
   Button,
-  Collapsible,
   Dialog,
-  Highlight,
+  Grid,
+  GridItem,
+  Heading,
   HStack,
   IconButton,
   Input,
-  Link,
-  Popover,
   Portal,
-  Spacer,
+  SimpleGrid,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import {
-  LuChevronDown,
-  LuChevronRight,
-  LuInfo,
-  LuSearch,
-  LuX,
-} from "react-icons/lu";
+import { LuSearch, LuSearchX, LuX } from "react-icons/lu";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
-
-const SECTION_ORDER = [
-  { key: "basic", label: "Basic" },
-  { key: "size_duration", label: "Size & Duration" },
-  { key: "size_resolution", label: "Size & Resolution" },
-  { key: "general", label: "General" },
-  { key: "aspect_ratio", label: "Aspect Ratio" },
-  { key: "resolution", label: "Resolution" },
-  { key: "dpi", label: "DPI" },
-  { key: "orientation", label: "Orientation" },
-  { key: "frame_rate", label: "Frame Rate" },
-  { key: "codec", label: "Codec" },
-  { key: "bitrate", label: "Bitrate" },
-  { key: "color_profile", label: "Color Profile" },
-  { key: "header_container", label: "Header & Container" },
-  { key: "audio", label: "Audio" },
-  { key: "audio_quality", label: "Audio Quality" },
-  { key: "bit_depth", label: "Bit Depth" },
-  { key: "block_size", label: "Block Size" },
-  { key: "channels", label: "Channels" },
-  { key: "compression", label: "Compression" },
-  { key: "content_type", label: "Content Type" },
-  { key: "edge_cases", label: "Edge Cases" },
-  { key: "encoding_variants", label: "Encoding Variants" },
-  { key: "character_encoding", label: "Character Encoding" },
-  { key: "line_endings", label: "Line Endings" },
-  { key: "metadata", label: "Metadata" },
-  { key: "sample_rate_bit_depth", label: "Sample Rate & Bit Depth" },
-  { key: "waveform_signal", label: "Waveform & Signal Type" },
-  { key: "document_structure", label: "Document Structure" },
-  { key: "spec_version", label: "Specification Version" },
-  { key: "text_formatting", label: "Text Formatting" },
-  { key: "misc", label: "Misc" },
-];
 
 const SEARCH_LIMIT = 15;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-
-function trimPrefix(name: string): string {
-  return name.replace(/^[A-Za-z0-9+]+ - /i, "");
-}
 
 function isGoogleDriveUrl(url: string): boolean {
   try {
@@ -97,28 +62,27 @@ function withDownloadParam(url: string): string {
   }
 }
 
-function sectionLabel(key: string): string {
-  return SECTION_ORDER.find((s) => s.key === key)?.label ?? key;
+function resolveDownloadHref(variant: SampleFileVariantModel): string | undefined {
+  const url = getVariantDownloadUrl(variant);
+  return url ? withDownloadParam(url) : undefined;
 }
 
-function groupVariants(variants: SampleFileVariantModel[]) {
-  const map = new Map<string, SampleFileVariantModel[]>();
-  for (const v of variants) {
-    const key = v.section?.trim() || "general";
-    if (!map.has(key)) map.set(key, []);
-    map.get(key)!.push(v);
+// Variant names are stored as "EXT - <shortInfo> - <spec>" (e.g.
+// "MP4 - H.264 - 1280 × 720 720p HD" with shortInfo "H.264"). The card's
+// title is the short label; the spec remainder becomes the subtitle.
+function splitVariantDisplay(
+  name: string,
+  shortInfo?: string,
+): { title: string; subtitle?: string } {
+  const trimmed = trimVariantNamePrefix(name);
+  const label = shortInfo?.trim();
+  if (!label) return { title: trimmed };
+
+  const prefix = `${label} - `;
+  if (trimmed.toLowerCase().startsWith(prefix.toLowerCase())) {
+    return { title: label, subtitle: trimmed.slice(prefix.length) };
   }
-  const orderKeys = SECTION_ORDER.map((s) => s.key);
-  return Array.from(map.keys())
-    .sort((a, b) => {
-      const ai = orderKeys.indexOf(a);
-      const bi = orderKeys.indexOf(b);
-      if (ai === -1 && bi === -1) return a.localeCompare(b);
-      if (ai === -1) return 1;
-      if (bi === -1) return -1;
-      return ai - bi;
-    })
-    .map((key) => ({ key, label: sectionLabel(key), items: map.get(key)! }));
+  return { title: label, subtitle: trimmed !== label ? trimmed : undefined };
 }
 
 interface NoteDedupResult {
@@ -129,7 +93,7 @@ interface NoteDedupResult {
 const NOTE_DEDUP_THRESHOLD = 2;
 
 // When 2+ variants in a group share identical note text, collapse them into
-// one shared banner instead of repeating the same tooltip on every row.
+// one shared banner instead of repeating the same tooltip on every card.
 function computeNoteDedup(
   items: SampleFileVariantModel[],
   threshold = NOTE_DEDUP_THRESHOLD,
@@ -166,17 +130,6 @@ function computeNoteDedup(
     perVariantNote,
   };
 }
-
-// ── iOS 26 card style ─────────────────────────────────────────────────────────
-
-const cardStyle = {
-  borderRadius: "2xl",
-  overflow: "hidden" as const,
-  borderWidth: "1px",
-  borderColor: "border.subtle",
-  bg: "bg",
-  _dark: { bg: "whiteAlpha.50" },
-};
 
 // ── AudioModal ────────────────────────────────────────────────────────────────
 
@@ -216,7 +169,7 @@ const AudioModal: React.FC<AudioModalProps> = ({
                   {extensionName}
                 </Text>
                 <Dialog.Title fontSize="md" fontWeight="semibold" lineClamp={2}>
-                  {variant ? trimPrefix(variant.name) : ""}
+                  {variant ? trimVariantNamePrefix(variant.name) : ""}
                 </Dialog.Title>
                 {variant?.shortInfo && (
                   <Text fontSize="sm" color="fg.muted" mt={0.5}>
@@ -277,327 +230,6 @@ const AudioModal: React.FC<AudioModalProps> = ({
   );
 };
 
-// ── VariantRow ────────────────────────────────────────────────────────────────
-
-interface VariantRowProps {
-  variant: SampleFileVariantModel;
-  searchQuery: string;
-  palette: string;
-  isLast: boolean;
-  onPlay: (v: SampleFileVariantModel) => void;
-  onDownload: (v: SampleFileVariantModel) => void;
-  downloadingId: string | null;
-  isAudio: boolean;
-  inlineNote?: string;
-}
-
-const VariantRow: React.FC<VariantRowProps> = ({
-  variant,
-  searchQuery,
-  palette,
-  isLast,
-  onPlay,
-  onDownload,
-  downloadingId,
-  isAudio,
-  inlineNote,
-}) => {
-  const displayName = trimPrefix(variant.name);
-  const downloadUrl = getVariantDownloadUrl(variant);
-
-  return (
-    <Box>
-      <HStack px={4} py={3} gap={3} minH="44px" align="center">
-        {/* Circular play button */}
-        {isAudio && (
-          <IconButton
-            aria-label={`Play ${displayName}`}
-            variant="solid"
-            colorPalette={palette}
-            size="sm"
-            borderRadius="full"
-            flexShrink={0}
-            onClick={() => onPlay(variant)}
-            disabled={!downloadUrl}
-          >
-            <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
-              <path d="M0.5 1.2v9.6L9.5 6 0.5 1.2z" />
-            </svg>
-          </IconButton>
-        )}
-
-        {/* Name + shortInfo */}
-        <VStack gap={0.5} align="start" flex={1} minW={0}>
-          <HStack gap={0.5} align="center" w="full">
-            <Text fontSize="sm" fontWeight="medium" lineClamp={2} minW={0}>
-              {searchQuery ? (
-                <Highlight
-                  query={searchQuery}
-                  styles={{
-                    px: "0.5",
-                    bg: "yellow.subtle",
-                    color: "yellow.fg",
-                    borderRadius: "sm",
-                  }}
-                  ignoreCase
-                >
-                  {displayName}
-                </Highlight>
-              ) : (
-                displayName
-              )}
-            </Text>
-            {inlineNote && (
-              <Popover.Root positioning={{ placement: "top" }}>
-                <Popover.Trigger asChild>
-                  <IconButton
-                    aria-label={`Note about ${displayName}`}
-                    variant="ghost"
-                    size="xs"
-                    borderRadius="full"
-                    flexShrink={0}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <LuInfo size={12} />
-                  </IconButton>
-                </Popover.Trigger>
-                <Portal>
-                  <Popover.Positioner>
-                    <Popover.Content maxW="260px" p={2}>
-                      <Popover.Arrow />
-                      <Text fontSize="xs" color="fg.muted">
-                        {inlineNote}
-                      </Text>
-                    </Popover.Content>
-                  </Popover.Positioner>
-                </Portal>
-              </Popover.Root>
-            )}
-          </HStack>
-          {variant.shortInfo && (
-            <Text fontSize="xs" color="fg.muted" lineClamp={2}>
-              {variant.shortInfo}
-            </Text>
-          )}
-        </VStack>
-
-        {/* Duration + size */}
-        <VStack gap={0} align="end" flexShrink={0}>
-          {variant.duration && (
-            <Text fontSize="xs" color="fg.muted">
-              {variant.duration}
-            </Text>
-          )}
-          <Text fontSize="xs" color="fg.muted">
-            {variant.size}
-          </Text>
-        </VStack>
-
-        {/* Download */}
-        <Link
-          href={downloadUrl ? withDownloadParam(downloadUrl) : downloadUrl}
-          flexShrink={0}
-        >
-          <Button
-            variant="surface"
-            loading={downloadingId === variant.documentId}
-            size="xs"
-            colorPalette={palette}
-            onClick={() => onDownload(variant)}
-            disabled={downloadingId !== null || !downloadUrl}
-          >
-            Download
-          </Button>
-        </Link>
-      </HStack>
-
-      {/* Inset separator — iOS style, omit after last row */}
-      {!isLast && (
-        <Box
-          ml={isAudio ? "60px" : "16px"}
-          mr={0}
-          borderBottomWidth="0.5px"
-          borderColor="border.emphasized"
-        />
-      )}
-    </Box>
-  );
-};
-
-// ── SectionBlock ──────────────────────────────────────────────────────────────
-
-interface SectionBlockProps {
-  label: string;
-  items: SampleFileVariantModel[];
-  defaultOpen: boolean;
-  palette: string;
-  onPlay: (v: SampleFileVariantModel) => void;
-  onDownload: (v: SampleFileVariantModel) => void;
-  downloadingId: string | null;
-  isAudio: boolean;
-  noteDedup: NoteDedupResult;
-}
-
-const SectionBlock: React.FC<SectionBlockProps> = ({
-  label,
-  items,
-  defaultOpen,
-  palette,
-  onPlay,
-  onDownload,
-  downloadingId,
-  isAudio,
-  noteDedup,
-}) => {
-  const [open, setOpen] = React.useState(defaultOpen);
-
-  return (
-    <Box mb={1}>
-      {/* iOS 26 section header — sits above the card, sticky */}
-      <Collapsible.Root open={open} onOpenChange={(e) => setOpen(e.open)}>
-        <Collapsible.Trigger asChild>
-          <HStack
-            px={3}
-            pt={5}
-            pb={1}
-            cursor="pointer"
-            userSelect="none"
-            position="sticky"
-            top={0}
-            zIndex={2}
-            bg="bg.subtle"
-            _hover={{ opacity: 0.75 }}
-            gap={1}
-          >
-            <Text
-              fontSize="xs"
-              fontWeight="semibold"
-              color="fg.muted"
-              textTransform="uppercase"
-              letterSpacing="wider"
-              flex={1}
-            >
-              {label}
-            </Text>
-            <Text fontSize="xs" color="fg.muted">
-              {items.length}
-            </Text>
-            <Collapsible.Indicator>
-              {open ? (
-                <LuChevronDown size={12} />
-              ) : (
-                <LuChevronRight size={12} />
-              )}
-            </Collapsible.Indicator>
-          </HStack>
-        </Collapsible.Trigger>
-
-        {/* iOS 26 card */}
-        <Collapsible.Content>
-          {noteDedup.sharedNote && (
-            <Box
-              mb={1.5}
-              px={3}
-              py={2}
-              borderRadius="lg"
-              bg={`${palette}.subtle`}
-              display="flex"
-              gap={2}
-              alignItems="flex-start"
-            >
-              <LuInfo size={14} style={{ marginTop: 2, flexShrink: 0 }} />
-              <Text fontSize="xs" color="fg.muted">
-                {noteDedup.sharedNote}
-              </Text>
-            </Box>
-          )}
-          <Box {...cardStyle}>
-            {items.map((v, i) => (
-              <VariantRow
-                key={v.documentId}
-                variant={v}
-                searchQuery=""
-                palette={palette}
-                isLast={i === items.length - 1}
-                onPlay={onPlay}
-                onDownload={onDownload}
-                downloadingId={downloadingId}
-                isAudio={isAudio}
-                inlineNote={noteDedup.perVariantNote.get(v.documentId)}
-              />
-            ))}
-          </Box>
-        </Collapsible.Content>
-      </Collapsible.Root>
-    </Box>
-  );
-};
-
-// ── SectionChips ──────────────────────────────────────────────────────────────
-
-interface SectionChipsProps {
-  availableSections: { key: string; label: string }[];
-  selectedSections: Set<string>;
-  onToggle: (key: string) => void;
-  onClear: () => void;
-  palette: string;
-}
-
-const SectionChips: React.FC<SectionChipsProps> = ({
-  availableSections,
-  selectedSections,
-  onToggle,
-  onClear,
-  palette,
-}) => {
-  const count = selectedSections.size;
-
-  return (
-    <HStack
-      gap={2}
-      overflowX="auto"
-      pb={1}
-      css={{
-        scrollbarWidth: "none",
-        "&::-webkit-scrollbar": { display: "none" },
-      }}
-    >
-      {count > 0 && (
-        <Button
-          size="xs"
-          variant="solid"
-          colorPalette="red"
-          borderRadius="full"
-          flexShrink={0}
-          onClick={onClear}
-          px={3}
-        >
-          <LuX size={10} />
-          Clear
-        </Button>
-      )}
-      {availableSections.map((s) => {
-        const active = selectedSections.has(s.key);
-        return (
-          <Button
-            key={s.key}
-            size="xs"
-            variant={active ? "solid" : "outline"}
-            colorPalette={active ? palette : "gray"}
-            borderRadius="full"
-            flexShrink={0}
-            onClick={() => onToggle(s.key)}
-            px={3}
-            fontWeight={active ? "semibold" : "normal"}
-          >
-            {s.label}
-          </Button>
-        );
-      })}
-    </HStack>
-  );
-};
-
 // ── Main component ────────────────────────────────────────────────────────────
 
 interface Props {
@@ -618,26 +250,86 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
   const [downloadingId, setDownloadingId] = React.useState<string | null>(null);
   const [playingVariant, setPlayingVariant] =
     React.useState<SampleFileVariantModel | null>(null);
-  const [selectedSections, setSelectedSections] = React.useState<Set<string>>(
-    new Set(),
+  const [selectedSection, setSelectedSection] = React.useState<string | null>(
+    null,
   );
 
   const isAudio = extension.type?.slug?.toLowerCase() === "audios";
   const hasSections = variants.some((v) => v.section);
   const isSearching = committedQuery.trim().length > 0;
 
+  // Changelog links point here as `#variant-<documentId>`. On load, jump to
+  // whichever section holds that variant (sections start collapsed, so a
+  // plain browser anchor jump would land on a hidden, zero-height card) and
+  // queue a smooth scroll to the card itself once it's rendered.
+  const pendingScrollVariantId = React.useRef<string | null>(null);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    const match = window.location.hash.match(/^#variant-(.+)$/);
+    if (!match) return;
+    const targetId = match[1];
+    const target = variants.find((v) => v.documentId === targetId);
+    if (!target) return;
+
+    pendingScrollVariantId.current = targetId;
+    if (hasSections) {
+      setSelectedSection(target.section?.trim() || "general");
+    }
+    // Only ever handle the hash present on the initial load.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    const targetId = pendingScrollVariantId.current;
+    if (!targetId) return;
+    pendingScrollVariantId.current = null;
+    requestAnimationFrame(() => {
+      document
+        .getElementById(`variant-${targetId}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }, [selectedSection]);
+
+  // Switching filters can drastically shrink the page (e.g. from 41 cards
+  // down to 5), and the browser clamps an out-of-range scroll position to
+  // the new bottom of the document — dropping the user into whatever
+  // section happens to land there instead of the listing they just picked.
+  // Realign to the top of the listing whenever the active filter changes.
+  const listingRef = React.useRef<HTMLDivElement>(null);
+  const isFirstRender = React.useRef(true);
+
+  React.useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    const el = listingRef.current;
+    if (!el) return;
+    const navbarHeight =
+      parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--navbar-height",
+        ),
+      ) || 0;
+    const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight - 16;
+    window.scrollTo({ top: Math.max(top, 0) });
+  }, [selectedSection, isSearching]);
+
   const groups = React.useMemo(() => groupVariants(variants), [variants]);
 
-  const availableSections = React.useMemo(
-    () => groups.map((g) => ({ key: g.key, label: g.label })),
-    [groups],
+  const activeGroup = React.useMemo(
+    () => (selectedSection ? groups.find((g) => g.key === selectedSection) : null),
+    [groups, selectedSection],
   );
 
-  // Visible groups (filtered by section selection when not searching)
-  const visibleGroups = React.useMemo(() => {
-    if (selectedSections.size === 0) return groups;
-    return groups.filter((g) => selectedSections.has(g.key));
-  }, [groups, selectedSections]);
+  const sidebarItems: SectionItem[] = React.useMemo(
+    () => [
+      { key: null, label: "All Variants", count: variants.length },
+      ...groups.map((g) => ({ key: g.key, label: g.label, count: g.items.length })),
+    ],
+    [groups, variants.length],
+  );
 
   // Note dedup is computed against full group/variant membership — never
   // against filtered/search subsets, which would flicker as filters change.
@@ -665,14 +357,15 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
     setCommittedQuery("");
   }, []);
 
-  // Flat search results, capped at 15
+  // Flat search results, capped at 15 — always searched across every
+  // variant regardless of the section currently selected in the sidebar.
   const searchResults = React.useMemo(() => {
     if (!committedQuery.trim()) return [];
     const q = committedQuery.toLowerCase();
     const results: SampleFileVariantModel[] = [];
     for (const v of variants) {
       if (results.length >= SEARCH_LIMIT) break;
-      const display = trimPrefix(v.name).toLowerCase();
+      const display = trimVariantNamePrefix(v.name).toLowerCase();
       if (
         v.name.toLowerCase().includes(q) ||
         display.includes(q) ||
@@ -702,14 +395,111 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
     [extension.documentId],
   );
 
-  const toggleSection = React.useCallback((key: string) => {
-    setSelectedSections((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-  }, []);
+  const totalCount = variants.length;
+  const shownCount = isSearching
+    ? searchResults.length
+    : selectedSection
+    ? activeGroup?.items.length ?? 0
+    : totalCount;
+
+  const headerTitle = isSearching
+    ? "Search Results"
+    : selectedSection
+    ? activeGroup?.label ?? "Variants"
+    : "All Variants";
+
+  const headerSubtitle = isSearching
+    ? `${searchResults.length} result${searchResults.length !== 1 ? "s" : ""} for “${committedQuery}”`
+    : `${shownCount} of ${totalCount} variant${totalCount !== 1 ? "s" : ""} shown`;
+
+  const renderSearchBar = (full: boolean) => (
+    <Box
+      position="relative"
+      bg="bg"
+      borderWidth="1.5px"
+      borderColor="border.emphasized"
+      borderRadius="full"
+      overflow="hidden"
+      w={full ? "full" : "sm"}
+      flexShrink={0}
+      boxShadow="xs"
+      transition="border-color 0.15s ease, box-shadow 0.15s ease"
+      _hover={{ borderColor: `${palette}.400` }}
+      _focusWithin={{
+        borderColor: `${palette}.500`,
+        ring: "3px",
+        ringColor: `${palette}.500/30`,
+        ringOffset: "0px",
+      }}
+    >
+      <Box
+        position="absolute"
+        left={4}
+        top="50%"
+        transform="translateY(-50%)"
+        color={`${palette}.fg`}
+        pointerEvents="none"
+        zIndex={1}
+      >
+        <LuSearch size={16} strokeWidth={2.5} />
+      </Box>
+      <Input
+        pl={10}
+        pr={inputValue ? 10 : 5}
+        size="md"
+        fontWeight="medium"
+        placeholder="Search variants…"
+        value={inputValue}
+        onChange={(e) => handleInput(e.target.value)}
+        border="none"
+        bg="transparent"
+        borderRadius="full"
+        _focus={{ outline: "none", boxShadow: "none" }}
+        _placeholder={{ color: "fg.muted" }}
+      />
+      {inputValue && (
+        <IconButton
+          aria-label="Clear search"
+          variant="ghost"
+          size="xs"
+          borderRadius="full"
+          position="absolute"
+          right={2}
+          top="50%"
+          transform="translateY(-50%)"
+          color="fg.muted"
+          onClick={clearSearch}
+          zIndex={1}
+        >
+          <LuX size={13} />
+        </IconButton>
+      )}
+    </Box>
+  );
+
+  const renderCard = (
+    v: SampleFileVariantModel,
+    inlineNote: string | undefined,
+    withSearchHighlight: boolean,
+  ) => {
+    const { title, subtitle } = splitVariantDisplay(v.name, v.shortInfo);
+    return (
+      <VariantCard
+        key={v.documentId}
+        variant={v}
+        title={title}
+        subtitle={subtitle}
+        searchQuery={withSearchHighlight ? committedQuery : undefined}
+        palette={palette}
+        isAudio={isAudio}
+        onPlay={setPlayingVariant}
+        onDownload={handleDownload}
+        downloadUrl={resolveDownloadHref(v)}
+        downloadingId={downloadingId}
+        inlineNote={inlineNote}
+      />
+    );
+  };
 
   if (variants.length === 0) {
     return (
@@ -719,6 +509,103 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
     );
   }
 
+  const mainContent = isSearching ? (
+    searchResults.length === 0 ? (
+      <VStack py={16} gap={4} textAlign="center">
+        <Box
+          w={16}
+          h={16}
+          borderRadius="full"
+          bg="bg.subtle"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          color="fg.subtle"
+        >
+          <LuSearchX size={28} strokeWidth={1.5} />
+        </Box>
+        <VStack gap={1}>
+          <Text fontWeight="semibold" fontSize="md">
+            No matches for &ldquo;{committedQuery}&rdquo;
+          </Text>
+          <Text color="fg.muted" fontSize="sm" maxW="sm">
+            Try a different keyword, or check the spelling of the variant
+            name.
+          </Text>
+        </VStack>
+        <Button
+          variant="outline"
+          colorPalette={palette}
+          size="sm"
+          borderRadius="full"
+          onClick={clearSearch}
+        >
+          Clear search
+        </Button>
+      </VStack>
+    ) : (
+      <>
+        <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={4}>
+          {searchResults.map((v) =>
+            renderCard(v, v.notes?.trim() || undefined, true),
+          )}
+        </SimpleGrid>
+        {searchResults.length === SEARCH_LIMIT && (
+          <Text fontSize="xs" color="fg.muted" textAlign="center" mt={4}>
+            Showing first {SEARCH_LIMIT} results — refine your search to
+            narrow down
+          </Text>
+        )}
+      </>
+    )
+  ) : hasSections ? (
+    selectedSection === null ? (
+      <VStack align="stretch" gap={3}>
+        {groups.map((g, index) => {
+          const dedup = sectionNoteDedup.get(g.key);
+          return (
+            <VariantSectionCard
+              key={g.key}
+              sectionKey={g.key}
+              label={g.label}
+              items={g.items}
+              initialOpen={index < 2}
+              sharedNote={dedup?.sharedNote ?? null}
+              palette={palette}
+              renderCard={(v) =>
+                renderCard(v, dedup?.perVariantNote.get(v.documentId), false)
+              }
+            />
+          );
+        })}
+      </VStack>
+    ) : (
+      <Box>
+        {(() => {
+          const dedup = sectionNoteDedup.get(selectedSection);
+          return (
+            <>
+              {dedup?.sharedNote && (
+                <SharedNoteBanner note={dedup.sharedNote} palette={palette} />
+              )}
+              <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={4}>
+                {(activeGroup?.items ?? []).map((v) =>
+                  renderCard(v, dedup?.perVariantNote.get(v.documentId), false),
+                )}
+              </SimpleGrid>
+            </>
+          );
+        })()}
+      </Box>
+    )
+  ) : (
+    <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={4}>
+      {variants.map((v) =>
+        renderCard(v, flatNoteDedup.perVariantNote.get(v.documentId), false),
+      )}
+    </SimpleGrid>
+  );
+
   return (
     <Box as="section">
       <SectionHeader
@@ -726,177 +613,68 @@ const ExtensionVariants: React.FC<Props> = ({ extension }) => {
         headline={extension.name}
         description={extension.info}
       />
-      {hasSections && (
-        <HStack mt={3} gap={2} flexWrap="wrap">
-          <Badge
-            variant="subtle"
-            colorPalette="gray"
-            borderRadius="full"
-            px={3}
-            py={1}
-          >
-            {variants.length} variant{variants.length !== 1 ? "s" : ""}{" "}
-            available
-          </Badge>
-          <Badge
-            variant="subtle"
-            colorPalette="gray"
-            borderRadius="full"
-            px={3}
-            py={1}
-          >
-            {groups.length} section{groups.length !== 1 ? "s" : ""}
-          </Badge>
-        </HStack>
-      )}
-      <Spacer p={4} />
 
-      {/* Search bar */}
-      <Box
-        position="relative"
-        bg="bg.subtle"
-        borderRadius="full"
-        overflow="hidden"
-        _focusWithin={{
-          ring: "2px",
-          ringColor: `${palette}.500`,
-          ringOffset: "0px",
-        }}
+      <Grid
+        ref={listingRef}
+        mt={6}
+        templateColumns={{ base: "1fr", lg: hasSections ? "220px 1fr" : "1fr" }}
+        gap={{ base: 4, lg: 8 }}
       >
-        <Box
-          position="absolute"
-          left={4}
-          top="50%"
-          transform="translateY(-50%)"
-          color="fg.muted"
-          pointerEvents="none"
-          zIndex={1}
-        >
-          <LuSearch size={15} />
-        </Box>
-        <Input
-          pl={10}
-          pr={inputValue ? 10 : 5}
-          size="md"
-          placeholder={`Search ${extension.name} variants…`}
-          value={inputValue}
-          onChange={(e) => handleInput(e.target.value)}
-          border="none"
-          bg="transparent"
-          borderRadius="full"
-          _focus={{ outline: "none", boxShadow: "none" }}
-          _placeholder={{ color: "fg.subtle" }}
-        />
-        {inputValue && (
-          <IconButton
-            aria-label="Clear search"
-            variant="ghost"
-            size="xs"
-            borderRadius="full"
-            position="absolute"
-            right={2}
-            top="50%"
-            transform="translateY(-50%)"
-            color="fg.muted"
-            onClick={clearSearch}
-            zIndex={1}
-          >
-            <LuX size={13} />
-          </IconButton>
+        {hasSections && (
+          <GridItem display={{ base: "none", lg: "block" }}>
+            <SectionSidebar
+              items={sidebarItems}
+              selected={selectedSection}
+              onSelect={setSelectedSection}
+              palette={palette}
+            />
+          </GridItem>
         )}
-      </Box>
 
-      {/* Section filter chips — only shown when NOT searching */}
-      {hasSections && !isSearching && (
-        <Box mt={3}>
-          <SectionChips
-            availableSections={availableSections}
-            selectedSections={selectedSections}
-            onToggle={toggleSection}
-            onClear={() => setSelectedSections(new Set())}
-            palette={palette}
-          />
-        </Box>
-      )}
-
-      {/* ── Search results (flat list) ── */}
-      {isSearching ? (
-        <Box>
-          {searchResults.length === 0 ? (
-            <VStack py={12}>
-              <Text color="fg.muted" fontSize="sm">
-                No results for &ldquo;{committedQuery}&rdquo;
+        <GridItem minW={0}>
+          {/* ── Mobile header: pills, then full-width search, then title ── */}
+          <Box display={{ base: "block", lg: "none" }}>
+            {hasSections && (
+              <SectionPills
+                items={sidebarItems}
+                selected={selectedSection}
+                onSelect={setSelectedSection}
+                palette={palette}
+              />
+            )}
+            <Box mt={hasSections ? 3 : 0}>{renderSearchBar(true)}</Box>
+            <VStack align="start" gap={0} mt={4} mb={4}>
+              <Heading as="h3" fontSize="xl" fontWeight="bold">
+                {headerTitle}
+              </Heading>
+              <Text fontSize="sm" color="fg.muted">
+                {headerSubtitle}
               </Text>
             </VStack>
-          ) : (
-            <>
-              <Box {...cardStyle} mt={3}>
-                {searchResults.map((v, i) => (
-                  <VariantRow
-                    key={v.documentId}
-                    variant={v}
-                    searchQuery={committedQuery}
-                    palette={palette}
-                    isLast={i === searchResults.length - 1}
-                    onPlay={setPlayingVariant}
-                    onDownload={handleDownload}
-                    downloadingId={downloadingId}
-                    isAudio={isAudio}
-                    inlineNote={v.notes?.trim() || undefined}
-                  />
-                ))}
-              </Box>
-              {searchResults.length === SEARCH_LIMIT && (
-                <Text fontSize="xs" color="fg.muted" textAlign="center" mt={2}>
-                  Showing first {SEARCH_LIMIT} results — refine your search to
-                  narrow down
-                </Text>
-              )}
-            </>
-          )}
-        </Box>
-      ) : hasSections ? (
-        /* ── iOS 26 grouped sectioned view ── */
-        <Box bg="bg.subtle" borderRadius="2xl" px={2} pb={3} mt={1}>
-          {visibleGroups.map((g, index) => (
-            <SectionBlock
-              key={g.key}
-              label={g.label}
-              items={g.items}
-              defaultOpen={index < 3}
-              palette={palette}
-              onPlay={setPlayingVariant}
-              onDownload={handleDownload}
-              downloadingId={downloadingId}
-              isAudio={isAudio}
-              noteDedup={
-                sectionNoteDedup.get(g.key) ?? {
-                  sharedNote: null,
-                  perVariantNote: new Map(),
-                }
-              }
-            />
-          ))}
-        </Box>
-      ) : (
-        /* ── Legacy flat card (non-audio / no sections) ── */
-        <Box {...cardStyle} mt={3}>
-          {variants.map((v, i) => (
-            <VariantRow
-              key={v.documentId}
-              variant={v}
-              searchQuery=""
-              palette={palette}
-              isLast={i === variants.length - 1}
-              onPlay={setPlayingVariant}
-              onDownload={handleDownload}
-              downloadingId={downloadingId}
-              isAudio={isAudio}
-              inlineNote={flatNoteDedup.perVariantNote.get(v.documentId)}
-            />
-          ))}
-        </Box>
-      )}
+          </Box>
+
+          {/* ── Desktop header: title/count left, search right, same row ── */}
+          <HStack
+            display={{ base: "none", lg: "flex" }}
+            justify="space-between"
+            align="start"
+            mb={6}
+            gap={4}
+          >
+            <VStack align="start" gap={0}>
+              <Heading as="h3" fontSize="xl" fontWeight="bold">
+                {headerTitle}
+              </Heading>
+              <Text fontSize="sm" color="fg.muted">
+                {headerSubtitle}
+              </Text>
+            </VStack>
+            {renderSearchBar(false)}
+          </HStack>
+
+          {mainContent}
+        </GridItem>
+      </Grid>
 
       {/* Audio modal */}
       <AudioModal

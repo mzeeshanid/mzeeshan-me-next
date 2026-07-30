@@ -8,14 +8,25 @@ export interface ExtensionFaqDataItem {
   answer: string;
 }
 
-export interface ExtensionFaqData {
+export interface ExtensionFaqCategory {
+  id: string;
   title: string;
   items: ExtensionFaqDataItem[];
+}
+
+export interface ExtensionFaqData {
+  title: string;
+  categories: ExtensionFaqCategory[];
 }
 
 export interface ExtensionWhatIsData {
   title: string;
   content: string;
+}
+
+export interface ExtensionFactData {
+  title: string;
+  info: string;
 }
 
 export interface ExtensionHistoryData {
@@ -77,6 +88,7 @@ export interface RelatedExtensionData {
 export interface SampleFilesExtensionDetailSections {
   faq?: ExtensionFaqData;
   whatIs?: ExtensionWhatIsData;
+  fact?: ExtensionFactData;
   history?: ExtensionHistoryData;
   benefits?: ExtensionBenefitsData;
   howToUse?: ExtensionHowToUseData;

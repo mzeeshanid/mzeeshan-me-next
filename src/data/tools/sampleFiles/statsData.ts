@@ -1,7 +1,6 @@
 import { IconType } from "react-icons";
-import { BiSolidCheckShield, BiSolidSelectMultiple } from "react-icons/bi";
-import { FaFileAlt } from "react-icons/fa";
-import { FaChartSimple, FaDatabase, FaDownload, FaFilm, FaFlask, FaGears, FaHeadphones, FaMoneyBill1, FaUsers } from "react-icons/fa6";
+import { BiSolidSelectMultiple } from "react-icons/bi";
+import { FaDatabase, FaFilm, FaFlask, FaHeadphones, FaUsers } from "react-icons/fa6";
 
 export type SampleFileFeature = {
   title: string;
@@ -23,40 +22,10 @@ export const sampleFilesStatsData: SampleFilesStatsData = {
     "A web app that allows developers and testers to download free sample files for testing purposes.",
   features: [
     {
-      title: "55+ File Types",
-      description:
-        "Access a wide variety of file formats for your testing needs.",
-      icon: FaFileAlt,
-    },
-    {
       title: "Multiple Variants",
       description:
         "Files organized by real testing scenarios — not just size. Stereo, mono, and surround sound audio; transparent, CMYK, and high-DPI images; portrait and landscape video — matched to what your app actually needs to handle.",
       icon: BiSolidSelectMultiple,
-    },
-    {
-      title: "100% Free",
-      description:
-        "No hidden costs, no registration required, completely free to use.",
-      icon: FaMoneyBill1,
-    },
-    {
-      title: "Instant Download",
-      description:
-        "Download your sample files instantly without any waiting time.",
-      icon: FaDownload,
-    },
-    {
-      title: "Privacy Protected",
-      description:
-        "Your data is safe. We don't track or store any personal information.",
-      icon: BiSolidCheckShield,
-    },
-    {
-      title: "Easy to Use",
-      description:
-        "Simple and intuitive interface that anyone can use without technical knowledge.",
-      icon: FaChartSimple,
     },
     {
       title: "Use-Case Based Testing",
@@ -75,12 +44,6 @@ export const sampleFilesStatsData: SampleFilesStatsData = {
       description:
         "Same content, multiple codec combinations. Test H.264, H.265, and VP9 video; AAC, MP3, and FLAC audio — catch codec-specific playback failures before your users do.",
       icon: FaFilm,
-    },
-    {
-      title: "CI/CD & Automation Ready",
-      description:
-        "Permanent, direct download URLs — no redirects, no CAPTCHAs, no rate limits. Drop them straight into your test suites, GitHub Actions workflows, or shell scripts for fully automated file-upload and processing tests.",
-      icon: FaGears,
     },
     {
       title: "Community-Driven Library",

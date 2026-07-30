@@ -11,18 +11,22 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import { cardStyle } from "@/components/Tools/SampleFiles/Shared/ExtensionCard";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import { BiWorld } from "react-icons/bi";
-import {
-  FaAndroid,
-  FaApple,
-  FaLinux,
-  FaWindows,
-} from "react-icons/fa6";
+import { FaAndroid, FaApple, FaLinux, FaWindows } from "react-icons/fa6";
 import { GiPlatform } from "react-icons/gi";
 
 interface Props {
   data: ExtensionCompatibilityData;
+}
+
+// Platform names carry an optional parenthetical, e.g. "Windows (native
+// WordPad/Word support)" — split it out so it can render as a subtitle.
+function splitPlatformName(name: string): { main: string; subtitle?: string } {
+  const match = name.match(/^(.*?)\s*(\(.*\))\s*$/);
+  if (!match) return { main: name };
+  return { main: match[1], subtitle: match[2] };
 }
 
 const ExtensionCompatibility: React.FC<Props> = ({ data }) => {
@@ -41,24 +45,52 @@ const ExtensionCompatibility: React.FC<Props> = ({ data }) => {
         />
       </Center>
       <Spacer p={4} />
-      <Center>
-        <SimpleGrid w={"full"} minChildWidth={"xs"} gap={4}>
-          {data.platforms.map((platform, idx) => (
+      <SimpleGrid
+        w={"full"}
+        columns={{ base: 2, md: 3, lg: data.platforms.length }}
+        gap={4}
+      >
+        {data.platforms.map((platform, idx) => {
+          const { main, subtitle } = splitPlatformName(platform.name);
+
+          return (
             <GridItem key={idx} h={"full"}>
-              <Box bg={"bg.subtle"} p={4} borderRadius={"md"} h={"full"}>
+              <Box
+                {...cardStyle}
+                h={"full"}
+                p={4}
+                transition="all 0.15s ease"
+                _hover={{
+                  borderColor: `${palette}.400`,
+                  transform: "translateY(-2px)",
+                }}
+              >
                 <VStack>
                   <Icon
                     as={platformIcons(platform.type)}
-                    boxSize={{ base: 12, md: 16 }}
+                    boxSize={{ base: 10, md: 12 }}
                     color={`${palette}.fg`}
                   />
-                  <Text textAlign={"center"}>{platform.name}</Text>
+                  <VStack gap={0.5}>
+                    <Text textAlign={"center"} fontWeight="medium">
+                      {main}
+                    </Text>
+                    {subtitle && (
+                      <Text
+                        textAlign={"center"}
+                        fontSize="xs"
+                        color="fg.muted"
+                      >
+                        {subtitle}
+                      </Text>
+                    )}
+                  </VStack>
                 </VStack>
               </Box>
             </GridItem>
-          ))}
-        </SimpleGrid>
-      </Center>
+          );
+        })}
+      </SimpleGrid>
     </Box>
   );
 };

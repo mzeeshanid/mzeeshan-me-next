@@ -193,7 +193,7 @@ const SampleFilesSearchBar: React.FC<Props> = ({
           mt={2}
           borderRadius="md"
           boxShadow="lg"
-          zIndex={10}
+          zIndex={1000}
           maxH="300px"
           overflowY="auto"
         >

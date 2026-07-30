@@ -1,7 +1,7 @@
 import { Box, Container, HStack, useDisclosure } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MyIntro from "../MyIntro/MyIntro";
 import NavBarMobileMenu from "./NavBarMobileMenu";
 import NavBarMobileMenuContent from "./NavBarMobileMenuContent";
@@ -15,6 +15,7 @@ type NavBarProps = {
 const NavBar: React.FC<NavBarProps> = (props) => {
   const { open, onToggle } = useDisclosure();
   const [scrolled, setScrolled] = useState<boolean>(false);
+  const headerRef = useRef<HTMLDivElement>(null);
   const scrolledBg = useColorModeValue(
     "rgba(250, 250, 250, 0.5)",
     "rgba(17, 17, 17, 0.5)",
@@ -43,10 +44,31 @@ const NavBar: React.FC<NavBarProps> = (props) => {
     };
   }, []);
 
+  // Publishes the navbar's real rendered height as a CSS variable so other
+  // sticky elements (e.g. the sample-files category bar) can dock right
+  // below it without hardcoding a pixel value.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+
+    const setHeightVar = (): void => {
+      document.documentElement.style.setProperty(
+        "--navbar-height",
+        `${el.getBoundingClientRect().height}px`,
+      );
+    };
+
+    setHeightVar();
+    const observer = new ResizeObserver(setHeightVar);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const navBarBgColor = scrolled ? scrolledBg : "transparent";
 
   return (
     <Box
+      ref={headerRef}
       as="header"
       position="sticky"
       top={0}

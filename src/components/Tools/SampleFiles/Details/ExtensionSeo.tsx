@@ -90,7 +90,11 @@ const ExtensionSeo: React.FC<Props> = ({ extension }) => {
           contentUrl: v.asset?.url ?? v.url ?? "",
           encodingFormat: extension.name.toLowerCase(),
           contentSize: v.size,
-          description: v.notes?.trim() || undefined,
+          // Prefer the longer editorial note; fall back to the short label
+          // so every variant still gets a description, not just the ones
+          // with a note attached.
+          description:
+            [v.notes?.trim(), v.shortInfo?.trim()].find(Boolean) || undefined,
         }))}
       />
     </>

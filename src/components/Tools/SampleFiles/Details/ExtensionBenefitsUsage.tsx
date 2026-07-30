@@ -1,4 +1,5 @@
 import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
+import { cardStyle } from "@/components/Tools/SampleFiles/Shared/ExtensionCard";
 import { useColorPalette } from "@/contexts/useColorPalette";
 import {
   ExtensionBenefitsData,
@@ -20,17 +21,25 @@ const ExtensionBenefitsUsage: React.FC<Props> = (props: Props) => {
   return (
     <Box as="section">
       <Stack direction={{ base: "column", md: "row" }} gap={6}>
-        <Card.Root w={{ base: "full", md: "50%" }} variant={"subtle"}>
+        <Card.Root
+          w={{ base: "full", md: "50%" }}
+          {...cardStyle}
+          transition="all 0.15s ease"
+          _hover={{
+            borderColor: `${palette}.400`,
+            transform: "translateY(-2px)",
+          }}
+        >
           <Card.Header>
             <SectionHeader headline={"Benefits"} />
           </Card.Header>
           <Card.Body>
             {benefits?.items && (
               <Box>
-                <List.Root color="fg.muted" variant={"plain"} gap={4}>
+                <List.Root color="fg.muted" variant={"plain"} gap={2}>
                   {benefits.items.map((item, idx) => (
                     <List.Item key={idx}>
-                      <Center pt={1} pb={1}>
+                      <Center pt={0.5} pb={0.5}>
                         <List.Indicator asChild>
                           <Icon
                             as={LuCircleCheck}
@@ -47,17 +56,25 @@ const ExtensionBenefitsUsage: React.FC<Props> = (props: Props) => {
             )}
           </Card.Body>
         </Card.Root>
-        <Card.Root w={{ base: "full", md: "50%" }} variant={"subtle"}>
+        <Card.Root
+          w={{ base: "full", md: "50%" }}
+          {...cardStyle}
+          transition="all 0.15s ease"
+          _hover={{
+            borderColor: `${palette}.400`,
+            transform: "translateY(-2px)",
+          }}
+        >
           <Card.Header>
             <SectionHeader headline={"Usage"} />
           </Card.Header>
           <Card.Body>
             {usage?.items && (
               <Box>
-                <List.Root color="fg.muted" variant={"plain"} gap={4}>
+                <List.Root color="fg.muted" variant={"plain"} gap={2}>
                   {usage.items.map((item, idx) => (
                     <List.Item key={idx}>
-                      <Center pt={1}>
+                      <Center pt={0.5}>
                         <List.Indicator asChild>
                           <Icon
                             as={LuCircleCheck}

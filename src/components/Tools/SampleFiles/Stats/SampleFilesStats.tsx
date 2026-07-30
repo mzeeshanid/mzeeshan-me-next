@@ -1,13 +1,5 @@
 import { SampleFilesStatsModel } from "@/apis/sampleFiles/sampleFilesExtension";
-import { SectionHeader } from "@/components/SectionHeader/SectionHeader";
-import {
-  Box,
-  Card,
-  Container,
-  GridItem,
-  SimpleGrid,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import React from "react";
 
 import {
@@ -31,22 +23,11 @@ const SampleFilesStats: React.FC<Props> = ({ dynamicStats }) => {
 
   return (
     <Box as="section">
-      <Card.Root>
-        <Card.Body>
-          <Container py={2}>
-            <VStack gap={8}>
-              <SectionHeader textAlign="center" headline={"Stats"} />
-              <SimpleGrid w="full" minChildWidth={200} gap={4}>
-                {resolvedItems.map((item, idx) => (
-                  <GridItem key={idx}>
-                    <SampleFilesStatItem idx={idx} item={item} />
-                  </GridItem>
-                ))}
-              </SimpleGrid>
-            </VStack>
-          </Container>
-        </Card.Body>
-      </Card.Root>
+      <SimpleGrid columns={{ base: 2, sm: 3, lg: 5 }} gap={4}>
+        {resolvedItems.map((item, idx) => (
+          <SampleFilesStatItem key={idx} idx={idx} item={item} />
+        ))}
+      </SimpleGrid>
     </Box>
   );
 };

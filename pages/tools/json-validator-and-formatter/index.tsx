@@ -5,6 +5,10 @@ import NavBar from "@/components/NavBar/NavBar";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import ToolRelatedArticle from "@/components/Tools/RelatedArticle/ToolRelatedArticle";
 import JsonValidatorHero from "@/components/Tools/JsonValidatorFormatter/Hero/JsonValidatorHero";
+import JsonValidatorFormatterTroubleshooting from "@/components/Tools/JsonValidatorFormatter/Troubleshooting/JsonValidatorFormatterTroubleshooting";
+import JsonValidatorFormatterGuide from "@/components/Tools/JsonValidatorFormatter/Guide/JsonValidatorFormatterGuide";
+import JsonValidatorFormatterCheatSheet from "@/components/Tools/JsonValidatorFormatter/CheatSheet/JsonValidatorFormatterCheatSheet";
+import JsonValidatorFormatterUseCases from "@/components/Tools/JsonValidatorFormatter/UseCases/JsonValidatorFormatterUseCases";
 import JsonValidatorFormatterBenefits from "@/components/Tools/JsonValidatorFormatter/Benefits/JsonValidatorFormatterBenefits";
 import JsonValidatorFormatterComparison from "@/components/Tools/JsonValidatorFormatter/Comparison/JsonValidatorFormatterComparison";
 import JsonValidatorFormatterFaqs from "@/components/Tools/JsonValidatorFormatter/Faqs/JsonValidatorFormatterFaqs";
@@ -17,7 +21,7 @@ import {
   jsonValidatorFormatterMetaData,
   jsonConverterRelatedArticleDataByTab,
 } from "@/data/tools/jsonValidatorFormatter/jsonValidatorFormatterData";
-import { AspectRatio, Container, Spacer } from "@chakra-ui/react";
+import { Container, Spacer } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
 import React from "react";
 
@@ -52,13 +56,12 @@ const JsonValidatorAndFormatterHome: React.FC<Props> = ({ article }) => (
 
       <Spacer p={8} />
       <Container maxW="6xl">
-        <AspectRatio ratio={16 / 9}>
-          <iframe
-            src="https://www.youtube.com/embed/ng1ylJVhjQc?start=3"
-            title="JSON Validator and Formatter Tutorial"
-            allowFullScreen
-          />
-        </AspectRatio>
+        <JsonValidatorFormatterTroubleshooting />
+      </Container>
+
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <JsonValidatorFormatterGuide />
       </Container>
 
       <Spacer p={8} />
@@ -73,12 +76,22 @@ const JsonValidatorAndFormatterHome: React.FC<Props> = ({ article }) => (
 
       <Spacer p={8} />
       <Container maxW="6xl">
+        <JsonValidatorFormatterCheatSheet />
+      </Container>
+
+      <Spacer p={8} />
+      <Container maxW="6xl">
         <JsonValidatorFormatterBenefits />
       </Container>
 
       <Spacer p={8} />
       <Container maxW="6xl">
         <JsonValidatorFormatterFeatures />
+      </Container>
+
+      <Spacer p={8} />
+      <Container maxW="6xl">
+        <JsonValidatorFormatterUseCases />
       </Container>
 
       <Spacer p={8} />
